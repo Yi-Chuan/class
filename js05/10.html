@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>onchange事件</title>
+</head>
+<body>
+<select name="" id="city">
+	<option value="0">山东</option>
+	<option value="1">山西</option>
+	<option value="2">河南</option>
+	<option value="3">河北</option>
+</select>
+
+<script type="text/javascript">
+var city = document.getElementById('city');
+
+//绑定onchange事件  当下拉框的值发生改变时触发的事件
+city.onchange = function(){
+	// alert('2222');
+	//获取当前选中的值
+	var res = city.value;
+	alert(res);
+}
+
+</script>
+</body>
+</html>

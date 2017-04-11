@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作用域</title>
+	<script type="text/javascript">
+		// js代码时想通的 注意执行顺序
+		var str = '哎呦,不错哦';
+	</script>
+	<script type="text/javascript" src="1.js"></script>
+</head>
+<body>
+	<div style="width: 200px;height: 100px;background: #369;margin: 10px;"></div>
+	<div style="width: 200px;height: 100px;background: #369;margin: 10px;"></div>
+	<div style="width: 200px;height: 100px;background: #369;margin: 10px;"></div>
+	<div style="width: 200px;height: 100px;background: #369;margin: 10px;"></div>
+<script type="text/javascript">
+// alert(str);
+//严格模式在 需要先定义变量才能使用 在脚本头部或者函数头部添加 "use strict"
+// "use strict";
+// var x;//必须先声明
+// x = 3.14;
+// alert(x);
+
+
+	//有一个参数需要在函数中使用时 先在函数外定义全局变量
+
+	// var i = 1000;//全局变量
+
+	function love(){
+		i = 100;//不加var 就是全局变量
+		// var i = 100;//定义局部变量,在函数内部定义变量时,要使用var
+		// alert(i);//
+
+		// like();
+		// //函数内部中定义的函数,子函数,局部
+		// function like(){
+		// 	alert(i);
+		// }
+	}
+
+	love();
+	// like();//函数也有作用域
+
+	// alert(i);
+
+	/*================= 扩展 =====================*/
+	alert('sss');
+	
+	function alert(a){
+		console.log(a);
+	}
+</script>
+	
+</body>
+</html>

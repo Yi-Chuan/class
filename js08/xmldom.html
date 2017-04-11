@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js解析xml</title>
+</head>
+<body>
+	<script type="text/javascript">
+	//针对非ie浏览器
+		//创建文档
+		var xmlDoc = document.implementation.createDocument("","",null);
+		//是否异步 //是否异步 true异步 false同步
+		xmlDoc.async = false;
+		//xml文件
+		xmlDoc.load("1.xml");
+
+	//解析文档中的内容
+	var names = xmlDoc.getElementsByTagName('name');
+	// console.log(names);
+	//遍历
+	var arr = [];
+	for (var i = 0; i < names.length; i++) {
+		// document.write(names[i].innerHTML+'<br>');
+		//压入数组
+		// arr.push(names[i].innerHTML);
+		arr[arr.length] = names[i].innerHTML;
+	};
+
+	console.log(arr);
+
+	//获取属性
+	var t = names[0].getAttribute('love');
+	alert(t);
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,524 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=UTF-8"utf-8">
+	<title>Laravel 5.1 ä¸­æ–‡æ–‡æ¡£ï¼šHTTP ä¸­é—´ä»¶
+</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="@summerblue">
+	<meta name="description" content="HTTP ä¸­é—´ä»¶,ç®€ä»‹,åˆ›å»ºä¸­é—´ä»¶,æ³¨å†Œä¸­é—´ä»¶,ä¸­é—´ä»¶å‚æ•°,Terminable ä¸­é—´ä»¶,ç®€ä»‹,HTTP ä¸­é—´ä»¶æä¾›äº†ä¸€ä¸ªæ–¹ä¾¿çš„æœºåˆ¶æ¥è¿‡æ»¤è¿›å…¥åº”ç”¨ç¨‹åºçš„ HTTP è¯·æ±‚ï¼Œä¾‹å¦‚ï¼ŒLaravel æœ¬èº«ä½¿ç”¨ä¸­é—´ä»¶æ¥éªŒè¯ç”¨æˆ·çš„èº«ä»½ï¼Œå¦‚æœç”¨æˆ·æœªé€šè¿‡èº«ä»½éªŒè¯ï¼Œä¸­é—´ä»¶å°†ä¼šæŠŠç”¨æˆ·å¯¼å‘ç™»å½•é¡µé¢ï¼Œåä¹‹ï¼Œå½“ç”¨æˆ·é€šè¿‡äº†èº«ä»½éªŒè¯ï¼Œä¸­é—´ä»¶å°†ä¼šé€šè¿‡æ­¤è¯·æ±‚å¹¶æ¥ç€å¾€ä¸‹æ‰§è¡Œã€‚,å½“ç„¶ï¼Œé™¤äº†èº«ä»½éªŒè¯ä¹‹å¤–ï¼Œä¸­é—´ä»¶ä¹Ÿå¯ä»¥è¢«ç”¨æ¥è¿è¡Œå„å¼å„æ ·çš„...
+">
+	<meta name="keywords" content="HTTP ä¸­é—´ä»¶,laravel5.1æ–‡æ¡£,laravel5.1ä¸­æ–‡æ–‡æ¡£,laravelä¸­å›½,laravelä¸­æ–‡,laravelæ¡†æ¶ä¸­æ–‡,laravelæ–‡æ¡£,laravelæ¡†æ¶ä¸­å›½,laravelä¸­æ–‡æ–‡æ¡£
+">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lte IE 9]>
+		<script src="html5shiv.min.js" tppabs="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="laravel.css" tppabs="http://laravel-china.org/assets/css/laravel.css">
+	<style media="screen">
+		div.main-content {
+		  display: none;
+		}
+		.loading-effect {
+			position: fixed;
+			left: 50%;
+			top:300px;
+		    z-index: -1;
+		}
+	</style>
+</head>
+<body class="docs language-php ">
+
+	<span class="overlay"></span>
+
+	<div class="loading-effect">
+		<div class="loader-inner line-scale">
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		  </div>
+	</div>
+
+
+	<div class="main-content">
+
+		<nav class="main">
+			<div class="container">
+				<a href="javascript:if(confirm('http://laravel-china.org/  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ËüÎ»ÓÚÆğÊ¼µØÖ·ÒÔÉèÖÃµÄ±ß½çÒÔÍâµÄÓò»òÂ·¾¶ÖĞ¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/" class="brand">
+					<img src="laravel-logo.png" tppabs="http://laravel-china.org/assets/img/laravel-logo.png" height="30">
+					Laravel
+				</a>
+
+				<div class="responsive-sidebar-nav">
+					<a href="#" class="toggle-slide menu-link btn">&#9776;</a>
+				</div>
+
+									<div class="switcher">
+	<div class="dropdown">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			<!--<span class="faint">v</span> -->
+			5.1
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">5.1</a>
+				</li>
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="4.2.htm" tppabs="http://laravel-china.org/docs/4.2/middleware">4.2</a>
+				</li>
+					</ul>
+	</div>
+</div>
+				
+				<ul class="main-nav">
+					<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ËüÎ»ÓÚÆğÊ¼µØÖ·ÒÔÉèÖÃµÄ±ß½çÒÔÍâµÄÓò»òÂ·¾¶ÖĞ¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">æ–‡æ¡£</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ÊÇÒ»¸öÊ¹ÓÃÎ´Ö§³ÖĞ­ÒéµÄµØÖ·(ÀıÈç: gopher)¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ËüÎ»ÓÚÆğÊ¼µØÖ·ÒÔÉèÖÃµÄ±ß½çÒÔÍâµÄÓò»òÂ·¾¶ÖĞ¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ÊÇÒ»¸öÊ¹ÓÃÎ´Ö§³ÖĞ­ÒéµÄµØÖ·(ÀıÈç: gopher)¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS é€ŸæŸ¥è¡¨</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ÊÇÒ»¸öÊ¹ÓÃÎ´Ö§³ÖĞ­ÒéµÄµØÖ·(ÀıÈç: gopher)¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel ç¤¾åŒº</a>
+</li>
+				</ul>
+			</div>
+		</nav>
+
+		<nav id="slide-menu" class="slide-menu" role="navigation">
+
+	<div class="brand">
+		<a href="javascript:if(confirm('http://laravel-china.org/  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ËüÎ»ÓÚÆğÊ¼µØÖ·ÒÔÉèÖÃµÄ±ß½çÒÔÍâµÄÓò»òÂ·¾¶ÖĞ¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">
+			<img src="laravel-logo-white.png" tppabs="http://laravel-china.org/assets/img/laravel-logo-white.png" height="50">
+		</a>
+	</div>
+
+	<ul class="slide-main-nav">
+		<li><a href="javascript:if(confirm('http://laravel-china.org/  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ËüÎ»ÓÚÆğÊ¼µØÖ·ÒÔÉèÖÃµÄ±ß½çÒÔÍâµÄÓò»òÂ·¾¶ÖĞ¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">Home</a></li>
+		<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ËüÎ»ÓÚÆğÊ¼µØÖ·ÒÔÉèÖÃµÄ±ß½çÒÔÍâµÄÓò»òÂ·¾¶ÖĞ¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">æ–‡æ¡£</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ÊÇÒ»¸öÊ¹ÓÃÎ´Ö§³ÖĞ­ÒéµÄµØÖ·(ÀıÈç: gopher)¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ËüÎ»ÓÚÆğÊ¼µØÖ·ÒÔÉèÖÃµÄ±ß½çÒÔÍâµÄÓò»òÂ·¾¶ÖĞ¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ÊÇÒ»¸öÊ¹ÓÃÎ´Ö§³ÖĞ­ÒéµÄµØÖ·(ÀıÈç: gopher)¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS é€ŸæŸ¥è¡¨</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ÊÇÒ»¸öÊ¹ÓÃÎ´Ö§³ÖĞ­ÒéµÄµØÖ·(ÀıÈç: gopher)¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel ç¤¾åŒº</a>
+</li>
+	</ul>
+
+	<div class="slide-docs-nav">
+		<h2>æ–‡æ¡£</h2>
+
+		<a type="button" class="turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> å¤œé—´æ¨¡å¼ </a>
+		<ul>
+<li>å‰è¨€
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">ç¿»è¯‘è¯´æ˜</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">å‘è¡Œè¯´æ˜</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">å‡çº§å¯¼å¼•</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">è´¡çŒ®å¯¼å¼•</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ËüÎ»ÓÚÆğÊ¼µØÖ·ÒÔÉèÖÃµÄ±ß½çÒÔÍâµÄÓò»òÂ·¾¶ÖĞ¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API æ–‡æ¡£</a></li>
+</ul></li>
+<li>ç¯å¢ƒé…ç½®
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">å®‰è£…</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>åŸºæœ¬åŠŸèƒ½
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">è·¯ç”±</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">ä¸­é—´ä»¶</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">æ§åˆ¶å™¨</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">è¯·æ±‚</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">å“åº”</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">è§†å›¾</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade æ¨¡æ¿</a></li>
+</ul></li>
+<li>æ•™ç¨‹
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">åˆçº§ä»»åŠ¡æ¸…å•</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">ä¸­çº§ä»»åŠ¡æ¸…å•</a></li>
+</ul></li>
+<li>ç³»ç»Ÿæ¶æ„
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">è¯·æ±‚çš„ç”Ÿå‘½å‘¨æœŸ</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">åº”ç”¨ç¨‹åºç»“æ„</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">æœåŠ¡æä¾›è€…</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">æœåŠ¡å®¹å™¨</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>ç³»ç»ŸæœåŠ¡
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">ç”¨æˆ·è®¤è¯</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">ç”¨æˆ·æˆæƒ</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan å‘½ä»¤è¡Œ</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">äº¤æ˜“</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">ç¼“å­˜</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">é›†åˆ</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">åŠ å¯†ä¸è§£å¯†</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">é”™è¯¯ä¸æ—¥å¿—</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">äº‹ä»¶</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">æ–‡ä»¶ç³»ç»Ÿä¸äº‘å­˜å‚¨</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">å“ˆå¸Œ</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">è¾…åŠ©å‡½æ•°</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">æœ¬åœ°åŒ–</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">é‚®ä»¶</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">æ‰©å±•åŒ…å¼€å‘</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">åˆ†é¡µ</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">é˜Ÿåˆ—</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">ä»»åŠ¡è°ƒåº¦</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">æµ‹è¯•</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">è¡¨å•éªŒè¯</a></li>
+</ul></li>
+<li>æ•°æ®åº“
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">å…¥é—¨</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">æŸ¥è¯¢æ„é€ å™¨</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">æ•°æ®åº“è¿ç§»</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">æ•°æ®å¡«å……</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">å…¥é—¨</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">æ¨¡å‹å…³è”</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent é›†åˆ</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">åºåˆ—åŒ–</a></li>
+</ul></li>
+</ul>
+	</div>
+
+</nav>
+
+<div class="docs-wrapper container">
+
+	<section class="sidebar">
+
+		<div class="header">
+			<a type="button" class="btn btn-primary btn-lg btn-block turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> å¤œé—´æ¨¡å¼ </a>
+		</div>
+
+		<ul>
+<li>å‰è¨€
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">ç¿»è¯‘è¯´æ˜</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">å‘è¡Œè¯´æ˜</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">å‡çº§å¯¼å¼•</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">è´¡çŒ®å¯¼å¼•</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ËüÎ»ÓÚÆğÊ¼µØÖ·ÒÔÉèÖÃµÄ±ß½çÒÔÍâµÄÓò»òÂ·¾¶ÖĞ¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API æ–‡æ¡£</a></li>
+</ul></li>
+<li>ç¯å¢ƒé…ç½®
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">å®‰è£…</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>åŸºæœ¬åŠŸèƒ½
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">è·¯ç”±</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">ä¸­é—´ä»¶</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">æ§åˆ¶å™¨</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">è¯·æ±‚</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">å“åº”</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">è§†å›¾</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade æ¨¡æ¿</a></li>
+</ul></li>
+<li>æ•™ç¨‹
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">åˆçº§ä»»åŠ¡æ¸…å•</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">ä¸­çº§ä»»åŠ¡æ¸…å•</a></li>
+</ul></li>
+<li>ç³»ç»Ÿæ¶æ„
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">è¯·æ±‚çš„ç”Ÿå‘½å‘¨æœŸ</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">åº”ç”¨ç¨‹åºç»“æ„</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">æœåŠ¡æä¾›è€…</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">æœåŠ¡å®¹å™¨</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>ç³»ç»ŸæœåŠ¡
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">ç”¨æˆ·è®¤è¯</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">ç”¨æˆ·æˆæƒ</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan å‘½ä»¤è¡Œ</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">äº¤æ˜“</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">ç¼“å­˜</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">é›†åˆ</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">åŠ å¯†ä¸è§£å¯†</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">é”™è¯¯ä¸æ—¥å¿—</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">äº‹ä»¶</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">æ–‡ä»¶ç³»ç»Ÿä¸äº‘å­˜å‚¨</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">å“ˆå¸Œ</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">è¾…åŠ©å‡½æ•°</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">æœ¬åœ°åŒ–</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">é‚®ä»¶</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">æ‰©å±•åŒ…å¼€å‘</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">åˆ†é¡µ</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">é˜Ÿåˆ—</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">ä»»åŠ¡è°ƒåº¦</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">æµ‹è¯•</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">è¡¨å•éªŒè¯</a></li>
+</ul></li>
+<li>æ•°æ®åº“
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">å…¥é—¨</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">æŸ¥è¯¢æ„é€ å™¨</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">æ•°æ®åº“è¿ç§»</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">æ•°æ®å¡«å……</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">å…¥é—¨</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">æ¨¡å‹å…³è”</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent é›†åˆ</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">åºåˆ—åŒ–</a></li>
+</ul></li>
+</ul>
+	</section>
+
+	<article>
+
+		<div class="alert alert-warning" role="alert">
+
+			<h4>æ‹¥æŠ± Laravel 5.1 LTS</h4>
+			<p>
+				å¼ºçƒˆå»ºè®®åœ¨ 2018 å¹´ä¹‹å‰ä½¿ç”¨ Laravel 5.1 æ¥æ„å»ºé¡¹ç›®ï¼ŒLaravel 5.1 æ˜¯ LTS çš„å‘è¡Œç‰ˆæœ¬, å‘è¡Œäº 2015 å¹´ 6 æœˆä»½ï¼Œè‡ªå‘å¸ƒèµ·æä¾›ä¸¤å¹´æ—¶é—´çš„ Bug ä¿®å¤ï¼ˆ2017 å¹´ 6 æœˆï¼‰, 3 å¹´æ—¶é—´çš„å®‰å…¨ä¿®å¤ï¼ˆ2018 å¹´ 6 æœˆï¼‰ã€‚
+			</p>
+			 <p>
+			 	LTS ç‰ˆæœ¬æ˜¯æ­¤é¡¹ç›®èƒ½æä¾›çš„æœ€é•¿æ—¶é—´ç»´æŠ¤ç‰ˆæœ¬ã€‚ä¸€èˆ¬çš„å‘è¡Œç‰ˆæœ¬, åªæä¾› 6 ä¸ªæœˆçš„ Bug ä¿®å¤æ”¯æŒ, ä¸€å¹´çš„å®‰å…¨ä¿®å¤æ”¯æŒ.
+			 </p>
+		</div>
+
+		<div class="main-content">
+			<h1>HTTP ä¸­é—´ä»¶</h1>
+<ul>
+<li><a href="#introduction">ç®€ä»‹</a></li>
+<li><a href="#defining-middleware">åˆ›å»ºä¸­é—´ä»¶</a></li>
+<li><a href="#registering-middleware">æ³¨å†Œä¸­é—´ä»¶</a></li>
+<li><a href="#middleware-parameters">ä¸­é—´ä»¶å‚æ•°</a></li>
+<li><a href="#terminable-middleware">Terminable ä¸­é—´ä»¶</a></li>
+</ul>
+<p><a name="introduction"></a></p>
+<h2>ç®€ä»‹</h2>
+<p>HTTP ä¸­é—´ä»¶æä¾›äº†ä¸€ä¸ªæ–¹ä¾¿çš„æœºåˆ¶æ¥è¿‡æ»¤è¿›å…¥åº”ç”¨ç¨‹åºçš„ HTTP è¯·æ±‚ï¼Œä¾‹å¦‚ï¼ŒLaravel æœ¬èº«ä½¿ç”¨ä¸­é—´ä»¶æ¥éªŒè¯ç”¨æˆ·çš„èº«ä»½ï¼Œå¦‚æœç”¨æˆ·æœªé€šè¿‡èº«ä»½éªŒè¯ï¼Œä¸­é—´ä»¶å°†ä¼šæŠŠç”¨æˆ·å¯¼å‘ç™»å½•é¡µé¢ï¼Œåä¹‹ï¼Œå½“ç”¨æˆ·é€šè¿‡äº†èº«ä»½éªŒè¯ï¼Œä¸­é—´ä»¶å°†ä¼šé€šè¿‡æ­¤è¯·æ±‚å¹¶æ¥ç€å¾€ä¸‹æ‰§è¡Œã€‚</p>
+<p>å½“ç„¶ï¼Œé™¤äº†èº«ä»½éªŒè¯ä¹‹å¤–ï¼Œä¸­é—´ä»¶ä¹Ÿå¯ä»¥è¢«ç”¨æ¥è¿è¡Œå„å¼å„æ ·çš„ä»»åŠ¡ï¼ŒCORS ä¸­é—´ä»¶è´Ÿè´£æ›¿æ‰€æœ‰å³å°†ç¦»å¼€ç¨‹åºçš„å“åº”åŠ å…¥é€‚å½“çš„æ ‡å¤´ã€‚è€Œæ—¥å¿—ä¸­é—´ä»¶åˆ™å¯ä»¥è®°å½•æ‰€æœ‰ä¼ å…¥åº”ç”¨ç¨‹åºçš„è¯·æ±‚ã€‚</p>
+<p>Laravel æ¡†æ¶å·²ç»å†…ç½®äº†ä¸€äº›ä¸­é—´ä»¶ï¼ŒåŒ…æ‹¬ç»´æŠ¤ã€èº«ä»½éªŒè¯ã€CSRF ä¿æŠ¤ï¼Œç­‰ç­‰ã€‚æ‰€æœ‰çš„ä¸­é—´ä»¶éƒ½æ”¾åœ¨ <code>app/Http/Middleware</code> ç›®å½•å†…ã€‚</p>
+<p><a name="defining-middleware"></a></p>
+<h2>åˆ›å»ºä¸­é—´ä»¶</h2>
+<p>è¦åˆ›å»ºä¸€ä¸ªæ–°çš„ä¸­é—´ä»¶ï¼Œåˆ™å¯ä»¥ä½¿ç”¨ <code>make:middleware</code> è¿™ä¸ª Artisan å‘½ä»¤ï¼š</p>
+<pre><code>php artisan make:middleware OldMiddleware</code></pre>
+<p>æ­¤å‘½ä»¤å°†ä¼šåœ¨ <code>app/Http/Middleware</code> ç›®å½•å†…è®¾å®šä¸€ä¸ªåç§°ä¸º <code>OldMiddleware</code> çš„ç±»ã€‚åœ¨è¿™ä¸ªä¸­é—´ä»¶å†…æˆ‘ä»¬åªå…è®¸è¯·æ±‚çš„ <code>age</code> å˜é‡å¤§äº 200 æ—¶æ‰èƒ½è®¿é—®è·¯ç”±ï¼Œå¦åˆ™ï¼Œæˆ‘ä»¬ä¼šå°†ç”¨æˆ·é‡å®šå‘åˆ°ã€Œhomeã€è¿™ä¸ª URI ä¸Šã€‚</p>
+<pre><code>&lt;?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+
+class OldMiddleware
+{
+    /**
+     * è¿è¡Œè¯·æ±‚è¿‡æ»¤å™¨ã€‚
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        if ($request-&gt;input('age') &lt;= 200) {
+            return redirect('home');
+        }
+
+        return $next($request);
+    }
+
+}</code></pre>
+<p>å¦‚ä½ æ‰€è§ï¼Œè‹¥æ˜¯ age å°äº 200ï¼Œä¸­é—´ä»¶å°†ä¼šè¿”å› HTTP é‡å®šä½ç»™ç”¨æˆ·ç«¯ï¼Œå¦åˆ™ï¼Œè¯·æ±‚å°†ä¼šè¿›ä¸€æ­¥ä¼ é€’åˆ°åº”ç”¨ç¨‹åºã€‚åªéœ€è°ƒç”¨å¸¦æœ‰ $request çš„ $next æ–¹æ³•ï¼Œå³å¯å°†è¯·æ±‚ä¼ é€’åˆ°æ›´æ·±å±‚çš„åº”ç”¨ç¨‹åº(å…è®¸é€šè¿‡ä¸­é—´ä»¶)ã€‚</p>
+<p>HTTP è¯·æ±‚åœ¨å®é™…ç¢°è§¦åˆ°åº”ç”¨ç¨‹åºä¹‹å‰ï¼Œæœ€å¥½æ˜¯å¯ä»¥å±‚å±‚é€šè¿‡ä¸­é—´ä»¶ã€‚æ¯ä¸€å±‚éƒ½å¯ä»¥å¯¹è¯·æ±‚è¿›è¡Œæ£€æŸ¥ï¼Œç”šè‡³å®Œå…¨æ‹’ç»è¯·æ±‚ã€‚</p>
+<h3>å‰ç½®ä¸­é—´ä»¶ / åç½®ä¸­é—´ä»¶</h3>
+<p>ã€Œå‰ç½®ä¸­é—´ä»¶ï¼ˆBeforeMiddlewareï¼‰ã€è¿è¡Œäºè¯·æ±‚å¤„ç†ä¹‹å‰ï¼š</p>
+<pre><code>&lt;?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+
+class BeforeMiddleware
+{
+    public function handle($request, Closure $next)
+    {
+        // è¿è¡ŒåŠ¨ä½œ
+
+        return $next($request);
+    }
+}</code></pre>
+<blockquote>
+<p><strong><a href="javascript:if(confirm('http://github.com/summerblue  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ËüÎ»ÓÚÆğÊ¼µØÖ·ÒÔÉèÖÃµÄ±ß½çÒÔÍâµÄÓò»òÂ·¾¶ÖĞ¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='http://github.com/summerblue'" tppabs="http://github.com/summerblue">Summer</a>ï¼š</strong> å‰ç½®ä¸­é—´ä»¶è¿è¡Œçš„æ—¶é—´ç‚¹æ˜¯åœ¨æ¯ä¸€ä¸ªè¯·æ±‚å¤„ç†ä¹‹å‰ï¼Œå¯ä»¥å‚é˜…æ­¤æ–‡ç« åŠ æ·±ç†è§£ï¼š<a href="javascript:if(confirm('https://phphub.org/topics/2018  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ÊÇÒ»¸öÊ¹ÓÃÎ´Ö§³ÖĞ­ÒéµÄµØÖ·(ÀıÈç: gopher)¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='https://phphub.org/topics/2018'" tppabs="https://phphub.org/topics/2018">å¦‚ä½•æŸ¥çœ‹ Laravel 5 çš„æ‰€æœ‰æ•°æ®åº“è¯·æ±‚</a></p>
+</blockquote>
+<p>è¿™ä¸ªä¸­é—´ä»¶ä¼šåœ¨åº”ç”¨ç¨‹åºå¤„ç†è¯·æ±‚<strong>å</strong>è¿è¡Œå®ƒçš„ä»»åŠ¡ï¼š</p>
+<p>ã€Œå‰ç½®ä¸­é—´ä»¶ï¼ˆBeforeMiddlewareï¼‰ã€è¿è¡Œäºæ‰€æœ‰è¯·æ±‚å¤„ç†ä¹‹å‰ï¼š</p>
+<pre><code>&lt;?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+
+class AfterMiddleware
+{
+    public function handle($request, Closure $next)
+    {
+        $response = $next($request);
+
+        // è¿è¡ŒåŠ¨ä½œ
+
+        return $response;
+    }
+}</code></pre>
+<blockquote>
+<p><strong><a href="javascript:if(confirm('http://github.com/summerblue  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ËüÎ»ÓÚÆğÊ¼µØÖ·ÒÔÉèÖÃµÄ±ß½çÒÔÍâµÄÓò»òÂ·¾¶ÖĞ¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='http://github.com/summerblue'" tppabs="http://github.com/summerblue">Summer</a>ï¼š</strong> åç½®ä¸­é—´ä»¶è¿è¡Œçš„æ—¶é—´ç‚¹æ˜¯åœ¨è¯·æ±‚å¤„ç†ä¹‹åï¼Œå¯ä»¥å‚é˜…æ­¤æ–‡ç« åŠ æ·±ç†è§£ï¼š<a href="javascript:if(confirm('https://phphub.org/topics/2018  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ÊÇÒ»¸öÊ¹ÓÃÎ´Ö§³ÖĞ­ÒéµÄµØÖ·(ÀıÈç: gopher)¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='https://phphub.org/topics/2018'" tppabs="https://phphub.org/topics/2018">å¦‚ä½•æŸ¥çœ‹ Laravel 5 çš„æ‰€æœ‰æ•°æ®åº“è¯·æ±‚</a></p>
+</blockquote>
+<p><a name="registering-middleware"></a></p>
+<h2>æ³¨å†Œä¸­é—´ä»¶</h2>
+<h3>å…¨å±€ä¸­é—´ä»¶</h3>
+<p>è‹¥æ˜¯å¸Œæœ›æ¯ä¸ª HTTP è¯·æ±‚éƒ½ç»è¿‡ä¸€ä¸ªä¸­é—´ä»¶ï¼Œåªè¦å°†ä¸­é—´ä»¶çš„ç±»åŠ å…¥åˆ° <code>app/Http/Kernel.php</code> çš„ <code>$middleware</code> å±æ€§æ¸…å•åˆ—è¡¨ä¸­ã€‚</p>
+<h3>ä¸ºè·¯ç”±æŒ‡æ´¾ä¸­é—´ä»¶</h3>
+<p>å¦‚æœä½ è¦æŒ‡æ´¾ä¸­é—´ä»¶ç»™ç‰¹å®šè·¯ç”±ï¼Œä½ å¾—å…ˆåœ¨ <code>app/Http/Kernel.php</code> ç»™ä¸­é—´ä»¶è®¾ç½®ä¸€ä¸ªå¥½è®°çš„é”®ï¼Œé»˜è®¤æƒ…å†µä¸‹ï¼Œè¿™ä¸ªæ–‡ä»¶å†…çš„ <code>$routeMiddleware</code> å±æ€§å·²åŒ…å«äº† Laravel ç›®å‰è®¾ç½®çš„ä¸­é—´ä»¶ï¼Œä½ åªéœ€è¦åœ¨æ¸…å•åˆ—è¡¨ä¸­åŠ ä¸Šä¸€ç»„è‡ªå®šä¹‰çš„é”®å³å¯ã€‚</p>
+<pre><code>// åœ¨ App\Http\Kernel ç±»å†…...
+
+protected $routeMiddleware = [
+    'auth' =&gt; \App\Http\Middleware\Authenticate::class,
+    'auth.basic' =&gt; \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+    'guest' =&gt; \App\Http\Middleware\RedirectIfAuthenticated::class,
+];</code></pre>
+<p>ä¸­é—´ä»¶ä¸€æ—¦åœ¨ HTTP kernel æ–‡ä»¶å†…è¢«å®šä¹‰ï¼Œå³å¯åœ¨è·¯ç”±é€‰é¡¹å†…ä½¿ç”¨ middleware é”®å€¼æŒ‡å®šï¼š</p>
+<pre><code>Route::get('admin/profile', ['middleware' =&gt; 'auth', function () {
+    //
+}]);</code></pre>
+<p>ä½¿ç”¨ä¸€ç»„æ•°ç»„ä¸ºè·¯ç”±æŒ‡å®šå¤šä¸ªä¸­é—´ä»¶ï¼š</p>
+<pre><code>Route::get('/', ['middleware' =&gt; ['first', 'second'], function () {
+    //
+}]);</code></pre>
+<p>é™¤äº†ä½¿ç”¨æ•°ç»„ä¹‹å¤–ï¼Œä½ ä¹Ÿå¯ä»¥åœ¨è·¯ç”±çš„å®šä¹‰ä¹‹åé“¾å¼è°ƒç”¨ <code>middleware</code> æ–¹æ³•ï¼š</p>
+<pre><code>Route::get('/', function () {
+    //
+}])-&gt;middleware(['first', 'second']);</code></pre>
+<p><a name="middleware-parameters"></a></p>
+<h2>ä¸­é—´ä»¶å‚æ•°</h2>
+<p>ä¸­é—´ä»¶ä¹Ÿå¯ä»¥æ¥æ”¶è‡ªå®šä¹‰ä¼ å‚ï¼Œä¾‹å¦‚ï¼Œå¦‚æœåº”ç”¨ç¨‹åºè¦åœ¨è¿è¡Œç‰¹å®šæ“ä½œä¹‹å‰æ£€æŸ¥é€šè¿‡å·²éªŒè¯ç”¨æˆ·æ˜¯å¦å…·å¤‡è¯¥æ“ä½œçš„ã€Œè§’è‰²ã€ï¼Œå¯ä»¥åˆ›å»º <code>RoleMiddleware</code> æ¥æ¥æ”¶è§’è‰²åç§°ä½œä¸ºé¢å¤–çš„ä¼ å‚ã€‚</p>
+<p>é™„åŠ çš„ä¸­é—´ä»¶å‚æ•°å°†ä¼šåœ¨ <code>$next</code> å‚æ•°ä¹‹åè¢«ä¼ å…¥ä¸­é—´ä»¶ï¼š</p>
+<pre><code>&lt;?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+
+class RoleMiddleware
+{
+    /**
+     * è¿è¡Œè¯·æ±‚è¿‡æ»¤
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  string  $role
+     * @return mixed
+     */
+    public function handle($request, Closure $next, $role)
+    {
+        if (! $request-&gt;user()-&gt;hasRole($role)) {
+            // Redirect...
+        }
+
+        return $next($request);
+    }
+
+}</code></pre>
+<p>åœ¨è·¯ç”±ä¸­å¯ä½¿ç”¨å†’å· <code>:</code> æ¥åŒºéš”ä¸­é—´ä»¶åç§°ä¸æŒ‡æ´¾å‚æ•°ï¼Œå¤šä¸ªå‚æ•°å¯ä½¿ç”¨é€—å·ä½œä¸ºåˆ†éš”ï¼š</p>
+<pre><code>Route::put('post/{id}', ['middleware' =&gt; 'role:editor', function ($id) {
+    //
+}]);</code></pre>
+<p><a name="terminable-middleware"></a></p>
+<h2>Terminable ä¸­é—´ä»¶</h2>
+<p>æœ‰äº›æ—¶å€™ä¸­é—´ä»¶éœ€è¦åœ¨ HTTP å“åº”è¢«å‘é€åˆ°æµè§ˆå™¨ä¹‹åæ‰è¿è¡Œï¼Œä¾‹å¦‚ï¼ŒLaravel å†…ç½®çš„ã€Œsessionã€ä¸­é—´ä»¶å­˜å‚¨çš„ session æ•°æ®æ˜¯åœ¨å“åº”è¢«å‘é€åˆ°æµè§ˆå™¨ä¹‹åæ‰è¿›è¡Œå†™å…¥çš„ã€‚æƒ³è¦åšåˆ°è¿™ä¸€ç‚¹ï¼Œä½ éœ€è¦å®šä¹‰ä¸­é—´ä»¶ä¸ºã€Œterminableã€ã€‚</p>
+<pre><code>&lt;?php
+
+namespace Illuminate\Session\Middleware;
+
+use Closure;
+
+class StartSession
+{
+    public function handle($request, Closure $next)
+    {
+        return $next($request);
+    }
+
+    public function terminate($request, $response)
+    {
+        // ä¿å­˜ session æ•°æ®...
+    }
+}</code></pre>
+<p><code>terminate</code> æ–¹æ³•å¿…é¡»æ¥æ”¶è¯·æ±‚åŠå“åº”ã€‚ä¸€æ—¦å®šä¹‰äº† terminable ä¸­é—´ä»¶ï¼Œä½ ä¾¿éœ€è¦å°†å®ƒå¢åŠ åˆ° HTTP kernel æ–‡ä»¶çš„å…¨å±€ä¸­é—´ä»¶æ¸…å•åˆ—è¡¨ä¸­ã€‚</p>
+<p>å½“åœ¨ä½ çš„ä¸­é—´ä»¶è°ƒç”¨ <code>terminate</code> æ–¹æ³•æ—¶ï¼ŒLaravel ä¼šä»<a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">æœåŠ¡å®¹å™¨</a>è§£æä¸€ä¸ªå…¨æ–°çš„ä¸­é—´ä»¶å®ä¾‹ã€‚å¦‚æœä½ å¸Œæœ›åœ¨ <code>handle</code> åŠ <code>terminate</code> æ–¹æ³•è¢«è°ƒç”¨æ—¶ä½¿ç”¨ä¸€è‡´çš„ä¸­é—´ä»¶å®ä¾‹ï¼Œåªéœ€åœ¨å®¹å™¨ä¸­ä½¿ç”¨å®¹å™¨çš„ <code>singleton</code> æ–¹æ³•æ³¨å†Œä¸­é—´ä»¶ã€‚</p>
+		</div>
+
+		<div class="main-footer" style="border-top:1px dashed rgba(0, 0, 0, 0.1);padding-top: 30px;margin-top:30px;margin-bottom: 20px;">
+			<div class="prev-next-wrap clearfix">
+
+									<a class="btn btn-default pull-left" href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing"><i class="fa fa-arrow-left"></i> è·¯ç”±</a>
+				
+			    &nbsp;
+								    <a class="btn btn-default pull-right" href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">æ§åˆ¶å™¨ <i class="fa fa-arrow-right"></i></a>
+							</div>
+		</div>
+
+	</article>
+</div>
+
+		<footer class="main">
+			<ul>
+				<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ËüÎ»ÓÚÆğÊ¼µØÖ·ÒÔÉèÖÃµÄ±ß½çÒÔÍâµÄÓò»òÂ·¾¶ÖĞ¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">æ–‡æ¡£</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ÊÇÒ»¸öÊ¹ÓÃÎ´Ö§³ÖĞ­ÒéµÄµØÖ·(ÀıÈç: gopher)¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ËüÎ»ÓÚÆğÊ¼µØÖ·ÒÔÉèÖÃµÄ±ß½çÒÔÍâµÄÓò»òÂ·¾¶ÖĞ¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ÊÇÒ»¸öÊ¹ÓÃÎ´Ö§³ÖĞ­ÒéµÄµØÖ·(ÀıÈç: gopher)¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS é€ŸæŸ¥è¡¨</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ÊÇÒ»¸öÊ¹ÓÃÎ´Ö§³ÖĞ­ÒéµÄµØÖ·(ÀıÈç: gopher)¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel ç¤¾åŒº</a>
+</li>
+			</ul>
+			<p>Laravel is a trademark of Taylor Otwell. Copyright &copy; Taylor Otwell.</p>
+			<p class="less-significant"><a href="javascript:if(confirm('http://jackmcdade.com/  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ËüÎ»ÓÚÆğÊ¼µØÖ·ÒÔÉèÖÃµÄ±ß½çÒÔÍâµÄÓò»òÂ·¾¶ÖĞ¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='http://jackmcdade.com/'" tppabs="http://jackmcdade.com/">Design by Jack McDade</a></p>
+
+			<p class="less-significant">
+				<a href="javascript:if(confirm('http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao  \n\n¸ÃÎÄ¼şÎ´±» Teleport Pro ÏÂÔØ£¬ÒòÎª ËüÎ»ÓÚÆğÊ¼µØÖ·ÒÔÉèÖÃµÄ±ß½çÒÔÍâµÄÓò»òÂ·¾¶ÖĞ¡£  \n\nÄãÏëÒª´Ó·şÎñÆ÷´ò¿ªËüÂğ?'))window.location='http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao'" tppabs="http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao" target="_blank">ç”± UCloud èµåŠ©  <img src="dYfOYswiQY.png" tppabs="https://dn-phphub.qbox.me/uploads/images/201605/03/1/dYfOYswiQY.png" width="98" data-toggle="tooltip" data-placement="top" title="æœ¬ç«™æœåŠ¡å™¨ç”± UCloud èµåŠ©"></a>.
+		      </p>
+		</footer>
+
+	</div>
+
+	<script src="laravel.js" tppabs="http://laravel-china.org/assets/js/laravel.js"></script>
+	<script src="viewport-units-buggyfill.js" tppabs="http://laravel-china.org/assets/js/viewport-units-buggyfill.js"></script>
+	<script>window.viewportUnitsBuggyfill.init();</script>
+    <script>
+
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','analytics.js'/*tpa=http://7xijlf.com2.z0.glb.qiniucdn.com/js/analytics.js*/,'ga');
+
+		ga('create', 'UA-53903425-7', 'auto');
+		ga('send', 'pageview');
+
+		$(window).load(function() {
+		  // When the page has loaded
+		  $(".main-content").fadeIn(10);
+		});
+    </script>
+</body>
+</html>

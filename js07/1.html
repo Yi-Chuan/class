@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>获取元素</title>
+	<style type="text/css">
+		*{
+			/*padding:0px;
+			margin:0px;*/
+			list-style:none;
+			text-decoration:none;
+			font-family:microsoft yahei;
+		}
+		#all{
+			padding:10px;
+			width:800px;
+			height:auto;
+			border:solid 1px #333;
+			margin:0 auto;
+			
+		}
+		#menu a{font-size:14px;}
+		#header{width:97%;height:80px;border:solid 1px #444;margin:10px;}
+		#section{width:97%;height:auto;border:solid 1px #444;margin:10px;}
+		
+		#footer{width:97%;height:50px;border:solid 1px #444;margin:10px;}
+		#header ul{height:auto;overflow:hidden;padding-left:100px;}
+		#header ul li{width:60px;height:30px;float:left;border:solid 1px #456;text-align:center;line-height:30px;}
+		
+		#logo{width:200px;height:auto;float:left;position:relative;}
+		#logo img{margin-top:-40px;}
+		#section ul{height:auto;overflow:hidden;padding:20px;}
+		#section li{width:200px;height:150px;float:left;border:solid 2px pink;padding:10px;margin-right:21px;margin-bottom:21px;}
+		#img{width:100px;float:left;}
+		#copy{height:auto;overflow:hidden;padding-left:100px;}
+		#move{width:80px;height:40px;background:pink;position:fixed;right:0px;top:100px;cursor:pointer;font-family:courier;line-height:40px;}
+		#allmove{width:80px;height:40px;background:pink;position:fixed;right:0px;top:200px;cursor:pointer;font-family:courier;line-height:40px;}
+		#recovery{width:80px;height:40px;background:pink;position:fixed;right:0px;top:300px;cursor:pointer;font-family:courier;line-height:40px;}
+	</style>
+	<script type="text/javascript">
+window.onload = function(){
+	var lis = images.getElementsByTagName('li');//获取所有的li
+	// for(var i=0;i<lis.length;i++){		
+	// 	lis[i].style.transform = 'rotate('+(Math.ceil(Math.random()*90)-45)+'deg)';
+	// }
+	
+	move.onclick = function(){
+		for(var i=0;i<lis.length;i++){		
+			lis[i].style.transform = 'rotate('+(Math.ceil(Math.random()*90)-45)+'deg)';
+		}
+		return false;
+	}
+	allmove.onclick = function(){
+		var d = 0;
+		var inte = setInterval(function(){
+			document.body.style.transform = 'rotate('+d+'deg)';
+			d+=10;
+			if(d > 360){
+				clearInterval(inte);
+			}
+		},10)
+	}
+	recovery.onclick = function(){
+		for(var i=0;i<lis.length;i++){		
+			lis[i].style.transform = 'rotate(0deg)';
+		}
+		return false;
+	}
+}
+	</script>
+</head>
+<body>
+	<!-- 内容 start -->
+	<div id="all">
+		<!-- 头部 start -->
+		<div id="header">
+			<div id="logo"><img src="./sunli/logo.png" alt="" width="100%"></div>
+			<ul id="menu">
+				<li><a href="国内">国内</a></li>
+				<li><a href="国外">国外</a></li>
+				<li><a href="科技">科技</a></li>
+				<li><a href="生活">生活</a></li>
+			</ul>
+		</div>
+		<!-- 头部 end -->
+		
+		<!-- 内容 start -->
+		<div id="section">
+			<ul id="images">
+				<li class="w"><a href=""><img src="./sunli/1.jpg" alt="" width="100%"></a></li>
+				<li class="w"><a href=""><img src="./sunli/2.jpg" alt="" width="100%"></a></li>
+				<li class="w"><a href=""><img src="./sunli/3.jpg" alt="" width="100%"></a></li>
+				<li><a href=""><img src="./sunli/4.jpg" alt="" width="100%"></a></li>
+				<li><a href=""><img src="./sunli/5.jpg" alt="" width="100%"></a></li>
+				<li><a href=""><img src="./sunli/6.jpg" alt="" width="100%"></a></li>
+				<li name="y"><a href=""><img src="./sunli/7.jpg" alt="" width="100%"></a></li>
+				<li name="y"><a href=""><img src="./sunli/8.jpg" alt="" width="100%"></a></li>
+				<li name="y"><a href=""><img src="./sunli/9.jpg" alt="" width="100%"></a></li>
+			</ul>
+		</div>
+		<!-- 内容 end -->
+		
+		<!-- 底部 start -->
+		<div id="footer">
+			<div id="img"><img src="./sunli/logo.png" alt="" width="100%"></div>
+			<div id="copy">© Copyright 2014. All Rights Reserved.</div>
+		</div>
+		<!-- 底部 end -->
+	
+	</div>
+	<!-- 内容 end -->
+	<div id="move">Image</div>
+	<div id="allmove">Body</div>
+	<div id="recovery">Recovery</div>
+
+	<script type="text/javascript">
+//通用方法
+//通过id来获取元素节点  元素对象
+var logo = document.getElementById('logo');
+	//修改样式
+	// logo.style.border = '2px solid red';
+	//添加属性
+	// logo.setAttribute('class','iloveyou');
+	//绑定单击事件
+	// onclick.mouse
+	// logo.onclick = function(){
+	// 	alert('2222');
+	// }
+	//添加事件监听
+	logo.addEventListener('click',function(){alert(2222);})
+//通过标签名获取元素
+	var lis = document.getElementsByTagName('li');
+	//绑定事件  修改背景颜色
+	for (var i = 0; i < lis.length; i++) {
+		//单击事件
+		lis[i].onclick = function(){
+			//修改颜色
+			this.style.border = '1px solid red';
+			//阻止默认行为
+			return false;
+		}
+	};
+//通过class属性来获取元素对象  低版本的ie有兼容问题
+var ws = document.getElementsByClassName('w');
+for (var i = 0; i < ws.length; i++) {
+	ws[i].style.background = 'red';
+};
+
+//通过name属性获取元素对象
+var ys = document.getElementsByName('y');
+for (var i = 0; i < ys.length; i++) {
+	ys[i].style.background = '#369';
+};
+
+
+
+	</script>
+	
+	
+</body>
+</html>

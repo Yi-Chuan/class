@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>定时替换图片</title>
+</head>
+<body>
+<img id="mid" src="./images/p2.png" alt="">
+<script type="text/javascript">
+//获取img标签元素  对象
+var mid = document.getElementById('mid');
+
+//定义全局变量
+var i = 1;
+//启动定时器
+setInterval(function(){
+	i++;
+	//修改src属性
+	// console.log(i);
+	mid.src = './images/p'+i+'.png';
+	//检测越界
+	if(i >= 5){
+		i = 0;
+	}
+},100);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>[　　　]您有新短消息哦</title>
+</head>
+<body>
+	<script type="text/javascript">
+//定义全局变量
+var i = 0;
+//启动定时器
+setInterval(function(){
+	if(i%2 == 0){
+		document.title = '[　　　]您有新短消息哦';
+	}else{
+		document.title = '[新提醒]您有新短消息哦';
+	}
+	i++;
+},500)
+	</script>
+</body>
+</html>

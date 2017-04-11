@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>元素操作</title>
+	<style type="text/css">
+		div{width: 100px;height: 100px;background: #369;}
+	</style>
+</head>
+<body>
+	<div id="test"></div>
+	<br>
+	<form action="1.php" method="post">
+		用户名: <input type="text" name="username"><br>
+		性别 : <input type="radio" name="sex" value="0">女
+		<input type="radio" name="sex" value="1">男<br>
+		爱好:
+			<label><input type="checkbox" name="hobby[]" value="0">妹子</label>
+			<label><input type="checkbox" name="hobby[]" value="1">汉子</label>
+			<label><input type="checkbox" name="hobby[]" value="2">票子</label>
+			<label><input type="checkbox" name="hobby[]" value="3">车子</label>
+		<br>
+		下拉框:
+			<select name="lol" id="did">
+				<option value="0">小学生</option>
+				<option value="1" selected>蛮三刀</option>
+				<option value="2">奥巴马</option>
+			</select>
+		<br>
+		介绍:
+			<textarea name="intro" id="" cols="30" rows="10">
+				这个小伙子真不错,有对象了没啊
+			</textarea>
+
+
+	</form>
+
+	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+	<script type="text/javascript">
+	//事件绑定
+		//第一种 重复绑定叠加
+			// $('#test').click(function(){
+			// 	alert('love');
+			// });
+		//第二种 重复绑定叠加
+			// $('#test').bind('click',function(){
+			// 	alert('ilikeyou');
+			// });
+		//第三种 (对动态创建的元素进行绑定) 在jquery高版本中移出了
+			$('#test').live('click',function(){
+				alert('love');
+			})
+
+
+//属性操作
+	//添加属性
+	// $('#test').attr('class','iloveyou');
+	// //获取属性
+	// console.log($('#test').attr('class'));
+	// //移出
+	// $('#test').removeAttr('class');
+
+//样式操作  style css 都是针对行内样式
+	//css
+		// $('#test').css('background','#f39');
+		// $('#test').css({background:'#333',border:'dashed 2px red'});
+	//class属性
+		// $('#test').addClass('love');
+		//移出
+		// $('#test').removeClass('love');
+//样式获取
+	// var w = $('#test').css('width');
+	// var w = $('#test').css('background-color');
+
+//文本操作
+	//设置
+	$('#test').html('<span style="color:red">iloveyou</span>');
+	// $('#test').text('<span style="color:red">iloveyou</span>');
+
+	//获取
+		// var res = $('#test').html();
+		// var res = $('#test').text();
+		// alert(res);
+
+//form元素的值的操作
+// 文本框
+	//获取
+	// var v = $('input[name=username]').val();
+	// alert(v);
+	//设置
+	// $('input[name=username]').val('iloveyoutosimida');
+//单选框
+	//设置
+	// $('input[name=sex][value=0]').attr('checked','checked');
+	//获取
+	// var r = $('input[name=sex]:checked').val();
+		// alert(r);
+	//复选框
+//获取
+// var v = [];
+// $('input[name="hobby[]"]:checked').each(function(){
+// 	v.push($(this).val());//$(this)是代表当前正在循环的这个对象
+// });//each每一个
+// console.log(v);
+		//设置
+		// $('input[name="hobby[]"][value=1]').attr('checked','checked');
+	//下拉框
+//获取
+// var v = $('select[name=lol]').val();
+// var v = $('#did').val();
+// alert(v);
+//设置
+// $('#did').val('2');
+	//文本框
+		//获取
+		// var v = $('textarea[name=intro]').val();
+		//设置
+		// $('textarea[name=intro]').val('晚上还下不下雨啦');
+		// alert(v);
+
+
+	</script>
+</body>
+</html>

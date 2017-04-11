@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>抽奖</title>
+</head>
+<body>
+<button id="chou">点击抽象</button>
+<script type="text/javascript">
+	// 获取元素
+	var chou = document.getElementById('chou');
+
+	//绑定点击事件
+	chou.onclick = function(){
+		//获取随机数
+		var num = rand(1,100);
+		console.log(num);
+		//检测是否小于等于20区间
+		if(num >= 10 && num <= 30){
+			alert('中奖了');
+		}else{
+			alert('再来一次');
+		}
+
+	}
+
+	//随机函数
+	function rand(m,n){
+		return Math.floor(Math.random()*(n-m+1))+m;
+	}
+</script>
+</body>
+</html>

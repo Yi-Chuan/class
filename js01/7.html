@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>运算</title>
+</head>
+<body>
+	<script type="text/javascript">
+	//加号 +
+	//js中的加号是一个特殊的运算符,如果都是数字进行运算,如果时字符串进行连接
+	var res = 100+100+100;
+	var res = 100+'100'+100;//字符串链接
+	var res = 100+100+'100';
+	var res = '100'+100+100;
+
+	var res = 200-'100';
+	var res = 200*'100';
+	var res = '200'/'100';
+	var res = 200-'100a';//这里的100a自动转换成了NaN
+
+
+	var a = false;
+	if(a){
+		alert(22222);
+	}
+
+
+	// console.log(res);
+	</script>
+</body>
+</html>

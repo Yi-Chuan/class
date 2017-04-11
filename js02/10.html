@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JavaScript</title>
+</head>
+<body>
+	<button id="but">点我你试试</button>
+	<br>
+	<img id="img" src="./images/1.jpg" width="200">
+<script type="text/javascript">
+// 先获取元素对象
+var but = document.getElementById('but');
+//绑定单击事件
+but.onclick = function(){
+	//启动定时器
+	var inte = setInterval(function(){
+		//获取img元素
+		var img = document.getElementById('img');
+		//修改img宽度
+		img.width += 10;
+		//判断越界
+		if(img.width >= 1000){
+			//清除定时器 需要定时器的一个参数
+			clearInterval(inte);//指定清除 setInterval的定时器
+			/*
+				启动单次定时
+				setTimeout()
+				清除
+				clearTimeout()
+			*/
+		}
+	},100);
+}
+
+</script>
+</body>
+</html>

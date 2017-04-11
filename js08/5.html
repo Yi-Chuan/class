@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>顶部二级菜单</title>
+<style type="text/css">
+*{margin: 0;padding: 0;list-style:none;}
+.all{width: 150px;height: 50px;
+	border:1px solid blue;
+	text-align:center;line-height:50px;
+	float: left;margin: 10px;}
+ul{width: 150px;height: auto;
+	background: #369;display:none;}
+li{width: 150px;}
+li:hover{background: #f39;}
+</style>
+</head>
+<body>
+	<div class="all">
+		<h3>男人</h3>
+		<ul>
+			<li>车子</li>
+			<li>房子</li>
+			<li>票子</li>
+			<li>妹子</li>
+		</ul>
+	</div>
+	<div class="all">
+		<h3>女人</h3>
+		<ul>
+			<li>包包</li>
+			<li>鞋子</li>
+			<li>裙子</li>
+			<li>汉子</li>
+		</ul>
+	</div>
+	<div class="all">
+		<h3>年轻人</h3>
+		<ul>
+			<li>吃</li>
+			<li>喝</li>
+			<li>嫖</li>
+			<li>赌</li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+	// 扩展作用, 做一个侧边二级菜单  li中的鼠标移入移出
+	//获取元素对象
+	var all = document.getElementsByClassName('all');
+	//绑定事件
+	for (var i = 0; i < all.length; i++) {
+		all[i].onmouseover = function(){
+			// this.getElementsByTagName('ul')[0].style.display = 'block';
+			this.children[1].style.display = 'block';
+		}
+		all[i].onmouseout = function(){
+			// this.getElementsByTagName('ul')[0].style.display = 'none';
+			this.children[1].style.display = 'none';
+		}
+	};
+	</script>
+</body>
+</html>

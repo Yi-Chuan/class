@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>扩展(随机点名)</title>
+</head>
+<body>
+	<button onclick="func()" id="but">开始点名</button>
+	<br>
+	<span id="add">显示名字</span>
+	<script type="text/javascript">
+	//随机点名不能重复扩展作业
+
+	//获取文本的标签元素
+	var add = document.getElementById('add');
+	var but = document.getElementById('but');
+	//定义全局变量
+	var mytime = null;
+	var num = 0;//数组的下标 全局变量
+
+	//定义姓名数组
+	var arr = new Array('李功','常朝军','闫万龙','郭鹏','张静纬','谢浩','李渊');
+	//获取数组的长度 最大的下标
+	var len = arr.length-1;
+
+	//封装函数随机点名
+	function func(){
+			//判断是否开始
+			if(mytime == null){
+				//没有开始
+				show();
+				//改变按钮的值
+				but.innerHTML = '停止点名';
+			}else{
+				//已经开始
+				//清除定时器
+				clearInterval(mytime);
+				//修改全局变量
+				mytime = null;
+				//改变按钮的值
+				but.innerHTML = '开始点名';
+				//删除数组中被点名那个
+				// console.log(arr);
+				arr.splice(num,1);
+				console.log(arr);
+				//重新获取数组长度
+				len = arr.length-1;
+
+			}
+	}
+
+	//随机显示方法
+	function show(){
+		//启动定时器
+		mytime = setInterval(function(){
+			//随机获取下标
+			num = rand(0,len);
+			//通过下标提取数组中的元素
+			var res = arr[num];
+			// console.log(res);
+			//修改文本
+			add.innerHTML = res;
+		},100);
+	}
+
+
+
+	//随机函数
+	function rand(m,n){
+		return Math.floor(Math.random()*(n-m+1))+m;
+	}
+
+
+	</script>
+</body>
+</html>

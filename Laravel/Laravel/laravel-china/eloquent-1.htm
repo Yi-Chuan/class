@@ -1,0 +1,1181 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=UTF-8"utf-8">
+	<title>Laravel 4.2 中文文档：Eloquent ORM
+</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="@summerblue">
+	<meta name="description" content="Eloquent ORM,介绍,基本用法,Mass Assignment,新增，修改，删除,软删除（ Soft Deleting ）,时间戳记,范围查询,关联,关联查询,预载入（ Eager Loading ）,新增关联模型,更新上层模型时间戳,操作枢纽表,Collections,获取器和修改器,日期转换器,模型事件,模型观察者,转换数组 / JSON,介绍,Laravel 的 Eloquent...
+">
+	<meta name="keywords" content="Eloquent ORM,laravel4.2文档,laravel4.2中文文档,laravel中国,laravel中文,laravel框架中文,laravel文档,laravel框架中国,laravel中文文档
+">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lte IE 9]>
+		<script src="html5shiv.min.js" tppabs="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="laravel.css" tppabs="http://laravel-china.org/assets/css/laravel.css">
+	<style media="screen">
+		div.main-content {
+		  display: none;
+		}
+		.loading-effect {
+			position: fixed;
+			left: 50%;
+			top:300px;
+		    z-index: -1;
+		}
+	</style>
+</head>
+<body class="docs language-php ">
+
+	<span class="overlay"></span>
+
+	<div class="loading-effect">
+		<div class="loader-inner line-scale">
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		  </div>
+	</div>
+
+
+	<div class="main-content">
+
+		<nav class="main">
+			<div class="container">
+				<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/" class="brand">
+					<img src="laravel-logo.png" tppabs="http://laravel-china.org/assets/img/laravel-logo.png" height="30">
+					Laravel
+				</a>
+
+				<div class="responsive-sidebar-nav">
+					<a href="#" class="toggle-slide menu-link btn">&#9776;</a>
+				</div>
+
+									<div class="switcher">
+	<div class="dropdown">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			<!--<span class="faint">v</span> -->
+			4.2
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">5.1</a>
+				</li>
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="eloquent-1.htm" tppabs="http://laravel-china.org/docs/4.2/eloquent">4.2</a>
+				</li>
+					</ul>
+	</div>
+</div>
+				
+				<ul class="main-nav">
+					<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+				</ul>
+			</div>
+		</nav>
+
+		<nav id="slide-menu" class="slide-menu" role="navigation">
+
+	<div class="brand">
+		<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">
+			<img src="laravel-logo-white.png" tppabs="http://laravel-china.org/assets/img/laravel-logo-white.png" height="50">
+		</a>
+	</div>
+
+	<ul class="slide-main-nav">
+		<li><a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">Home</a></li>
+		<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+	</ul>
+
+	<div class="slide-docs-nav">
+		<h2>文档</h2>
+
+		<a type="button" class="turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		<ul>
+<li>前言
+<ul>
+<li><a href="introduction.htm" tppabs="http://laravel-china.org/docs/4.2/introduction">Laravel 介绍</a></li>
+<li><a href="quick.htm" tppabs="http://laravel-china.org/docs/4.2/quick">快速入门</a></li>
+<li><a href="releases-1.htm" tppabs="http://laravel-china.org/docs/4.2/releases">框架更新记录</a></li>
+<li><a href="upgrade-1.htm" tppabs="http://laravel-china.org/docs/4.2/upgrade">升级指南</a></li>
+</ul></li>
+<li>快速上手
+<ul>
+<li><a href="installation-1.htm" tppabs="http://laravel-china.org/docs/4.2/installation">安装文档</a></li>
+<li><a href="configuration.htm" tppabs="http://laravel-china.org/docs/4.2/configuration">配置信息</a></li>
+<li><a href="homestead-1.htm" tppabs="http://laravel-china.org/docs/4.2/homestead">Homestead</a></li>
+<li><a href="lifecycle-1.htm" tppabs="http://laravel-china.org/docs/4.2/lifecycle">程序的生命周期</a></li>
+<li><a href="routing-1.htm" tppabs="http://laravel-china.org/docs/4.2/routing">路由 Routing</a></li>
+<li><a href="requests-1.htm" tppabs="http://laravel-china.org/docs/4.2/requests">处理用户请求和输入</a></li>
+<li><a href="responses-1.htm" tppabs="http://laravel-china.org/docs/4.2/responses">视图和响应</a></li>
+<li><a href="controllers-1.htm" tppabs="http://laravel-china.org/docs/4.2/controllers">控制器</a></li>
+<li><a href="errors-1.htm" tppabs="http://laravel-china.org/docs/4.2/errors">错误和日志</a></li>
+</ul></li>
+<li>更多 Laravel 知识
+<ul>
+<li><a href="security.htm" tppabs="http://laravel-china.org/docs/4.2/security">身份认证功能</a></li>
+<li><a href="billing-1.htm" tppabs="http://laravel-china.org/docs/4.2/billing">收费系统</a></li>
+<li><a href="cache-1.htm" tppabs="http://laravel-china.org/docs/4.2/cache">缓存</a></li>
+<li><a href="extending.htm" tppabs="http://laravel-china.org/docs/4.2/extending">扩展框架</a></li>
+<li><a href="events-1.htm" tppabs="http://laravel-china.org/docs/4.2/events">事件</a></li>
+<li><a href="facades-1.htm" tppabs="http://laravel-china.org/docs/4.2/facades">Facades</a></li>
+<li><a href="html.htm" tppabs="http://laravel-china.org/docs/4.2/html">表单和HTML</a></li>
+<li><a href="helpers-1.htm" tppabs="http://laravel-china.org/docs/4.2/helpers">帮助函数</a></li>
+<li><a href="ioc.htm" tppabs="http://laravel-china.org/docs/4.2/ioc">IoC Container</a></li>
+<li><a href="localization-1.htm" tppabs="http://laravel-china.org/docs/4.2/localization">本地化</a></li>
+<li><a href="mail-1.htm" tppabs="http://laravel-china.org/docs/4.2/mail">邮件发送 Mail</a></li>
+<li><a href="packages-1.htm" tppabs="http://laravel-china.org/docs/4.2/packages">扩展包开发</a></li>
+<li><a href="pagination-1.htm" tppabs="http://laravel-china.org/docs/4.2/pagination">分页功能</a></li>
+<li><a href="queues-1.htm" tppabs="http://laravel-china.org/docs/4.2/queues">队列</a></li>
+<li><a href="security.htm" tppabs="http://laravel-china.org/docs/4.2/security">安全</a></li>
+<li><a href="session-1.htm" tppabs="http://laravel-china.org/docs/4.2/session">会话</a></li>
+<li><a href="ssh.htm" tppabs="http://laravel-china.org/docs/4.2/ssh">远程连接模块 SSH</a></li>
+<li><a href="templates.htm" tppabs="http://laravel-china.org/docs/4.2/templates">模版引擎</a></li>
+<li><a href="testing-1.htm" tppabs="http://laravel-china.org/docs/4.2/testing">单元测试</a></li>
+<li><a href="validation-1.htm" tppabs="http://laravel-china.org/docs/4.2/validation">表单验证</a></li>
+</ul></li>
+<li>数据库 Database
+<ul>
+<li><a href="database-1.htm" tppabs="http://laravel-china.org/docs/4.2/database">数据库简单使用</a></li>
+<li><a href="queries-1.htm" tppabs="http://laravel-china.org/docs/4.2/queries">查询构造器</a></li>
+<li><a href="eloquent-1.htm" tppabs="http://laravel-china.org/docs/4.2/eloquent">Eloquent ORM</a></li>
+<li><a href="schema.htm" tppabs="http://laravel-china.org/docs/4.2/schema">表结构构造器</a></li>
+<li><a href="migrations-1.htm" tppabs="http://laravel-china.org/docs/4.2/migrations">Migrations &amp; Seeding</a></li>
+<li><a href="redis-1.htm" tppabs="http://laravel-china.org/docs/4.2/redis">Redis</a></li>
+</ul></li>
+<li>命令行 Artisan CLI
+<ul>
+<li><a href="artisan-1.htm" tppabs="http://laravel-china.org/docs/4.2/artisan">命令行 Artisan 介绍</a></li>
+<li><a href="commands.htm" tppabs="http://laravel-china.org/docs/4.2/commands">开发 Artisan 命令</a></li>
+</ul></li>
+</ul>
+	</div>
+
+</nav>
+
+<div class="docs-wrapper container">
+
+	<section class="sidebar">
+
+		<div class="header">
+			<a type="button" class="btn btn-primary btn-lg btn-block turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		</div>
+
+		<ul>
+<li>前言
+<ul>
+<li><a href="introduction.htm" tppabs="http://laravel-china.org/docs/4.2/introduction">Laravel 介绍</a></li>
+<li><a href="quick.htm" tppabs="http://laravel-china.org/docs/4.2/quick">快速入门</a></li>
+<li><a href="releases-1.htm" tppabs="http://laravel-china.org/docs/4.2/releases">框架更新记录</a></li>
+<li><a href="upgrade-1.htm" tppabs="http://laravel-china.org/docs/4.2/upgrade">升级指南</a></li>
+</ul></li>
+<li>快速上手
+<ul>
+<li><a href="installation-1.htm" tppabs="http://laravel-china.org/docs/4.2/installation">安装文档</a></li>
+<li><a href="configuration.htm" tppabs="http://laravel-china.org/docs/4.2/configuration">配置信息</a></li>
+<li><a href="homestead-1.htm" tppabs="http://laravel-china.org/docs/4.2/homestead">Homestead</a></li>
+<li><a href="lifecycle-1.htm" tppabs="http://laravel-china.org/docs/4.2/lifecycle">程序的生命周期</a></li>
+<li><a href="routing-1.htm" tppabs="http://laravel-china.org/docs/4.2/routing">路由 Routing</a></li>
+<li><a href="requests-1.htm" tppabs="http://laravel-china.org/docs/4.2/requests">处理用户请求和输入</a></li>
+<li><a href="responses-1.htm" tppabs="http://laravel-china.org/docs/4.2/responses">视图和响应</a></li>
+<li><a href="controllers-1.htm" tppabs="http://laravel-china.org/docs/4.2/controllers">控制器</a></li>
+<li><a href="errors-1.htm" tppabs="http://laravel-china.org/docs/4.2/errors">错误和日志</a></li>
+</ul></li>
+<li>更多 Laravel 知识
+<ul>
+<li><a href="security.htm" tppabs="http://laravel-china.org/docs/4.2/security">身份认证功能</a></li>
+<li><a href="billing-1.htm" tppabs="http://laravel-china.org/docs/4.2/billing">收费系统</a></li>
+<li><a href="cache-1.htm" tppabs="http://laravel-china.org/docs/4.2/cache">缓存</a></li>
+<li><a href="extending.htm" tppabs="http://laravel-china.org/docs/4.2/extending">扩展框架</a></li>
+<li><a href="events-1.htm" tppabs="http://laravel-china.org/docs/4.2/events">事件</a></li>
+<li><a href="facades-1.htm" tppabs="http://laravel-china.org/docs/4.2/facades">Facades</a></li>
+<li><a href="html.htm" tppabs="http://laravel-china.org/docs/4.2/html">表单和HTML</a></li>
+<li><a href="helpers-1.htm" tppabs="http://laravel-china.org/docs/4.2/helpers">帮助函数</a></li>
+<li><a href="ioc.htm" tppabs="http://laravel-china.org/docs/4.2/ioc">IoC Container</a></li>
+<li><a href="localization-1.htm" tppabs="http://laravel-china.org/docs/4.2/localization">本地化</a></li>
+<li><a href="mail-1.htm" tppabs="http://laravel-china.org/docs/4.2/mail">邮件发送 Mail</a></li>
+<li><a href="packages-1.htm" tppabs="http://laravel-china.org/docs/4.2/packages">扩展包开发</a></li>
+<li><a href="pagination-1.htm" tppabs="http://laravel-china.org/docs/4.2/pagination">分页功能</a></li>
+<li><a href="queues-1.htm" tppabs="http://laravel-china.org/docs/4.2/queues">队列</a></li>
+<li><a href="security.htm" tppabs="http://laravel-china.org/docs/4.2/security">安全</a></li>
+<li><a href="session-1.htm" tppabs="http://laravel-china.org/docs/4.2/session">会话</a></li>
+<li><a href="ssh.htm" tppabs="http://laravel-china.org/docs/4.2/ssh">远程连接模块 SSH</a></li>
+<li><a href="templates.htm" tppabs="http://laravel-china.org/docs/4.2/templates">模版引擎</a></li>
+<li><a href="testing-1.htm" tppabs="http://laravel-china.org/docs/4.2/testing">单元测试</a></li>
+<li><a href="validation-1.htm" tppabs="http://laravel-china.org/docs/4.2/validation">表单验证</a></li>
+</ul></li>
+<li>数据库 Database
+<ul>
+<li><a href="database-1.htm" tppabs="http://laravel-china.org/docs/4.2/database">数据库简单使用</a></li>
+<li><a href="queries-1.htm" tppabs="http://laravel-china.org/docs/4.2/queries">查询构造器</a></li>
+<li><a href="eloquent-1.htm" tppabs="http://laravel-china.org/docs/4.2/eloquent">Eloquent ORM</a></li>
+<li><a href="schema.htm" tppabs="http://laravel-china.org/docs/4.2/schema">表结构构造器</a></li>
+<li><a href="migrations-1.htm" tppabs="http://laravel-china.org/docs/4.2/migrations">Migrations &amp; Seeding</a></li>
+<li><a href="redis-1.htm" tppabs="http://laravel-china.org/docs/4.2/redis">Redis</a></li>
+</ul></li>
+<li>命令行 Artisan CLI
+<ul>
+<li><a href="artisan-1.htm" tppabs="http://laravel-china.org/docs/4.2/artisan">命令行 Artisan 介绍</a></li>
+<li><a href="commands.htm" tppabs="http://laravel-china.org/docs/4.2/commands">开发 Artisan 命令</a></li>
+</ul></li>
+</ul>
+	</section>
+
+	<article>
+
+		<div class="alert alert-warning" role="alert">
+
+			<h4>拥抱 Laravel 5.1 LTS</h4>
+			<p>
+				强烈建议在 2018 年之前使用 Laravel 5.1 来构建项目，Laravel 5.1 是 LTS 的发行版本, 发行于 2015 年 6 月份，自发布起提供两年时间的 Bug 修复（2017 年 6 月）, 3 年时间的安全修复（2018 年 6 月）。
+			</p>
+			 <p>
+			 	LTS 版本是此项目能提供的最长时间维护版本。一般的发行版本, 只提供 6 个月的 Bug 修复支持, 一年的安全修复支持.
+			 </p>
+		</div>
+
+		<div class="main-content">
+			<h1>Eloquent ORM</h1>
+<ul>
+<li><a href="#introduction">介绍</a></li>
+<li><a href="#basic-usage">基本用法</a></li>
+<li><a href="#mass-assignment">Mass Assignment</a></li>
+<li><a href="#insert-update-delete">新增，修改，删除</a></li>
+<li><a href="#soft-deleting">软删除（ Soft Deleting ）</a></li>
+<li><a href="#timestamps">时间戳记</a></li>
+<li><a href="#query-scopes">范围查询</a></li>
+<li><a href="#relationships">关联</a></li>
+<li><a href="#querying-relations">关联查询</a></li>
+<li><a href="#eager-loading">预载入（ Eager Loading ）</a></li>
+<li><a href="#inserting-related-models">新增关联模型</a></li>
+<li><a href="#touching-parent-timestamps">更新上层模型时间戳</a></li>
+<li><a href="#working-with-pivot-tables">操作枢纽表</a></li>
+<li><a href="#collections">Collections</a></li>
+<li><a href="#accessors-and-mutators">获取器和修改器</a></li>
+<li><a href="#date-mutators">日期转换器</a></li>
+<li><a href="#model-events">模型事件</a></li>
+<li><a href="#model-observers">模型观察者</a></li>
+<li><a href="#converting-to-arrays-or-json">转换数组 / JSON</a></li>
+</ul>
+<p><a name="introduction"></a></p>
+<h2>介绍</h2>
+<p>Laravel 的 Eloquent ORM 提供了漂亮、简洁的 ActiveRecord 实现来和数据库的互动。 每个数据库表会和一个对应的「模型」互动。</p>
+<p>在开始之前，记得把 <code>app/config/database.php</code> 里的数据库连接配置好。</p>
+<p><a name="basic-usage"></a></p>
+<h2>基本用法</h2>
+<p>我们先从建立一个 Eloquent 模型开始。模型通常放在 <code>app/models</code> 目录下，但是您可以将它们放在任何地方，只要能通过 <code>composer.json</code> 被自动载入。</p>
+<h4>定义一个 Eloquent 模型</h4>
+<pre><code>class User extends Eloquent {}</code></pre>
+<p>注意我们并没有告诉 Eloquent <code>User</code> 模型会使用哪个数据库表。若没有特别指定，系统会默认自动对应名称为「类名称的小写复数形态」的数据库表。所以，在上面的例子中， Eloquent 会假设 <code>User</code> 将把数据存在 <code>users</code> 数据库表。可以在类里定义 <code>table</code> 属性自定义要对应的数据库表。</p>
+<pre><code>class User extends Eloquent {
+
+    protected $table = 'my_users';
+
+}</code></pre>
+<blockquote>
+<p><strong>注意：</strong> Eloquent 也会假设每个数据库表都有一个字段名称为 <code>id</code> 的主键。您可以在类里定义 <code>primaryKey</code> 属性来重写。同样的，您也可以定义 <code>connection</code> 属性，指定模型连接到专属的数据库连接。</p>
+</blockquote>
+<p>定义好模型之后，您就可以从数据库表新增及获取数据了。注意在默认情况下，在数据库表里需要有 <code>updated_at</code> 和 <code>created_at</code> 两个字段。如果您不想设定或自动更新这两个字段，则将类里的 <code>$timestamps</code> 属性设为 <code>false</code>即可。</p>
+<h4>取出所有模型数据</h4>
+<pre><code>$users = User::all();</code></pre>
+<h4>根据主键取出一条数据</h4>
+<pre><code>$user = User::find(1);
+
+var_dump($user-&gt;name);</code></pre>
+<blockquote>
+<p><strong>提示：</strong> 所有<a href="queries-1.htm" tppabs="http://laravel-china.org/docs/4.2/queries">查询构造器</a>里的方法，查询 Eloquent 模型时也可以使用。</p>
+</blockquote>
+<h4>根据主键取出一条数据或抛出异常</h4>
+<p>有时, 您可能想要在找不到模型数据时抛出异常，以捕捉异常并让 <code>App::error</code> 处理并显示 404 页面。</p>
+<pre><code>$model = User::findOrFail(1);
+
+$model = User::where('votes', '&gt;', 100)-&gt;firstOrFail();</code></pre>
+<p>要注册错误处理，可以监听 <code>ModelNotFoundException</code></p>
+<pre><code>use Illuminate\Database\Eloquent\ModelNotFoundException;
+
+App::error(function(ModelNotFoundException $e)
+{
+    return Response::make('Not Found', 404);
+});</code></pre>
+<h4>Eloquent 模型结合查询语法</h4>
+<pre><code>$users = User::where('votes', '&gt;', 100)-&gt;take(10)-&gt;get();
+
+foreach ($users as $user)
+{
+    var_dump($user-&gt;name);
+}</code></pre>
+<h4>Eloquent 聚合查询</h4>
+<p>当然，您也可以使用查询构造器的聚合查询方法。</p>
+<pre><code>$count = User::where('votes', '&gt;', 100)-&gt;count();</code></pre>
+<p>如果没办法使用流畅的接口产生出查询语句，也可以使用 <code>whereRaw</code>：</p>
+<pre><code>$users = User::whereRaw('age &gt; ? and votes = 100', array(25))-&gt;get();</code></pre>
+<h4>拆分查询</h4>
+<p>如果您要处理非常多（数千条）Eloquent 查询结果，使用 <code>chunk</code> 方法可以让您顺利工作而不会吃掉内存：</p>
+<pre><code>User::chunk(200, function($users)
+{
+    foreach ($users as $user)
+    {
+        //
+    }
+});</code></pre>
+<p>传到方法里的第一个参数表示每次「拆分」要取出的数据数量。第二个参数的闭合函数会在每次取出数据时被调用。</p>
+<h4>指定查询时连接数据库</h4>
+<p>您也可以指定在执行 Eloquent 查询时要使用哪个数据库连线。只要使用 <code>on</code> 方法：</p>
+<pre><code>$user = User::on('connection-name')-&gt;find(1);</code></pre>
+<p><a name="mass-assignment"></a></p>
+<h2>Mass Assignment</h2>
+<p>在建立一个新的模型时，您把属性以数组的方式传入 <code>create</code> 方法，这些属性值会经由 mass-assignment 存成模型数据。这非常方便，然而，若盲目地将用户输入存到模型时，可能会造成严重的安全隐患。如果盲目的存入用户输入，用户可以随意的修改<strong>任何</strong>以及<strong>所有</strong>模型的属性。基于这个理由，所有 Eloquent 模型默认会防止 mass-assignment 。</p>
+<p>在模型里设定 <code>fillable</code> 或 <code>guarded</code> 属性作为开始。</p>
+<h4>定义模型 Fillable 属性</h4>
+<p><code>fillable</code> 属性指定了哪些字段支持 mass-assignable 。可以设定在类里或是建立实例后设定。</p>
+<pre><code>class User extends Eloquent {
+
+    protected $fillable = array('first_name', 'last_name', 'email');
+
+}</code></pre>
+<p>在上面的例子里，只有三个属性 mass-assignable 。</p>
+<h4>定义模型 Guarded 属性</h4>
+<p><code>guarded</code> 与 <code>fillable</code> 相反，是作为「黑名单」而不是「白名单」：</p>
+<pre><code>class User extends Eloquent {
+
+    protected $guarded = array('id', 'password');
+
+}</code></pre>
+<blockquote>
+<p><strong>注意：</strong> 使用 <code>guarded</code> 时， <code>Input::get()</code> 或任何用户可以控制的未过滤数据，永远不应该传入 <code>save</code> 或 <code>update</code> 方法，因为没有在「黑名单」内的字段可能被更新。</p>
+</blockquote>
+<h4>阻挡所有属性被 Mass Assignment</h4>
+<p>上面的例子中， <code>id</code> 和 <code>password</code> 属性<strong>不会</strong>被 mass assigned，而所有其他的属性则是 mass assignable。您也可以使用 guard 属性阻止<strong>所有</strong>属性被 mass assignment ：</p>
+<pre><code>protected $guarded = array('*');</code></pre>
+<p><a name="insert-update-delete"></a></p>
+<h2>新增，更新，删除</h2>
+<p>要从模型新增一条数据到数据库，只要建立一个模型实例并调用 <code>save</code> 方法即可。</p>
+<h4>储存新的模型数据</h4>
+<pre><code>$user = new User;
+
+$user-&gt;name = 'John';
+
+$user-&gt;save();</code></pre>
+<blockquote>
+<p><strong>注意：</strong> 通常 Eloquent 模型主键值会自动递增。但是您若想自定义主键，将 <code>incrementing</code> 属性设成 <code>false</code> 。</p>
+</blockquote>
+<p>也可以使用 <code>create</code> 方法存入新的模型数据，新增完后会回传新增的模型实例。但是在新增前，需要先在模型类里设定好 <code>fillable</code> 或 <code>guarded</code> 属性，因为 Eloquent 默认会防止 mass-assignment 。</p>
+<p>在新模型数据被储存或新增后，若模型有自动递增主键，可以从对象取得 <code>id</code> 属性值：</p>
+<pre><code>$insertedId = $user-&gt;id;</code></pre>
+<h4>在模型里设定 Guarded 属性</h4>
+<pre><code>class User extends Eloquent {
+
+    protected $guarded = array('id', 'account_id');
+
+}</code></pre>
+<h4>使用模型的 Create 方法</h4>
+<pre><code>// 在数据库建立一条新的用户...
+$user = User::create(array('name' =&gt; 'John'));
+
+// 以属性找用户，若没有则新增并取得新的实例...
+$user = User::firstOrCreate(array('name' =&gt; 'John'));
+
+// 以属性找用户，若没有则建立新的实例...
+$user = User::firstOrNew(array('name' =&gt; 'John'));</code></pre>
+<h4>更新取出的模型</h4>
+<p>要更新模型，可以取出它，更改属性值，然后使用 <code>save</code> 方法：</p>
+<pre><code>$user = User::find(1);
+
+$user-&gt;email = 'john@foo.com';
+
+$user-&gt;save();</code></pre>
+<h4>储存模型和关联数据</h4>
+<p>有时您可能不只想要储存模型本身，也想要储存关联的数据。您可以使用 <code>push</code> 方法达到目的：</p>
+<pre><code>$user-&gt;push();</code></pre>
+<p>您可以结合查询语句，批次更新模型：</p>
+<pre><code>$affectedRows = User::where('votes', '&gt;', 100)-&gt;update(array('status' =&gt; 2));</code></pre>
+<blockquote>
+<p><strong>注意：</strong> 若使用 Eloquent 查询构造器批次更新模型，则不会触发<code>模型事件</code>。</p>
+</blockquote>
+<h4>删除模型</h4>
+<p>要删除模型，只要使用实例调用 <code>delete</code> 方法：</p>
+<pre><code>$user = User::find(1);
+
+$user-&gt;delete();</code></pre>
+<h4>依主键值删除模型</h4>
+<pre><code>User::destroy(1);
+
+User::destroy(array(1, 2, 3));
+
+User::destroy(1, 2, 3);</code></pre>
+<p>当然，您也可以结合查询语句批次删除模型：</p>
+<pre><code>$affectedRows = User::where('votes', '&gt;', 100)-&gt;delete();</code></pre>
+<h4>只更新模型的时间戳</h4>
+<p>如果您只想要更新模型的时间戳，您可以使用 <code>touch</code> 方法：</p>
+<pre><code>$user-&gt;touch();</code></pre>
+<p><a name="soft-deleting"></a></p>
+<h2>软删除</h2>
+<p>通过软删除方式删除了一个模型后，模型中的数据并不是真的从数据库被移除。而是会设定 <code>deleted_at</code> 时间戳。要让模型使用软删除功能，只要在模型类里加入 <code>SoftDeletingTrait</code> 即可：</p>
+<pre><code>use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
+class User extends Eloquent {
+
+    use SoftDeletingTrait;
+
+    protected $dates = ['deleted_at'];
+
+}</code></pre>
+<p>要加入 <code>deleted_at</code> 字段到数据库表，可以在迁移文件里使用 <code>softDeletes</code> 方法：</p>
+<pre><code>$table-&gt;softDeletes();</code></pre>
+<p>现在当您使用模型调用 <code>delete</code> 方法时， <code>deleted_at</code> 字段会被更新成现在的时间戳。在查询使用软删除功能的模型时，被「删除」的模型数据不会出现在查询结果里。</p>
+<h4>强制查询软删除数据</h4>
+<p>要强制让已被软删除的模型数据出现在查询结果里，在查询时使用 <code>withTrashed</code> 方法：</p>
+<pre><code>$users = User::withTrashed()-&gt;where('account_id', 1)-&gt;get();</code></pre>
+<p><code>withTrashed</code> 也可以用在关联查询：</p>
+<pre><code>$user-&gt;posts()-&gt;withTrashed()-&gt;get();</code></pre>
+<p>如果您<strong>只想</strong>查询被软删除的模型数据，可以使用 <code>onlyTrashed</code> 方法：</p>
+<pre><code>$users = User::onlyTrashed()-&gt;where('account_id', 1)-&gt;get();</code></pre>
+<p>要把被软删除的模型数据恢复，使用 <code>restore</code> 方法：</p>
+<pre><code>$user-&gt;restore();</code></pre>
+<p>您也可以结合查询语句使用 <code>restore</code> ：</p>
+<pre><code>User::withTrashed()-&gt;where('account_id', 1)-&gt;restore();</code></pre>
+<p>如同 <code>withTrashed</code> ， <code>restore</code> 方法也可以用在关联对象：</p>
+<pre><code>$user-&gt;posts()-&gt;restore();</code></pre>
+<p>如果想要真的从模型数据库删除，使用 <code>forceDelete</code> 方法：</p>
+<pre><code>$user-&gt;forceDelete();</code></pre>
+<p><code>forceDelete</code> 方法也可以用在关联对象：</p>
+<pre><code>$user-&gt;posts()-&gt;forceDelete();</code></pre>
+<p>要确认模型是否被软删除了，可以使用 <code>trashed</code> 方法：</p>
+<pre><code>if ($user-&gt;trashed())
+{
+    //
+}</code></pre>
+<p><a name="timestamps"></a></p>
+<h2>时间戳</h2>
+<p>默认 Eloquent 会自动维护数据库表的 <code>created_at</code> 和 <code>updated_at</code> 字段。只要把这两个「时间戳」字段加到数据库表， Eloquent 就会处理剩下的工作。如果不想让 Eloquent 自动维护这些字段，把下面的属性加到模型类里：</p>
+<h4>关闭自动更新时间戳</h4>
+<pre><code>class User extends Eloquent {
+
+    protected $table = 'users';
+
+    public $timestamps = false;
+
+}</code></pre>
+<h4>自定义时间戳格式</h4>
+<p>如果想要自定义时间戳格式，可以在模型类里重写 <code>getDateFormat</code> 方法：</p>
+<pre><code>class User extends Eloquent {
+
+    protected function getDateFormat()
+    {
+        return 'U';
+    }
+
+}</code></pre>
+<p><a name="query-scopes"></a></p>
+<h2>范围查询</h2>
+<h4>定义范围查询</h4>
+<p>范围查询可以让您轻松的重复利用模型的查询逻辑。要设定范围查询，只要定义有 <code>scope</code> 前缀的模型方法：</p>
+<pre><code>class User extends Eloquent {
+
+    public function scopePopular($query)
+    {
+        return $query-&gt;where('votes', '&gt;', 100);
+    }
+
+    public function scopeWomen($query)
+    {
+        return $query-&gt;whereGender('W');
+    }
+
+}</code></pre>
+<h4>使用范围查询</h4>
+<pre><code>$users = User::popular()-&gt;women()-&gt;orderBy('created_at')-&gt;get();</code></pre>
+<h4>动态范围查询</h4>
+<p>有时您可能想要定义可接受参数的范围查询方法。只要把参数加到方法里：</p>
+<pre><code>class User extends Eloquent {
+
+    public function scopeOfType($query, $type)
+    {
+        return $query-&gt;whereType($type);
+    }
+
+}</code></pre>
+<p>然后把参数值传到范围查询方法调用里：</p>
+<pre><code>$users = User::ofType('member')-&gt;get();</code></pre>
+<p><a name="relationships"></a></p>
+<h2>关联</h2>
+<p>当然，您的数据库表很可能跟另一张表相关联。例如，一篇 blog 文章可能有很多评论，或是一张订单跟下单客户相关联。 Eloquent 让管理和处理这些关联变得很容易。 Laravel 有很多种关联种类：</p>
+<ul>
+<li><a href="#one-to-one">一对一</a></li>
+<li><a href="#one-to-many">一对多</a></li>
+<li><a href="#many-to-many">多对多</a></li>
+<li><a href="#has-many-through">远层一对多关联</a></li>
+<li><a href="#polymorphic-relations">多态关联</a></li>
+<li><a href="#many-to-many-polymorphic-relations">多态的多对多关联</a></li>
+</ul>
+<p><a name="one-to-one"></a></p>
+<h3>一对一</h3>
+<h4>定义一对一关联</h4>
+<p>一对一关联是很基本的关联。例如一个 <code>User</code> 模型会对应到一个 <code>Phone</code> 。 在 Eloquent 里可以像下面这样定义关联：</p>
+<pre><code>class User extends Eloquent {
+
+    public function phone()
+    {
+        return $this-&gt;hasOne('Phone');
+    }
+
+}</code></pre>
+<p>传到 <code>hasOne</code> 方法里的第一个参数是关联模型的类名称。定义好关联之后，就可以使用 Eloquent 的<a href="#dynamic-properties">动态属性</a>取得关联对象：</p>
+<pre><code>$phone = User::find(1)-&gt;phone;</code></pre>
+<p>SQL 会执行如下语句：</p>
+<pre><code>select * from users where id = 1
+
+select * from phones where user_id = 1</code></pre>
+<p>注意， Eloquent 假设对应的关联模型数据库表里，外键名称是基于模型名称。在这个例子里，默认 <code>Phone</code> 模型数据库表会以 <code>user_id</code> 作为外键。如果想要更改这个默认，可以传入第二个参数到 <code>hasOne</code> 方法里。更进一步，您可以传入第三个参数，指定关联的外键要对应到本身的哪个字段：</p>
+<pre><code>return $this-&gt;hasOne('Phone', 'foreign_key');
+
+return $this-&gt;hasOne('Phone', 'foreign_key', 'local_key');</code></pre>
+<h4>定义相对的关联</h4>
+<p>要在 <code>Phone</code> 模型里定义相对的关联，可以使用 <code>belongsTo</code> 方法：</p>
+<pre><code>class Phone extends Eloquent {
+
+    public function user()
+    {
+        return $this-&gt;belongsTo('User');
+    }
+
+}</code></pre>
+<p>在上面的例子里， Eloquent 默认会使用 <code>phones</code> 数据库表的 <code>user_id</code> 字段查询关联。如果想要自己指定外键字段，可以在 <code>belongsTo</code> 方法里传入第二个参数：</p>
+<pre><code>class Phone extends Eloquent {
+
+    public function user()
+    {
+        return $this-&gt;belongsTo('User', 'local_key');
+    }
+
+}</code></pre>
+<p>除此之外，也可以传入第三个参数指定要参照上层数据库表的哪个字段：</p>
+<pre><code>class Phone extends Eloquent {
+
+    public function user()
+    {
+        return $this-&gt;belongsTo('User', 'local_key', 'parent_key');
+    }
+
+}</code></pre>
+<p><a name="one-to-many"></a></p>
+<h3>一对多</h3>
+<p>一对多关联的例子如，一篇 Blog 文章可能「有很多」评论。可以像这样定义关联：</p>
+<pre><code>class Post extends Eloquent {
+
+    public function comments()
+    {
+        return $this-&gt;hasMany('Comment');
+    }
+
+}</code></pre>
+<p>现在可以经由<a href="#dynamic-properties">动态属性</a>取得文章的评论：</p>
+<pre><code>$comments = Post::find(1)-&gt;comments;</code></pre>
+<p>如果需要增加更多条件限制，可以在调用 <code>comments</code> 方法后面串接查询条件方法：</p>
+<pre><code>$comments = Post::find(1)-&gt;comments()-&gt;where('title', '=', 'foo')-&gt;first();</code></pre>
+<p>同样的，您可以传入第二个参数到 <code>hasMany</code> 方法更改默认的外键名称。以及，如同 <code>hasOne</code> 关联，可以指定本身的对应字段：</p>
+<pre><code>return $this-&gt;hasMany('Comment', 'foreign_key');
+
+return $this-&gt;hasMany('Comment', 'foreign_key', 'local_key');</code></pre>
+<h4>定义相对的关联</h4>
+<p>要在 <code>Comment</code> 模型定义相对应的关联，可使用 <code>belongsTo</code> 方法：</p>
+<pre><code>class Comment extends Eloquent {
+
+    public function post()
+    {
+        return $this-&gt;belongsTo('Post');
+    }
+
+}</code></pre>
+<p><a name="many-to-many"></a></p>
+<h3>多对多</h3>
+<p>多对多关联更为复杂。这种关联的例子如，一个用户（ user ）可能用有很多身份（ role ），而一种身份可能很多用户都有。例如很多用户都是「管理者」。多对多关联需要用到三个数据库表： <code>users</code> ， <code>roles</code> ，和 <code>role_user</code> 。 <code>role_user</code> 枢纽表命名是以相关联的两个模型数据库表，依照字母顺序命名，枢纽表里面应该要有 <code>user_id</code> 和 <code>role_id</code> 字段。</p>
+<p>可以使用 <code>belongsToMany</code> 方法定义多对多关系：</p>
+<pre><code>class User extends Eloquent {
+
+    public function roles()
+    {
+        return $this-&gt;belongsToMany('Role');
+    }
+
+}</code></pre>
+<p>现在我们可以从 <code>User</code> 模型取得 roles：</p>
+<pre><code>$roles = User::find(1)-&gt;roles;</code></pre>
+<p>如果不想使用默认的枢纽数据库表命名方式，可以传递数据库表名称作为 <code>belongsToMany</code> 方法的第二个参数：</p>
+<pre><code>return $this-&gt;belongsToMany('Role', 'user_roles');</code></pre>
+<p>也可以更改默认的关联字段名称：</p>
+<pre><code>return $this-&gt;belongsToMany('Role', 'user_roles', 'user_id', 'foo_id');</code></pre>
+<p>当然，也可以在 <code>Role</code> 模型定义相对的关联：</p>
+<pre><code>class Role extends Eloquent {
+
+    public function users()
+    {
+        return $this-&gt;belongsToMany('User');
+    }
+
+}</code></pre>
+<p><a name="has-many-through"></a></p>
+<h3>远层一对多关联</h3>
+<p>「远层一对多关联」提供了方便简短的方法，可以经由多层间的关联取得远层的关联。例如，一个 <code>Country</code> 模型可能通过 <code>Users</code> 关联到很多 <code>Posts</code> 模型。 数据库表间的关系可能看起来如下：</p>
+<pre><code>countries
+    id - integer
+    name - string
+
+users
+    id - integer
+    country_id - integer
+    name - string
+
+posts
+    id - integer
+    user_id - integer
+    title - string</code></pre>
+<p>虽然 <code>posts</code> 数据库表本身没有 <code>country_id</code> 字段，但 <code>hasManyThrough</code> 方法让我们可以使用 <code>$country-&gt;posts</code> 取得 country 的 posts。我们可以定义以下关联：</p>
+<pre><code>class Country extends Eloquent {
+
+    public function posts()
+    {
+        return $this-&gt;hasManyThrough('Post', 'User');
+    }
+
+}</code></pre>
+<p>如果想要手动指定关联的字段名称，可以传入第三和第四个参数到方法里：</p>
+<pre><code>class Country extends Eloquent {
+
+    public function posts()
+    {
+        return $this-&gt;hasManyThrough('Post', 'User', 'country_id', 'user_id');
+    }
+
+}</code></pre>
+<p><a name="polymorphic-relations"></a></p>
+<h3>多态关联</h3>
+<p>多态关联可以用一个简单的关联方法，就让一个模型同时关联多个模型。例如，您可能想让 photo 模型同时和一个 staff 或 order 模型关联。可以定义关联如下：</p>
+<pre><code>class Photo extends Eloquent {
+
+    public function imageable()
+    {
+        return $this-&gt;morphTo();
+    }
+
+}
+
+class Staff extends Eloquent {
+
+    public function photos()
+    {
+        return $this-&gt;morphMany('Photo', 'imageable');
+    }
+
+}
+
+class Order extends Eloquent {
+
+    public function photos()
+    {
+        return $this-&gt;morphMany('Photo', 'imageable');
+    }
+
+}</code></pre>
+<h4>取得多态关联对象</h4>
+<p>现在我们可以从 staff 或 order 模型取得多态关联对象：</p>
+<pre><code>$staff = Staff::find(1);
+
+foreach ($staff-&gt;photos as $photo)
+{
+    //
+}</code></pre>
+<h4>取得多态关联对象的拥有者</h4>
+<p>然而，多态关联真正神奇的地方，在于要从 <code>Photo</code> 模型取得 staff 或 order 对象时：</p>
+<pre><code>$photo = Photo::find(1);
+
+$imageable = $photo-&gt;imageable;</code></pre>
+<p><code>Photo</code> 模型里的 <code>imageable</code> 关联会回传 <code>Staff</code> 或 <code>Order</code> 实例，取决于这是哪一种模型拥有的照片。</p>
+<h4>多态关联的数据库表结构</h4>
+<p>为了理解多态关联的运作机制，来看看它们的数据库表结构：</p>
+<pre><code>staff
+    id - integer
+    name - string
+
+orders
+    id - integer
+    price - integer
+
+photos
+    id - integer
+    path - string
+    imageable_id - integer
+    imageable_type - string</code></pre>
+<p>要注意的重点是 <code>photos</code> 数据库表的 <code>imageable_id</code> 和 <code>imageable_type</code>。在上面的例子里， ID 字段会包含 staff 或 order 的 ID，而 type 是拥有者的模型类名称。这就是让 ORM 在取得 <code>imageable</code> 关联对象时，决定要哪一种模型对象的机制。</p>
+<p><a name="many-to-many-polymorphic-relations"></a></p>
+<h3>多态的多对多关联</h3>
+<h4>多态的多对多关联数据库表结构</h4>
+<p>除了一般的多态关联，也可以使用多对多的多态关联。例如，Blog 的 <code>Post</code> 和 <code>Video</code> 模型可以共用多态的 <code>Tag</code> 关联模型。首先，来看看数据库表结构：</p>
+<pre><code>posts
+    id - integer
+    name - string
+
+videos
+    id - integer
+    name - string
+
+tags
+    id - integer
+    name - string
+
+taggables
+    tag_id - integer
+    taggable_id - integer
+    taggable_type - string</code></pre>
+<p>现在，我们准备好设定模型关联了。 <code>Post</code> 和 <code>Video</code> 模型都可以经由 <code>tags</code> 方法建立 <code>morphToMany</code> 关联：</p>
+<pre><code>class Post extends Eloquent {
+
+    public function tags()
+    {
+        return $this-&gt;morphToMany('Tag', 'taggable');
+    }
+
+}</code></pre>
+<p>在 <code>Tag</code> 模型里针对每一种关联建立一个方法：</p>
+<pre><code>class Tag extends Eloquent {
+
+    public function posts()
+    {
+        return $this-&gt;morphedByMany('Post', 'taggable');
+    }
+
+    public function videos()
+    {
+        return $this-&gt;morphedByMany('Video', 'taggable');
+    }
+
+}</code></pre>
+<p><a name="querying-relations"></a></p>
+<h2>关联查询</h2>
+<h4>根据关联条件查询</h4>
+<p>在取得模型数据时，您可能想要以关联模型作为查询限制。例如，您可能想要取得所有「至少有一篇评论」的Blog 文章。可以使用 <code>has</code> 方法达成目的：</p>
+<pre><code>$posts = Post::has('comments')-&gt;get();</code></pre>
+<p>也可以指定运算子和数量：</p>
+<pre><code>$posts = Post::has('comments', '&gt;=', 3)-&gt;get();</code></pre>
+<p>如果想要更进阶，可以使用 <code>whereHas</code> 和 <code>orWhereHas</code> 方法，在 <code>has</code> 查询里设置 &quot;where&quot; 条件 ：</p>
+<pre><code>$posts = Post::whereHas('comments', function($q)
+{
+    $q-&gt;where('content', 'like', 'foo%');
+
+})-&gt;get();</code></pre>
+<p><a name="dynamic-properties"></a></p>
+<h3>动态属性</h3>
+<p>Eloquent 可以经由动态属性取得关联对象。 Eloquent 会自动进行关联查询，而且会很聪明的知道应该要使用 <code>get</code>（用在一对多关联）或是 <code>first</code> （用在一对一关联）方法。可以经由和「关联方法名称相同」的动态属性取得对象。例如，如下面的模型对象 <code>$phone</code>：</p>
+<pre><code>class Phone extends Eloquent {
+
+    public function user()
+    {
+        return $this-&gt;belongsTo('User');
+    }
+
+}
+
+$phone = Phone::find(1);</code></pre>
+<p>或是像下面这样打印用户的 email ：</p>
+<pre><code>echo $phone-&gt;user()-&gt;first()-&gt;email;</code></pre>
+<p>可以简写如下：</p>
+<pre><code>echo $phone-&gt;user-&gt;email;</code></pre>
+<blockquote>
+<p><strong>注意：</strong> 若取得的是许多关联对象，会返回 <code>Illuminate\Database\Eloquent\Collection</code> 对象：</p>
+</blockquote>
+<p><a name="eager-loading"></a></p>
+<h2>预载入</h2>
+<p>预载入是用来减少 N + 1 查询问题。例如，一个 <code>Book</code> 模型数据会关联到一个 <code>Author</code> 。关联会像下面这样定义：</p>
+<pre><code>class Book extends Eloquent {
+
+    public function author()
+    {
+        return $this-&gt;belongsTo('Author');
+    }
+
+}</code></pre>
+<p>现在考虑下面的代码：</p>
+<pre><code>foreach (Book::all() as $book)
+{
+    echo $book-&gt;author-&gt;name;
+}</code></pre>
+<p>上面的循环会执行一次查询取回所有数据库表上的书籍，然而每本书籍都会执行一次查询取得作者。所以若我们有 25 本书，就会进行 26次查询。</p>
+<p>很幸运地，我们可以使用预载入大量减少查询次数。使用 <code>with</code> 方法指定想要预载入的关联对象：</p>
+<pre><code>foreach (Book::with('author')-&gt;get() as $book)
+{
+    echo $book-&gt;author-&gt;name;
+}</code></pre>
+<p>现在，上面的循环总共只会执行两次查询：</p>
+<pre><code>select * from books
+
+select * from authors where id in (1, 2, 3, 4, 5, ...)</code></pre>
+<p>使用预载入可以大大提高程序的性能。</p>
+<p>当然，也可以同时载入多种关联：</p>
+<pre><code>$books = Book::with('author', 'publisher')-&gt;get();</code></pre>
+<p>甚至可以预载入巢状关联：</p>
+<pre><code>$books = Book::with('author.contacts')-&gt;get();</code></pre>
+<p>上面的例子中， <code>author</code> 关联会被预载入， author 的 <code>contacts</code> 关联也会被预载入。</p>
+<h3>预载入条件限制</h3>
+<p>有时您可能想要预载入关联，同时也想要指定载入时的查询限制。下面有一个例子：</p>
+<pre><code>$users = User::with(array('posts' =&gt; function($query)
+{
+    $query-&gt;where('title', 'like', '%first%');
+
+}))-&gt;get();</code></pre>
+<p>上面的例子里，我们预载入了 user 的 posts 关联，并限制条件为 post 的 title 字段需包含 &quot;first&quot; 。</p>
+<p>当然，预载入的闭合函数里不一定只能加上条件限制，也可以加上排序：</p>
+<pre><code>$users = User::with(array('posts' =&gt; function($query)
+{
+    $query-&gt;orderBy('created_at', 'desc');
+
+}))-&gt;get();</code></pre>
+<h3>延迟预载入</h3>
+<p>也可以直接从模型的 collection 预载入关联对象。这对于需要根据情况决定是否载入关联对象时，或是跟缓存一起使用时很有用。</p>
+<pre><code>$books = Book::all();
+
+$books-&gt;load('author', 'publisher');</code></pre>
+<p><a name="inserting-related-models"></a></p>
+<h2>新增关联模型</h2>
+<h4>附加一个关联模型</h4>
+<p>您常常会需要加入新的关联模型。例如新增一个 comment 到 post 。除了手动设定模型的 <code>post_id</code> 外键，也可以从上层的 <code>Post</code> 模型新增关联的 comment ：</p>
+<pre><code>$comment = new Comment(array('message' =&gt; 'A new comment.'));
+
+$post = Post::find(1);
+
+$comment = $post-&gt;comments()-&gt;save($comment);</code></pre>
+<p>上面的例子里，新增的 comment <code>post_id</code> 字段会被自动设定。</p>
+<p>如果想要同时新增很多关联模型：</p>
+<pre><code>$comments = array(
+    new Comment(array('message' =&gt; 'A new comment.')),
+    new Comment(array('message' =&gt; 'Another comment.')),
+    new Comment(array('message' =&gt; 'The latest comment.'))
+);
+
+$post = Post::find(1);
+
+$post-&gt;comments()-&gt;saveMany($comments);</code></pre>
+<h3>从属关联模型 ( Belongs To )</h3>
+<p>要更新 <code>belongsTo</code> 关联时，可以使用 <code>associate</code> 方法。这个方法会设定子模型的外键：</p>
+<pre><code>$account = Account::find(10);
+
+$user-&gt;account()-&gt;associate($account);
+
+$user-&gt;save();</code></pre>
+<h3>新增多对多关联模型 ( Many To Many )</h3>
+<p>您也可以新增多对多的关联模型。让我们继续使用 <code>User</code> 和 <code>Role</code> 模型作为例子。我们可以使用 <code>attach</code> 方法简单地把 roles 附加给一个 user：</p>
+<h4>附加多对多模型</h4>
+<pre><code>$user = User::find(1);
+
+$user-&gt;roles()-&gt;attach(1);</code></pre>
+<p>也可以传入要存在枢纽表中的属性数组：</p>
+<pre><code>$user-&gt;roles()-&gt;attach(1, array('expires' =&gt; $expires));</code></pre>
+<p>当然，有 <code>attach</code> 就会有相反的 <code>detach</code>：</p>
+<pre><code>$user-&gt;roles()-&gt;detach(1);</code></pre>
+<p><code>attach</code> 和 <code>detach</code> 方法都可以使用 ID 数组作为参数：</p>
+<pre><code>$user = User::find(1);
+
+$user-&gt;roles()-&gt;detach([1, 2, 3]);
+
+$user-&gt;roles()-&gt;attach([1 =&gt; ['attribute1' =&gt; 'value1'], 2, 3]);</code></pre>
+<h4>使用 Sync 方法同时附加一个以上多对多关联</h4>
+<p>您也可以使用 <code>sync</code> 方法附加关联模型。 <code>sync</code> 方法会把根据 ID 数组把关联存到枢纽表。附加完关联后，枢纽表里的模型只会关联到 ID 数组里的 id ：</p>
+<pre><code>$user-&gt;roles()-&gt;sync(array(1, 2, 3));</code></pre>
+<h4>Sync 时在枢纽表加入额外数据</h4>
+<p>也可以在把每个 ID 加入枢纽表时，加入其他字段的数据：</p>
+<pre><code>$user-&gt;roles()-&gt;sync(array(1 =&gt; array('expires' =&gt; true)));</code></pre>
+<p>有时您可能想要使用一个命令，在建立新模型数据的同时附加关联。可以使用 <code>save</code> 方法达成目的：</p>
+<pre><code>$role = new Role(array('name' =&gt; 'Editor'));
+
+User::find(1)-&gt;roles()-&gt;save($role);</code></pre>
+<p>上面的例子里，新的 <code>Role</code> 模型对象会在储存的同时关联到 user 模型。也可以传入属性数组把数据加到关联数据库表：</p>
+<pre><code>User::find(1)-&gt;roles()-&gt;save($role, array('expires' =&gt; $expires));</code></pre>
+<p><a name="touching-parent-timestamps"></a></p>
+<h2>更新上层时间戳</h2>
+<p>当模型 <code>belongsTo</code> 另一个模型，比方说一个 <code>Comment</code> 属于一个 <code>Post</code> ，如果能在子模型被更新时，更新上层的时间戳，这将会很有用。例如，当 <code>Comment</code> 模型更新时，您可能想要能够同时自动更新 <code>Post</code> 的 <code>updated_at</code> 时间戳。 Eloquent 让事情变得很简单。只要在子关联的类里，把关联方法名称加入 <code>touches</code> 属性即可：</p>
+<pre><code>class Comment extends Eloquent {
+
+    protected $touches = array('post');
+
+    public function post()
+    {
+        return $this-&gt;belongsTo('Post');
+    }
+
+}</code></pre>
+<p>现在，当您更新 <code>Comment</code> 时，对应的 <code>Post</code> 会自动更新 <code>updated_at</code> 字段：</p>
+<pre><code>$comment = Comment::find(1);
+
+$comment-&gt;text = 'Edit to this comment!';
+
+$comment-&gt;save();</code></pre>
+<p><a name="working-with-pivot-tables"></a></p>
+<h2>使用枢纽表</h2>
+<p>如您所知，要操作多对多关联需要一个中间的数据库表。 Eloquent 提供了一些有用的方法可以和这张表互动。例如，假设 <code>User</code> 对象关联到很多 <code>Role</code> 对象。取出这些关联对象时，我们可以在关联模型上取得 <code>pivot</code> 数据库表的数据：</p>
+<pre><code>$user = User::find(1);
+
+foreach ($user-&gt;roles as $role)
+{
+    echo $role-&gt;pivot-&gt;created_at;
+}</code></pre>
+<p>注意我们取出的每个 <code>Role</code> 模型对象会自动给一个 <code>pivot</code> 属性。这属性包含了枢纽表的模型数据，可以像一般的 Eloquent 模型一样使用。</p>
+<p>默认 <code>pivot</code> 对象只会有关联键的属性。如果您想让 <code>pivot</code> 可以包含其他枢纽表的字段，可以在定义关联方法时指定那些字段：</p>
+<pre><code>return $this-&gt;belongsToMany('Role')-&gt;withPivot('foo', 'bar');</code></pre>
+<p>现在可以在 <code>Role</code> 模型的 <code>pivot</code> 对象上取得 <code>foo</code> 和 <code>bar</code> 属性了。</p>
+<p>如果您想要可以自动维护枢纽表的 <code>created_at</code> 和 <code>updated_at</code> 时间戳，在定义关联方法时加上 <code>withTimestamps</code> 方法：</p>
+<pre><code>return $this-&gt;belongsToMany('Role')-&gt;withTimestamps();</code></pre>
+<h4>删除枢纽表的关联数据</h4>
+<p>要删除模型在枢纽表的所有关联数据，可以使用 <code>detach</code> 方法：</p>
+<pre><code>User::find(1)-&gt;roles()-&gt;detach();</code></pre>
+<p>注意，如上的操作不会移除 <code>roles</code> 数据库表里面的数据，只会移除枢纽表里的关联数据。</p>
+<h4>更新枢纽表的数据</h4>
+<p>有时您只想更新枢纽表的数据，而没有要移除关联。如果您想更新枢纽表，可以像下面的例子使用 <code>updateExistingPivot</code> 方法：</p>
+<pre><code>User::find(1)-&gt;roles()-&gt;updateExistingPivot($roleId, $attributes);</code></pre>
+<h4>自定义枢纽模型</h4>
+<p>Laravel 允许您自定义枢纽模型。要自定义模型，首先要建立一个继承 <code>Eloquent</code> 的「基本」模型类。在其他的 Eloquent 模型继承这个自定义的基本类，而不是默认的 <code>Eloquent</code> 。在基本模型类里，加入下面的方法回传自定义的枢纽模型实例：</p>
+<pre><code>public function newPivot(Model $parent, array $attributes, $table, $exists)
+{
+    return new YourCustomPivot($parent, $attributes, $table, $exists);
+}</code></pre>
+<p><a name="collections"></a></p>
+<h2>Collections</h2>
+<p>所有 Eloquent 查询回传的数据，如果结果多于一条，不管是经由 <code>get</code> 方法或是 <code>relationship</code>，都会转换成 collection 对象回传。这个对象实现了 <code>IteratorAggregate</code> PHP 接口，所以可以像数组一般进行遍历。而 Collections 对象本身还拥有很多有用的方法可以操作模型数据。</p>
+<h4>确认 Collection 里是否包含特定键值</h4>
+<p>例如，我们可以使用 <code>contains</code> 方法，确认结果数据中，是否包含主键为特定值的对象。</p>
+<pre><code>$roles = User::find(1)-&gt;roles;
+
+if ($roles-&gt;contains(2))
+{
+    //
+}</code></pre>
+<p>Collection 也可以转换成数组或 JSON：</p>
+<pre><code>$roles = User::find(1)-&gt;roles-&gt;toArray();
+
+$roles = User::find(1)-&gt;roles-&gt;toJson();</code></pre>
+<p>如果 collection 被类型转换成字串，会回传 JSON 格式：</p>
+<pre><code>$roles = (string) User::find(1)-&gt;roles;</code></pre>
+<h4>Collections 遍历</h4>
+<p>Eloquent collections 里包含了一些有用的方法可以进行循环或是进行过滤：</p>
+<pre><code>$roles = $user-&gt;roles-&gt;each(function($role)
+{
+    //
+});</code></pre>
+<h4>Collection 过滤</h4>
+<p>过滤 collection 时，回调函数的使用方式和 <a href="javascript:if(confirm('http://php.net/manual/en/function.array-filter.php  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://php.net/manual/en/function.array-filter.php'" tppabs="http://php.net/manual/en/function.array-filter.php">array_filter</a> 里一样。</p>
+<pre><code>$users = $users-&gt;filter(function($user)
+{
+    return $user-&gt;isAdmin();
+});</code></pre>
+<blockquote>
+<p><strong>注意：</strong> 如果要在过滤 collection 之后转成 JSON，转换之前先调用 <code>values</code> 方法重设数组的键值。</p>
+</blockquote>
+<h4>遍历传入 Collection 里的每个对象到回调函数</h4>
+<pre><code>$roles = User::find(1)-&gt;roles;
+
+$roles-&gt;each(function($role)
+{
+    //
+});</code></pre>
+<h4>依照属性值排序</h4>
+<pre><code>$roles = $roles-&gt;sortBy(function($role)
+{
+    return $role-&gt;created_at;
+});</code></pre>
+<h4>依照属性值排序</h4>
+<pre><code>$roles = $roles-&gt;sortBy('created_at');</code></pre>
+<h4>回传自定义的集合对象</h4>
+<p>有时您可能想要回传自定义的集合对象，让您可以在集合类里加入想要的方法。可以在 Eloquent 模型类里重写 <code>newCollection</code> 方法：</p>
+<pre><code>class User extends Eloquent {
+
+    public function newCollection(array $models = array())
+    {
+        return new CustomCollection($models);
+    }
+
+}</code></pre>
+<p><a name="accessors-and-mutators"></a></p>
+<h2>获取器和修改器</h2>
+<h4>定义获取器</h4>
+<p>Eloquent 提供了便利的方法，可以在取得或设定属性时进行转换。要定义获取器，只要在模型里加入类似 <code>getFooAttribute</code> 的方法。注意方法名称应该使用驼峰式大小写命名，而对应的 database 字段名称是底线分隔小写命名：</p>
+<pre><code>class User extends Eloquent {
+
+    public function getFirstNameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+}</code></pre>
+<p>上面的例子中， <code>first_name</code> 字段设定了一个获取器。注意传入方法的参数是原本的字段数据。</p>
+<h4>定义修改器</h4>
+<p>修改器的定义方式很雷同：</p>
+<pre><code>class User extends Eloquent {
+
+    public function setFirstNameAttribute($value)
+    {
+        $this-&gt;attributes['first_name'] = strtolower($value);
+    }
+
+}</code></pre>
+<p><a name="date-mutators"></a></p>
+<h2>日期转换器</h2>
+<p>默认 Eloquent 会把 <code>created_at</code> 和 <code>updated_at</code> 字段属性转换成 <a href="javascript:if(confirm('https://github.com/briannesbitt/Carbon  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://github.com/briannesbitt/Carbon'" tppabs="https://github.com/briannesbitt/Carbon">Carbon</a> 实例，它提供了很多有用的方法，并继承了 PHP 原生的 <code>DateTime</code> 类。</p>
+<p>您可以经由重写模型的 <code>getDates</code> 方法，自定义哪个字段可以被自动转换，或甚至完全不要让日期转换成 Carbon：</p>
+<pre><code>public function getDates()
+{
+    return array('created_at');
+}</code></pre>
+<p>当字段是表示日期的时候，可以将值设为 UNIX timestamp 、日期字串（ <code>Y-m-d</code> ）、 日期时间（ date-time ）字串，当然还有 <code>DateTime</code> 或 <code>Carbon</code> 实例。</p>
+<p>要完全关闭日期转换功能，只要从 <code>getDates</code> 方法回传空数组即可：</p>
+<pre><code>public function getDates()
+{
+    return array();
+}</code></pre>
+<p><a name="model-events"></a></p>
+<h2>Model Events</h2>
+<p>Eloquent 模型有很多事件可以驱动，让您可以在模型操作的生命周期中不同时间点，使用下列方法绑定事件： <code>creating</code> 、 <code>created</code> 、 <code>updating</code> 、 <code>updated</code> 、 <code>saving</code> 、 <code>saved</code> 、 <code>deleting</code> 、 <code>deleted</code> 、 <code>restoring</code> 、 <code>restored</code> 。</p>
+<p>当一个对象初次被储存到数据库， <code>creating</code> 和 <code>created</code> 事件会被驱动。如果不是新对象而调用了 <code>save</code> 方法， <code>updating</code> / <code>updated</code> 事件会被驱动。而两者的 <code>saving</code> / <code>saved</code> 事件都会被驱动。</p>
+<h4>使用事件取消数据库操作</h4>
+<p>如果 <code>creating</code> 、 <code>updating</code> 、 <code>saving</code> 、 <code>deleting</code> 事件回传 <code>false</code> 的话，就会取消数据库操作：</p>
+<pre><code>User::creating(function($user)
+{
+    if ( ! $user-&gt;isValid()) return false;
+});</code></pre>
+<h4>设定模型 Boot 方法</h4>
+<p>Eloquent 模型有静态的 <code>boot</code> 方法，可以使用它方便的注册事件绑定。</p>
+<pre><code>class User extends Eloquent {
+
+    public static function boot()
+    {
+        parent::boot();
+
+        // Setup event bindings...
+    }
+
+}</code></pre>
+<p><a name="model-observers"></a></p>
+<h2>模型观察者</h2>
+<p>要整合模型的事件处理，可以注册一个模型观察者。观察者类里要设定对应模型事件的方法。例如，观察者类里可能有 <code>creating</code> 、 <code>updating</code> 、 <code>saving</code> 方法，还有其他对应模型事件名称的方法：</p>
+<p>例如，一个模型观察者类可能看起来如下：</p>
+<pre><code>class UserObserver {
+
+    public function saving($model)
+    {
+        //
+    }
+
+    public function saved($model)
+    {
+        //
+    }
+
+}</code></pre>
+<p>可以使用 <code>observe</code> 方法注册一个观察者实例：</p>
+<pre><code>User::observe(new UserObserver);</code></pre>
+<p><a name="converting-to-arrays-or-json"></a></p>
+<h2>转换成数组 / JSON</h2>
+<h4>将模型数据转成数组</h4>
+<p>建立 JSON API 时，您可能常常需要把模型和关联对象转换成数组或 JSON 。所以 Eloquent 里已经包含了这些方法。要把模型和已载入的关联对象转成数组，可以使用 <code>toArray</code> 方法：</p>
+<pre><code>$user = User::with('roles')-&gt;first();
+
+return $user-&gt;toArray();</code></pre>
+<p>记得也可以把模型 collection 转换成数组：</p>
+<pre><code>return User::all()-&gt;toArray();</code></pre>
+<h4>把模型转换成 JSON</h4>
+<p>要把模型转换成 JSON，可以使用 <code>toJson</code> 方法：</p>
+<pre><code>return User::find(1)-&gt;toJson();</code></pre>
+<h4>从路由回传模型</h4>
+<p>注意当模型或 collection 被类型转换成字符串时会自动转换成 JSON 格式，这意味着您可以直接从路由回传 Eloquent 对象！</p>
+<pre><code>Route::get('users', function()
+{
+    return User::all();
+});</code></pre>
+<h4>转换成数组或 JSON 时隐藏属性</h4>
+<p>有时您可能想要限制能出现在数组或 JSON 格式的属性数据，比如密码。只要在模型里增加 <code>hidden</code> 属性即可：</p>
+<pre><code>class User extends Eloquent {
+
+    protected $hidden = array('password');
+
+}</code></pre>
+<blockquote>
+<p><strong>注意：</strong> 要隐藏关联数据，要使用关联的<strong>方法</strong>名称，而不是动态获取的属性名称。</p>
+</blockquote>
+<p>此外，可以使用 <code>visible</code> 属性定义白名单：</p>
+<pre><code>protected $visible = array('first_name', 'last_name');</code></pre>
+<p><a name="array-appends"></a>
+有时候您可能想要增加不存在数据库字段的属性数据。这时候只要定义一个获取器即可：</p>
+<pre><code>public function getIsAdminAttribute()
+{
+    return $this-&gt;attributes['admin'] == 'yes';
+}</code></pre>
+<p>定义好获取器之后，再把对应的属性名称加到模型里的 <code>appends</code> 属性：</p>
+<pre><code>protected $appends = array('is_admin');</code></pre>
+<p>把属性加到 <code>appends</code> 数组之后，在模型数据转换成数组或 JSON 格式时就会有对应的值。在 <code>appends</code> 数组中的值会遵循 <code>visible</code> 和 <code>hidden</code> 的设定。</p>
+		</div>
+
+		<div class="main-footer" style="border-top:1px dashed rgba(0, 0, 0, 0.1);padding-top: 30px;margin-top:30px;margin-bottom: 20px;">
+			<div class="prev-next-wrap clearfix">
+
+				
+			    &nbsp;
+							</div>
+		</div>
+
+	</article>
+</div>
+
+		<footer class="main">
+			<ul>
+				<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+			</ul>
+			<p>Laravel is a trademark of Taylor Otwell. Copyright &copy; Taylor Otwell.</p>
+			<p class="less-significant"><a href="javascript:if(confirm('http://jackmcdade.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://jackmcdade.com/'" tppabs="http://jackmcdade.com/">Design by Jack McDade</a></p>
+
+			<p class="less-significant">
+				<a href="javascript:if(confirm('http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao'" tppabs="http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao" target="_blank">由 UCloud 赞助  <img src="dYfOYswiQY.png" tppabs="https://dn-phphub.qbox.me/uploads/images/201605/03/1/dYfOYswiQY.png" width="98" data-toggle="tooltip" data-placement="top" title="本站服务器由 UCloud 赞助"></a>.
+		      </p>
+		</footer>
+
+	</div>
+
+	<script src="laravel.js" tppabs="http://laravel-china.org/assets/js/laravel.js"></script>
+	<script src="viewport-units-buggyfill.js" tppabs="http://laravel-china.org/assets/js/viewport-units-buggyfill.js"></script>
+	<script>window.viewportUnitsBuggyfill.init();</script>
+    <script>
+
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','analytics.js'/*tpa=http://7xijlf.com2.z0.glb.qiniucdn.com/js/analytics.js*/,'ga');
+
+		ga('create', 'UA-53903425-7', 'auto');
+		ga('send', 'pageview');
+
+		$(window).load(function() {
+		  // When the page has loaded
+		  $(".main-content").fadeIn(10);
+		});
+    </script>
+</body>
+</html>

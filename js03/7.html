@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js随机数组</title>
+</head>
+<body>
+<script type="text/javascript">
+//定义数组
+var arr = new Array('李功','常朝军','闫万龙','郭鹏','张静纬','谢浩','李渊');
+
+//获取数组的长度 最大的下标
+var len = arr.length-1;
+
+//随机获取下标
+var num = rand(0,len);
+
+alert(arr[num]);
+
+//随机函数
+function rand(m,n){
+	return Math.floor(Math.random()*(n-m+1))+m;
+}
+
+
+</script>
+</body>
+</html>

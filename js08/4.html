@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<!-- 页面中的body里什么都没有,可以使用js撑起整个网站 -->
+</body>
+	<script type="text/javascript">
+		//创建link标签
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.href = '1.css';
+		//执行插入
+		document.head.appendChild(link);
+		var newDiv = document.createElement('div');
+		document.body.appendChild(newDiv);
+
+		//创建a链接
+		var a = document.createElement('a');
+		a.href = 'http://www.baidu.com';
+		a.innerHTML = 'baidu';
+
+		document.body.appendChild(a);
+	</script>
+</html>

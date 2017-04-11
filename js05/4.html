@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>鼠标的移动事件</title>
+</head>
+<body>
+<div id="move">当前鼠标的位置: <br> X:100 <br> Y:200</div>
+<script type="text/javascript">
+var move = document.getElementById('move');
+
+//鼠标移动事件 如果想要获取鼠标位置时,把事件对象e传进来
+window.onmousemove = function(e){
+	//获取当前鼠标的位置 坐标
+	var x = e.clientX;
+	var y = e.clientY;
+	//拼接字符串
+	var str = '当前鼠标的位置: <br> X:'+x+' <br> Y:'+y;
+	//修改文本
+	move.innerHTML = str;
+}
+
+</script>
+</body>
+</html>

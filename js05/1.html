@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>双击事件</title>
+	<style type="text/css">
+		.d{width: 200px;height: 200px;background: #369;}
+
+	</style>
+</head>
+<body>
+<div class="d"></div>
+<script type="text/javascript">
+	// 获取元素  获取的是集合
+	var divs = document.getElementsByTagName('div');
+	// console.log(divs);
+
+	//绑定事件
+	divs[0].ondblclick = function(){
+		alert('22222');
+	}
+
+</script>
+</body>
+</html>

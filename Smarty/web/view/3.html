@@ -1,0 +1,36 @@
+{config_load file="config.ini"}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{$title}</title>
+</head>
+<body>
+	<h3>内置变量|保留变量</h3>
+	<span>模板内置时间戳</span>
+	{$smarty.now}
+	<br>
+	{$ttime}
+	<br>
+	<span>模板引擎获取常量</span>
+	<!-- {$smarty.const.LOVE} -->
+	<!-- {$smarty.const.LIKE} -->
+	<br>
+	<span>获取当前正在处理的模板名</span>
+	{$smarty.template}
+	<br>
+	<span>获取当前模板文件存放目录</span>
+	{$smarty.current_dir}
+	<br>
+	<span>获取当前模板引擎的版本信息</span>
+	{$smarty.version}
+	<br>
+	<span>获取左右定界符</span>
+	{$smarty.ldelim}
+	{$smarty.rdelim}
+	<br>
+	<span>获取当前配置文件的信息</span>
+	{$smarty.config.username}
+	{$smarty.config.password}
+</body>
+</html>

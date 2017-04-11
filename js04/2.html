@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js正则</title>
+</head>
+<body>
+	<!-- 阻止表单提交  onsubmit表单提交事件 -->
+	<form id="myform" action="1.html" method="post" onsubmit="return dusubmit();">
+		账号:<input type="text" name='username'>
+		<br>
+		密码:<input type="password" name="password">
+		<br>
+		<input type="submit" value="提交">
+	</form>
+	<script type="text/javascript">
+	//获取表单元素
+	var myform = document.getElementById('myform');
+
+	//表达提交处理方法
+	function dusubmit(){
+		//获取账号信息
+		var uname = myform.username.value;
+		//进行正则验证
+		if(uname.match(/^\w{6,18}$/) == null){
+			//不符合条件
+			alert('您输入的账号不符合条件');
+			//阻止默认行为
+			return false;
+		}
+		//放行
+		return true;	
+	}
+
+	</script>
+</body>
+</html>

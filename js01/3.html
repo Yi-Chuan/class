@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数据类型</title>
+</head>
+<body>
+<script type="text/javascript">
+
+// 布尔类型  boolean
+var a = true;//js严格区分大小写
+var a = false;
+
+//字符串 string
+var a = 'iloveyou';
+var a = "ilikeyoume";
+
+// 数字类型 number
+//整型
+var a = 521;
+var a = 010;//八进制
+var a = 0x20;//十六进制
+// 浮点
+var a = 3.1415926;
+var a = .8;// 0.8  有效,但是不推荐
+var a = 8.;//8
+// var a =521.1314.15926;
+//科学计数法
+var a = 5.21E881;// Infinity 正无穷
+var a = -5.21E881;// -Infinity 负无穷
+
+// NaN 是一个特殊的数值 not a number
+var a = NaN;
+// 对象 object
+var obj = new Object();//object
+var obj = new Array();//object []
+var obj = null;//object null
+
+// 函数类型 function
+function love(){
+	alert('iloveyou');
+}
+
+var like = function(){
+	alert('ilikeyou');
+}
+
+// undefined 未定义的
+var u = undefined;
+var u;
+
+
+
+console.log(u);//在控制台打印信息
+console.log(typeof(u));//typeof()用来检测数据类型
+</script>
+</body>
+</html>

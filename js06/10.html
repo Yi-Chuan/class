@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>frames对象</title>
+</head>
+<body>
+<iframe src="10_1.html" frameborder="0"></iframe>
+<iframe src="10_2.html" frameborder="0"></iframe>
+<iframe src="10_3.html" frameborder="0"></iframe>
+<script type="text/javascript">
+// frames对象包含了 当前页面中所有子窗口的window对象
+console.log(window.frames);
+var fs = window.frames;
+
+// 页面加载完毕事件
+window.onload = function(){
+	var f = fs[0];
+	// 修改子窗口中的body背景颜色
+	fs[1].document.body.style.background = "red";
+	//获取子类window对象中的变量
+	// alert(f.love);
+}
+
+// chrome 在file的协议中不支持 parent
+
+</script>
+</body>
+</html>

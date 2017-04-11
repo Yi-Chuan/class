@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象声明第二种</title>
+</head>
+<body>
+<script type="text/javascript">
+	// {}  json格式 快速声明
+	// var chunchun = {};//空对象
+	var chunchun = {
+		//成员属性 属性与值之间用:分割,成员之间用逗号分割
+		name : '春春',//多个成员之间用逗号分割
+		age : 20,
+
+		//成员方法
+		sing : function(){
+			alert('十年之前');
+		},
+		date : function(){
+			alert('跟晓飞约会呢');
+		},
+		intro : function(){
+			// alert(this.name);
+			// this.date();
+		}
+	}
+
+	//方法调用
+	// chunchun.intro();
+
+	//获取属性
+	// alert(chunchun.age);
+
+	//删除
+	delete chunchun.age;
+
+	//修改
+	chunchun.name = '小春春'
+	console.log(chunchun);
+</script>
+</body>
+</html>

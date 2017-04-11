@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{$title}</title>
+</head>
+<body>
+	<h3>普通变量</h3>
+	<span>字符串</span>
+	{$title}
+	<br>
+	<span>布尔</span>
+	{$bool}
+	<br>
+	<span>数字</span>
+	{$pai}
+	<br>
+	{$age}
+	<br>
+	<span>数组</span>
+	{$arr[0]}
+	<br>
+	<span>对象</span>
+	{$phone->name}
+	<br>
+	<h3>超全局变量</h3>
+	{$smarty.get.name}
+	<br>
+	{$smarty.post.sex}
+	<br>
+	{$smarty.cookies.like}
+	<br>
+	{$smarty.session.love}
+	<br>
+	{$smarty.server.HTTP_HOST}
+
+</body>
+</html>

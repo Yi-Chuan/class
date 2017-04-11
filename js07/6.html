@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>元素操作</title>
+	<style type="text/css">
+	#move{width: 200px;height: 200px;background: #369;}
+	.cur{width: 300px;height: 300px;border:solid 2px red;}
+	</style>
+</head>
+<body>
+	<div id="move"></div>
+<script type="text/javascript">
+//获取元素
+var move = document.getElementById('move');
+
+//样式操作
+	//修改样式
+	// move.style.border = 'solid 2px red';
+	//添加属性 使用时注意优先级问题
+	// move.setAttribute('class','cur');
+	//获取样式
+	var css = getComputedStyle(move);
+	console.log(css.backgroundColor);//如果时简写的css样式,获取时写全
+	//获取行内样式
+	// console.log(move.style.height);
+
+// 属性操作
+	//获取属性
+	var id = move.getAttribute('id');
+	//属性的设置 
+	move.setAttribute('class','add');
+	//属性的移出
+	move.removeAttribute('class');
+
+//文本操作
+	//获取标签内的字符
+	var h = move.innerHTML;
+	// 只获取文本 textContent 获取文本内容
+	var h = move.textContent;
+	// alert(h);
+
+	//文本的赋值
+	// move.innerHTML = '<span>iloveyoutosimida</span>';
+	//赋值时 不管给什么 都当做文本
+	move.textContent = '<span>iloveyoutosimida</span>';
+//添加class
+	move.className = 'abc';
+	//重新赋值
+	move.className = '';
+
+</script>
+</body>
+</html>

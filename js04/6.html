@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>文档事件</title>
+	<style type="text/css">
+		.d{width: 200px;height: 200px;
+			background: #369;margin: 10px;
+			float: left;
+			border-radius:10px;}
+	</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+	//onload 事件 当页码上的元素加载完毕(文档加载完毕) 时触发的事件
+		// window.onload = function(){
+		// 	alert('文档加载完毕啦');
+		// }
+
+	//onunload 当前在关闭之前触发的事件 针对低版本ie浏览器
+		// window.onunload = function(){
+		// 	alert('大爷,再来啊');
+		// }
+
+//onbeforeunload 当页面在关闭时触发 onbeforeunload
+window.onbeforeunload = function(){
+//不能alert 只能return 火狐中永远就时那一句
+return '大爷,好评哦';
+}
+// alert('你好');
+	</script>
+	<div class="d" id="one"></div>
+</body>
+</html>

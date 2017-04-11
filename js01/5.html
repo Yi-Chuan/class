@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>字符串转换</title>
+</head>
+<body>
+<script type="text/javascript">
+// String() 是一个函数 用来将其它类型的值转换成字符串
+var b = true;
+var b = false;
+var b = 521;
+var b = 5.21;
+var b = 0x10;
+var b = new Object();//[object Object]
+var b = new Array();//(空字符串)
+var b = null;
+var b = function(){
+	alert('gogogo');
+}
+var b = undefined;
+
+var res = String(b);
+console.log(b);
+console.log(res);
+console.log(typeof(res));
+</script>
+</body>
+</html>

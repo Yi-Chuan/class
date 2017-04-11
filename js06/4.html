@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>扩展了解</title>
+	<style type="text/css">
+		div{width: 200px;height: 200px;background: #FF3399;}
+
+	</style>
+</head>
+<body>
+<div id="d" style=""></div>
+<script type="text/javascript">
+	var d = document.getElementById('d');
+	// style只能操作行内样式
+	// 设置
+		d.style.width = "100px";
+		// d.style.height = "150px";
+	// 获取 也只能获取行内样式
+		var h = d.style.height;
+		console.log(h);
+
+	// 获取内联样式 get获取 Computed计算 style样式
+	var dd = getComputedStyle(d);
+	var h = dd.height;
+	console.log(h);
+
+
+</script>
+</body>
+</html>

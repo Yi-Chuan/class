@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<script type="text/javascript">
+var str = "<?xml version='1.0' encoding='utf-8'?><movies><movie><name love='iloveyou'>辩护人</name><country>韩国</country></movie><movie><name>V字仇杀队</name><country>美国</country></movie><movie><name>盗梦空间</name><country>美国</country></movie></movies>";
+if (window.DOMParser)//非IE
+  {
+	parser=new DOMParser();
+	xmlDoc=parser.parseFromString(str,"text/xml");
+  }
+else // IE
+  {
+	xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+	xmlDoc.async=false;
+	xmlDoc.loadXML(str);
+  }
+//提取数据
+var countrys = xmlDoc.getElementsByTagName('country');
+
+var arr = [];
+for (var i = 0; i < countrys.length; i++) {
+	arr.push(countrys[i].innerHTML);
+};
+console.log(arr);
+</script>
+</body>
+</html>

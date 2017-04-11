@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jquery特效</title>
+	<style type="text/css">
+		#big{width: 300px;
+		height: 200px;
+		background: #360;
+		position:absolute;}
+	</style>
+</head>
+<body>
+	<button>隐藏</button>
+	<button>显示</button>
+	<button>隐藏切换</button>
+	<button>自定义动画</button>
+	<button>停止</button>
+	<br>
+	<div id="big">
+		
+	</div>
+	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+var d = $('#big');
+$('button:eq(0)').click(function(){
+	//快速隐藏
+	// d.hide();
+	// d.hide(2000);
+	//滚动隐藏(滑动)
+	// d.slideUp(1000);
+	//淡入
+	d.fadeOut(1000);
+})
+$('button:eq(1)').click(function(){
+	//快速显示
+	// d.show();
+	// d.show(2000);
+	//滚动显示
+	// d.slideDown(1000);
+	//淡出
+	d.fadeIn(1000);
+
+
+})
+$('button:eq(2)').click(function(){
+	//切换
+	// d.toggle();
+	// d.toggle(2000);
+	//切换
+	// d.slideToggle(1000);
+	d.fadeToggle(1000);
+})
+
+$('button:eq(3)').click(function(){
+	//延时 多长时间后 执行动画
+	d.delay(2000).animate({
+		width:'400px',
+		height:'500px',
+		left:'300px',
+		top:'100px'
+	},3000);//多长时间从原来的状态,到现在的状态
+})
+
+$('button:eq(4)').click(function(){
+	d.stop();
+})
+
+
+
+
+</script>
+</body>
+</html>

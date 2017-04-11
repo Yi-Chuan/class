@@ -1,0 +1,2 @@
+// alert(str);
+str = 'ilikeyou';

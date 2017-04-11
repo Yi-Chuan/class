@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax封装</title>
+</head>
+<body>
+<script type="text/javascript" src="ajax.js"></script>
+<script type="text/javascript">
+//一遍
+//变量名 $ (对象)
+
+//方法 get(url,data,func)
+	// 事例 参数1 url  2,传递数据  3,function(data){}
+	// $.get('8.php',{a:100,b:200},function(data){
+	// 	//处理返回结果
+	// 	console.log(data);
+	// })
+	
+
+
+//方法 post
+	// 事例 参数1 url  2,传递数据  3,function(data){}
+	$.post('8.php',{a:100,b:200},function(data){
+		//处理返回结果
+		console.log(data);
+	})
+	
+
+</script>
+</body>
+</html>

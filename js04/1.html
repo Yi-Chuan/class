@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则表达式</title>
+</head>
+<body>
+<script type="text/javascript">
+//定义一个字符串
+var str = '13701383017';
+var str = '$izlzzchuw 			 ilo52 1ve  youan@it123xdl.coma';
+// 				abc|def|123
+//第一种 正则声明方式  
+	//普通字符串
+	// var reg = new RegExp('iloveuu');
+	//转义字符
+	// var reg = new RegExp('\\w');//不常用,因为转义字符需要再次转义
+// 第二种 //
+var reg = /\w/;//单个的字母数字下划线
+var reg = /\W/;//单个的非字母数字下划线
+var reg = /\d/;//单个数字字符
+var reg = /\D/;//单个非数字字符
+var reg = /\s/;//单个空白字符
+var reg = /\S/;//单个的非空白字符
+var reg = /\t/;//制表符 tab键
+
+//元字符 .  *  +  ?  {}  []  ()  |  ^  $
+var reg = /./;//除了换行外的其它任意字符
+var reg = /z*/;//匹配0次或多次
+var reg = /z+/;//匹配至少1次或多次
+var reg = /\w+?/;//禁止贪婪 
+var reg = /\w{5}/;//限制匹配的次数
+var reg = /\w{5,12}/;//限制匹配5到12次
+var reg = /[a-z_A-Z0-9]+/;//字符范围
+var reg = /\d+(\w+)\w+/;//子组
+var reg = /abc|def|123/;//或
+var reg = /^\$/;//限制开始
+var reg = /a$/;//限制结尾
+
+//限制用户名
+var str = 'iuser1loveyouser2to';
+
+// var reg = /[A-Z]+/i;//不区分打小写
+var reg = /user\d/g;//全局匹配
+
+// 修饰符 i  不区分大小写  g
+
+//匹配邮箱 123@126.com yichuanlamp@gamil.com 13701383017@139.com
+var str = 'yichuanlamp@gamil.com.cn';
+
+var reg = /^\w+@\w+\.(com|cn|com\.cn|org|net|hk)$/;
+
+
+//方法 test exec
+var res = reg.test(str);//返回布尔类型的值,存在true 不存在就false
+var res1 = reg.exec(str);//返回值 如果匹配到返回数组,如果不存在 返回 null
+console.log(res);
+console.log(res1);
+
+/*
+	g的全局匹配用 match方法演示
+	var str = 'iloveuser1youuser2aaa';
+	var reg = /user\d/g;
+	console.log(str.match(reg));
+	
+	match() 方法可在字符串内检索指定的值，
+	或找到一个或多个正则表达式的匹配。
+
+	注意： match() 方法将检索字符串 String Object，
+	以找到一个或多个与 regexp 匹配的文本。
+	这个方法的行为在很大程度上有赖于 regexp 
+	是否具有标志 g。如果 regexp 
+	没有标志 g，那么 match() 方法就
+	只能在 stringObject 中执行一次匹配。
+	如果没有找到任何匹配的文本，
+	match() 将返回 null。否则，
+	它将返回一个数组，其中存放了与它找到的匹配文本有关的信息。
+	
+*/
+
+
+
+</script>
+</body>
+</html>

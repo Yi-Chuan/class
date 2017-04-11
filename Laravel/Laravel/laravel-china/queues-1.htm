@@ -1,0 +1,473 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=UTF-8"utf-8">
+	<title>Laravel 4.2 中文文档：队列
+</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="@summerblue">
+	<meta name="description" content="队列,设定,基本用法,队列闭包,运行队列监听,常驻队列工作,推送队列,失败的工作,设定,Laravel 队列组件提供了一个统一的队列服务API，队列允许您将一个任务延后执行，例如可以将邮件延后至您指定的时间再发送，进而大幅的加快您开发网站应用程序的效率。,队列的配置文件在 app/config/queue.php，在这个文件里您将可以找到框架中每种不同的队列服务的连接配置，其中包含了 Beanst...
+">
+	<meta name="keywords" content="队列,laravel4.2文档,laravel4.2中文文档,laravel中国,laravel中文,laravel框架中文,laravel文档,laravel框架中国,laravel中文文档
+">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lte IE 9]>
+		<script src="html5shiv.min.js" tppabs="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="laravel.css" tppabs="http://laravel-china.org/assets/css/laravel.css">
+	<style media="screen">
+		div.main-content {
+		  display: none;
+		}
+		.loading-effect {
+			position: fixed;
+			left: 50%;
+			top:300px;
+		    z-index: -1;
+		}
+	</style>
+</head>
+<body class="docs language-php ">
+
+	<span class="overlay"></span>
+
+	<div class="loading-effect">
+		<div class="loader-inner line-scale">
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		  </div>
+	</div>
+
+
+	<div class="main-content">
+
+		<nav class="main">
+			<div class="container">
+				<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/" class="brand">
+					<img src="laravel-logo.png" tppabs="http://laravel-china.org/assets/img/laravel-logo.png" height="30">
+					Laravel
+				</a>
+
+				<div class="responsive-sidebar-nav">
+					<a href="#" class="toggle-slide menu-link btn">&#9776;</a>
+				</div>
+
+									<div class="switcher">
+	<div class="dropdown">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			<!--<span class="faint">v</span> -->
+			4.2
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">5.1</a>
+				</li>
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="queues-1.htm" tppabs="http://laravel-china.org/docs/4.2/queues">4.2</a>
+				</li>
+					</ul>
+	</div>
+</div>
+				
+				<ul class="main-nav">
+					<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+				</ul>
+			</div>
+		</nav>
+
+		<nav id="slide-menu" class="slide-menu" role="navigation">
+
+	<div class="brand">
+		<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">
+			<img src="laravel-logo-white.png" tppabs="http://laravel-china.org/assets/img/laravel-logo-white.png" height="50">
+		</a>
+	</div>
+
+	<ul class="slide-main-nav">
+		<li><a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">Home</a></li>
+		<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+	</ul>
+
+	<div class="slide-docs-nav">
+		<h2>文档</h2>
+
+		<a type="button" class="turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		<ul>
+<li>前言
+<ul>
+<li><a href="introduction.htm" tppabs="http://laravel-china.org/docs/4.2/introduction">Laravel 介绍</a></li>
+<li><a href="quick.htm" tppabs="http://laravel-china.org/docs/4.2/quick">快速入门</a></li>
+<li><a href="releases-1.htm" tppabs="http://laravel-china.org/docs/4.2/releases">框架更新记录</a></li>
+<li><a href="upgrade-1.htm" tppabs="http://laravel-china.org/docs/4.2/upgrade">升级指南</a></li>
+</ul></li>
+<li>快速上手
+<ul>
+<li><a href="installation-1.htm" tppabs="http://laravel-china.org/docs/4.2/installation">安装文档</a></li>
+<li><a href="configuration.htm" tppabs="http://laravel-china.org/docs/4.2/configuration">配置信息</a></li>
+<li><a href="homestead-1.htm" tppabs="http://laravel-china.org/docs/4.2/homestead">Homestead</a></li>
+<li><a href="lifecycle-1.htm" tppabs="http://laravel-china.org/docs/4.2/lifecycle">程序的生命周期</a></li>
+<li><a href="routing-1.htm" tppabs="http://laravel-china.org/docs/4.2/routing">路由 Routing</a></li>
+<li><a href="requests-1.htm" tppabs="http://laravel-china.org/docs/4.2/requests">处理用户请求和输入</a></li>
+<li><a href="responses-1.htm" tppabs="http://laravel-china.org/docs/4.2/responses">视图和响应</a></li>
+<li><a href="controllers-1.htm" tppabs="http://laravel-china.org/docs/4.2/controllers">控制器</a></li>
+<li><a href="errors-1.htm" tppabs="http://laravel-china.org/docs/4.2/errors">错误和日志</a></li>
+</ul></li>
+<li>更多 Laravel 知识
+<ul>
+<li><a href="security.htm" tppabs="http://laravel-china.org/docs/4.2/security">身份认证功能</a></li>
+<li><a href="billing-1.htm" tppabs="http://laravel-china.org/docs/4.2/billing">收费系统</a></li>
+<li><a href="cache-1.htm" tppabs="http://laravel-china.org/docs/4.2/cache">缓存</a></li>
+<li><a href="extending.htm" tppabs="http://laravel-china.org/docs/4.2/extending">扩展框架</a></li>
+<li><a href="events-1.htm" tppabs="http://laravel-china.org/docs/4.2/events">事件</a></li>
+<li><a href="facades-1.htm" tppabs="http://laravel-china.org/docs/4.2/facades">Facades</a></li>
+<li><a href="html.htm" tppabs="http://laravel-china.org/docs/4.2/html">表单和HTML</a></li>
+<li><a href="helpers-1.htm" tppabs="http://laravel-china.org/docs/4.2/helpers">帮助函数</a></li>
+<li><a href="ioc.htm" tppabs="http://laravel-china.org/docs/4.2/ioc">IoC Container</a></li>
+<li><a href="localization-1.htm" tppabs="http://laravel-china.org/docs/4.2/localization">本地化</a></li>
+<li><a href="mail-1.htm" tppabs="http://laravel-china.org/docs/4.2/mail">邮件发送 Mail</a></li>
+<li><a href="packages-1.htm" tppabs="http://laravel-china.org/docs/4.2/packages">扩展包开发</a></li>
+<li><a href="pagination-1.htm" tppabs="http://laravel-china.org/docs/4.2/pagination">分页功能</a></li>
+<li><a href="queues-1.htm" tppabs="http://laravel-china.org/docs/4.2/queues">队列</a></li>
+<li><a href="security.htm" tppabs="http://laravel-china.org/docs/4.2/security">安全</a></li>
+<li><a href="session-1.htm" tppabs="http://laravel-china.org/docs/4.2/session">会话</a></li>
+<li><a href="ssh.htm" tppabs="http://laravel-china.org/docs/4.2/ssh">远程连接模块 SSH</a></li>
+<li><a href="templates.htm" tppabs="http://laravel-china.org/docs/4.2/templates">模版引擎</a></li>
+<li><a href="testing-1.htm" tppabs="http://laravel-china.org/docs/4.2/testing">单元测试</a></li>
+<li><a href="validation-1.htm" tppabs="http://laravel-china.org/docs/4.2/validation">表单验证</a></li>
+</ul></li>
+<li>数据库 Database
+<ul>
+<li><a href="database-1.htm" tppabs="http://laravel-china.org/docs/4.2/database">数据库简单使用</a></li>
+<li><a href="queries-1.htm" tppabs="http://laravel-china.org/docs/4.2/queries">查询构造器</a></li>
+<li><a href="eloquent-1.htm" tppabs="http://laravel-china.org/docs/4.2/eloquent">Eloquent ORM</a></li>
+<li><a href="schema.htm" tppabs="http://laravel-china.org/docs/4.2/schema">表结构构造器</a></li>
+<li><a href="migrations-1.htm" tppabs="http://laravel-china.org/docs/4.2/migrations">Migrations &amp; Seeding</a></li>
+<li><a href="redis-1.htm" tppabs="http://laravel-china.org/docs/4.2/redis">Redis</a></li>
+</ul></li>
+<li>命令行 Artisan CLI
+<ul>
+<li><a href="artisan-1.htm" tppabs="http://laravel-china.org/docs/4.2/artisan">命令行 Artisan 介绍</a></li>
+<li><a href="commands.htm" tppabs="http://laravel-china.org/docs/4.2/commands">开发 Artisan 命令</a></li>
+</ul></li>
+</ul>
+	</div>
+
+</nav>
+
+<div class="docs-wrapper container">
+
+	<section class="sidebar">
+
+		<div class="header">
+			<a type="button" class="btn btn-primary btn-lg btn-block turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		</div>
+
+		<ul>
+<li>前言
+<ul>
+<li><a href="introduction.htm" tppabs="http://laravel-china.org/docs/4.2/introduction">Laravel 介绍</a></li>
+<li><a href="quick.htm" tppabs="http://laravel-china.org/docs/4.2/quick">快速入门</a></li>
+<li><a href="releases-1.htm" tppabs="http://laravel-china.org/docs/4.2/releases">框架更新记录</a></li>
+<li><a href="upgrade-1.htm" tppabs="http://laravel-china.org/docs/4.2/upgrade">升级指南</a></li>
+</ul></li>
+<li>快速上手
+<ul>
+<li><a href="installation-1.htm" tppabs="http://laravel-china.org/docs/4.2/installation">安装文档</a></li>
+<li><a href="configuration.htm" tppabs="http://laravel-china.org/docs/4.2/configuration">配置信息</a></li>
+<li><a href="homestead-1.htm" tppabs="http://laravel-china.org/docs/4.2/homestead">Homestead</a></li>
+<li><a href="lifecycle-1.htm" tppabs="http://laravel-china.org/docs/4.2/lifecycle">程序的生命周期</a></li>
+<li><a href="routing-1.htm" tppabs="http://laravel-china.org/docs/4.2/routing">路由 Routing</a></li>
+<li><a href="requests-1.htm" tppabs="http://laravel-china.org/docs/4.2/requests">处理用户请求和输入</a></li>
+<li><a href="responses-1.htm" tppabs="http://laravel-china.org/docs/4.2/responses">视图和响应</a></li>
+<li><a href="controllers-1.htm" tppabs="http://laravel-china.org/docs/4.2/controllers">控制器</a></li>
+<li><a href="errors-1.htm" tppabs="http://laravel-china.org/docs/4.2/errors">错误和日志</a></li>
+</ul></li>
+<li>更多 Laravel 知识
+<ul>
+<li><a href="security.htm" tppabs="http://laravel-china.org/docs/4.2/security">身份认证功能</a></li>
+<li><a href="billing-1.htm" tppabs="http://laravel-china.org/docs/4.2/billing">收费系统</a></li>
+<li><a href="cache-1.htm" tppabs="http://laravel-china.org/docs/4.2/cache">缓存</a></li>
+<li><a href="extending.htm" tppabs="http://laravel-china.org/docs/4.2/extending">扩展框架</a></li>
+<li><a href="events-1.htm" tppabs="http://laravel-china.org/docs/4.2/events">事件</a></li>
+<li><a href="facades-1.htm" tppabs="http://laravel-china.org/docs/4.2/facades">Facades</a></li>
+<li><a href="html.htm" tppabs="http://laravel-china.org/docs/4.2/html">表单和HTML</a></li>
+<li><a href="helpers-1.htm" tppabs="http://laravel-china.org/docs/4.2/helpers">帮助函数</a></li>
+<li><a href="ioc.htm" tppabs="http://laravel-china.org/docs/4.2/ioc">IoC Container</a></li>
+<li><a href="localization-1.htm" tppabs="http://laravel-china.org/docs/4.2/localization">本地化</a></li>
+<li><a href="mail-1.htm" tppabs="http://laravel-china.org/docs/4.2/mail">邮件发送 Mail</a></li>
+<li><a href="packages-1.htm" tppabs="http://laravel-china.org/docs/4.2/packages">扩展包开发</a></li>
+<li><a href="pagination-1.htm" tppabs="http://laravel-china.org/docs/4.2/pagination">分页功能</a></li>
+<li><a href="queues-1.htm" tppabs="http://laravel-china.org/docs/4.2/queues">队列</a></li>
+<li><a href="security.htm" tppabs="http://laravel-china.org/docs/4.2/security">安全</a></li>
+<li><a href="session-1.htm" tppabs="http://laravel-china.org/docs/4.2/session">会话</a></li>
+<li><a href="ssh.htm" tppabs="http://laravel-china.org/docs/4.2/ssh">远程连接模块 SSH</a></li>
+<li><a href="templates.htm" tppabs="http://laravel-china.org/docs/4.2/templates">模版引擎</a></li>
+<li><a href="testing-1.htm" tppabs="http://laravel-china.org/docs/4.2/testing">单元测试</a></li>
+<li><a href="validation-1.htm" tppabs="http://laravel-china.org/docs/4.2/validation">表单验证</a></li>
+</ul></li>
+<li>数据库 Database
+<ul>
+<li><a href="database-1.htm" tppabs="http://laravel-china.org/docs/4.2/database">数据库简单使用</a></li>
+<li><a href="queries-1.htm" tppabs="http://laravel-china.org/docs/4.2/queries">查询构造器</a></li>
+<li><a href="eloquent-1.htm" tppabs="http://laravel-china.org/docs/4.2/eloquent">Eloquent ORM</a></li>
+<li><a href="schema.htm" tppabs="http://laravel-china.org/docs/4.2/schema">表结构构造器</a></li>
+<li><a href="migrations-1.htm" tppabs="http://laravel-china.org/docs/4.2/migrations">Migrations &amp; Seeding</a></li>
+<li><a href="redis-1.htm" tppabs="http://laravel-china.org/docs/4.2/redis">Redis</a></li>
+</ul></li>
+<li>命令行 Artisan CLI
+<ul>
+<li><a href="artisan-1.htm" tppabs="http://laravel-china.org/docs/4.2/artisan">命令行 Artisan 介绍</a></li>
+<li><a href="commands.htm" tppabs="http://laravel-china.org/docs/4.2/commands">开发 Artisan 命令</a></li>
+</ul></li>
+</ul>
+	</section>
+
+	<article>
+
+		<div class="alert alert-warning" role="alert">
+
+			<h4>拥抱 Laravel 5.1 LTS</h4>
+			<p>
+				强烈建议在 2018 年之前使用 Laravel 5.1 来构建项目，Laravel 5.1 是 LTS 的发行版本, 发行于 2015 年 6 月份，自发布起提供两年时间的 Bug 修复（2017 年 6 月）, 3 年时间的安全修复（2018 年 6 月）。
+			</p>
+			 <p>
+			 	LTS 版本是此项目能提供的最长时间维护版本。一般的发行版本, 只提供 6 个月的 Bug 修复支持, 一年的安全修复支持.
+			 </p>
+		</div>
+
+		<div class="main-content">
+			<h1>队列</h1>
+<ul>
+<li><a href="#configuration">设定</a></li>
+<li><a href="#basic-usage">基本用法</a></li>
+<li><a href="#queueing-closures">队列闭包</a></li>
+<li><a href="#running-the-queue-listener">运行队列监听</a></li>
+<li><a href="#daemon-queue-worker">常驻队列工作</a></li>
+<li><a href="#push-queues">推送队列</a></li>
+<li><a href="#failed-jobs">失败的工作</a></li>
+</ul>
+<p><a name="configuration"></a></p>
+<h2>设定</h2>
+<p>Laravel 队列组件提供了一个统一的队列服务API，队列允许您将一个任务延后执行，例如可以将邮件延后至您指定的时间再发送，进而大幅的加快您开发网站应用程序的效率。</p>
+<p>队列的配置文件在 <code>app/config/queue.php</code>，在这个文件里您将可以找到框架中每种不同的队列服务的连接配置，其中包含了 <a href="javascript:if(confirm('http://kr.github.com/beanstalkd  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://kr.github.com/beanstalkd'" tppabs="http://kr.github.com/beanstalkd">Beanstalkd</a>，<a href="javascript:if(confirm('http://iron.io/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://iron.io/'" tppabs="http://iron.io/">IronMQ</a>，<a href="javascript:if(confirm('http://aws.amazon.com/sqs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://aws.amazon.com/sqs'" tppabs="http://aws.amazon.com/sqs">Amazon SQS</a>，<a href="javascript:if(confirm('http://redis.io/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://redis.io/'" tppabs="http://redis.io/">Redis</a>，以及同步(本地端使用)驱动设定。</p>
+<p>下列的 composer.json 表示您的队列服务所需要的依赖环境：</p>
+<ul>
+<li>Beanstalkd: <code>pda/pheanstalk ~3.0</code></li>
+<li>Amazon SQS: <code>aws/aws-sdk-php</code></li>
+<li>IronMQ: <code>iron-io/iron_mq</code></li>
+</ul>
+<p><a name="basic-usage"></a></p>
+<h2>基本用法</h2>
+<h4>推送一个工作至队列</h4>
+<p>要推送一个新的工作至队列，请使用 <code>Queue::push</code> 方法：</p>
+<pre><code>Queue::push('SendEmail', array('message' =&gt; $message));</code></pre>
+<h4>定义一个工作处理程序</h4>
+<p><code>push</code> 方法的第一个参数为应该处理这个工作的类方法名称，第二个参数是一个要传递至处理程序的数组，一个工作处理程序应该参照下列定义：</p>
+<pre><code>class SendEmail {
+
+    public function fire($job, $data)
+    {
+        //
+    }
+
+}</code></pre>
+<p>注意如果您未在第一个参数指定工作处理的类及方法(如 SendEmail@process)，那 <code>fire</code> 为类中默认必需的方法用来接收被推送至队列 <code>Job</code> 实例以及 <code>data</code>。</p>
+<h4>指定一个特定的处理程序方法</h4>
+<p>假如您想要用一个 <code>fire</code> 以外的方法处理工作，您可以在推送工作时指定方法如下：</p>
+<pre><code>Queue::push('SendEmail@send', array('message' =&gt; $message));</code></pre>
+<h4>指定队列使用特定连接</h4>
+<p>您也可指定队列工作送至指定的连接：</p>
+<pre><code>Queue::push('SendEmail@send', array('message' =&gt; $message), 'emails');</code></pre>
+<h4>发送相同的数据去多个连接</h4>
+<p>如果您需要传送一样的数据去几个不同的队列服务器，您也可以使用 <code>Queue::bulk</code> 方法：</p>
+<pre><code>Queue::bulk(array('SendEmail', 'NotifyUser'), $payload);</code></pre>
+<h4>延迟执行一个工作</h4>
+<p>有时后您也希望延迟一个队列工作的执行，举例来说您希望一个队列工作在客户注册 15 分钟后发送一个 e-mail，您可以使用 <code>Queue::later</code> 方法来完成这件事情：</p>
+<pre><code>$date = Carbon::now()-&gt;addMinutes(15);
+
+Queue::later($date, 'SendEmail@send', array('message' =&gt; $message));</code></pre>
+<p>在这个例子中，我们使用 <a href="javascript:if(confirm('https://github.com/briannesbitt/Carbon  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://github.com/briannesbitt/Carbon'" tppabs="https://github.com/briannesbitt/Carbon">Carbon</a> 日期函数库来指定我们希望队列工作希望延迟的时间，另外您也可传送一个整数来设定您希望延迟的秒数。</p>
+<blockquote>
+<p><strong>注意：</strong> The Amazon SQS 服务有 900s 的延迟限制 (15 分钟)。</p>
+</blockquote>
+<h4>删除一个处理中的工作</h4>
+<p>当您已经开始处理完成一个队列工作，它就必需在队列中删除，我们可以通过 <code>Job</code> 实例中的 <code>delete</code> 方法来完成这件事：</p>
+<pre><code>public function fire($job, $data)
+{
+    // Process the job...
+
+    $job-&gt;delete();
+}</code></pre>
+<h4>释放一个工作回到队列中</h4>
+<p>假如您希望将一个工作释放回队列之中，您可以通过 <code>release</code> 方法来完成这件事情：</p>
+<pre><code>public function fire($job, $data)
+{
+    // Process the job...
+
+    $job-&gt;release();
+}</code></pre>
+<p>您也可以指定秒数来让这个工作延迟释放：</p>
+<pre><code>$job-&gt;release(5);</code></pre>
+<h4>检查工作执行次数</h4>
+<p>当一个工作执行后发生错误，这个工作将会自动的释放回队列当中，您可以通过 <code>attempts</code> 方法来检查这个工作已经被执行的次数：</p>
+<pre><code>if ($job-&gt;attempts() &gt; 3)
+{
+    //
+}</code></pre>
+<h4>取得一个工作的 ID</h4>
+<p>您也可以取得这个工作的识别码：</p>
+<pre><code>$job-&gt;getJobId();</code></pre>
+<p><a name="queueing-closures"></a></p>
+<h2>队列闭包</h2>
+<p>您也可以推送一个闭包去队列，这个方法非常的方便及快速的来处理需要使用队列的简单的任务：</p>
+<pre><code>Queue::push(function($job) use ($id)
+{
+    Account::delete($id);
+
+    $job-&gt;delete();
+});</code></pre>
+<blockquote>
+<p><strong>注记:</strong> 要让一个组件变量可以在队列闭包中可以使用我们会通过 <code>use</code> 命令，试着传送主键及重复使用的相关模组在您的队列工作中，这可以避免其他的序列化行为。</p>
+</blockquote>
+<p>当使用 Iron.io <a href="#push-queues">push queues</a> 时,您应该在队列闭包中采取一些其他的预防措施，我们应该在执行工作收到队列数据时检查token是否真来自 Iron.io，举例来说您推送一个队列工作到 <code>https://yourapp.com/queue/receive?token=SecretToken</code>，接下来在您的工作收到队列的请求时，您就可以检查token的值是否正确。</p>
+<p><a name="running-the-queue-listener"></a></p>
+<h2>执行一个队列监听</h2>
+<p>Laravel 内含一个 Artisan 命令，它将推送到队列的工作拉来下执行，您可以使用 <code>queue:listen</code> 命令，来执行这件常驻任务：</p>
+<h4>开始队列监听</h4>
+<pre><code>php artisan queue:listen</code></pre>
+<p>您也可以指定特定队列连接让监听器使用：</p>
+<pre><code>php artisan queue:listen connection</code></pre>
+<p>注意当这个任务开始时，这将会一直持续执行到他被手动停止，您也可以使用一个处理监控如 <a href="javascript:if(confirm('http://supervisord.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://supervisord.org/'" tppabs="http://supervisord.org/">Supervisor</a> 来确保这个队列监听不会停止执行。</p>
+<p>您也可以在 <code>listen</code> 命令中使用逗号分隔不同的队列连接来设定队列的重要性：</p>
+<pre><code>php artisan queue:listen --queue=high,low</code></pre>
+<p>在这个范列中 <code>high-connection</code> 将总是会优先处理队列的工作，相对于 <code>low-connection</code></p>
+<h4>指定工作超时参数</h4>
+<p>您也可以设定给每个工作允许执行的秒数：</p>
+<pre><code>php artisan queue:listen --timeout=60</code></pre>
+<h4>指定队列休息时间</h4>
+<p>此外，您也可以指定让监听器在拉取新工作时要等待几秒：</p>
+<pre><code>php artisan queue:listen --sleep=5</code></pre>
+<p>注意队列只会在没有队列内容时停止工作，假如队列中仍有许多可执行的工作，队列监听将持续不中断的处理</p>
+<h4>处理队列上的一个工作</h4>
+<p>当您只想处理队列上的一个工作您可以使用 <code>queue:work</code> 命令：</p>
+<pre><code>php artisan queue:work</code></pre>
+<p><a name="daemon-queue-worker"></a></p>
+<h2>常驻队列处理器</h2>
+<p><code>queue:work</code> 也包含了一个 <code>--daemon</code> 选项能强迫队列处理器可以持续处理工作，即使框架重新启动了也不会停止。这种方式比起 <code>queue:listen</code> 来说，可以更有效的减少CPU的使用量，不过代价是要增加了您布署时的复杂性。</p>
+<p>当开始一个队列处理器处于常驻模式，使用 <code>--daemon</code> 标示：</p>
+<pre><code>php artisan queue:work connection --daemon
+
+php artisan queue:work connection --daemon --sleep=3
+
+php artisan queue:work connection --daemon --sleep=3 --tries=3</code></pre>
+<p>如您所见 <code>queue:work</code> 命令支持 <code>queue:listen</code> 大多相同的选项参数，您也可使用 <code>php artisan help queue:work</code> 命令来观看全部可用的选项参数。</p>
+<h3>布署常驻队列处理器</h3>
+<p>最简单的布署一个应用程序使用常驻队列处理器的方式就是将应用程序在开始布署时使用维护模式，您可以使用 <code>php artisan down</code> 命令来完成这件事情，当这个应用程序在维护模式，Laravel 将不会运行队列上的任何新工作，但会持续的处理已存在的工作。</p>
+<p>最简单的重启工作的方法是在你的部署脚本中加上如下一行：</p>
+<pre><code>php artisan queue:restart</code></pre>
+<blockquote>
+<p><strong>Note:</strong> This command relies on the cache system to schedule the restart. By default, APCu does not work for CLI commands. If you are using APCu, add <code>apc.enable_cli=1</code> to your APCu configuration.</p>
+</blockquote>
+<h3>Coding For Daemon Queue Workers</h3>
+<p>Daemon queue workers do not restart the framework before processing each job. Therefore, you should be careful to free any heavy resources before your job finishes. For example, if you are doing image manipulation with the GD library, you should free the memory with <code>imagedestroy</code> when you are done.</p>
+<p><a name="push-queues"></a></p>
+<h2>推送队列</h2>
+<p>您可以利用 Laravel 4 强大的队列架构来进行推送队列工作，不需要执行任何的常驻事务或后台监听，目前只支持 <a href="javascript:if(confirm('http://iron.io/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://iron.io/'" tppabs="http://iron.io/">Iron.io</a> 驱动，在您开始前建立一个 Iron.io 帐号及新增您的 Iron 凭证到 <code>app/config/queue.php</code> 配置文件。</p>
+<h4>注册一个推送队列订阅</h4>
+<p>接下来，您可以使用 <code>queue:subscribe</code> 命令注册一个URL来接收新的队列推送工作：</p>
+<pre><code>php artisan queue:subscribe queue_name http://foo.com/queue/receive</code></pre>
+<p>现在当您登入您的Iron仪表板，您将会看到您新的推送队列，以及订阅的 URL，您可以订阅许多的URLs给您希望的队列，接下来建立一个 route 给您的 <code>queue/receive</code> 及从 <code>Queue::marshal</code> 方法回传回应：</p>
+<pre><code>Route::post('queue/receive', function()
+{
+    return Queue::marshal();
+});</code></pre>
+<p><code>marshal</code> 方法会将工作处理到正确的类，而发送工作到队列中只要使用一样的 <code>Queue::push</code> 方法。</p>
+<p><a name="failed-jobs"></a></p>
+<h2>已失败的工作</h2>
+<p>事情往往不会如您预期的一样，有时后您推送工作到队列会失败，别担心，Laravel 包含一个简单的方法去指定一个工作最多可以被执行几次，在工作被执行到一定的次数时，他将会新增至 <code>failed_jobs</code> 数据库表里，然后失败工作的数据库表名称可以在 <code>app/config/queue.php</code> 里进行设定：</p>
+<p>要新增一个migration建立 <code>failed_jobs</code> 数据库表，您可以使用 <code>queue:failed-table</code> 命令：</p>
+<pre><code>php artisan queue:failed-table</code></pre>
+<p>您可以指定一个最大值来限制一个工作应该最多被执行几次通过 <code>--tries</code> 这个选项参数在您执行 <code>queue:listen</code> 的时后：</p>
+<pre><code>php artisan queue:listen connection-name --tries=3</code></pre>
+<p>假如您会想注册一个事件，这个事件会将会在队列失败时被调用，您可以使用 <code>Queue::failing</code> 方法，这个事件是一个很好的机会让您可以通知您的团队通过 e-mail 或 <a href="javascript:if(confirm('https://www.hipchat.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://www.hipchat.com/'" tppabs="https://www.hipchat.com/">HipChat</a>。</p>
+<pre><code>Queue::failing(function($connection, $job, $data)
+{
+    //
+});</code></pre>
+<p>要看到所有的失败工作，您可以使用 <code>queue:failed</code> 命令：</p>
+<pre><code>php artisan queue:failed</code></pre>
+<p><code>queue:failed</code> 命令将会列出工作的 ID、连接、队列名称及失败的时间，工作的 ID 也可以重新执行一个已经失败的工作，例如一个已经失败的工作他的 ID 是 5，我们可以使用下面的命令：</p>
+<pre><code>php artisan queue:retry 5</code></pre>
+<p>假如您会想删除一个已失败的工作，您可以使用 <code>queue:forget</code> 命令：</p>
+<pre><code>php artisan queue:forget 5</code></pre>
+<p>要删除全部失败的工作您可以使用 <code>queue:flush</code> 命令：</p>
+<pre><code>php artisan queue:flush</code></pre>
+		</div>
+
+		<div class="main-footer" style="border-top:1px dashed rgba(0, 0, 0, 0.1);padding-top: 30px;margin-top:30px;margin-bottom: 20px;">
+			<div class="prev-next-wrap clearfix">
+
+				
+			    &nbsp;
+							</div>
+		</div>
+
+	</article>
+</div>
+
+		<footer class="main">
+			<ul>
+				<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+			</ul>
+			<p>Laravel is a trademark of Taylor Otwell. Copyright &copy; Taylor Otwell.</p>
+			<p class="less-significant"><a href="javascript:if(confirm('http://jackmcdade.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://jackmcdade.com/'" tppabs="http://jackmcdade.com/">Design by Jack McDade</a></p>
+
+			<p class="less-significant">
+				<a href="javascript:if(confirm('http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao'" tppabs="http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao" target="_blank">由 UCloud 赞助  <img src="dYfOYswiQY.png" tppabs="https://dn-phphub.qbox.me/uploads/images/201605/03/1/dYfOYswiQY.png" width="98" data-toggle="tooltip" data-placement="top" title="本站服务器由 UCloud 赞助"></a>.
+		      </p>
+		</footer>
+
+	</div>
+
+	<script src="laravel.js" tppabs="http://laravel-china.org/assets/js/laravel.js"></script>
+	<script src="viewport-units-buggyfill.js" tppabs="http://laravel-china.org/assets/js/viewport-units-buggyfill.js"></script>
+	<script>window.viewportUnitsBuggyfill.init();</script>
+    <script>
+
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','analytics.js'/*tpa=http://7xijlf.com2.z0.glb.qiniucdn.com/js/analytics.js*/,'ga');
+
+		ga('create', 'UA-53903425-7', 'auto');
+		ga('send', 'pageview');
+
+		$(window).load(function() {
+		  // When the page has loaded
+		  $(".main-content").fadeIn(10);
+		});
+    </script>
+</body>
+</html>

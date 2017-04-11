@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{$title}</title>
+</head>
+<body>
+	<form action="index.php?c=user&a=update" method="post">
+		用户名: <input type="text" value="{$res['username']}" name="username">
+		<br>
+		密码: <input type="password" value="{$res['password']}" name="password">
+		<br>
+		邮箱: <input type="text" value="{$res['email']}" name="email">
+		<br>
+		<input type="hidden" name="id" value="{$res['id']}">
+		<input type="submit" value="修改">
+	</form>
+</body>
+</html>

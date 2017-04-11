@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery:ajax</title>
+</head>
+<body>
+	<button>发送get请求</button>
+	<button>发送post请求</button>
+	<button>使用ajax发送请求</button>
+	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+//扩展 
+//全局配置
+$.ajaxSetup({
+	async:false
+});
+
+var love =100;
+$('button:eq(0)').click(function(){
+	//发送get请求
+	$.get('5.php',{a:100,b:200},function(data){
+		console.log(data);
+		love =200;
+		// eval('var arr = '+data);
+		// console.log(arr);
+	});//最后参数 json 是返回的数据进行约束,
+	alert(love);
+})
+
+$('button:eq(1)').click(function(){
+	//发送get请求
+	$.post('5.php',{a:100,b:200},function(data){
+		console.log(data);
+		// eval('var arr = '+data);
+		// console.log(arr);
+	},'json');//最后参数 json 是返回的数据进行约束,
+})
+$('button:eq(2)').click(function(){
+$.ajax({
+	url:'5.php',//请求的url
+	data:{id:10,name:'zhangsan'},//发送的参数
+	//dataType:'json',//返回的数据格式约束 如果返回格式不正确 走error
+	type:'post',//请求的方式
+	success:function(data){
+		//请求成功之后来执行
+		console.log(data);
+		love =200;
+	},
+	error:function(){
+		//请求出错
+		alert('出错啦 思密达');
+	},
+	timeout:1000,//请求超时时间 必须是异步请求才会生效
+	async:true//true异步 false同步
+});
+alert(love);
+})
+
+	</script>
+
+
+
+
+</body>
+</html>

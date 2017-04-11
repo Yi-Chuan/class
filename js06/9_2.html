@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>9_2.html</title>
+</head>
+<body>
+<a href="9.html">9.html</a>
+<a href="9_1.html">9_1.html</a>
+<a href="9_2.html">9_2.html</a><br><br>
+<button>前进</button>
+<button>后退</button>
+<script type="text/javascript">
+/*
+History 对象包含用户（在浏览器窗口中）访问过的 URL。
+History 对象的属性
+
+	length 返回浏览器历史列表中的 URL 数量
+
+History 对象的方法
+
+	back() 加载 history 列表中的前一个 URL
+	forward() 加载 history 列表中的下一个 URL
+	go() 加载 history 列表中的某个具体页面 
+*/
+// console.log(window.history);//显示目前window对象中访问过几个url,列表有几个历史信息
+// 获取元素
+var but = document.getElementsByTagName('button');
+// 给第一个button按钮绑定一个单击事件
+but[0].onclick = function(){
+	// history.forward();//forward前进
+	history.go(1);
+}
+
+// 给第二个button按钮绑定一个单击事件
+but[1].onclick = function(){
+	// history.back();//back  后退
+	history.go(-1);
+}
+
+</script>
+</body>
+</html>

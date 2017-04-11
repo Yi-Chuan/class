@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>事件的冒泡</title>
+<style type="text/css">
+div{position:absolute;left:50px;top:50px;border-radius:50%;}
+#five{width: 500px;height: 500px;background: orange;}
+#four{width: 400px;height: 400px;background: cyan;}
+#three{width: 300px;height: 300px;background: yellow;}
+#two{width: 200px;height: 200px;background: green;}
+#one{width: 100px;height: 100px;background: red;}
+	
+</style>
+</head>
+<body>
+<div id="five">
+	<div id="four">
+		<div id="three">
+			<div id="two">
+				<div id="one"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+/*
+事件的冒泡
+当触发一个元素的事件时会自动触发该元素的父级和先辈级的同类型事件
+造成了事件的多层并发，导致了页面混乱。这就是事件冒泡
+消除冒泡事件的方法
+cancelBubble、stopPropagation
+*/
+// 给所有的div绑定事件
+var ds = document.getElementsByTagName('div');
+// 遍历
+for (var i = 0; i < ds.length; i++) {
+	ds[i].onclick = function(e){
+		//解决ie和火狐对事件对象e的兼容性问题
+		var e = (e)?e:window.event;
+		this.style.background = "black";
+		// 阻止事件冒泡
+		// e.stopPropagation();//ie不支持
+		e.cancelBubble = true;
+	}
+};
+
+</script>
+</body>
+</html>

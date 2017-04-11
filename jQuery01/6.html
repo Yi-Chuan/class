@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>按需加载</title>
+	<style type="text/css">
+	*{list-style:none;}
+	li{width: 300px;height: 250px;
+	border:solid 1px #369;
+	padding: 10px;
+	margin-bottom: 10px;}
+
+	</style>
+</head>
+<body>
+	<ul>
+		<li><img src="./sunli/1.jpg" width="100%"></li>
+		<li><img src="./sunli/2.jpg" width="100%"></li>
+		<li><img srcImg="./sunli/3.jpg" width="100%"></li>
+		<li><img srcImg="./sunli/4.jpg" width="100%"></li>
+		<li><img srcImg="./sunli/5.jpg" width="100%"></li>
+		<li><img srcImg="./sunli/6.jpg" width="100%"></li>
+		<li><img srcImg="./sunli/7.jpg" width="100%"></li>
+		<li><img srcImg="./sunli/8.jpg" width="100%"></li>
+	</ul>
+	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+//绑定事件
+$(window).scroll(function(){
+//获取所有的li
+$('li[isLoaded != 1]').each(function(){
+	//获取页面y轴的滚动距离
+	var sT = $(window).scrollTop();
+	//获取可视区域的高度
+	var cH = $(window).height();
+	//获取当前元素距离文档顶部的距离
+	var oT = $(this).offset().top;
+	//判断图片是否要显示
+	if(oT < sT + cH){
+		//获取srcimg属性
+		var src = $(this).find('img').attr('srcImg');
+		//设置src
+		$(this).find('img').attr('src',src);
+		//加载完毕后 添加属性  做标识
+		$(this).attr('isLoaded',1);
+	}
+})
+})
+
+</script>
+</body>
+</html>

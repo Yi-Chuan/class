@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js的使用场景</title>
+	
+</head>
+<body>
+
+	<!-- a链接 
+	
+	-->
+	<!-- <a href="javascript:alert('22222');">百度一下</a> -->
+	<a href="javascript:void(0)" onclick="alert('你点我试试');">百度一下</a>
+
+	<!-- 元素的事件属性 -->
+	<div onclick="alert('你点我干啥?');" style="width:200px;height: 200px;background: #f39;"></div>
+	
+	<!-- js的使用场景
+		js代码可以和html进行混排 注意正确嵌套 一般script标签放置在head或body
+		HTML不会报错  js也不会像php一样简单粗暴的抛出错误,它 比较委婉  需要工具才能查看
+	 -->
+	<!-- 外部引入 需要注意,在含有src属性的script标签中不能书写任何js代码 -->
+	<script type="text/javascript" src="1.js"></script>
+	
+	 <!-- 第一种场景 -->
+	<script type="text/javascript">
+		// alert('hello world!!!');
+
+	</script>
+</body>
+	
+	
+</html>

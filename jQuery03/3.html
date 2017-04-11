@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>无缝轮播</title>
+<style type="text/css">
+*{margin: 0;padding: 0;list-style:none;}
+.banner{
+	width: 1000px;height: 345px;
+	position:relative;
+	margin: 50px;overflow: hidden;
+}
+.banner .img{width: 6000px;
+	position: absolute;}
+	
+.banner .img li{float: left;}
+.banner .img li img{width: 1000px;}
+.num{position: absolute;
+	width: 100%;bottom:10px;
+	left:0px;
+	text-align:center;}
+.num li{width: 10px;height: 10px;
+	background: #333;
+	border-radius:50%;
+	margin: 0 3px;
+	display:inline-block;}
+.num .on{background: #f39;}
+.banner .btn{
+	width: 30px;height: 50px;
+	position: absolute;
+	top:50%;
+	background: rgba(0,0,0,0.5);
+	text-align:center;
+	line-height:50px;color:#fff;
+	font-size:40px;margin-top: -25px;
+	font-family:'宋体';
+	cursor:pointer;
+}
+.btn_l{left:0px;}
+.btn_r{right:0px;}
+
+
+	</style>
+</head>
+<body>
+<div class="banner">
+	<ul class="img">
+		<li><a href="#"><img src="./bannerImg/001.jpg" width="100%"></a></li>
+		<li><a href="#"><img src="./bannerImg/002.jpg" width="100%"></a></li>
+		<li><a href="#"><img src="./bannerImg/003.jpg" width="100%"></a></li>
+		<li><a href="#"><img src="./bannerImg/004.jpg" width="100%"></a></li>
+		<li><a href="#"><img src="./bannerImg/005.jpg" width="100%"></a></li>
+	</ul>
+	<ul class="num">
+		<li class="on"></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	<div class="btn btn_l">&lt;</div>
+	<div class="btn btn_r">&gt;</div>
+</div>
+<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+//定义全局变量
+var i = 0;
+//无缝第一步 先克隆第一张图片
+var cloneimg = $('.banner .img li').first().clone();
+//无缝第二步 把克隆的图片放到ul后面
+$('.banner .img').append(cloneimg);
+//获取图片个数
+var length = $('.img li').length;
+
+//绑定左右单击事件
+$('.banner .btn_r').click(function(){
+	moveR();//移动函数
+})
+//绑定左右单击事件
+$('.banner .btn_l').click(function(){
+	moveL();//移动函数
+})
+
+//启动定时器
+var inte = setInterval(moveR,3000);
+
+//鼠标悬停效果
+$('.banner').hover(function(){
+	//清除定时器
+	clearInterval(inte);
+},function(){
+	//启动轮播
+	inte = setInterval(moveR,3000);
+})
+
+//给小圆点绑定单击事件
+$('.banner .num li').click(function(){
+	//获取当前索引
+	i = $(this).index();
+	//计算left
+	newLeft = i*1000;
+	//设置样式
+	// $('.banner .img li').fadeOut(1500);
+   // $('.banner .img li').eq(i).fadeIn(1500);
+	$('.banner .img').animate({left:-newLeft+'px'});
+	//设置点的样式
+	$('.banner .num li').eq(i).addClass('on').siblings().removeClass('on');
+
+})
+
+//封装向右移动的方法
+function moveR(){
+	i++;
+	//判断越界
+	if(i == length){
+		// i = 0;
+		//无缝第三步 在越界时直接用css把ul位置拉到0
+		$('.banner .img').css({left:0});
+		//修改i的值 等于1
+		i = 1;
+	}
+	//计算left
+	newLeft = i*1000;
+	//设置样式
+	$('.banner .img').
+	animate({left:-newLeft+'px'}
+	,1000);
+	//无缝第四步
+	if(i == length-1){
+		$('.banner .num li').eq(0).addClass('on').siblings().removeClass('on');
+	}else{
+	//设置点的样式
+	$('.banner .num li').eq(i)
+	.addClass('on')
+	.siblings()
+	.removeClass('on');
+	}
+}
+//封装向左移动的方法
+function moveL(){
+	i--;
+	//判断越界
+	if(i == -1){
+		// i = length-1;
+		//无缝第五步
+		$('.banner .img').css({left:-(length-1)*1000});
+		//无缝第六步
+		i = length-2;
+	}
+	//计算left
+	newLeft = i*1000;
+	//设置样式
+	$('.banner .img').animate({left:-newLeft+'px'},1000);
+	//设置点的样式
+	$('.banner .num li').eq(i).addClass('on').siblings().removeClass('on');
+}
+
+</script>
+</body>
+</html>

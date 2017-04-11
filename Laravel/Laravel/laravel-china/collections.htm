@@ -1,0 +1,1351 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=UTF-8"utf-8">
+	<title>Laravel 5.1 中文文档：集合
+</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="@summerblue">
+	<meta name="description" content="集合,简介,创建集合,可用的方法,简介,Illuminate\Support\Collection 类提供一个流畅、便利的封装来操控数组数据。如下面的示例代码，我们用 collect 函数从数组中创建新的集合实例，对每一个元素运行 strtoupper 函数，然后移除所有的空元素：,$collection = collect([&#039;taylor&#039;, &#039;abigail&#039;, null])-&gt;map...
+">
+	<meta name="keywords" content="集合,laravel5.1文档,laravel5.1中文文档,laravel中国,laravel中文,laravel框架中文,laravel文档,laravel框架中国,laravel中文文档
+">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lte IE 9]>
+		<script src="html5shiv.min.js" tppabs="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="laravel.css" tppabs="http://laravel-china.org/assets/css/laravel.css">
+	<style media="screen">
+		div.main-content {
+		  display: none;
+		}
+		.loading-effect {
+			position: fixed;
+			left: 50%;
+			top:300px;
+		    z-index: -1;
+		}
+	</style>
+</head>
+<body class="docs language-php ">
+
+	<span class="overlay"></span>
+
+	<div class="loading-effect">
+		<div class="loader-inner line-scale">
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		  </div>
+	</div>
+
+
+	<div class="main-content">
+
+		<nav class="main">
+			<div class="container">
+				<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/" class="brand">
+					<img src="laravel-logo.png" tppabs="http://laravel-china.org/assets/img/laravel-logo.png" height="30">
+					Laravel
+				</a>
+
+				<div class="responsive-sidebar-nav">
+					<a href="#" class="toggle-slide menu-link btn">&#9776;</a>
+				</div>
+
+									<div class="switcher">
+	<div class="dropdown">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			<!--<span class="faint">v</span> -->
+			5.1
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">5.1</a>
+				</li>
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="4.2.htm" tppabs="http://laravel-china.org/docs/4.2/collections">4.2</a>
+				</li>
+					</ul>
+	</div>
+</div>
+				
+				<ul class="main-nav">
+					<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+				</ul>
+			</div>
+		</nav>
+
+		<nav id="slide-menu" class="slide-menu" role="navigation">
+
+	<div class="brand">
+		<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">
+			<img src="laravel-logo-white.png" tppabs="http://laravel-china.org/assets/img/laravel-logo-white.png" height="50">
+		</a>
+	</div>
+
+	<ul class="slide-main-nav">
+		<li><a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">Home</a></li>
+		<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+	</ul>
+
+	<div class="slide-docs-nav">
+		<h2>文档</h2>
+
+		<a type="button" class="turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</div>
+
+</nav>
+
+<div class="docs-wrapper container">
+
+	<section class="sidebar">
+
+		<div class="header">
+			<a type="button" class="btn btn-primary btn-lg btn-block turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		</div>
+
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</section>
+
+	<article>
+
+		<div class="alert alert-warning" role="alert">
+
+			<h4>拥抱 Laravel 5.1 LTS</h4>
+			<p>
+				强烈建议在 2018 年之前使用 Laravel 5.1 来构建项目，Laravel 5.1 是 LTS 的发行版本, 发行于 2015 年 6 月份，自发布起提供两年时间的 Bug 修复（2017 年 6 月）, 3 年时间的安全修复（2018 年 6 月）。
+			</p>
+			 <p>
+			 	LTS 版本是此项目能提供的最长时间维护版本。一般的发行版本, 只提供 6 个月的 Bug 修复支持, 一年的安全修复支持.
+			 </p>
+		</div>
+
+		<div class="main-content">
+			<h1>集合</h1>
+<ul>
+<li><a href="#introduction">简介</a></li>
+<li><a href="#creating-collections">创建集合</a></li>
+<li><a href="#available-methods">可用的方法</a></li>
+</ul>
+<p><a name="introduction"></a></p>
+<h2>简介</h2>
+<p><code>Illuminate\Support\Collection</code> 类提供一个流畅、便利的封装来操控数组数据。如下面的示例代码，我们用 <code>collect</code> 函数从数组中创建新的集合实例，对每一个元素运行 <code>strtoupper</code> 函数，然后移除所有的空元素：</p>
+<pre><code>$collection = collect(['taylor', 'abigail', null])-&gt;map(function ($name) {
+    return strtoupper($name);
+})
+-&gt;reject(function ($name) {
+    return empty($name);
+});</code></pre>
+<p>如你所见，<code>Collection</code> 类支持链式调用，一般来说，每一个 <code>Collection</code> 方法会返回一个全新的 <code>Collection</code> 实例，你可以放心地进行链接调用。</p>
+<p><a name="creating-collections"></a></p>
+<h2>创建集合</h2>
+<p>如上所述，<code>collect</code> 辅助函数会利用传入的数组生成一个新的 <code>Illuminate\Support\Collection</code> 实例。所以要创建一个集合就这么简单：</p>
+<pre><code>$collection = collect([1, 2, 3]);</code></pre>
+<p>默认 <a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">Eloquent</a> 模型的集合总是以 <code>Collection</code> 实例返回；然而，你可以随意的在你应用程序中使用 <code>Collection</code> 类。</p>
+<p><a name="available-methods"></a></p>
+<h2>可用的方法</h2>
+<p>在这份文档剩余的部份，我们将会探讨 <code>Collection</code> 类的所有方法。要记得的是，所有方法都支持链式调用，几乎所有的方法都会返回新的 <code>Collection</code> 实例，让你保留原版的集合以备不时之需。</p>
+<p>你可以从这张数据库表中选择任一方法看使用例子：</p>
+<style>
+    #collection-method-list > p {
+        column-count: 3; -moz-column-count: 3; -webkit-column-count: 3;
+        column-gap: 2em; -moz-column-gap: 2em; -webkit-column-gap: 2em;
+    }
+
+    #collection-method-list a {
+        display: block;
+    }
+</style>
+<div id="collection-method-list">
+<p><a href="#method-all">all</a>
+<a href="#method-avg">avg</a>
+<a href="#method-chunk">chunk</a>
+<a href="#method-collapse">collapse</a>
+<a href="#method-contains">contains</a>
+<a href="#method-count">count</a>
+<a href="#method-diff">diff</a>
+<a href="#method-each">each</a>
+<a href="#method-every">every</a>
+<a href="#method-except">except</a>
+<a href="#method-filter">filter</a>
+<a href="#method-first">first</a>
+<a href="#method-flatten">flatten</a>
+<a href="#method-flip">flip</a>
+<a href="#method-forget">forget</a>
+<a href="#method-forpage">forPage</a>
+<a href="#method-get">get</a>
+<a href="#method-groupby">groupBy</a>
+<a href="#method-has">has</a>
+<a href="#method-implode">implode</a>
+<a href="#method-intersect">intersect</a>
+<a href="#method-isempty">isEmpty</a>
+<a href="#method-keyby">keyBy</a>
+<a href="#method-keys">keys</a>
+<a href="#method-last">last</a>
+<a href="#method-map">map</a>
+<a href="#method-max">max</a>
+<a href="#method-merge">merge</a>
+<a href="#method-min">min</a>
+<a href="#method-only">only</a>
+<a href="#method-pluck">pluck</a>
+<a href="#method-pop">pop</a>
+<a href="#method-prepend">prepend</a>
+<a href="#method-pull">pull</a>
+<a href="#method-push">push</a>
+<a href="#method-put">put</a>
+<a href="#method-random">random</a>
+<a href="#method-reduce">reduce</a>
+<a href="#method-reject">reject</a>
+<a href="#method-reverse">reverse</a>
+<a href="#method-search">search</a>
+<a href="#method-shift">shift</a>
+<a href="#method-shuffle">shuffle</a>
+<a href="#method-slice">slice</a>
+<a href="#method-sort">sort</a>
+<a href="#method-sortby">sortBy</a>
+<a href="#method-sortbydesc">sortByDesc</a>
+<a href="#method-splice">splice</a>
+<a href="#method-sum">sum</a>
+<a href="#method-take">take</a>
+<a href="#method-toarray">toArray</a>
+<a href="#method-tojson">toJson</a>
+<a href="#method-transform">transform</a>
+<a href="#method-unique">unique</a>
+<a href="#method-values">values</a>
+<a href="#method-where">where</a>
+<a href="#method-whereloose">whereLoose</a>
+<a href="#method-zip">zip</a></p>
+</div>
+<p><a name="method-listing"></a></p>
+<h2>方法清单</h2>
+<style>
+    #collection-method code {
+        font-size: 14px;
+    }
+
+    #collection-method:not(.first-collection-method) {
+        margin-top: 50px;
+    }
+</style>
+<p><a name="method-all"></a></p>
+<h4 id="collection-method" class="first-collection-method"><code>all()</code></h4>
+<p>返回该集合所代表的底层 <code>数组</code>：</p>
+<pre><code>collect([1, 2, 3])-&gt;all();
+
+// [1, 2, 3]</code></pre>
+<p><a name="method-avg"></a></p>
+<h4 id="collection-method"><code>avg()</code></h4>
+<p>返回集合中所有项目的平均值：</p>
+<pre><code>collect([1, 2, 3, 4, 5])-&gt;avg();
+
+// 3</code></pre>
+<p>如果集合包含了嵌套数组或对象，你可以通过传递「键」来指定使用哪些值计算平均值：</p>
+<pre><code>$collection = collect([
+    ['name' =&gt; 'JavaScript: The Good Parts', 'pages' =&gt; 176],
+    ['name' =&gt; 'JavaScript: The Definitive Guide', 'pages' =&gt; 1096],
+]);
+
+$collection-&gt;avg('pages');
+
+// 636</code></pre>
+<p><a name="method-chunk"></a></p>
+<h4 id="collection-method"><code>chunk()</code></h4>
+<p>将集合拆成多个指定大小的较小集合：</p>
+<pre><code>$collection = collect([1, 2, 3, 4, 5, 6, 7]);
+
+$chunks = $collection-&gt;chunk(4);
+
+$chunks-&gt;toArray();
+
+// [[1, 2, 3, 4], [5, 6, 7]]</code></pre>
+<p>这个方法在适用于网格系统如 <a href="javascript:if(confirm('http://getbootstrap.com/css/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://getbootstrap.com/css/#grid'" tppabs="http://getbootstrap.com/css/#grid">Bootstrap</a> 的<a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a> 。想像你有一个 <a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">Eloquent</a> 模型的集合要显示在一个网格内：</p>
+<pre><code>@foreach ($products-&gt;chunk(3) as $chunk)
+    &lt;div class="row"&gt;
+        @foreach ($chunk as $product)
+            &lt;div class="col-xs-4"&gt;{{ $product-&gt;name }}&lt;/div&gt;
+        @endforeach
+    &lt;/div&gt;
+@endforeach</code></pre>
+<p><a name="method-collapse"></a></p>
+<h4 id="collection-method"><code>collapse()</code></h4>
+<p>将多个数组组成的集合合成单个数组集合：</p>
+<pre><code>$collection = collect([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
+
+$collapsed = $collection-&gt;collapse();
+
+$collapsed-&gt;all();
+
+// [1, 2, 3, 4, 5, 6, 7, 8, 9]</code></pre>
+<p><a name="method-contains"></a></p>
+<h4 id="collection-method"><code>contains()</code></h4>
+<p>判断集合是否含有指定项目：</p>
+<pre><code>$collection = collect(['name' =&gt; 'Desk', 'price' =&gt; 100]);
+
+$collection-&gt;contains('Desk');
+
+// true
+
+$collection-&gt;contains('New York');
+
+// false</code></pre>
+<p>你可以将一对键/值传入 <code>contains</code> 方法，用来判断该组合是否存在于集合内：</p>
+<pre><code>$collection = collect([
+    ['product' =&gt; 'Desk', 'price' =&gt; 200],
+    ['product' =&gt; 'Chair', 'price' =&gt; 100],
+]);
+
+$collection-&gt;contains('product', 'Bookcase');
+
+// false</code></pre>
+<p>最后，你也可以传入一个回调函数到 <code>contains</code> 方法内运行你自己的判断语句：</p>
+<pre><code>$collection = collect([1, 2, 3, 4, 5]);
+
+$collection-&gt;contains(function ($key, $value) {
+    return $value &gt; 5;
+});
+
+// false</code></pre>
+<p><a name="method-count"></a></p>
+<h4 id="collection-method"><code>count()</code></h4>
+<p>返回该集合内的项目总数：</p>
+<pre><code>$collection = collect([1, 2, 3, 4]);
+
+$collection-&gt;count();
+
+// 4</code></pre>
+<p><a name="method-diff"></a></p>
+<h4 id="collection-method"><code>diff()</code></h4>
+<p>将集合与其它集合或纯 PHP <code>数组</code>进行比较：</p>
+<pre><code>$collection = collect([1, 2, 3, 4, 5]);
+
+$diff = $collection-&gt;diff([2, 4, 6, 8]);
+
+$diff-&gt;all();
+
+// [1, 3, 5]</code></pre>
+<p><a name="method-each"></a></p>
+<h4 id="collection-method"><code>each()</code></h4>
+<p>遍历集合中的项目，并将之传入回调函数：</p>
+<pre><code>$collection = $collection-&gt;each(function ($item, $key) {
+    //
+});</code></pre>
+<p>回调函数返回 <code>false</code> 以中断循环：</p>
+<pre><code>$collection = $collection-&gt;each(function ($item, $key) {
+    if (/* some condition */) {
+        return false;
+    }
+});</code></pre>
+<p><a name="method-every"></a></p>
+<h4 id="collection-method"><code>every()</code></h4>
+<p>创建一个包含每 <strong>第 n 个</strong> 元素的新集合：</p>
+<pre><code>$collection = collect(['a', 'b', 'c', 'd', 'e', 'f']);
+
+$collection-&gt;every(4);
+
+// ['a', 'e']</code></pre>
+<p>你可以选择性的传递偏移值作为第二个参数：</p>
+<pre><code>$collection-&gt;every(4, 1);
+
+// ['b', 'f']</code></pre>
+<p><a name="method-except"></a></p>
+<h4 id="collection-method"><code>except()</code></h4>
+<p>返回集合中除了指定键的所有项目：</p>
+<pre><code>$collection = collect(['product_id' =&gt; 1, 'name' =&gt; 'Desk', 'price' =&gt; 100, 'discount' =&gt; false]);
+
+$filtered = $collection-&gt;except(['price', 'discount']);
+
+$filtered-&gt;all();
+
+// ['product_id' =&gt; 1, 'name' =&gt; 'Desk']</code></pre>
+<p>与 <code>except</code> 相反的方法请查看 <a href="#method-only">only</a>。</p>
+<p><a name="method-filter"></a></p>
+<h4 id="collection-method"><code>filter()</code></h4>
+<p>使用回调函数筛选集合，只留下那些通过判断测试的项目：</p>
+<pre><code>$collection = collect([1, 2, 3, 4]);
+
+$filtered = $collection-&gt;filter(function ($item) {
+    return $item &gt; 2;
+});
+
+$filtered-&gt;all();
+
+// [3, 4]</code></pre>
+<p>与 <code>filter</code> 相反的方法可以查看 <a href="#method-reject">reject</a>。</p>
+<p><a name="method-first"></a></p>
+<h4 id="collection-method"><code>first()</code></h4>
+<p>返回集合第一个通过指定测试的元素：</p>
+<pre><code>collect([1, 2, 3, 4])-&gt;first(function ($key, $value) {
+    return $value &gt; 2;
+});
+
+// 3</code></pre>
+<p>你也可以不传入参数使用 <code>first</code> 方法以获取集合中第一个元素。如果集合是空的，则会返回 <code>null</code>：</p>
+<pre><code>collect([1, 2, 3, 4])-&gt;first();
+
+// 1</code></pre>
+<p><a name="method-flatten"></a></p>
+<h4 id="collection-method"><code>flatten()</code></h4>
+<p>将多维集合转为一维集合：</p>
+<pre><code>$collection = collect(['name' =&gt; 'taylor', 'languages' =&gt; ['php', 'javascript']]);
+
+$flattened = $collection-&gt;flatten();
+
+$flattened-&gt;all();
+
+// ['taylor', 'php', 'javascript'];</code></pre>
+<p><a name="method-flip"></a></p>
+<h4 id="collection-method"><code>flip()</code></h4>
+<p>将集合中的键和对应的数值进行互换：</p>
+<pre><code>$collection = collect(['name' =&gt; 'taylor', 'framework' =&gt; 'laravel']);
+
+$flipped = $collection-&gt;flip();
+
+$flipped-&gt;all();
+
+// ['taylor' =&gt; 'name', 'laravel' =&gt; 'framework']</code></pre>
+<p><a name="method-forget"></a></p>
+<h4 id="collection-method"><code>forget()</code></h4>
+<p>通过集合的键来移除掉集合中的一个项目：</p>
+<pre><code>$collection = collect(['name' =&gt; 'taylor', 'framework' =&gt; 'laravel']);
+
+$collection-&gt;forget('name');
+
+$collection-&gt;all();
+
+// [framework' =&gt; 'laravel']</code></pre>
+<blockquote>
+<p><strong>注意：</strong> 与大多数其它集合的方法不同，<code>forget</code> 不会返回修改过后的新集合；它会直接修改调用它的集合。</p>
+</blockquote>
+<p><a name="method-forpage"></a></p>
+<h4 id="collection-method"><code>forPage()</code></h4>
+<p>返回可用来在指定页码显示项目的新集合：</p>
+<pre><code>$collection = collect([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+$chunk = $collection-&gt;forPage(2, 3);
+
+$chunk-&gt;all();
+
+// [4, 5, 6]</code></pre>
+<p>这个方法需要「页码」和「每页显示数量」。</p>
+<p><a name="method-get"></a></p>
+<h4 id="collection-method"><code>get()</code></h4>
+<p>返回指定键的项目。如果该键不存在，则返回 <code>null</code>：</p>
+<pre><code>$collection = collect(['name' =&gt; 'taylor', 'framework' =&gt; 'laravel']);
+
+$value = $collection-&gt;get('name');
+
+// taylor</code></pre>
+<p>你可以选择性地传入一个默认值作为第二个参数：</p>
+<pre><code>$collection = collect(['name' =&gt; 'taylor', 'framework' =&gt; 'laravel']);
+
+$value = $collection-&gt;get('foo', 'default-value');
+
+// default-value</code></pre>
+<p>你甚至可以传入回调函数当默认值。如果指定的键不存在，就会返回回调函数的运行结果：</p>
+<pre><code>$collection-&gt;get('email', function () {
+    return 'default-value';
+});
+
+// default-value</code></pre>
+<p><a name="method-groupby"></a></p>
+<h4 id="collection-method"><code>groupBy()</code></h4>
+<p>根据指定的「键」为集合内的项目分组：</p>
+<pre><code>$collection = collect([
+    ['account_id' =&gt; 'account-x10', 'product' =&gt; 'Chair'],
+    ['account_id' =&gt; 'account-x10', 'product' =&gt; 'Bookcase'],
+    ['account_id' =&gt; 'account-x11', 'product' =&gt; 'Desk'],
+]);
+
+$grouped = $collection-&gt;groupBy('account_id');
+
+$grouped-&gt;toArray();
+
+/*
+    [
+        'account-x10' =&gt; [
+            ['account_id' =&gt; 'account-x10', 'product' =&gt; 'Chair'],
+            ['account_id' =&gt; 'account-x10', 'product' =&gt; 'Bookcase'],
+        ],
+        'account-x11' =&gt; [
+            ['account_id' =&gt; 'account-x11', 'product' =&gt; 'Desk'],
+        ],
+    ]
+*/</code></pre>
+<p>除了传入字符串的「键」之外，你也可以传入回调函数。该函数应该返回你希望用来分组的键的值。</p>
+<pre><code>$grouped = $collection-&gt;groupBy(function ($item, $key) {
+    return substr($item['account_id'], -3);
+});
+
+$grouped-&gt;toArray();
+
+/*
+    [
+        'x10' =&gt; [
+            ['account_id' =&gt; 'account-x10', 'product' =&gt; 'Chair'],
+            ['account_id' =&gt; 'account-x10', 'product' =&gt; 'Bookcase'],
+        ],
+        'x11' =&gt; [
+            ['account_id' =&gt; 'account-x11', 'product' =&gt; 'Desk'],
+        ],
+    ]
+*/</code></pre>
+<p><a name="method-has"></a></p>
+<h4 id="collection-method"><code>has()</code></h4>
+<p>检查集合中是否含有指定的「键」：</p>
+<pre><code>$collection = collect(['account_id' =&gt; 1, 'product' =&gt; 'Desk']);
+
+$collection-&gt;has('email');
+
+// false</code></pre>
+<p><a name="method-implode"></a></p>
+<h4 id="collection-method"><code>implode()</code></h4>
+<p><code>implode</code> 方法合并集合中的项目。它的参数依集合中的项目类型而定。</p>
+<p>假如集合含有数组或对象，你应该传入你希望连接的属性的「键」，以及你希望放在数值之间的拼接字符串：</p>
+<pre><code>$collection = collect([
+    ['account_id' =&gt; 1, 'product' =&gt; 'Desk'],
+    ['account_id' =&gt; 2, 'product' =&gt; 'Chair'],
+]);
+
+$collection-&gt;implode('product', ', ');
+
+// Desk, Chair</code></pre>
+<p>假如集合只含有简单的字符串或数字，则只需要传入拼接的字符串作为该方法的唯一参数即可：</p>
+<pre><code>collect([1, 2, 3, 4, 5])-&gt;implode('-');
+
+// '1-2-3-4-5'</code></pre>
+<p><a name="method-intersect"></a></p>
+<h4 id="collection-method"><code>intersect()</code></h4>
+<p>移除任何指定 <code>数组</code> 或集合内所没有的数值：</p>
+<pre><code>$collection = collect(['Desk', 'Sofa', 'Chair']);
+
+$intersect = $collection-&gt;intersect(['Desk', 'Chair', 'Bookcase']);
+
+$intersect-&gt;all();
+
+// [0 =&gt; 'Desk', 2 =&gt; 'Chair']</code></pre>
+<p>相当于去「交集」。</p>
+<p><a name="method-isempty"></a></p>
+<h4 id="collection-method"><code>isEmpty()</code></h4>
+<p>如果集合是空的，<code>isEmpty</code> 方法会返回 <code>true</code>：否则返回 <code>false</code>：</p>
+<pre><code>collect([])-&gt;isEmpty();
+
+// true</code></pre>
+<p><a name="method-keyby"></a></p>
+<h4 id="collection-method"><code>keyBy()</code></h4>
+<p>以指定键的值作为集合项目的键：</p>
+<pre><code>$collection = collect([
+    ['product_id' =&gt; 'prod-100', 'name' =&gt; 'desk'],
+    ['product_id' =&gt; 'prod-200', 'name' =&gt; 'chair'],
+]);
+
+$keyed = $collection-&gt;keyBy('product_id');
+
+$keyed-&gt;all();
+
+/*
+    [
+        'prod-100' =&gt; ['product_id' =&gt; 'prod-100', 'name' =&gt; 'Desk'],
+        'prod-200' =&gt; ['product_id' =&gt; 'prod-200', 'name' =&gt; 'Chair'],
+    ]
+*/</code></pre>
+<p>如果多个项目有同样的键，只有最后一个会出现在新的集合内。</p>
+<p>你也可以传入自己的回调函数，该函数应该返回集合的键的值：</p>
+<pre><code>$keyed = $collection-&gt;keyBy(function ($item) {
+    return strtoupper($item['product_id']);
+});
+
+$keyed-&gt;all();
+
+/*
+    [
+        'PROD-100' =&gt; ['product_id' =&gt; 'prod-100', 'name' =&gt; 'Desk'],
+        'PROD-200' =&gt; ['product_id' =&gt; 'prod-200', 'name' =&gt; 'Chair'],
+    ]
+*/</code></pre>
+<p><a name="method-keys"></a></p>
+<h4 id="collection-method"><code>keys()</code></h4>
+<p>返回该集合所有的键：</p>
+<pre><code>$collection = collect([
+    'prod-100' =&gt; ['product_id' =&gt; 'prod-100', 'name' =&gt; 'Desk'],
+    'prod-200' =&gt; ['product_id' =&gt; 'prod-200', 'name' =&gt; 'Chair'],
+]);
+
+$keys = $collection-&gt;keys();
+
+$keys-&gt;all();
+
+// ['prod-100', 'prod-200']</code></pre>
+<p><a name="method-last"></a></p>
+<h4 id="collection-method"><code>last()</code></h4>
+<p>返回集合中，最后一个通过指定测试的元素：</p>
+<pre><code>collect([1, 2, 3, 4])-&gt;last(function ($key, $value) {
+    return $value &lt; 3;
+});
+
+// 2</code></pre>
+<p>你也可以不传入参数使用 <code>last</code> 方法以获取集合中最后一个元素。如果集合是空的，则会返回 <code>null</code>：</p>
+<pre><code>collect([1, 2, 3, 4])-&gt;last();
+
+// 4</code></pre>
+<p><a name="method-map"></a></p>
+<h4 id="collection-method"><code>map()</code></h4>
+<p>遍历整个集合并将每一个数值传入回调函数。回调函数可以任意修改并返回项目，形成修改过的项目组成的新集合：</p>
+<pre><code>$collection = collect([1, 2, 3, 4, 5]);
+
+$multiplied = $collection-&gt;map(function ($item, $key) {
+    return $item * 2;
+});
+
+$multiplied-&gt;all();
+
+// [2, 4, 6, 8, 10]</code></pre>
+<blockquote>
+<p><strong>注意：</strong> 正如集合大多数其它的方法一样，<code>map</code> 返回一个新集合实例；它并没有修改被调用的集合。假如你想改变原始的集合，得使用 <a href="#method-transform"><code>transform</code></a> 方法。</p>
+</blockquote>
+<p><a name="method-max"></a></p>
+<h4 id="collection-method"><code>max()</code></h4>
+<p>计算指定键的最大值：</p>
+<pre><code>$max = collect([['foo' =&gt; 10], ['foo' =&gt; 20]])-&gt;max('foo');
+
+// 20
+
+$max = collect([1, 2, 3, 4, 5])-&gt;max();
+
+// 5</code></pre>
+<p><a name="method-merge"></a></p>
+<h4 id="collection-method"><code>merge()</code></h4>
+<p>合并数组进集合。数组「键」对应的数值会覆盖集合「键」对应的数值：</p>
+<pre><code>$collection = collect(['product_id' =&gt; 1, 'name' =&gt; 'Desk']);
+
+$merged = $collection-&gt;merge(['price' =&gt; 100, 'discount' =&gt; false]);
+
+$merged-&gt;all();
+
+// ['product_id' =&gt; 1, 'name' =&gt; 'Desk', 'price' =&gt; 100, 'discount' =&gt; false]</code></pre>
+<p>如果指定数组的「键」为数字，则「值」将会合并到集合的后面：</p>
+<pre><code>$collection = collect(['Desk', 'Chair']);
+
+$merged = $collection-&gt;merge(['Bookcase', 'Door']);
+
+$merged-&gt;all();
+
+// ['Desk', 'Chair', 'Bookcase', 'Door']</code></pre>
+<p><a name="method-min"></a></p>
+<h4 id="collection-method"><code>min()</code></h4>
+<p>计算指定「键」的最小值：</p>
+<pre><code>$min = collect([['foo' =&gt; 10], ['foo' =&gt; 20]])-&gt;min('foo');
+
+// 10
+
+$min = collect([1, 2, 3, 4, 5])-&gt;min();
+
+// 1</code></pre>
+<p><a name="method-only"></a></p>
+<h4 id="collection-method"><code>only()</code></h4>
+<p>返回集合中指定键的所有项目：</p>
+<pre><code>$collection = collect(['product_id' =&gt; 1, 'name' =&gt; 'Desk', 'price' =&gt; 100, 'discount' =&gt; false]);
+
+$filtered = $collection-&gt;only(['product_id', 'name']);
+
+$filtered-&gt;all();
+
+// ['product_id' =&gt; 1, 'name' =&gt; 'Desk']</code></pre>
+<p>与 <code>only</code> 相反的方法请查看 <a href="#method-only">except</a>。</p>
+<p><a name="method-pluck"></a></p>
+<h4 id="collection-method"><code>pluck()</code></h4>
+<p>获取所有集合中指定「键」对应的值：</p>
+<pre><code>$collection = collect([
+    ['product_id' =&gt; 'prod-100', 'name' =&gt; 'Desk'],
+    ['product_id' =&gt; 'prod-200', 'name' =&gt; 'Chair'],
+]);
+
+$plucked = $collection-&gt;pluck('name');
+
+$plucked-&gt;all();
+
+// ['Desk', 'Chair']</code></pre>
+<p>你也可以指定要怎么给最后出来的集合分配键：</p>
+<pre><code>$plucked = $collection-&gt;pluck('name', 'product_id');
+
+$plucked-&gt;all();
+
+// ['prod-100' =&gt; 'Desk', 'prod-200' =&gt; 'Chair']</code></pre>
+<p><a name="method-pop"></a></p>
+<h4 id="collection-method"><code>pop()</code></h4>
+<p>移除并返回集合最后一个项目：</p>
+<pre><code>$collection = collect([1, 2, 3, 4, 5]);
+
+$collection-&gt;pop();
+
+// 5
+
+$collection-&gt;all();
+
+// [1, 2, 3, 4]</code></pre>
+<p><a name="method-prepend"></a></p>
+<h4 id="collection-method"><code>prepend()</code></h4>
+<p>在集合前面增加一个项目：</p>
+<pre><code>$collection = collect([1, 2, 3, 4, 5]);
+
+$collection-&gt;prepend(0);
+
+$collection-&gt;all();
+
+// [0, 1, 2, 3, 4, 5]</code></pre>
+<p>你可以传递选择性的第二个参数来设置前置项目的键：</p>
+<pre><code>$collection = collect(['one' =&gt; 1, 'two', =&gt; 2]);
+
+$collection-&gt;prepend(0, 'zero');
+
+$collection-&gt;all();
+
+// ['zero' =&gt; 0, 'one' =&gt; 1, 'two', =&gt; 2]</code></pre>
+<p><a name="method-pull"></a></p>
+<h4 id="collection-method"><code>pull()</code></h4>
+<p>把「键」对应的值从集合中移除并返回：</p>
+<pre><code>$collection = collect(['product_id' =&gt; 'prod-100', 'name' =&gt; 'Desk']);
+
+$collection-&gt;pull('name');
+
+// 'Desk'
+
+$collection-&gt;all();
+
+// ['product_id' =&gt; 'prod-100']</code></pre>
+<p><a name="method-push"></a></p>
+<h4 id="collection-method"><code>push()</code></h4>
+<p>在集合的后面新添加一个元素：</p>
+<pre><code>$collection = collect([1, 2, 3, 4]);
+
+$collection-&gt;push(5);
+
+$collection-&gt;all();
+
+// [1, 2, 3, 4, 5]</code></pre>
+<p><a name="method-put"></a></p>
+<h4 id="collection-method"><code>put()</code></h4>
+<p>在集合内设置一个「键/值」：</p>
+<pre><code>$collection = collect(['product_id' =&gt; 1, 'name' =&gt; 'Desk']);
+
+$collection-&gt;put('price', 100);
+
+$collection-&gt;all();
+
+// ['product_id' =&gt; 1, 'name' =&gt; 'Desk', 'price' =&gt; 100]</code></pre>
+<p><a name="method-random"></a></p>
+<h4 id="collection-method"><code>random()</code></h4>
+<p><code>random</code> 方法从集合中随机返回一个项目：</p>
+<pre><code>$collection = collect([1, 2, 3, 4, 5]);
+
+$collection-&gt;random();
+
+// 4 - (随机返回)</code></pre>
+<p>你可以选择性地传入一个整数到 <code>random</code>。如果该整数大于 <code>1</code>，则会返回一个集合：</p>
+<pre><code>$random = $collection-&gt;random(3);
+
+$random-&gt;all();
+
+// [2, 4, 5] - (随机返回)</code></pre>
+<p><a name="method-reduce"></a></p>
+<h4 id="collection-method"><code>reduce()</code></h4>
+<p><code>reduce</code> 方法将集合缩减到单个数值，该方法会将每次迭代的结果传入到下一次迭代：</p>
+<pre><code>$collection = collect([1, 2, 3]);
+
+$total = $collection-&gt;reduce(function ($carry, $item) {
+    return $carry + $item;
+});
+
+// 6</code></pre>
+<p>第一次迭代时 <code>$carry</code> 的数值为 <code>null</code>；然而你也可以传入第二个参数进 <code>reduce</code> 以指定它的初始值：</p>
+<pre><code>$collection-&gt;reduce(function ($carry, $item) {
+    return $carry + $item;
+}, 4);
+
+// 10</code></pre>
+<p><a name="method-reject"></a></p>
+<h4 id="collection-method"><code>reject()</code></h4>
+<p><code>reject</code> 方法以指定的回调函数筛选集合。该回调函数应该对希望从最终集合移除掉的项目返回 <code>true</code>：</p>
+<pre><code>$collection = collect([1, 2, 3, 4]);
+
+$filtered = $collection-&gt;reject(function ($item) {
+    return $item &gt; 2;
+});
+
+$filtered-&gt;all();
+
+// [1, 2]</code></pre>
+<p>与 <code>reject</code> 相反的方法可以查看 <a href="#method-filter"><code>filter</code></a> 方法。</p>
+<p><a name="method-reverse"></a></p>
+<h4 id="collection-method"><code>reverse()</code></h4>
+<p><code>reverse</code> 方法倒转集合内项目的顺序：</p>
+<pre><code>$collection = collect([1, 2, 3, 4, 5]);
+
+$reversed = $collection-&gt;reverse();
+
+$reversed-&gt;all();
+
+// [5, 4, 3, 2, 1]</code></pre>
+<p><a name="method-search"></a></p>
+<h4 id="collection-method"><code>search()</code></h4>
+<p><code>search</code> 方法在集合内搜索指定的数值并返回找到的键。假如找不到项目，则返回 <code>false</code>：</p>
+<pre><code>$collection = collect([2, 4, 6, 8]);
+
+$collection-&gt;search(4);
+
+// 1</code></pre>
+<p>搜索是用「宽松」比对来进行。要使用严格比对，就传入 <code>true</code> 为该方法的第二个参数：</p>
+<pre><code>$collection-&gt;search('4', true);
+
+// false</code></pre>
+<p>另外，你可以传入你自己的回调函数来搜索第一个通过你判断测试的项目：</p>
+<pre><code>$collection-&gt;search(function ($item, $key) {
+    return $item &gt; 5;
+});
+
+// 2</code></pre>
+<p><a name="method-shift"></a></p>
+<h4 id="collection-method"><code>shift()</code></h4>
+<p><code>shift</code> 方法移除并返回集合的第一个项目：</p>
+<pre><code>$collection = collect([1, 2, 3, 4, 5]);
+
+$collection-&gt;shift();
+
+// 1
+
+$collection-&gt;all();
+
+// [2, 3, 4, 5]</code></pre>
+<p><a name="method-shuffle"></a></p>
+<h4 id="collection-method"><code>shuffle()</code></h4>
+<p><code>shuffle</code> 方法随机排序集合的项目：</p>
+<pre><code>$collection = collect([1, 2, 3, 4, 5]);
+
+$shuffled = $collection-&gt;shuffle();
+
+$shuffled-&gt;all();
+
+// [3, 2, 5, 1, 4] // (generated randomly)</code></pre>
+<p><a name="method-slice"></a></p>
+<h4 id="collection-method"><code>slice()</code></h4>
+<p><code>slice</code> 方法返回集合从指定索引开始的一部分切片：</p>
+<pre><code>$collection = collect([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+$slice = $collection-&gt;slice(4);
+
+$slice-&gt;all();
+
+// [5, 6, 7, 8, 9, 10]</code></pre>
+<p>如果你想限制返回切片的大小，就传入想要的大小为方法的第二个参数：</p>
+<pre><code>$slice = $collection-&gt;slice(4, 2);
+
+$slice-&gt;all();
+
+// [5, 6]</code></pre>
+<p>返回的切片将会有以数字索引的新键。假如你希望保留原始的键，传入 <code>true</code> 为方法的第三个参数。</p>
+<p><a name="method-sort"></a></p>
+<h4 id="collection-method"><code>sort()</code></h4>
+<p>对集合排序：</p>
+<pre><code>$collection = collect([5, 3, 1, 2, 4]);
+
+$sorted = $collection-&gt;sort();
+
+$sorted-&gt;values()-&gt;all();
+
+// [1, 2, 3, 4, 5]</code></pre>
+<p>排序过的集合保有原来的数组键。在这个例子中我们用了 <a href="#method-values"><code>values</code></a> 方法重设键为连续的数字索引。</p>
+<p>要排序内含数组或对象的集合，见 <a href="#method-sortby"><code>sortBy</code></a> 和 <a href="#method-sortbydesc"><code>sortByDesc</code></a> 方法。</p>
+<p>假如你需要更高级的排序，你可以传入回调函数以你自己的算法进行<code>排序</code>。参考 PHP 文档的 <a href="javascript:if(confirm('http://php.net/manual/en/function.usort.php  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://php.net/manual/en/function.usort.php#refsect1-function.usort-parameters'" tppabs="http://php.net/manual/en/function.usort.php#refsect1-function.usort-parameters"><code>usort</code></a>，这是集合的 <code>sort</code> 方法在背后所调用的函数。</p>
+<p><a name="method-sortby"></a></p>
+<h4 id="collection-method"><code>sortBy()</code></h4>
+<p>以指定的键排序集合：</p>
+<pre><code>$collection = collect([
+    ['name' =&gt; 'Desk', 'price' =&gt; 200],
+    ['name' =&gt; 'Chair', 'price' =&gt; 100],
+    ['name' =&gt; 'Bookcase', 'price' =&gt; 150],
+]);
+
+$sorted = $collection-&gt;sortBy('price');
+
+$sorted-&gt;values()-&gt;all();
+
+/*
+    [
+        ['name' =&gt; 'Chair', 'price' =&gt; 100],
+        ['name' =&gt; 'Bookcase', 'price' =&gt; 150],
+        ['name' =&gt; 'Desk', 'price' =&gt; 200],
+    ]
+*/</code></pre>
+<p>排序过的集合保有原来的数组键。在这个例子中我们用了 <a href="#method-values"><code>values</code></a> 方法重设键为连续的数字索引。</p>
+<p>你也可以传入自己的回调函数以决定如何排序集合数值：</p>
+<pre><code>$collection = collect([
+    ['name' =&gt; 'Desk', 'colors' =&gt; ['Black', 'Mahogany']],
+    ['name' =&gt; 'Chair', 'colors' =&gt; ['Black']],
+    ['name' =&gt; 'Bookcase', 'colors' =&gt; ['Red', 'Beige', 'Brown']],
+]);
+
+$sorted = $collection-&gt;sortBy(function ($product, $key) {
+    return count($product['colors']);
+});
+
+$sorted-&gt;values()-&gt;all();
+
+/*
+    [
+        ['name' =&gt; 'Chair', 'colors' =&gt; ['Black']],
+        ['name' =&gt; 'Desk', 'colors' =&gt; ['Black', 'Mahogany']],
+        ['name' =&gt; 'Bookcase', 'colors' =&gt; ['Red', 'Beige', 'Brown']],
+    ]
+*/</code></pre>
+<p><a name="method-sortbydesc"></a></p>
+<h4 id="collection-method"><code>sortByDesc()</code></h4>
+<p>与 <a href="#method-sortby"><code>sortBy</code></a> 有着一样的形式，但是会以相反的顺序来排序集合：</p>
+<p><a name="method-splice"></a></p>
+<h4 id="collection-method"><code>splice()</code></h4>
+<p>返回从指定的索引开始的一小切片项目，原本集合也会被切除：</p>
+<pre><code>$collection = collect([1, 2, 3, 4, 5]);
+
+$chunk = $collection-&gt;splice(2);
+
+$chunk-&gt;all();
+
+// [3, 4, 5]
+
+$collection-&gt;all();
+
+// [1, 2]</code></pre>
+<p>你可以传入第二个参数以限制大小：</p>
+<pre><code>$collection = collect([1, 2, 3, 4, 5]);
+
+$chunk = $collection-&gt;splice(2, 1);
+
+$chunk-&gt;all();
+
+// [3]
+
+$collection-&gt;all();
+
+// [1, 2, 4, 5]</code></pre>
+<p>此外，你可以传入含有新项目的第三个参数以取代集合中被移除的项目：</p>
+<pre><code>$collection = collect([1, 2, 3, 4, 5]);
+
+$chunk = $collection-&gt;splice(2, 1, [10, 11]);
+
+$chunk-&gt;all();
+
+// [3]
+
+$collection-&gt;all();
+
+// [1, 2, 10, 11, 4, 5]</code></pre>
+<p><a name="method-sum"></a></p>
+<h4 id="collection-method"><code>sum()</code></h4>
+<p>返回集合内所有项目的总和：</p>
+<pre><code>collect([1, 2, 3, 4, 5])-&gt;sum();
+
+// 15</code></pre>
+<p>如果集合包含数组或对象，你应该传入一个「键」来指定要用哪些数值来计算总合：</p>
+<pre><code>$collection = collect([
+    ['name' =&gt; 'JavaScript: The Good Parts', 'pages' =&gt; 176],
+    ['name' =&gt; 'JavaScript: The Definitive Guide', 'pages' =&gt; 1096],
+]);
+
+$collection-&gt;sum('pages');
+
+// 1272</code></pre>
+<p>此外，你可以传入自己的回调函数来决定要用哪些数值来计算总合：</p>
+<pre><code>$collection = collect([
+    ['name' =&gt; 'Chair', 'colors' =&gt; ['Black']],
+    ['name' =&gt; 'Desk', 'colors' =&gt; ['Black', 'Mahogany']],
+    ['name' =&gt; 'Bookcase', 'colors' =&gt; ['Red', 'Beige', 'Brown']],
+]);
+
+$collection-&gt;sum(function ($product) {
+    return count($product['colors']);
+});
+
+// 6</code></pre>
+<p><a name="method-take"></a></p>
+<h4 id="collection-method"><code>take()</code></h4>
+<p>返回有着指定数量项目的集合：</p>
+<pre><code>$collection = collect([0, 1, 2, 3, 4, 5]);
+
+$chunk = $collection-&gt;take(3);
+
+$chunk-&gt;all();
+
+// [0, 1, 2]</code></pre>
+<p>你也可以传入负整数以获取从集合后面来算指定数量的项目：</p>
+<pre><code>$collection = collect([0, 1, 2, 3, 4, 5]);
+
+$chunk = $collection-&gt;take(-2);
+
+$chunk-&gt;all();
+
+// [4, 5]</code></pre>
+<p><a name="method-toarray"></a></p>
+<h4 id="collection-method"><code>toArray()</code></h4>
+<p>将集合转换成纯 PHP <code>数组</code>。假如集合的数值是 <a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">Eloquent</a> 模型，也会被转换成数组：</p>
+<pre><code>$collection = collect(['name' =&gt; 'Desk', 'price' =&gt; 200]);
+
+$collection-&gt;toArray();
+
+/*
+    [
+        ['name' =&gt; 'Desk', 'price' =&gt; 200],
+    ]
+*/</code></pre>
+<blockquote>
+<p><strong>注意：</strong> <code>toArray</code> 也会转换所有内嵌的对象为数组。假如你希望获取原本的底层数组，改用 <a href="#method-all"><code>all</code></a> 方法。</p>
+</blockquote>
+<p><a name="method-tojson"></a></p>
+<h4 id="collection-method"><code>toJson()</code></h4>
+<p>将集合转换成 JSON：</p>
+<pre><code>$collection = collect(['name' =&gt; 'Desk', 'price' =&gt; 200]);
+
+$collection-&gt;toJson();
+
+// '{"name":"Desk","price":200}'</code></pre>
+<p><a name="method-transform"></a></p>
+<h4 id="collection-method"><code>transform()</code></h4>
+<p>遍历集合并对集合内每一个项目调用指定的回调函数。集合的项目将会被回调函数返回的数值取代掉：</p>
+<pre><code>$collection = collect([1, 2, 3, 4, 5]);
+
+$collection-&gt;transform(function ($item, $key) {
+    return $item * 2;
+});
+
+$collection-&gt;all();
+
+// [2, 4, 6, 8, 10]</code></pre>
+<blockquote>
+<p><strong>注意：</strong> 与大多数其它集合的方法不同，<code>transform</code> 会修改集合本身。如果你希望创建新集合，就改用 <a href="#method-map"><code>map</code></a> 方法。</p>
+</blockquote>
+<p><a name="method-unique"></a></p>
+<h4 id="collection-method"><code>unique()</code></h4>
+<p><code>unique</code> 方法返回集合中所有唯一的项目：</p>
+<pre><code>$collection = collect([1, 1, 2, 2, 3, 4, 2]);
+
+$unique = $collection-&gt;unique();
+
+$unique-&gt;values()-&gt;all();
+
+// [1, 2, 3, 4]</code></pre>
+<p>排序过的集合保有原来的数组键。在这个例子中我们用了 <a href="#method-values"><code>values</code></a> 方法重设键为连续的数字索引。</p>
+<p>当处理内嵌的数组或对象，你可以指定用来决定唯一性的键：</p>
+<pre><code>$collection = collect([
+    ['name' =&gt; 'iPhone 6', 'brand' =&gt; 'Apple', 'type' =&gt; 'phone'],
+    ['name' =&gt; 'iPhone 5', 'brand' =&gt; 'Apple', 'type' =&gt; 'phone'],
+    ['name' =&gt; 'Apple Watch', 'brand' =&gt; 'Apple', 'type' =&gt; 'watch'],
+    ['name' =&gt; 'Galaxy S6', 'brand' =&gt; 'Samsung', 'type' =&gt; 'phone'],
+    ['name' =&gt; 'Galaxy Gear', 'brand' =&gt; 'Samsung', 'type' =&gt; 'watch'],
+]);
+
+$unique = $collection-&gt;unique('brand');
+
+$unique-&gt;values()-&gt;all();
+
+/*
+    [
+        ['name' =&gt; 'iPhone 6', 'brand' =&gt; 'Apple', 'type' =&gt; 'phone'],
+        ['name' =&gt; 'Galaxy S6', 'brand' =&gt; 'Samsung', 'type' =&gt; 'phone'],
+    ]
+*/</code></pre>
+<p>你可以传入自己的回调函数来决定项目的唯一性：</p>
+<pre><code>$unique = $collection-&gt;unique(function ($item) {
+    return $item['brand'].$item['type'];
+});
+
+$unique-&gt;values()-&gt;all();
+
+/*
+    [
+        ['name' =&gt; 'iPhone 6', 'brand' =&gt; 'Apple', 'type' =&gt; 'phone'],
+        ['name' =&gt; 'Apple Watch', 'brand' =&gt; 'Apple', 'type' =&gt; 'watch'],
+        ['name' =&gt; 'Galaxy S6', 'brand' =&gt; 'Samsung', 'type' =&gt; 'phone'],
+        ['name' =&gt; 'Galaxy Gear', 'brand' =&gt; 'Samsung', 'type' =&gt; 'watch'],
+    ]
+*/</code></pre>
+<p><a name="method-values"></a></p>
+<h4 id="collection-method"><code>values()</code></h4>
+<p>返回「键」重新被设为「连续整数」的新集合：</p>
+<pre><code>$collection = collect([
+    10 =&gt; ['product' =&gt; 'Desk', 'price' =&gt; 200],
+    11 =&gt; ['product' =&gt; 'Desk', 'price' =&gt; 200]
+]);
+
+$values = $collection-&gt;values();
+
+$values-&gt;all();
+
+/*
+    [
+        0 =&gt; ['product' =&gt; 'Desk', 'price' =&gt; 200],
+        1 =&gt; ['product' =&gt; 'Desk', 'price' =&gt; 200],
+    ]
+*/</code></pre>
+<p><a name="method-where"></a></p>
+<h4 id="collection-method"><code>where()</code></h4>
+<p>以一对指定的「键／数值」筛选集合：</p>
+<pre><code>$collection = collect([
+    ['product' =&gt; 'Desk', 'price' =&gt; 200],
+    ['product' =&gt; 'Chair', 'price' =&gt; 100],
+    ['product' =&gt; 'Bookcase', 'price' =&gt; 150],
+    ['product' =&gt; 'Door', 'price' =&gt; 100],
+]);
+
+$filtered = $collection-&gt;where('price', 100);
+
+$filtered-&gt;all();
+
+/*
+[
+    ['product' =&gt; 'Chair', 'price' =&gt; 100],
+    ['product' =&gt; 'Door', 'price' =&gt; 100],
+]
+*/</code></pre>
+<p>以严格比对检查数值。使用 <a href="#where-loose"><code>whereLoose</code></a> 方法以宽松比对进行筛选。</p>
+<p><a name="method-whereloose"></a></p>
+<h4 id="collection-method"><code>whereLoose()</code></h4>
+<p>这个方法与 <a href="#method-where"><code>where</code></a> 方法有着一样的形式；但是会以「宽松」比对来比对数值：</p>
+<p><a name="method-zip"></a></p>
+<h4 id="collection-method"><code>zip()</code></h4>
+<p><code>zip</code> 方法将集合与指定数组同样索引的值合并在一起：</p>
+<pre><code>$collection = collect(['Chair', 'Desk']);
+
+$zipped = $collection-&gt;zip([100, 200]);
+
+$zipped-&gt;all();
+
+// [['Chair', 100], ['Desk', 200]]</code></pre>
+		</div>
+
+		<div class="main-footer" style="border-top:1px dashed rgba(0, 0, 0, 0.1);padding-top: 30px;margin-top:30px;margin-bottom: 20px;">
+			<div class="prev-next-wrap clearfix">
+
+									<a class="btn btn-default pull-left" href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache"><i class="fa fa-arrow-left"></i> 缓存</a>
+				
+			    &nbsp;
+								    <a class="btn btn-default pull-right" href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir <i class="fa fa-arrow-right"></i></a>
+							</div>
+		</div>
+
+	</article>
+</div>
+
+		<footer class="main">
+			<ul>
+				<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+			</ul>
+			<p>Laravel is a trademark of Taylor Otwell. Copyright &copy; Taylor Otwell.</p>
+			<p class="less-significant"><a href="javascript:if(confirm('http://jackmcdade.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://jackmcdade.com/'" tppabs="http://jackmcdade.com/">Design by Jack McDade</a></p>
+
+			<p class="less-significant">
+				<a href="javascript:if(confirm('http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao'" tppabs="http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao" target="_blank">由 UCloud 赞助  <img src="dYfOYswiQY.png" tppabs="https://dn-phphub.qbox.me/uploads/images/201605/03/1/dYfOYswiQY.png" width="98" data-toggle="tooltip" data-placement="top" title="本站服务器由 UCloud 赞助"></a>.
+		      </p>
+		</footer>
+
+	</div>
+
+	<script src="laravel.js" tppabs="http://laravel-china.org/assets/js/laravel.js"></script>
+	<script src="viewport-units-buggyfill.js" tppabs="http://laravel-china.org/assets/js/viewport-units-buggyfill.js"></script>
+	<script>window.viewportUnitsBuggyfill.init();</script>
+    <script>
+
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','analytics.js'/*tpa=http://7xijlf.com2.z0.glb.qiniucdn.com/js/analytics.js*/,'ga');
+
+		ga('create', 'UA-53903425-7', 'auto');
+		ga('send', 'pageview');
+
+		$(window).load(function() {
+		  // When the page has loaded
+		  $(".main-content").fadeIn(10);
+		});
+    </script>
+</body>
+</html>

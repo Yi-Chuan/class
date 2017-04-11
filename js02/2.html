@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象的声明方式</title>
+</head>
+<body>
+<script type="text/javascript">
+	// 使用 new Object 创建对象
+	var jiajia = new Object();
+	// alert(jiajia);
+	//属性的操作 成员访问符 .
+		//添加
+			jiajia.name = '佳佳';
+			jiajia['age'] = 20;
+			var str = 'height';//当属性名存在与一个变量中时,使用[]形式
+			jiajia[str] = '177cm';
+
+		//删除
+			// delete jiajia.height;
+			// delete jiajia['age'];
+		//修改
+			// jiajia.name = '小佳佳';
+
+		//获取
+			// alert(jiajia.height);
+			// console.log(jiajia['age']);
+
+	//方法的操作
+//添加
+	jiajia.dance = function(){
+		alert('佳佳正在跳舞呢,思密达');
+	}
+
+	//调用方法
+	// jiajia.dance();
+
+	jiajia['sing'] = function(){
+		alert('最炫民族风');
+	}
+
+	// jiajia['sing']();
+	// var s = 'sing';
+	// jiajia[s]();
+
+//修改
+jiajia.dance = function(){
+	alert('我不会跳舞');
+}
+// jiajia.dance();
+
+//删除
+delete jiajia.dance;//删除方法时 千万不要加小括号
+
+// this 关键字,代表当前这个对象
+jiajia.intro = function(){
+	//属性获取
+	// alert(this.name);
+	// alert(this['age']);
+	// var r = 'height';
+	// alert(this[r]);
+
+	//方法的调用
+	// this.sing();
+	var s = 'sing';
+	// this[s]();//当属性名或方法名存在一个变量中时 都可以使用[]
+}
+
+jiajia.intro();
+
+// console.log(jiajia);
+
+</script>
+</body>
+</html>

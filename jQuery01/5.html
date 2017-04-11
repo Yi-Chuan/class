@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>广告滚动框</title>
+<style type="text/css">
+	*{margin: 0;padding: 0;}
+	#ad{width: 100px;height: 100px;
+		background: #369;border-radius:50%;
+		position:absolute;
+	}
+</style>
+</head>
+<body>
+	<div id="ad"></div>
+	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+//全局变量
+var inte = null;
+var stepX = 3;//移动步进
+var stepY = 2;//移动步进
+autoRun();
+//自动运行函数封装
+function autoRun(){
+//启动定时器
+inte = setInterval(function(){
+	//获取当前元素相对于父级元素的偏移量
+	var _l = $('#ad').position().left;
+	var _t = $('#ad').position().top;
+	//计算的left top
+	var newLeft = _l + stepX;
+	var newTop = _t + stepY;
+	//计算最大left
+	var maxLeft = $(window).width()-$('#ad').width();
+	var maxTop = $(window).height()-$('#ad').height();
+	//检测越界
+	if(newLeft >= maxLeft || newLeft <= 0){
+		stepX = -stepX;
+	}
+	if(newTop >= maxTop || newTop <= 0){
+		stepY = -stepY;
+	}
+	//设置样式
+	$('#ad').css({left:newLeft+'px',top:newTop+'px'});
+
+},10)
+}
+
+</script>
+</body>
+</html>

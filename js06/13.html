@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>浏览器操作</title>
+</head>
+<body style="width:2000px;height:2000px;
+、background:-moz-linear
+-gradient
+(black,yellow)">
+<script type="text/javascript">
+// 定位浏览器位置 ie
+// moveTo(100,100);
+//	按照步进来移动浏览器
+// moveBy(10,10);
+// 缩放浏览器
+// resizeTo(1000,1000);
+// 按照步进缩放
+// setInterval(function(){
+// 	resizeBy(10,10);
+// },100);
+
+//火狐可以用
+//scrollTo 将浏览器滚动到指定位置 滚动条width:2000px;height:2000px;background:-moz-linear-gradient(black,yellow)
+// scrollTo(100,100); 
+//按照指定步进移动浏览器的滚动条
+// setInterval(function(){
+// 	scrollBy(10,10);
+// },100);
+
+//事件// onresize onscroll,当可是区域发生改变时出发的事件
+window.onresize = function(){
+	console.log('尺寸发送了改变');
+}
+//页面滚动时触发的事件
+window.onscroll = function(){
+	console.log('发送了改变');
+}
+
+</script>
+</body>
+</html>

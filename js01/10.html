@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>节点获取</title>
+	<style type="text/css">
+		#all{width: 200px;height: 200px;background: #369;}
+	</style>
+</head>
+<body>
+	<div id="all" ></div>
+	<button id="but">求包养</button>
+
+	<script type="text/javascript">
+	//节点元素获取  get获取 element元素 By通过 Id
+	var all = document.getElementById('all');
+	var but = document.getElementById('but');
+
+	//绑定单击事件
+	but.onclick = function(){
+		// alert('你点击了我');
+		all.style.background = 'red';
+	}
+	console.log(all);
+	console.log(but);
+
+	</script>
+</body>
+</html>

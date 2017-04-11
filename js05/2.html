@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>鼠标右键事件</title>
+<style type="text/css">
+*{margin: 0;padding: 0;list-style:none;}
+#move{width: 100px;height: auto;
+background: #369;
+display:none;position:absolute;}
+#move li{height: 30px;text-align:center;
+line-height:30px;font-size:15px;}
+/*#move li:hover{background: #f38;font-size:16px;}*/
+.cur{background: #F39;font-size:16px;color:white;}
+
+</style>
+</head>
+<body>
+	<ul id="move">
+		<li>主页</li>
+		<li>列表</li>
+		<li>收藏</li>
+		<li>刷新</li>
+		<li>删除</li>
+		<li>复制</li>
+	</ul>
+<script type="text/javascript">
+//获取元素
+	var move = document.getElementById('move');
+	//绑定右键事件
+	window.oncontextmenu = function(e){
+
+		//获取当前鼠标位置
+		var x = e.clientX;
+		var y = e.clientY;
+		//显示菜单
+		move.style.display = 'block';
+		//修改菜单位置
+		move.style.left = x + 'px';
+		move.style.top = y + 'px';
+
+		//阻止window默认行为
+		return false;
+	}
+
+	//绑定单击事件 隐藏菜单
+	window.onclick = function(){
+			//隐藏菜单
+		move.style.display = 'none';
+	}
+
+
+	//给li绑定鼠标移入移出事件
+	var lis = document.getElementsByTagName('li');
+	//遍历绑定事件
+	for (var i = 0; i < lis.length; i++) {
+		//鼠标移入事件
+		lis[i].onmouseover = function(){
+			//修改样式
+			// this.style.background = '#f39';
+			// this.style.fontSize = '16px';
+			// this.style.color = 'white';
+			//添加属性 class
+			this.setAttribute('class','cur');
+		}
+		//鼠标移出事件
+		lis[i].onmouseout = function(){
+			//修改样式
+			// this.style.background = '#369';
+			// this.style.fontSize = '15px';
+			// this.style.color = 'black';
+			//移出属性
+			this.setAttribute('class','');//重新赋值
+			// this.removeAttribute('class','cur');//指定移出
+		}
+	};
+
+
+</script>
+</body>
+</html>

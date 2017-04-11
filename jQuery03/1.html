@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单验证</title>
+</head>
+<body>
+	<form action="1.php" method="post">
+		<table>
+			<tr>
+				<td>用户名</td>
+				<td><input type="text" name="username" readmin="请输入6~18位用户名"><span></span></td>
+			</tr>
+			<tr>
+				<td>密码</td>
+				<td><input type="password" name="password" readmin="请输入6~18位密码"><span></span></td>
+			</tr>
+			<tr>
+				<td>确认密码</td>
+				<td><input type="password" name="repassword" readmin="请再次输入密码"><span></span></td>
+			</tr>
+			<tr>
+				<td>邮箱</td>
+				<td><input type="text" name="email" readmin="请输入您的邮箱"><span></span></td>
+			</tr>
+			<tr>
+			<td>&nbsp;</td>
+			<td><button>注册</button></td>
+			</tr>
+		</table>
+	</form>
+<script type="text/javascript" src="./jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+//声明全局变量
+var CUSER = false;
+var CPASS = false;
+var CREPASS = false;
+var CEMAIL = false;
+
+//绑定表单事件
+$('form').submit(function(){
+	//触发丧失焦点事件
+	$('input').trigger('blur');
+	//检测所有字段是否正确
+	if(CUSER && CPASS && CREPASS && CEMAIL){
+		//提交
+		return true;
+	}
+	//阻止默认行为
+	return false;
+})
+
+//给所有字段绑定获取焦点事件
+$('input').focus(function(){
+	//获取属性 提示信息
+	var text = $(this).attr('readmin');
+	//给span设置文本
+	$(this).next().html(text).css('color','green');
+	//设置样式
+	$(this).css('border','1px solid green');
+})
+
+//绑定用户名丧失焦点事件
+$('input[name=username]').blur(function(){
+	//检测用户名格式是否正确
+	var reg = /^\w{6,18}$/;
+	//获取用户名
+	var uname = $(this).val();
+	//检测
+	var res = reg.test(uname);
+	if(!res){
+		$(this).next().html('用户名格式不正确').css('color','red');
+		$(this).css('border','1px solid red');
+		//如果不正确 停止发送ajax
+		CUSER = false;
+		return false;
+}
+//发送ajax验证用户名是否存在
+var inp = $(this); 
+$.ajax({
+	url:'2.php',
+	data:{name:uname},
+	type:'post',
+	success:function(data){
+		if(data == 1){
+			//可用
+			inp.css('border','1px solid blue');
+			inp.next().html('√').css('color','blue');
+			CUSER = true;
+		}else{
+			inp.css('border','1px solid red');
+			inp.next().html('用户名已经存在,请更换').css('color','red');
+			CUSER = false;
+		}
+	},
+	error:function(){
+		alert('错误');
+	},
+	timeout:1000,
+	//同步
+	async:false
+})
+})
+//密码
+$('input[name=password]').blur(function(){
+	//获取密码的值
+	var pass = $(this).val();
+	//声明正则
+	var reg = /^\w{6,18}$/;
+	//验证
+	if(reg.test(pass)){
+		//正确
+		$(this).css('border','1px solid blue');
+		$(this).next().html('√').css('color','blue');
+		CPASS = true;
+	}else{
+		//错误
+		$(this).css('border','1px solid red');
+		$(this).next().html('密码格式不正确').css('color','red');
+		CPASS = false;
+	}
+})
+
+//确认密码
+$('input[name=repassword]').blur(function(){
+	//获取确认密码的值
+	var repass = $(this).val();
+	//获取密码的值
+	var pass = $('input[name=password]').val();
+	if(repass == ''){
+		//错误
+		$(this).css('border','1px solid red');
+		$(this).next().html('确认密码必须填写').css('color','red');
+		CREPASS = false;
+		return false;
+	}
+	//验证
+	if(repass == pass){
+		//正确
+		$(this).css('border','1px solid blue');
+		$(this).next().html('√').css('color','blue');
+		CREPASS = true;
+	}else{
+		//错误
+		$(this).css('border','1px solid red');
+		$(this).next().html('两次密码不一致').css('color','red');
+		CREPASS = false;
+	}
+})
+
+//邮箱
+$('input[name=email]').blur(function(){
+	//邮箱
+	var email = $(this).val();
+	//声明正则
+	var reg = /^\w+@\w+\.(com|cn|org|net)$/;
+	//验证
+	if(reg.test(email)){
+		//正确
+		$(this).css('border','1px solid blue');
+		$(this).next().html('√').css('color','blue');
+		CEMAIL = true;
+	}else{
+		//错误
+		$(this).css('border','1px solid red');
+		$(this).next().html('邮箱格式不正确').css('color','red');
+		CEMAIL = false;
+	}
+})
+	</script>
+</body>
+</html>

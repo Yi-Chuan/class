@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数的注意事项</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/*
+			如果有形参,但是没有传,可以执行,但是形参的值时 undefined
+			不要给形参设置初始值,因为ie不兼容
+			如果少传参数,那么没有传递的参数默认就是 undefined
+			如果多传参数,那么多余的参数就会被 '忽略' '抛弃'
+		*/
+
+	function love(a,b,c){
+		// alert('iloveyou');
+		// console.log(a);
+		// console.log(b);
+		// console.log(c);
+		//获取当前函数在调用时的参数列表 php func_get_args
+		console.log(arguments);
+	}
+
+	love(10,20,30,40,50);
+
+	//优先级 在js中定义变量的时候 不能跟函数名 冲突 否则会覆盖函数
+	// var love = 'ilikeyou';
+	// love();//这个时候就不是一个函数了
+
+	</script>
+</body>
+</html>

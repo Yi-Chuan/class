@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数的定义方式</title>
+</head>
+<body>
+	<button onclick="miss()">点击事件</button>
+	<a href="JavaScript:love()">点击事件</a>
+<script type="text/javascript">
+	//love();//ok 可以在函数声明前调用
+	// 第一种 function 关键字
+	 function love(){
+		alert('天气不错哦');
+		return;//函数中如果没有手动返回一个值或者只写了return 那么返回的就 undefined
+	 }
+	 // love();//可以调用
+	 // var res = love();
+	 // alert(res);
+	 // var str = love();
+	 // str();
+	 /*
+		函数调用
+			代码中直接调用
+			事件触发
+			a链接
+			赋值给一个变量
+
+	 */
+
+
+
+	 // like();//no 不能在声明之前调用
+	 //第二种方法  表达式方式来声明函数
+	 var like = function(){
+		alert('哎哟,不错哦');
+	 }
+	 // like(); //ok
+
+	 // miss();//no 不能在声明之前调用
+
+	 //第三种 Function 构造函数方法
+	 var miss = new Function('alert("你变了,你才变了呢")');
+
+	 // miss();
+</script>
+</body>
+</html>

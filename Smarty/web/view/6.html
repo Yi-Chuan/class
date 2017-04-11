@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{$title}</title>
+</head>
+<body>
+	{capture name="buhuo"}
+	<div style="width: 100%;height: 10px;background: #369;"></div>
+	{/capture}
+
+	<span>模板中定义变量</span>
+	{assign var='abc' value='abcdef'}
+	{$abc}
+	<br>
+	<span>向数组中压入元素</span>
+	{$arr = ['a','b','c']}
+	{append var="arr" value='d'}
+	{$arr[0]}
+	{$arr[1]}
+	{$smarty.capture.buhuo}
+	{$arr[2]}
+	{$arr[3]}
+	<span>捕获capture</span>
+	{$smarty.capture.buhuo}
+	<br>
+	<span>调试模式</span>
+	{debug}
+
+
+</body>
+</html>

@@ -1,0 +1,464 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=UTF-8"utf-8">
+	<title>Laravel 4.2 中文文档：扩展包开发
+</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="@summerblue">
+	<meta name="description" content="扩展包开发,简介,建立一个扩展包,扩展包结构,服务提供者,缓载提供者,扩展包惯例,开发工作流程,扩展包路由,扩展包设定,扩展包视图,扩展包迁移,扩展包资源,发布扩展包,简介,扩展包是扩增 Laravel 的主要方式。扩展包可以是完成任何功能的数据，比方说处理时间的 Carbon 或是 BDD 测试框架如 Behat。,当然，目前有各式各样的扩展包。有些扩展包是独立运作 (stand-alone)...
+">
+	<meta name="keywords" content="扩展包开发,laravel4.2文档,laravel4.2中文文档,laravel中国,laravel中文,laravel框架中文,laravel文档,laravel框架中国,laravel中文文档
+">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lte IE 9]>
+		<script src="html5shiv.min.js" tppabs="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="laravel.css" tppabs="http://laravel-china.org/assets/css/laravel.css">
+	<style media="screen">
+		div.main-content {
+		  display: none;
+		}
+		.loading-effect {
+			position: fixed;
+			left: 50%;
+			top:300px;
+		    z-index: -1;
+		}
+	</style>
+</head>
+<body class="docs language-php ">
+
+	<span class="overlay"></span>
+
+	<div class="loading-effect">
+		<div class="loader-inner line-scale">
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		  </div>
+	</div>
+
+
+	<div class="main-content">
+
+		<nav class="main">
+			<div class="container">
+				<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/" class="brand">
+					<img src="laravel-logo.png" tppabs="http://laravel-china.org/assets/img/laravel-logo.png" height="30">
+					Laravel
+				</a>
+
+				<div class="responsive-sidebar-nav">
+					<a href="#" class="toggle-slide menu-link btn">&#9776;</a>
+				</div>
+
+									<div class="switcher">
+	<div class="dropdown">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			<!--<span class="faint">v</span> -->
+			4.2
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">5.1</a>
+				</li>
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="packages-1.htm" tppabs="http://laravel-china.org/docs/4.2/packages">4.2</a>
+				</li>
+					</ul>
+	</div>
+</div>
+				
+				<ul class="main-nav">
+					<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+				</ul>
+			</div>
+		</nav>
+
+		<nav id="slide-menu" class="slide-menu" role="navigation">
+
+	<div class="brand">
+		<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">
+			<img src="laravel-logo-white.png" tppabs="http://laravel-china.org/assets/img/laravel-logo-white.png" height="50">
+		</a>
+	</div>
+
+	<ul class="slide-main-nav">
+		<li><a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">Home</a></li>
+		<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+	</ul>
+
+	<div class="slide-docs-nav">
+		<h2>文档</h2>
+
+		<a type="button" class="turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		<ul>
+<li>前言
+<ul>
+<li><a href="introduction.htm" tppabs="http://laravel-china.org/docs/4.2/introduction">Laravel 介绍</a></li>
+<li><a href="quick.htm" tppabs="http://laravel-china.org/docs/4.2/quick">快速入门</a></li>
+<li><a href="releases-1.htm" tppabs="http://laravel-china.org/docs/4.2/releases">框架更新记录</a></li>
+<li><a href="upgrade-1.htm" tppabs="http://laravel-china.org/docs/4.2/upgrade">升级指南</a></li>
+</ul></li>
+<li>快速上手
+<ul>
+<li><a href="installation-1.htm" tppabs="http://laravel-china.org/docs/4.2/installation">安装文档</a></li>
+<li><a href="configuration.htm" tppabs="http://laravel-china.org/docs/4.2/configuration">配置信息</a></li>
+<li><a href="homestead-1.htm" tppabs="http://laravel-china.org/docs/4.2/homestead">Homestead</a></li>
+<li><a href="lifecycle-1.htm" tppabs="http://laravel-china.org/docs/4.2/lifecycle">程序的生命周期</a></li>
+<li><a href="routing-1.htm" tppabs="http://laravel-china.org/docs/4.2/routing">路由 Routing</a></li>
+<li><a href="requests-1.htm" tppabs="http://laravel-china.org/docs/4.2/requests">处理用户请求和输入</a></li>
+<li><a href="responses-1.htm" tppabs="http://laravel-china.org/docs/4.2/responses">视图和响应</a></li>
+<li><a href="controllers-1.htm" tppabs="http://laravel-china.org/docs/4.2/controllers">控制器</a></li>
+<li><a href="errors-1.htm" tppabs="http://laravel-china.org/docs/4.2/errors">错误和日志</a></li>
+</ul></li>
+<li>更多 Laravel 知识
+<ul>
+<li><a href="security.htm" tppabs="http://laravel-china.org/docs/4.2/security">身份认证功能</a></li>
+<li><a href="billing-1.htm" tppabs="http://laravel-china.org/docs/4.2/billing">收费系统</a></li>
+<li><a href="cache-1.htm" tppabs="http://laravel-china.org/docs/4.2/cache">缓存</a></li>
+<li><a href="extending.htm" tppabs="http://laravel-china.org/docs/4.2/extending">扩展框架</a></li>
+<li><a href="events-1.htm" tppabs="http://laravel-china.org/docs/4.2/events">事件</a></li>
+<li><a href="facades-1.htm" tppabs="http://laravel-china.org/docs/4.2/facades">Facades</a></li>
+<li><a href="html.htm" tppabs="http://laravel-china.org/docs/4.2/html">表单和HTML</a></li>
+<li><a href="helpers-1.htm" tppabs="http://laravel-china.org/docs/4.2/helpers">帮助函数</a></li>
+<li><a href="ioc.htm" tppabs="http://laravel-china.org/docs/4.2/ioc">IoC Container</a></li>
+<li><a href="localization-1.htm" tppabs="http://laravel-china.org/docs/4.2/localization">本地化</a></li>
+<li><a href="mail-1.htm" tppabs="http://laravel-china.org/docs/4.2/mail">邮件发送 Mail</a></li>
+<li><a href="packages-1.htm" tppabs="http://laravel-china.org/docs/4.2/packages">扩展包开发</a></li>
+<li><a href="pagination-1.htm" tppabs="http://laravel-china.org/docs/4.2/pagination">分页功能</a></li>
+<li><a href="queues-1.htm" tppabs="http://laravel-china.org/docs/4.2/queues">队列</a></li>
+<li><a href="security.htm" tppabs="http://laravel-china.org/docs/4.2/security">安全</a></li>
+<li><a href="session-1.htm" tppabs="http://laravel-china.org/docs/4.2/session">会话</a></li>
+<li><a href="ssh.htm" tppabs="http://laravel-china.org/docs/4.2/ssh">远程连接模块 SSH</a></li>
+<li><a href="templates.htm" tppabs="http://laravel-china.org/docs/4.2/templates">模版引擎</a></li>
+<li><a href="testing-1.htm" tppabs="http://laravel-china.org/docs/4.2/testing">单元测试</a></li>
+<li><a href="validation-1.htm" tppabs="http://laravel-china.org/docs/4.2/validation">表单验证</a></li>
+</ul></li>
+<li>数据库 Database
+<ul>
+<li><a href="database-1.htm" tppabs="http://laravel-china.org/docs/4.2/database">数据库简单使用</a></li>
+<li><a href="queries-1.htm" tppabs="http://laravel-china.org/docs/4.2/queries">查询构造器</a></li>
+<li><a href="eloquent-1.htm" tppabs="http://laravel-china.org/docs/4.2/eloquent">Eloquent ORM</a></li>
+<li><a href="schema.htm" tppabs="http://laravel-china.org/docs/4.2/schema">表结构构造器</a></li>
+<li><a href="migrations-1.htm" tppabs="http://laravel-china.org/docs/4.2/migrations">Migrations &amp; Seeding</a></li>
+<li><a href="redis-1.htm" tppabs="http://laravel-china.org/docs/4.2/redis">Redis</a></li>
+</ul></li>
+<li>命令行 Artisan CLI
+<ul>
+<li><a href="artisan-1.htm" tppabs="http://laravel-china.org/docs/4.2/artisan">命令行 Artisan 介绍</a></li>
+<li><a href="commands.htm" tppabs="http://laravel-china.org/docs/4.2/commands">开发 Artisan 命令</a></li>
+</ul></li>
+</ul>
+	</div>
+
+</nav>
+
+<div class="docs-wrapper container">
+
+	<section class="sidebar">
+
+		<div class="header">
+			<a type="button" class="btn btn-primary btn-lg btn-block turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		</div>
+
+		<ul>
+<li>前言
+<ul>
+<li><a href="introduction.htm" tppabs="http://laravel-china.org/docs/4.2/introduction">Laravel 介绍</a></li>
+<li><a href="quick.htm" tppabs="http://laravel-china.org/docs/4.2/quick">快速入门</a></li>
+<li><a href="releases-1.htm" tppabs="http://laravel-china.org/docs/4.2/releases">框架更新记录</a></li>
+<li><a href="upgrade-1.htm" tppabs="http://laravel-china.org/docs/4.2/upgrade">升级指南</a></li>
+</ul></li>
+<li>快速上手
+<ul>
+<li><a href="installation-1.htm" tppabs="http://laravel-china.org/docs/4.2/installation">安装文档</a></li>
+<li><a href="configuration.htm" tppabs="http://laravel-china.org/docs/4.2/configuration">配置信息</a></li>
+<li><a href="homestead-1.htm" tppabs="http://laravel-china.org/docs/4.2/homestead">Homestead</a></li>
+<li><a href="lifecycle-1.htm" tppabs="http://laravel-china.org/docs/4.2/lifecycle">程序的生命周期</a></li>
+<li><a href="routing-1.htm" tppabs="http://laravel-china.org/docs/4.2/routing">路由 Routing</a></li>
+<li><a href="requests-1.htm" tppabs="http://laravel-china.org/docs/4.2/requests">处理用户请求和输入</a></li>
+<li><a href="responses-1.htm" tppabs="http://laravel-china.org/docs/4.2/responses">视图和响应</a></li>
+<li><a href="controllers-1.htm" tppabs="http://laravel-china.org/docs/4.2/controllers">控制器</a></li>
+<li><a href="errors-1.htm" tppabs="http://laravel-china.org/docs/4.2/errors">错误和日志</a></li>
+</ul></li>
+<li>更多 Laravel 知识
+<ul>
+<li><a href="security.htm" tppabs="http://laravel-china.org/docs/4.2/security">身份认证功能</a></li>
+<li><a href="billing-1.htm" tppabs="http://laravel-china.org/docs/4.2/billing">收费系统</a></li>
+<li><a href="cache-1.htm" tppabs="http://laravel-china.org/docs/4.2/cache">缓存</a></li>
+<li><a href="extending.htm" tppabs="http://laravel-china.org/docs/4.2/extending">扩展框架</a></li>
+<li><a href="events-1.htm" tppabs="http://laravel-china.org/docs/4.2/events">事件</a></li>
+<li><a href="facades-1.htm" tppabs="http://laravel-china.org/docs/4.2/facades">Facades</a></li>
+<li><a href="html.htm" tppabs="http://laravel-china.org/docs/4.2/html">表单和HTML</a></li>
+<li><a href="helpers-1.htm" tppabs="http://laravel-china.org/docs/4.2/helpers">帮助函数</a></li>
+<li><a href="ioc.htm" tppabs="http://laravel-china.org/docs/4.2/ioc">IoC Container</a></li>
+<li><a href="localization-1.htm" tppabs="http://laravel-china.org/docs/4.2/localization">本地化</a></li>
+<li><a href="mail-1.htm" tppabs="http://laravel-china.org/docs/4.2/mail">邮件发送 Mail</a></li>
+<li><a href="packages-1.htm" tppabs="http://laravel-china.org/docs/4.2/packages">扩展包开发</a></li>
+<li><a href="pagination-1.htm" tppabs="http://laravel-china.org/docs/4.2/pagination">分页功能</a></li>
+<li><a href="queues-1.htm" tppabs="http://laravel-china.org/docs/4.2/queues">队列</a></li>
+<li><a href="security.htm" tppabs="http://laravel-china.org/docs/4.2/security">安全</a></li>
+<li><a href="session-1.htm" tppabs="http://laravel-china.org/docs/4.2/session">会话</a></li>
+<li><a href="ssh.htm" tppabs="http://laravel-china.org/docs/4.2/ssh">远程连接模块 SSH</a></li>
+<li><a href="templates.htm" tppabs="http://laravel-china.org/docs/4.2/templates">模版引擎</a></li>
+<li><a href="testing-1.htm" tppabs="http://laravel-china.org/docs/4.2/testing">单元测试</a></li>
+<li><a href="validation-1.htm" tppabs="http://laravel-china.org/docs/4.2/validation">表单验证</a></li>
+</ul></li>
+<li>数据库 Database
+<ul>
+<li><a href="database-1.htm" tppabs="http://laravel-china.org/docs/4.2/database">数据库简单使用</a></li>
+<li><a href="queries-1.htm" tppabs="http://laravel-china.org/docs/4.2/queries">查询构造器</a></li>
+<li><a href="eloquent-1.htm" tppabs="http://laravel-china.org/docs/4.2/eloquent">Eloquent ORM</a></li>
+<li><a href="schema.htm" tppabs="http://laravel-china.org/docs/4.2/schema">表结构构造器</a></li>
+<li><a href="migrations-1.htm" tppabs="http://laravel-china.org/docs/4.2/migrations">Migrations &amp; Seeding</a></li>
+<li><a href="redis-1.htm" tppabs="http://laravel-china.org/docs/4.2/redis">Redis</a></li>
+</ul></li>
+<li>命令行 Artisan CLI
+<ul>
+<li><a href="artisan-1.htm" tppabs="http://laravel-china.org/docs/4.2/artisan">命令行 Artisan 介绍</a></li>
+<li><a href="commands.htm" tppabs="http://laravel-china.org/docs/4.2/commands">开发 Artisan 命令</a></li>
+</ul></li>
+</ul>
+	</section>
+
+	<article>
+
+		<div class="alert alert-warning" role="alert">
+
+			<h4>拥抱 Laravel 5.1 LTS</h4>
+			<p>
+				强烈建议在 2018 年之前使用 Laravel 5.1 来构建项目，Laravel 5.1 是 LTS 的发行版本, 发行于 2015 年 6 月份，自发布起提供两年时间的 Bug 修复（2017 年 6 月）, 3 年时间的安全修复（2018 年 6 月）。
+			</p>
+			 <p>
+			 	LTS 版本是此项目能提供的最长时间维护版本。一般的发行版本, 只提供 6 个月的 Bug 修复支持, 一年的安全修复支持.
+			 </p>
+		</div>
+
+		<div class="main-content">
+			<h1>扩展包开发</h1>
+<ul>
+<li><a href="#introduction">简介</a></li>
+<li><a href="#creating-a-package">建立一个扩展包</a></li>
+<li><a href="#package-structure">扩展包结构</a></li>
+<li><a href="#service-providers">服务提供者</a></li>
+<li><a href="#deferred-providers">缓载提供者</a></li>
+<li><a href="#package-conventions">扩展包惯例</a></li>
+<li><a href="#development-workflow">开发工作流程</a></li>
+<li><a href="#package-routing">扩展包路由</a></li>
+<li><a href="#package-configuration">扩展包设定</a></li>
+<li><a href="#package-views">扩展包视图</a></li>
+<li><a href="#package-migrations">扩展包迁移</a></li>
+<li><a href="#package-assets">扩展包资源</a></li>
+<li><a href="#publishing-packages">发布扩展包</a></li>
+</ul>
+<p><a name="introduction"></a></p>
+<h2>简介</h2>
+<p>扩展包是扩增 Laravel 的主要方式。扩展包可以是完成任何功能的数据，比方说处理时间的 <a href="javascript:if(confirm('https://github.com/briannesbitt/Carbon  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://github.com/briannesbitt/Carbon'" tppabs="https://github.com/briannesbitt/Carbon">Carbon</a> 或是 BDD 测试框架如 <a href="javascript:if(confirm('https://github.com/Behat/Behat  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://github.com/Behat/Behat'" tppabs="https://github.com/Behat/Behat">Behat</a>。</p>
+<p>当然，目前有各式各样的扩展包。有些扩展包是独立运作 (stand-alone) 的，意思是指他们并不相依任何框架，包括 Laravel 。刚提到的 Carbon 及 Behat 就是这种扩展包。要使用这种扩展包只需要在 <code>composer.json</code> 文件里引入它们即可。</p>
+<p>另一方面，有些扩展包特别指定要与 Laravel 整合。这种型式的扩展包在上一个版本的 Laravel 里称做 Bundle。这种扩展包可能有路由、控制器、视图、设定以及迁移，目标是增强 Laravel 本身的功能。由于没有特别需求要开发独立运作的扩展包，因此在这份指南里将主要以开发 Laravel 专属的扩展包为目标进行说明。</p>
+<p>所有的 Laravel 扩展包都通过 <a href="javascript:if(confirm('http://packagist.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://packagist.org/'" tppabs="http://packagist.org/">Packagist</a> 及 <a href="javascript:if(confirm('http://getcomposer.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://getcomposer.org/'" tppabs="http://getcomposer.org/">Composer</a> 进行发布，因此学习如何使用这些美妙的 PHP 发布工具是一个必经的过程。</p>
+<p><a name="creating-a-package"></a></p>
+<h2>建立一个扩展包</h2>
+<p>建立一个新扩展包最简单的方式就是通过 <code>workbench</code> 这个 artisan 命令。首先，您需要先在 <code>app/config/workbench.php</code> 里设定一些选项。在这个文件里，您会找到 <code>name</code> 及 <code>email</code> 这两个选项。这些选项里的值将会被用来产生扩展包里的 <code>composer.json</code> 档。当您设定好这些前置工作后，就已经可以开始打造您的 workbench 扩展包了！</p>
+<h4>启始一个 workbench artisan 命令</h4>
+<pre><code>php artisan workbench vendor/package --resources</code></pre>
+<p>发行商 (vendor) 名称是为了识别不同作者发行相同名称的扩展包而设计的。比方说，我 (Taylor Otwell) 建立了一个新的扩展包名称为 &quot;Zapper&quot; ，而发行商的名称就是 <code>Taylor</code>。默认 workbench 命令会建立框架独立 (framework agnostic) 的扩展包结构。然后，<code>resources</code> 参数则会让 workbench 在产生扩展包结构时，额外针对 Laravel 产生特定的文件夹，包括 <code>migrations</code>、<code>views</code>、<code>config</code> 等。</p>
+<p>当 <code>workbench</code> 命令被执行后，您的扩展包就可以在 <code>workbench</code> 文件夹内被获取。接着，您需要为您的扩展包<code>注册服务提供者 (ServiceProvider)</code>。您可以通过在 <code>app/config/app.php</code> 的 <code>providers</code> 数组里新增您扩展包的服务提供者名称进行注册，这个动作将会让 Laravel 启动时载入您的扩展包。服务提供者使用 <code>[Package]ServiceProvider</code> 这种命名惯例来为软件命名，以上述的例子来说，我们将会新增一行 <code>Taylor\Zapper\ZapperServiceProvider</code> 到 <code>providers</code> 数组里。</p>
+<p>当提供者被注册后，您就已经完成扩展包开发的前置工作了！不过，建议您在深入开发工作前，先熟悉一下以下章节要接口的扩展包数据结构及开发工作流程。</p>
+<blockquote>
+<p><strong>注意：</strong> 假如您的服务提供者无法被载入，记得在您的应用程序根目录底下执行 <code>php artisan dump-autoload</code> 命令。</p>
+</blockquote>
+<p><a name="package-structure"></a></p>
+<h2>扩展包结构</h2>
+<p>当使用 <code>workbench</code> 命令后，您的扩展包将依照以下惯例进行初始化，这是为了让您的扩展包能与 Laravel 协同工作：</p>
+<h4>基本的扩展包结构</h4>
+<pre><code>/src
+    /Vendor
+        /Package
+            PackageServiceProvider.php
+    /config
+    /lang
+    /migrations
+    /views
+/tests
+/public</code></pre>
+<p>让我们继续探索下去。<code>src/Vendor/Package</code> 文件夹是存放这个扩展包所有的相关类代码，包括 <code>ServiceProvider</code>。而 <code>config</code>、<code>lang</code>、<code>migrations</code>、<code>views</code> 文件夹，就如同您预想的一样，存放关于您的扩展包的相关资源，一个扩展包可以包含任何种类的资源，就像「一般」的应用程序一样。</p>
+<p><a name="service-providers"></a></p>
+<h2>服务提供者</h2>
+<p>服务提供者就是一个扩展包的启始类。默认来说，他包含两个方法：<code>boot</code> 和 <code>register</code>。通过这两个方法，您可以做任何您需要做的事，比方说：引入路由文件、注册 IoC 容器、注册事件或是任何其他您想要做的事。</p>
+<p><code>register</code> 这个方法则是当服务提供者被注册时马上被调用，而 <code>boot</code> 命令则是仅当一个请求被路由时才会被执行。所以，假如您的服务提供者相依于其他已经注册的服务提供者，或是您想要重写由其他服务提供者所做的绑定，则您应该使用 <code>boot</code> 方法。</p>
+<p>当使用 <code>workbench</code> 新建一个扩展包时， <code>boot</code> 命令就已经包括以下动作：</p>
+<pre><code>$this-&gt;package('vendor/package');</code></pre>
+<p>这个方法让 Laravel 知道如何载入视图、设定及其他您的应用程序所需的资源。在大多数的情况下，跟随这个 workbench 的惯例即可，并不需要特别修改这一行。</p>
+<p>在默认的情况下，当注册完扩展包后，其资源就可以通过 <code>vendor/package</code> 取得。然后，您可以通过 package 方法的第二个参数来重写其动作，比方说：</p>
+<pre><code>// 将 custom-namespace 传给 package 方法
+$this-&gt;package('vendor/package', 'custom-namespace');
+
+// 则扩展包资源可通过 custom-namespace 取得
+$view = View::make('custom-namespace::foo');</code></pre>
+<p>服务提供者类并没有「默认」的存放位置，您可以把它放在任何您喜欢的地方，或许可以将它们统一整理在 <code>Providers</code> 命名空间后，放到您的 <code>app</code> 文件夹里。只要 Composer <a href="javascript:if(confirm('http://getcomposer.org/doc/01-basic-usage.md  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://getcomposer.org/doc/01-basic-usage.md#autoloading'" tppabs="http://getcomposer.org/doc/01-basic-usage.md#autoloading">知道如何载入它们的话</a>，您就可以把这些文件放在任何地方。</p>
+<p>假如您更改了您扩展包资源存放的位置，可能是配置文件或是视图，那您就应该在 <code>package</code> 方法调用时，传入第三个参数来指定您的资源位置：</p>
+<pre><code>$this-&gt;package('vendor/package', null, '/path/to/resources');</code></pre>
+<p><a name="deferred-providers"></a></p>
+<h2>缓载提供者</h2>
+<p>假如您正在开发的服务提供者并没有注册任何形式的资源如配置文件或视图等，那您就可以考虑将您的服务提供者设定为「缓载」提供者。一个缓载提供者的特性就是只有需要它的功能时才载入，假如在当次的请求循环内不需要这个服务，则这个提供者就不会被载入。</p>
+<p>要设定您的服务提供者采用缓载设定，只需要将 <code>defer</code> 属性设定为 <code>true</code> 即可：</p>
+<pre><code>protected $defer = true;</code></pre>
+<p>接下来您应该从 <code>Illuminate\Support\ServiceProvider</code> 基础类重写 provides 方法，并回传一个数组包含所有您需要绑定到 IoC 容器的服务。举例来说，假如您的提供者注册 <code>package.service</code> 和 <code>package.another-service</code> 给 IoC 容器，您的 <code>provides</code> 方法应该长得像这样：</p>
+<pre><code>public function provides()
+{
+    return array('package.service', 'package.another-service');
+}</code></pre>
+<p><a name="package-conventions"></a></p>
+<h2>扩展包惯例</h2>
+<p>当想要取用扩展包的资源如配置文件或是视图时，需要如下的方法使用双分号来取得：</p>
+<h4>载入扩展包的视图</h4>
+<pre><code>return View::make('package::view.name');</code></pre>
+<h4>取得扩展包的配置文件</h4>
+<pre><code>return Config::get('package::group.option');</code></pre>
+<blockquote>
+<p><strong>注意：</strong> 假如您的扩展包包括迁移，可以考虑在扩展包的迁移文件命名时加上您的扩展包名称，以避开迁移文件与其他扩展包在类命名时可能产生的冲突。</p>
+</blockquote>
+<p><a name="development-workflow"></a></p>
+<h2>开发工作流程</h2>
+<p>当您开发一个扩展包时，通过如同开发一个应用程序一样的脉络来进行往往是很有帮助的，这样能让您简单的观看及实验您的样板等。因此，安装一个新的 Laravel 框架，然后使用 <code>workbench</code> 命令来建立您的扩展包结构来开始你的工作流程。</p>
+<p>当 <code>workbench</code> 命令建立好您的扩展包结构后，您可以直接在 <code>workbench/[vendor]/[package]</code> 文件夹底下执行 <code>git init</code> 和 <code>git push</code> 进行开发过程的版本控制。这样可以让您很方便的在一个完整的应用程序脉络下开发您的扩展包，而不会受到 <code>composer update</code> 干扰而越陷越深。</p>
+<p>既然您的扩展包在 <code>workbench</code> 文件夹内，您可能会很好奇 Composer 是怎么知道该如何载入您的扩展包文件？当 <code>workbench</code> 文件夹存在的话，Laravel 会很聪明的扫描底下的扩展包内容，并在应用程序启动时自动载入！</p>
+<p>假如您需要重新产生您的扩展包自动载入文件，您可以使用 <code>php artisan dump-autoload</code> 命令。这个命令会重新产生自动载入文件在您的根目录项目内。</p>
+<h4>执行 artisan 自动载入命令</h4>
+<pre><code>php artisan dump-autoload</code></pre>
+<p><a name="package-routing"></a></p>
+<h2>扩展包路由</h2>
+<p>在早先的 Laravel 里是使用 <code>handles</code> 的方式来指定哪些 URI 会由扩展包进行回应。但在 Laravel 4 里，一个扩展包可以对任何 URI 进行回应。在您的扩展包里载入路由文件，只需要在您的服务提供者的 <code>boot</code> 方法里 <code>include</code> 即可。</p>
+<h4>从服务提供者引入一个路由文件</h4>
+<pre><code>public function boot()
+{
+    $this-&gt;package('vendor/package');
+
+    include __DIR__.'/../../routes.php';
+}</code></pre>
+<blockquote>
+<p><strong>注意：</strong> 假如您的扩展包有使用控制器，您会需要确定您的 <code>composer.json</code> 里的 auto-load 区块有正确的设定。</p>
+</blockquote>
+<p><a name="package-configuration"></a></p>
+<h2>扩展包设定</h2>
+<h4>取用扩展包配置文件</h4>
+<p>有些扩展包需要配置文件，这些文件就如同应用程序配置文件一样的方式定义。而当您的服务提供者在注册资源时，通过 <code>$this-&gt;package</code> 方法后，即可通过「双冒号」语法取得其值：</p>
+<pre><code>Config::get('package::file.option');</code></pre>
+<h4>取得扩展包的单一配置文件</h4>
+<p>假如您的扩展包仅包括一个单一配置文件，则您可以直接将文件名称命名为 <code>config.php</code>。当您完成这个步骤后，您就可以直接取得值而不需要指定名：</p>
+<pre><code>Config::get('package::option');</code></pre>
+<h4>手动注册资源的命名空间</h4>
+<p>有时候您或许会希望可以 <code>$this-&gt;package</code> 方法外，注册一个扩展包资源 (或许是视图等)。一般来说，这通常只有在资源不是放在惯例的位置时才需要这样做。您可以在使用 <code>View</code>、<code>Lang</code>、<code>Config</code> 等类时，通过调用 <code>addNamespace</code> 方法来手动注册资源：</p>
+<pre><code>View::addNamespace('package', __DIR__.'/path/to/views');</code></pre>
+<p>当命名空间被注册后，您就可以通过「双冒号」来取得资源：</p>
+<pre><code>return View::make('package::view.name');</code></pre>
+<p><code>addNamespace</code> 方法在 <code>View</code>、<code>Lang</code>、<code>Config</code> 等类上的实现是相同的。</p>
+<h3>串接设定</h3>
+<p>当其他的开发者安装了您的扩展包后，他们或许会希望可以重写部份的设定值。但假如他们直接修改您的扩展包代码，则当他们下次执行 composer update 时，这些设定值就又会被重写回来。取而代之，应该使用 <code>config:publish</code> 命令来发布配置文件：</p>
+<pre><code>php artisan config:publish vendor/package</code></pre>
+<p>当这个命令被执行后，所有您的扩展包的配置文件都会被复制一份到 <code>app/config/packages/vendor/package</code> 底下，这样配置文件的内容就可以安全的被其他开发人员修改！</p>
+<blockquote>
+<p><strong>注意：</strong> 开发者也有可能会建立环境配置文件，这些配置文件则会被放在 <code>app/config/package/vendor/package/environment</code> 底下。</p>
+</blockquote>
+<p><a name="package-views"></a></p>
+<h2>扩展包视图</h2>
+<p>假如您在应用程序里使用扩展包，您偶尔会希望可以自定义扩展包的视图。您可以非常容易的通过 <code>view:publish</code> 命令将扩展包的视图输出到您的 <code>app/views</code> 文件夹底下。</p>
+<pre><code>php artisan view:publish vendor/package</code></pre>
+<p>这个命令会将扩展包的视图移到 <code>app/views/packages</code> 文件夹内。假如这个文件夹还不存在的话，这个命令会自动帮您建立。当这些视图被输出后，您就可以依您所意进行调整。而当应用程序执行时，这些被调整过的视图就会被优先使用于扩展包的默认值。</p>
+<p><a name="package-migrations"></a></p>
+<h2>扩展包迁移</h2>
+<h4>为扩展包进行迁移文件</h4>
+<p>您的扩展包可以非常容易的建立与执行迁移。当您想要为您的扩展包新增迁移文件时，只需要在命令后面加上 <code>--bench</code> 参数：</p>
+<pre><code>php artisan migrate:make create_users_table --bench="vendor/package"</code></pre>
+<h4>为扩展包执行迁移</h4>
+<pre><code>php artisan migrate --bench="vendor/package"</code></pre>
+<h4>为已安装的扩展包执行迁移</h4>
+<p>为通过 Composer 安装的扩展包 (安装于 <code>vendor</code> 文件夹底下) 执行迁移，仅需加上 <code>--package</code> 参数：</p>
+<pre><code>php artisan migrate --package="vendor/package"</code></pre>
+<p><a name="package-assets"></a></p>
+<h2>扩展包资源 Assets</h2>
+<h4>把扩展包资源移到 public</h4>
+<p>有些扩展包会带有诸多资源如 Javascript、CSS 和图片。然而，我们没有办法取用这些在 <code>vendor</code> 或 <code>workbench</code> 文件夹里的资源，所以我们需要一个把它们移到 <code>public</code> 文件夹的方法。而 <code>asset:publish</code> 这个命令就是为了这个目的而存在：</p>
+<pre><code>php artisan asset:publish
+
+php artisan asset:publish vendor/package</code></pre>
+<p>假如扩展包仍在 <code>workbench</code> 阶段，记得加上 <code>--bench</code> 参数</p>
+<pre><code>php artisan asset:publish --bench="vendor/package"</code></pre>
+<p>这个命令将会把资源依照供应商及扩展包名称移至 <code>public/packages</code> 底下。因此，一个叫 <code>userscape/kudos</code> 的扩展包资产就会被移到 <code>public/packages/userscape/kudos</code>。使用这个惯例可以让您安全地在您的扩展包视图中引入资源。</p>
+<p><a name="publishing-packages"></a></p>
+<h2>发布扩展包</h2>
+<p>当您的扩展包已经准备好可以发布时，您应该先将您的扩展包送至 <a href="javascript:if(confirm('http://packagist.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://packagist.org/'" tppabs="http://packagist.org/">Packagist</a> 。假如这个扩展包是专属于 Laravel 的话，您可以考虑在您的 <code>composer.json</code> 档里加上 <code>laravel</code> 的标签。</p>
+<p>同时，标记您的版本对其他开发者来说也是很有用的。当开发者安装您的扩展包时，可以设定其偏好的版本 (stable, dev)。假如您的扩展包还没有稳定的版本，您可以考虑使用 <code>branch-alias</code>。</p>
+<p>当您的扩展包发布后，仍可以继续通过原本的 <code>workbench</code> 应用程序脉络持续开发。这是当一个扩展包发布后，持续更新的最好方法。</p>
+<p>有些组织选择自行建立他们内部使用的私有扩展包储存库给他们的开发者。假如您对这种作法也有兴趣，欢迎浏览由 Composer 释出的 <a href="javascript:if(confirm('http://github.com/composer/satis  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://github.com/composer/satis'" tppabs="http://github.com/composer/satis">Satis</a> 项目文件。</p>
+		</div>
+
+		<div class="main-footer" style="border-top:1px dashed rgba(0, 0, 0, 0.1);padding-top: 30px;margin-top:30px;margin-bottom: 20px;">
+			<div class="prev-next-wrap clearfix">
+
+				
+			    &nbsp;
+							</div>
+		</div>
+
+	</article>
+</div>
+
+		<footer class="main">
+			<ul>
+				<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+			</ul>
+			<p>Laravel is a trademark of Taylor Otwell. Copyright &copy; Taylor Otwell.</p>
+			<p class="less-significant"><a href="javascript:if(confirm('http://jackmcdade.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://jackmcdade.com/'" tppabs="http://jackmcdade.com/">Design by Jack McDade</a></p>
+
+			<p class="less-significant">
+				<a href="javascript:if(confirm('http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao'" tppabs="http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao" target="_blank">由 UCloud 赞助  <img src="dYfOYswiQY.png" tppabs="https://dn-phphub.qbox.me/uploads/images/201605/03/1/dYfOYswiQY.png" width="98" data-toggle="tooltip" data-placement="top" title="本站服务器由 UCloud 赞助"></a>.
+		      </p>
+		</footer>
+
+	</div>
+
+	<script src="laravel.js" tppabs="http://laravel-china.org/assets/js/laravel.js"></script>
+	<script src="viewport-units-buggyfill.js" tppabs="http://laravel-china.org/assets/js/viewport-units-buggyfill.js"></script>
+	<script>window.viewportUnitsBuggyfill.init();</script>
+    <script>
+
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','analytics.js'/*tpa=http://7xijlf.com2.z0.glb.qiniucdn.com/js/analytics.js*/,'ga');
+
+		ga('create', 'UA-53903425-7', 'auto');
+		ga('send', 'pageview');
+
+		$(window).load(function() {
+		  // When the page has loaded
+		  $(".main-content").fadeIn(10);
+		});
+    </script>
+</body>
+</html>

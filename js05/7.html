@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>键盘事件</title>
+</head>
+<body>
+<input type="text" id="uname" name="username">
+<script type="text/javascript">
+//键盘事件 一般给可输入控件 或 window绑定
+
+//获取元素对象
+var uname = document.getElementById('uname');
+
+// //绑定键盘按下事件
+// uname.onkeydown = function(){
+// 	// alert('你按下了我');
+// 	console.log('Down');
+// 	//阻止默认行为,就不会在想可输入控件内输入字符
+// 	return false;
+// }
+
+// //键盘抬起 最后执行
+// uname.onkeyup = function(){
+// 	// console.log('Up');
+// }
+
+// //键盘按下事件 down press up 会有一些系统键获取不到
+// uname.onkeypress = function(){
+// 	// console.log('press');
+// }
+
+
+
+//window绑定键盘事件,获取按下哪个键
+window.onkeydown = function(e){
+	console.log(e.keyCode);
+}
+
+</script>
+</body>
+</html>

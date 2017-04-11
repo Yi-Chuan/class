@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>浏览器操作</title>
+	<style type="text/css">
+#move{width: 100px;height: 200px;
+	background: #369;
+	position:absolute;
+}
+/* 
+fixed 脱离文档流 定位相对于当前窗口
+absolute 脱离文档流 定位相对于已定位的父级,如果没有父级或父级没有定位,它参考文档定位,html
+relative 相对定位,相对自己的正常位置
+static 默认值 没有定位
+*/
+	</style>
+</head>
+<body style="width: 2000px;height: 2000px;background:-moz-linear-gradient(black,yellow);">
+	<div id="move"></div>
+<script type="text/javascript">
+//获取元素
+var move = document.getElementById('move');
+
+//获取当前元素的top
+var t = move.offsetTop;
+
+//绑定事件
+window.onscroll = function(){
+	//获取文档滚动距离
+	var st = document.documentElement.scrollTop;
+	//计算新的top
+	var newT = st + t;
+	//设置位置
+	move.style.top = newT + 'px';
+}
+
+</script>
+</body>
+</html>

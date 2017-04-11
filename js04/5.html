@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件的绑定</title>
+	<style type="text/css">
+		.d{width: 200px;height: 200px;
+			background: #369;margin: 10px;
+			float: left;
+			border-radius:10px;}
+	</style>
+</head>
+<body>
+	<!-- 第一种绑定 元素事件属性 -->
+	<div class="d" onclick="alert('2222');"></div>
+	<div class="d" id="one"></div>
+	<div class="d" id="two"></div>
+	<script type="text/javascript">
+		// 第二种绑定 推荐使用
+		//获取元素
+		var one = document.getElementById('one');
+		//绑定事件
+		one.onclick = function(){
+			alert('事件处理程序1');
+		}
+		//如果出现了重复绑定 会覆盖
+		one.onclick = function(){
+			alert('事件处理程序2');
+		}
+
+		//第三种绑定 addEventListener 添加事件监听 (ie不好使)
+		//获取元素
+		var two = document.getElementById('two');
+		//绑定事件
+		two.addEventListener('click',function(){
+			alert('哎呦,不错哦');
+		})
+		//如果出现了重复绑定,不会覆盖,是追加 效果叠加
+		two.addEventListener('click',function(){
+			alert('哎呦,不错哦2');
+		})
+
+		//针对低版本ie浏览器 attachEvent (了解)
+		// two.attachEvent('onclick',function(){
+		// 	alert('哎呦,思密达');
+		// })
+	</script>
+</body>
+</html>

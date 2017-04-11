@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>默认行为</title>
+</head>
+<body>
+<a href="http://www.baidu.com" id="abc">baidu</a>
+<a href="http://www.baidu.com" onclick=" return love()">baidu2</a>
+<script type="text/javascript">
+//获取元素
+var abc = document.getElementById('abc');
+
+//绑定事件
+abc.onclick = function(){
+	alert(2222);
+
+	//阻止默认行为
+	return false;
+}
+
+
+function love(){
+	alert(2222);
+
+	//阻止默认行为
+	return false;
+}
+</script>
+</body>
+</html>

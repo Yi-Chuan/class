@@ -1,0 +1,292 @@
+
+技巧使用：mysql help的使用
+          1. ? %
+          2. ? create
+          3. ?opti%
+          4. ?reg%
+          5. ?contents
+
+1. mysql基础操作
+     1. 复制表结构和数据
+     create table user like shop;
+     insert into user select * from shop;          // 两个表的结构必须全部一致
+          // 两表结构如果不一致，则需要标明字段
+ =======================================================================
+     2. 索引
+		PRIMARY, INDEX, UNIQUE 这3种是一类
+			PRIMARY 主键。 就是 唯一 且 不能为空。
+			INDEX 索引，普通的
+			UNIQUE 唯一索引。 不允许有重复。
+			FULLTEXT 是全文索引，用于在一篇文章中，检索文本信息的。
+     // 使用alter创建
+     alter table user add index index_name(字段值)
+     alter table user add unique unique_name(字段值)
+     alter table user add primary key(字段值)
+     // 使用 alter删除索引
+     alter table user drop index index_name     // 删除普通索引和唯一索引
+     alter table user drop primary key       // 删除主键(必须先删除自动递增)
+
+     //  修改表结构：
+     alter table user add aaa int after bbbb;
+     alter table user modify username varchar(20);
+=======================================================================
+     3. mysql视图（依赖于原表）
+     从一个表里面拿出一个符合一定条件的数据形成另外一个新的表，这个表就是视图
+     create view 视图名 as select * from user where age > 20;
+     select * from 视图名;
+     drop view 视图名；t
+     注意：如果原user表数据发生改变，那么视图数据也改变
+=======================================================================
+     4. 内置函数(可以嵌套):select 函数名()
+
+	字符串函数：
+		concat:连接函数
+			select concat('hello','world');
+			select concat('hello','world') as myname;别名
+			select concat('hello','world') myname;别名省略 as 
+		LCASE:转小写
+			select lcase('MYSQL');
+		UCASE:转大写
+			select lcase('mysql');
+		length:查看长度
+			select length('i am very good');
+		ltrim:去除前端空格
+			select '  aaa';
+			select ltrim('  aaa'); 
+		ltrim:去除后端空格
+			select ltrim('bbb   ');
+		repeat:字符串重复
+			select repeat ('mysql',3);
+		replace:替换
+			select replace('mysql is very good','mysql','php');
+	5 数学函数：
+			bin:十进制转二进制
+			max:select max(1,3);
+			min:slecct min(1,3);
+			rand:select rand();prepa
+			select * from user order by rand()
+		日期函数：
+			select now();
+			
+=======================================================================
+
+     7. 事务处理(InnoDB)
+			show create table user
+			alter table user engine=innodb
+			
+			命令行begin  commit  rollback
+          1. set autocommit = 0;
+          2. 增删改语句
+          3. savepoint aaa;
+          4. 继续执行语句
+          5. savepoint bbb;
+          6. rollback to aaa; 回滚到aaa;
+          7. commit
+=======================================================================
+     8. mysql存储(?procedure:执行程序的区间)  批量数据处理
+          创建存储
+          \d //(修改语句结束符号)
+          create procedure p1()
+          begin
+          set @i=0;
+          while @i<10 do
+          insert into user(name) values(concat(‘user’,@i))；
+          set @i＝@i+1;
+          end while;
+          end;
+          //
+          执行储存：call p1
+          查看存储状态信息：show procedure status;
+          查看存储具体信息：show create procedure p1\G
+=======================================================================
+     9. (增删改)触发器 ？trigger
+          查看触发器：show triggers;
+          删除触发器：drop trigger user;
+
+          修改触发器：（修改user1表中的数据的时候，同时修改user2中的数据）
+          create trigger t1 before update on user1 for each row
+          begin
+          update user2 set username=new.username where id=old.id;
+          end
+
+          添加触发器（在向user1数据表中添加数据的时候，同时向user2中添加数据信息）
+          create trigger t2 before insert on user1 for each row
+          begin
+          insert into user2(username) values(new.username);
+          end
+
+          删除触发器
+          create trigger t3 before delete on user1 for each row
+          begin
+          delete from user2 where id = old.id;
+          end
+=======================================================================
+     10. 重排auto_increment值(两种办法)
+          delete from user;一条一条删除（删除比较慢，一条一条删除）,主键不会被恢复为1
+          truncate user;直接清除，速度快（直接删除表内容）
+		一般是在表数据没有的情况下才重排id
+			a.清空表的时候使用delete from t1
+				alert table t1 auto_increment=1; 
+			b.使用 truncate table t1
+=====================================================
+优化sql步骤：
+	慢查询日志
+	找出执行慢的sql语句
+	进行具体语句优化或建立索引
+3.sql优化(bin log日志，慢查询日志)
+     1. show [session|global] status;
+               session:当前连接
+               global：数据库服务器启动之后
+          show global status;
+		  
+		  show status like 'Com_%'  一般查看以com开头的
+
+          // 根据执行的sql语句（次数）
+          Com_select:查询
+          Com_update:修改次数
+          Com_insert:插入次数
+          Com_delete:删除的次数
+
+          // 此处是影响的行数（比如查询一次显示20行，那么行数增加20行）
+          InnoDB_rows_read:执行select操作的次数 
+          InnoDB_rows_updated:执行update的次数
+          InnoDB_rows_inserted:执行insert操作的次数
+          InnoDB_rows_deleted:执行delete操作的次数
+
+          connections：连接mysql的数量
+          Uptime:服务器已经工作的秒数
+==================================================================		  
+          Slow_queries:慢查询的次数
+		  
+			show variables like “%slow%”     // 查看“慢查询”的配置信息
+			show variables like "long%";   // 查看“慢查询”的时间定义
+			
+			set long_query_time=0.0001;	//设置“慢查询”的时间定义
+			set globla slow_query_lod='ON'；//开启慢日志
+
+========================================================
+     2. 定位执行效率较低的SQL语句
+          1. explain select * from table where id=1000;
+          2. desc select * from table where id=1000;
+           *************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE(简单查询，不是多表查询和复杂查询) 可能的值：simple,primary,union,dependent union,union result
+        table: php114（表名）
+         type: ALL（）     可能的值：system,const(最优化，使用了主键或者唯一健),eq_ref,ref.ref_or_null,index_merge
+possible_keys: NULL         提示使用哪个索引会在该表中找到行
+          key: NULL（）     mysql使用的索引，简单且重要
+      key_len: NULL（）     mysql使用的索引长度
+          ref: NULL          显示使用哪个列或者常数与key一起从表中选择行
+         rows: 6          mysql执行查询的行数，简单且重要，数值越大越不好，说明没有用好索引
+        Extra:          包含mysql解决查询的详细信息
+1 row in set (0.00 sec)
+=============================================================================
+索引【例子】：t1表
+查询名字是user1的
+desc select * from t1 where name='user1'\G;影响行数多
+desc select * from t1 where id=1\G;
+desc select * from t1 where id>5\G;
+添加索引
+alter table t1 add index in_name(name);
+show index from t1;
+desc select * from t1 where name='user1'\G;
+	影响行数少
+          通过慢查询日志，检查出sql语句，然后优化sql语句（主要通过索引优化）
+			alter table user add index age_index(age)
+     索引优化：
+=============================================================================
+--------------------------数据库表优化----------------------------------
+  
+MyISAM表：frm（记录表的数据结构）,MYD（表的数据记录）,MYI（表的索引纪录）
+InnoDB表：frm记录表的数据结构
+
+前面说过：表类型优化
+a.myisam存储引擎：
+  数据和索引是自动分开存储的，各自是一个独立的文件
+  物理磁盘存储三个文件：frm结构文件，数据文件，索引文件
+  本身对数据优化创造了条件，对系统消化资源低
+  所以不做任何索引的情况下，myisam引擎已经做了优化，
+  对系统消耗很低
+b.innodb存储引擎：
+  表结构在单独的一张表
+  数据和索引是存储在同一个表空间里，但可以有多个文件组成。Z  
+
+==============
+创建索引的优点：
+第一，通过创建唯一性索引，可以保证数据库表中每一行数据的唯一性。
+第二，可以大大加快数据的检索速度，这也是创建索引的最主要的原因。
+第三，在使用分组和排序子句进行数据检索时，同样可以显著减少查询中分组和排序的时间
+缺点：
+第一，创建索引和维护索引要耗费时间，这种时间随着数据量的增加而增加。
+第二，索引需要占物理空间，除了数据表占数据空间之外，每一个索引还要占一定的物理空间
+第三，当对表中的数据进行增加、删除和修改的时候，索引也要动态的维护，这样就降低了数据的维护速度
+
+索引优化
+     1. 对经常出现在where语句和order by语句的字段添加索引
+     2. 按需所求：尽量减少返回的结果行，包括行数和字段列数（因为返回的结果越多，意味着相应的SQL语句的logical reads就越大，对于服务器的性能影响就越大）
+          select username,age,sex from user limit 1;
+     3. 搜索的时候需要注意，数值的字段不用引号，字符串类型的字段值添加引号
+          select username,age,sex from user where username=“123"
+          select username,age,sex from user where username=123;
+          // 注意：这里的username是字符串类型，如果不添加引号，这里的搜索效率会降低
+     4. 下面的几种情况，即使有索引，也放弃索引
+          4.1 使用!=或者<>
+          4.2 模糊搜索：”%zhang%"
+          4.3 select * from user where username=“zhangsan” or username=“lisi"
+               改为select * from user where username=“zhangsan” union select * from user where username=“lisi"
+
+
+------------------索引问题----------------------------
+索引优化：mysql 优化集中在索引优化
+查询时间过久导致cup过高
+【例子】
+班级学生电脑 死机白屏 慢查询日志
+里面有好多半个小时以上的慢查询，
+对于mysql 和php 没有多大问题，但是消耗windows的内存cup 就死机
+【解决办法】：（做索引）
+一般是在where后面做索引给查询条件的字段做索引
+注意为什么不给删除 修改 添加做索引
+
+【例】
+创建表t1：有索引和没索引重点看影响行数 
+desc select * from user where id=4\G;
+desc select * from user where name='user4'\G;
+建立name索引后
+later table t1 add index  in_name(name);
+desc t1;查看索引
+desc select * from user where name='user4'\G;
+type:ref row影响1行
+【索引能不能用的上？】
+什么时候回使用索引?什么时候用不上，你别建立索引搞了半天用不上 
+a.使用like查询
+  问题：记得名字不清楚
+  百分号在前面用不上百分号在后面用的上
+	用不上--》  '%a%'   '%a'
+  3.查询 name is null /is not null
+注意：存在索引但用不到索引
+1. mysql估计使用索引比全表扫描更慢，则不适用 
+desc select * from t1 where id>6;使用索引
+desc select * from t1 where id>6 and id<10;放弃索引 
+2. 使用or或者and前后面条件都需建立索引，
+where之后的条件有一个没有索引，则整个索引用不到
+3.name字段为varcher类型，插入整形帮你转化为字符串
+	name=“123” 用到索引
+	name=123 用不到索引
+
+不是任何时候都需要索引，如果索引过多，
+数据在插入的时候，也会造成数据库的压力过大，
+原因是需要将新数据的索引建立，
+所以插入的速度效率肯定会下降，
+当访问量一旦大起来，就回出现mysql的问题 
+
+-------------嵌套查询（里面不能使用索引 外面不能使用）--------------------
+DESC select * from t1 where id (select  uid from t2)\G;
+t2使用索引 t1没有使用索引 当数据量大的时候尽量避免使用嵌套查询
+//关联查询使用索引
+desc select t1.* from t1,t2 where t1.id=t2.uid\G;
+//t1 左关联t2
+desc select * from t1 left join t2 on t1.id=t2.uid;//扔掉t2表null的数据
+desc select t1.* from t1 left join t2 on t1.id=t2.uid where t2.uid is not null;
+
+
+

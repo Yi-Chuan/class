@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body style="background:green;">
+<script type="text/javascript">
+// 在子窗口中操作父级窗口的window
+//parent 当前页面的parent属性 代表的是父级窗口的window对象
+window.onload = function(){
+	parent.document.body.style.background = "#FF3399";
+}
+
+
+</script>
+</body>
+</html>

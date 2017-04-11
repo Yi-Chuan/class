@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>事件:onchange</title>
+</head>
+<body>
+<select name="" id="lol">
+	
+</select>
+
+<select name="" id="jn">
+	<option value="">请选择</option>
+</select>
+
+<script type="text/javascript">
+// 获取元素对象
+var lol = document.getElementById('lol');//人物
+var jn = document.getElementById('jn');//技能
+
+var p = ['菊花信','蛮三刀','小学生'];
+var c = [];//定义空的技能数组
+c[0] = ['爆菊花','星月横扫','三重爪击'];
+c[1] = ['真男人','叫击击','翻跟头'];
+c[2] = ['回旋踢','金钟罩','摸眼踢'];
+init();
+function init(){
+	var str = ""
+	// 遍历人物
+	for (var i = 0; i < p.length; i++) {
+		str += "<option value='"+i+"'>"+p[i]+"</option>";
+	};
+	// 修改下拉框文本的值
+	lol.innerHTML = str;
+
+}
+
+// 绑定onchange事件
+//当下拉框的值发送改变的事件触发
+lol.onchange = function(){
+	// 获取当前选中人物
+	var v = this.value;
+	// 获取技能的列表
+	var cs = c[v];
+	var str = "";
+	// 遍历人物
+	for (var i = 0; i < cs.length; i++) {
+		str += "<option value='"+i+"'>"+cs[i]+"</option>";
+	};
+	// 修改下拉框文本的值
+	jn.innerHTML = str;
+}
+
+
+</script>
+
+</body>
+</html>

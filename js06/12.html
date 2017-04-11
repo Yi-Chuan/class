@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>BOM常用方法</title>
+</head>
+<body>
+<button>打开一个新的窗口</button>
+<button>关闭一个新的窗口</button>
+<script type="text/javascript">
+//提示框
+// alert('哎呦,不错哦');
+
+// confirm确认框  有返回值 防止误操作
+// var res = confirm('大爷,您真的要走了吗 思密达');
+// console.log(res);
+
+// prompt获取用户输入 弹出一个输入框,返回用户输入的信息
+// var res = prompt('请输入您的名字');
+// console.log(res);
+
+// open打开新窗口 新打开一个tab页 1.url  2.可以赋值一个name
+var but = document.getElementsByTagName('button');
+var op = null;
+// 绑定一个单击事件
+but[0].onclick = function(){
+	//打开一个新窗口
+	// window.open('10.html');
+	// window.open('10.html','name');//如果已经存在了一个叫name的窗口了,就不在新建,而是刷新name窗口
+	op = window.open('10.html','name','width=100,height=400,top=100,left=200');//控制新打开的窗口的位置
+}
+
+but[1].onclick = function(){
+	op.close();
+}	
+
+
+
+
+</script>
+</body>
+</html>

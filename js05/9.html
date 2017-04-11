@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单事件</title>
+</head>
+<body>
+账号: <input type="text" id="uname" name="username"><span id="utext" style="display:none">请输入6到18位用户名</span>
+<br>
+密码: <input type="password" id="upass" name="password">
+
+<script type="text/javascript">
+//获取元素对象
+var uname = document.getElementById('uname');
+var utext = document.getElementById('utext');
+
+//获取value
+// var res = uname.value;
+//赋值 设置value值
+// uname.value = '三拉黑有';
+// alert(res);
+
+
+//获取焦点事件 onfocus
+uname.onfocus = function(){
+	// alert('刷我滴卡');
+	//修改样式
+	uname.style.border = "solid 5px green";
+	utext.style.display = 'block';
+}
+
+//丧失焦点
+uname.onblur = function(){
+	// 获取输入的值
+	var v = this.value;
+	//声明正则
+	var reg = /^\w{6,18}$/;
+	if(reg.test(v)){
+		//修改
+		this.style.border = 'solid 2px blue';
+		utext.innerHTML = '正确';
+	}else{
+		this.style.border = 'solid 2px red';
+		utext.innerHTML = '用户名不正确';
+	}
+}
+
+
+</script>
+</body>
+</html>

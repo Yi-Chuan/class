@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<movies>
+	<movie>
+		<name love='iloveyou'>辩护人</name>
+		<country>韩国</country>
+	</movie>
+	<movie>
+		<name>V字仇杀队</name>
+		<country>美国</country>
+	</movie>
+	<movie>
+		<name>盗梦空间</name>
+		<country>美国</country>
+	</movie>
+</movies>

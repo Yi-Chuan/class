@@ -1,0 +1,20 @@
+{config_load file="language.ini" section="$l"}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{$smarty.config.title}</title>
+</head>
+<body>
+
+	{$smarty.config.username}: <input type="text">
+	<br>
+	{$smarty.config.password}: <input type="password">
+	<br>
+	<button>{$smarty.config.login}</button>
+	<br>
+	<a href="4.php?l=cn">中文</a>
+	<a href="4.php?l=en">English</a>
+	<a href="4.php?l=jn">日本語</a>
+</body>
+</html>

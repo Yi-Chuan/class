@@ -1,0 +1,40 @@
+{strip}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{$title}</title>
+</head>
+<body>
+	<span>for循环</span>
+	{for $i=0 to 100 step=2}
+		{$i}
+		<br>
+	{/for}
+	<span>数组遍历</span>
+	{foreach $user as $k=>$v}
+		{$v['id']}
+		{$v['username']}
+	{/foreach}
+	<br>
+	<span>if else</span>
+	<br>
+	{if $total >= 90 && $total <=100}
+		给你买个锤子
+	{else if $total >= 80 && $total <= 90}
+		给你买个炊饼
+	{else}
+		揍你一顿
+	{/if}
+	<br>
+	<span>缓存:{$smarty.now}</span>
+	<span>不缓存:
+		{nocache}
+			{$smarty.now}
+		{/nocache}
+	</span>
+	<br>
+	<span>strip排版成一行</span>
+</body>
+</html>
+{/strip}

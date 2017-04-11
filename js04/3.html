@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js时间对象</title>
+</head>
+<body>
+	<div id="time">2016-6-24 15:27:00</div>
+	<script type="text/javascript">
+//获取节点对象
+var time = document.getElementById('time');
+//修改样式
+time.style.width = "250px";
+time.style.height = "50px";
+time.style.background = "#f39";
+time.style.textAlign = 'center';//双拼词要把-去掉,后面的首字母大写
+time.style.lineHeight = '50px';//双拼词要把-去掉,后面的首字母大写
+time.style.color = 'white';
+time.style.borderRadius = '10px';
+
+
+//启动定时器
+setInterval(function(){
+	//创建时间对象
+	var d = new Date();//创建一个本机时间   Date {Fri Jun 24 2016 15:17:01 GMT+0800}
+
+//创建指定时间
+// var d = new Date(2011,10,11,11,11,11);//月份索引从0开始
+
+//获取4为数的年
+var year = d.getFullYear();
+//获取月份 (0-11) +1
+var month = d.getMonth()+1;
+//获取天数
+var date = d.getDate();
+//获取小时
+var hours = d.getHours();
+//获取分钟
+var minutes = d.getMinutes();
+//获取秒
+var seconds = d.getSeconds();
+//获取星期
+var day = d.getDay();
+//拼接字符串
+var str = year+'-'+month+'-'+date+' '+hours+':'+minutes+':'+seconds;
+//修改文本
+time.innerHTML = str;
+},1000);
+
+	</script>
+</body>
+</html>

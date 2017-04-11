@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax操作</title>
+	<style type="text/css">
+		.item{width: 200px;height: auto;
+		 background: #369;float: left;margin: 10px;}
+	</style>
+</head>
+<body>
+	<div class="item" id="add" style="display:none;">
+		公司名: <span class="name">小米科技</span><br>
+		手机名: <span class="names">m5</span><br>
+		介绍: <span class="info">小米科技为发烧而生</span><br>
+	</div>
+	<script type="text/javascript">
+	var add = document.getElementById('add');
+		//创建对象
+		var x = new XMLHttpRequest();
+		//创建事件处理函数
+		x.onreadystatechange = function(){
+			if(x.readyState == 4 && x.status ==200){
+				var res = x.responseText;
+				//转成合法js
+				eval('var v = '+res);
+				// console.log(v);
+//多维数组[{},{},{}]
+for (var i = 0; i < v.length; i++) {
+	//克隆
+	var newDiv = add.cloneNode(true);
+	//修改文本
+	newDiv.getElementsByClassName('name')[0].innerHTML = v[i].name;
+	newDiv.getElementsByClassName('names')[0].innerHTML = v[i].company;
+	newDiv.getElementsByClassName('info')[0].innerHTML = v[i].info;
+	//显示
+	newDiv.style.display = "block";
+	//插入
+	document.body.appendChild(newDiv);
+
+};
+}
+		}
+		//初始化请求
+		x.open('GET','6.php',true);
+
+		//发送
+		x.send();
+	</script>
+</body>
+</html>

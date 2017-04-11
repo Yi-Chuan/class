@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>批量绑定</title>
+	<style type="text/css">
+		.d{width: 150px;height: 150px;background: #369;float: left;margin: 10px;}
+	</style>
+</head>
+<body>
+	<div class="d"></div>
+	<div class="d"></div>
+	<div class="d"></div>
+	<div class="d"></div>
+<script type="text/javascript">
+	//获取所有的div
+	var div = document.getElementsByTagName('div');
+
+	//遍历
+	for (var i = 0; i < div.length; i++) {
+		// console.log(i);
+		//循环绑定事件
+		div[i].onclick = function(){
+			//获取随机颜色
+			var r = rand(0,255);
+			var g = rand(0,255);
+			var b = rand(0,255);
+			var str = 'rgb('+r+','+g+','+b+')';
+			//修改颜色 
+			// div[i].style.background = str;
+			this.style.background = str;
+		}
+	};
+
+
+	//随机函数
+	function rand(m,n){
+		return Math.floor(Math.random()*(n-m+1))+m;
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tv1</title>
+</head>
+<body>
+	<center>
+	<div style="width: 260px;height: 200px;border:1px solid blue">
+		
+
+
+	</div>
+	<br>
+	<textarea name="" id="" cols="30" rows="10"></textarea>
+	<br>
+	<button>发送</button>
+	</center>
+	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+	<script type="text/javascript">
+	//绑定事件 发送ajax
+	$('button').click(function(){
+
+		//获取内容
+		var str = $('textarea').val();
+
+		//发送ajax
+		$.post('pub1.php',{'content':str},function(data){});
+	})
+
+	function getdata(){
+		$.post('sub.php',function(data){
+			if(data){
+				$('div').append(data+'<br />');
+				// console.log(data);
+				$('textarea').val('');
+				getdata();
+			}
+		})
+	}
+
+	getdata();
+
+	</script>
+</body>
+</html>

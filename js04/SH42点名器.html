@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>随机点名</title>
+	<style type="text/css">
+	div{
+		border-radius:20px;
+	}
+	.top{
+		width: 500px;height: 150px;
+		margin: 0 auto;
+		background: #66CCFF;
+	}
+	#uname{
+		width: 300px;height: 100px;
+		background: #993399;
+		margin: 0 auto;
+		font-size:60px;text-align:center;
+		line-height:100px;
+		font-weight:bold;color:#00ff99;
+	}
+	#but{
+		width: 200px;background: #FFCC66;
+		font-size:30px;border-radius:10px;
+		font-weight:bold;
+	}
+
+	</style>
+</head>
+<body>
+	<div class="top">
+		<br>
+		<div id="uname">随机点名</div>
+	</div>
+	<br><br>
+	<center>
+		<button id="but" onclick="func();">开始</button>
+	</center>
+<script type="text/javascript">
+	//不能重复出现
+	// 定义姓名数组
+	var arr = new Array('朱敏','虞高舜','陈俊晟','徐康舒','朱俊','李祥','姜旭龙','杨宜桦','林凤至','孔锤楷','魏国君'
+						,'王鹏飞','邱文静','陈蓉','张利利','何小燕','郑清','徐玉玲','朱燕君','王芳','戚双凤'
+						);
+	// 获取元素对象
+	var uname = document.getElementById('uname');
+	var but = document.getElementById('but');
+	// 获取数组长度
+	var len = arr.length;
+	// 定义定时器全局变量
+	var mytime = null;
+	var m = null;
+
+	function func(){
+		if(mytime == null){
+			// 如果没有开始
+			show();
+			// 改变按钮文本
+			but.innerHTML = "停止";
+			but.style.background = "#FF99FF";
+		}else{
+			// 如果已经开始了,再点击就是停止
+			//清除定时器
+			clearInterval(mytime);
+			// 修改全局变量
+			mytime = null;
+			// 改变按钮文本
+			but.innerHTML = "开始";
+			but.style.background = "#FFCC66";
+			// splice //删除
+			arr.splice(m,1);
+			// 修改长度
+			len = arr.length;
+			console.log(arr);
+		}
+	}
+	// 随机方法
+	function show(){
+		mytime = setInterval(function(){
+			console.log(len);
+			//判断数组长度
+			if(len < 1){
+				uname.innerHTML = "GAME OVER!!!";
+				//清除定时器
+				clearInterval(mytime);
+				// 修改全局变量
+				mytime = null;
+				// 改变按钮文本
+				but.innerHTML = "开始";
+				but.style.background = "#FFCC66";
+				uname.style.fontSize = "40px";
+				uname.style.color = "#FF00CC";
+				return;
+			}
+			
+			// 随机数组下标
+			m = Math.ceil(Math.random()*10000)%len;
+			// 不停的修改文本
+			uname.innerHTML = arr[m];
+		},50);
+	}
+
+
+</script>
+</body>
+</html>

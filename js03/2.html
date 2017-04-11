@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数组</title>
+</head>
+<body>
+<script type="text/javascript">
+// 数组的声明方式 第一种
+var arr = new Array();//定义个空数组
+var arr = new Array(5);//定义数组的元素个数,元素的值是 undefined
+
+arr[4] = 'iloveyou';//通过下标给数组元素赋值
+arr[5] = 'ilikeyou';//向数组中添加元素
+
+//数组中的值可以是任意类型的值
+var arr = new Array(1,false,'iloveyou',null,function(){alert('ssss')},NaN);
+
+//数组声明的第二种方式
+var arr = [];//直接定义数组
+var arr = [true,NaN,'like',undefined];
+
+//length 获取数组元素的个数
+var len = arr.length;
+
+//不能使用中括号的形式压入元素
+// arr[] = 'imissyou';//no
+
+//关联形式,在js中不支持关联形式
+//arr['love'] = 'iloveyou';//给对象添加属性
+// alert(arr['love']);//也可以弹出,对象的访问形式
+
+//多维数组 在js中不可以直接使用多维数组 
+//,如果向使用多维数组,先把前面的元素定义为数组
+var arr = [];
+//不能直接使用多个中括号的形式来定义多维数组,先把前面的元素定义为数组
+arr[2] = [];
+arr[2][3] = 300;
+
+
+//索引的连续性
+var arr = [];
+arr[100] = 'iloveyou';
+
+
+console.log(arr);
+</script>
+</body>
+</html>

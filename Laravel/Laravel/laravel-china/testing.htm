@@ -1,0 +1,907 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=UTF-8"utf-8">
+	<title>Laravel 5.1 中文文档：测试
+</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="@summerblue">
+	<meta name="description" content="测试,简介,测试应用程序,与你的应用程序进行交互,测试 JSON APIs,Sessions 和认证,停用中间件,自定义 HTTP 请求,PHPUnit 断言,使用数据库,每次测试结束后重置数据库,模型工厂,模拟,模拟事件,模拟任务,模拟 Facades,简介,Laravel 在创建时就已考虑到测试的部分。事实上， Laravel 默认就支持用 PHPUnit 来做测试，并为你的应用程序创建好了...
+">
+	<meta name="keywords" content="测试,laravel5.1文档,laravel5.1中文文档,laravel中国,laravel中文,laravel框架中文,laravel文档,laravel框架中国,laravel中文文档
+">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lte IE 9]>
+		<script src="html5shiv.min.js" tppabs="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="laravel.css" tppabs="http://laravel-china.org/assets/css/laravel.css">
+	<style media="screen">
+		div.main-content {
+		  display: none;
+		}
+		.loading-effect {
+			position: fixed;
+			left: 50%;
+			top:300px;
+		    z-index: -1;
+		}
+	</style>
+</head>
+<body class="docs language-php ">
+
+	<span class="overlay"></span>
+
+	<div class="loading-effect">
+		<div class="loader-inner line-scale">
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		  </div>
+	</div>
+
+
+	<div class="main-content">
+
+		<nav class="main">
+			<div class="container">
+				<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/" class="brand">
+					<img src="laravel-logo.png" tppabs="http://laravel-china.org/assets/img/laravel-logo.png" height="30">
+					Laravel
+				</a>
+
+				<div class="responsive-sidebar-nav">
+					<a href="#" class="toggle-slide menu-link btn">&#9776;</a>
+				</div>
+
+									<div class="switcher">
+	<div class="dropdown">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			<!--<span class="faint">v</span> -->
+			5.1
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">5.1</a>
+				</li>
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="testing-1.htm" tppabs="http://laravel-china.org/docs/4.2/testing">4.2</a>
+				</li>
+					</ul>
+	</div>
+</div>
+				
+				<ul class="main-nav">
+					<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+				</ul>
+			</div>
+		</nav>
+
+		<nav id="slide-menu" class="slide-menu" role="navigation">
+
+	<div class="brand">
+		<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">
+			<img src="laravel-logo-white.png" tppabs="http://laravel-china.org/assets/img/laravel-logo-white.png" height="50">
+		</a>
+	</div>
+
+	<ul class="slide-main-nav">
+		<li><a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">Home</a></li>
+		<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+	</ul>
+
+	<div class="slide-docs-nav">
+		<h2>文档</h2>
+
+		<a type="button" class="turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</div>
+
+</nav>
+
+<div class="docs-wrapper container">
+
+	<section class="sidebar">
+
+		<div class="header">
+			<a type="button" class="btn btn-primary btn-lg btn-block turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		</div>
+
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</section>
+
+	<article>
+
+		<div class="alert alert-warning" role="alert">
+
+			<h4>拥抱 Laravel 5.1 LTS</h4>
+			<p>
+				强烈建议在 2018 年之前使用 Laravel 5.1 来构建项目，Laravel 5.1 是 LTS 的发行版本, 发行于 2015 年 6 月份，自发布起提供两年时间的 Bug 修复（2017 年 6 月）, 3 年时间的安全修复（2018 年 6 月）。
+			</p>
+			 <p>
+			 	LTS 版本是此项目能提供的最长时间维护版本。一般的发行版本, 只提供 6 个月的 Bug 修复支持, 一年的安全修复支持.
+			 </p>
+		</div>
+
+		<div class="main-content">
+			<h1>测试</h1>
+<ul>
+<li><a href="#introduction">简介</a></li>
+<li><a href="#application-testing">测试应用程序</a>
+<ul>
+<li><a href="#interacting-with-your-application">与你的应用程序进行交互</a></li>
+<li><a href="#testing-json-apis">测试 JSON APIs</a></li>
+<li><a href="#sessions-and-authentication">Sessions 和认证</a></li>
+<li><a href="#disabling-middleware">停用中间件</a></li>
+<li><a href="#custom-http-requests">自定义 HTTP 请求</a></li>
+<li><a href="#phpunit-assertions">PHPUnit 断言</a></li>
+</ul></li>
+<li><a href="#working-with-databases">使用数据库</a>
+<ul>
+<li><a href="#resetting-the-database-after-each-test">每次测试结束后重置数据库</a></li>
+<li><a href="#model-factories">模型工厂</a></li>
+</ul></li>
+<li><a href="#mocking">模拟</a>
+<ul>
+<li><a href="#mocking-events">模拟事件</a></li>
+<li><a href="#mocking-jobs">模拟任务</a></li>
+<li><a href="#mocking-facades">模拟 Facades</a></li>
+</ul></li>
+</ul>
+<p><a name="introduction"></a></p>
+<h2>简介</h2>
+<p>Laravel 在创建时就已考虑到测试的部分。事实上， Laravel 默认就支持用 PHPUnit 来做测试，并为你的应用程序创建好了 <code>phpunit.xml</code> 文件。框架还提供了一些便利的辅助函数，让你可以更直观的测试应用程序。</p>
+<p>在 <code>tests</code> 目录中有提供一个 <code>ExampleTest.php</code> 的示例文件。安装新的 Laravel 应用程序之后，只需在命令行上运行 <code>phpunit</code> 就可以进行测试。</p>
+<h3>测试环境</h3>
+<p>在运行测试时，Laravel 会自动将环境变量设置为 <code>testing</code>，并将 Session 及缓存以 <code>数组</code> 的形式存入，也就是说在测试时不会保存任何的 Session 或缓存数据。</p>
+<p>你可以随意创建其它必要的测试环境配置。<code>testing</code> 的环境变量可以在 <code>phpunit.xml</code> 文件中被修改。</p>
+<h3>定义并运行测试</h3>
+<p>要创建一个测试案例，可使用 <code>make:test</code> Artisan 命令：</p>
+<pre><code>php artisan make:test UserTest</code></pre>
+<p>此命令会放置一个新的 <code>UserTest</code> 类至你的 <code>tests</code> 目录。接着就可以像平常使用 PHPUnit 一样来定义测试方法。要运行测试只需要在命令行上运行 <code>phpunit</code> 命令即可：</p>
+<pre><code>&lt;?php
+
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+class UserTest extends TestCase
+{
+    /**
+     * 一个基本的测试样例。
+     *
+     * @return void
+     */
+    public function testExample()
+    {
+        $this-&gt;assertTrue(true);
+    }
+}</code></pre>
+<blockquote>
+<p><strong>注意：</strong> 如果要在你的类自定义自己的 <code>setUp</code> 方法，请确保调用了 <code>parent::setUp</code>。</p>
+</blockquote>
+<p><a name="application-testing"></a></p>
+<h2>测试应用程序</h2>
+<p>Laravel 为 HTTP 请求的生成和发送操作、输出的检查，甚至表单的填写都提供了非常流利的 API。 举例来说，你可以看看 <code>tests</code> 目录中的 <code>ExampleTest.php</code> 文件：</p>
+<pre><code>&lt;?php
+
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+class ExampleTest extends TestCase
+{
+    /**
+     * 一个基本的功能测试样例。
+     *
+     * @return void
+     */
+    public function testBasicExample()
+    {
+        $this-&gt;visit('/')
+             -&gt;see('Laravel 5')
+             -&gt;dontSee('Rails');
+    }
+}</code></pre>
+<p><code>visit</code> 方法会创建一个 <code>GET</code> 请求，<code>see</code> 方法则断言在返回的响应中会有指定的文本，<code>dontSee</code> 方法断言在返回的响应中不会有指定的文本。这是 Laravel 所提供的最基本的应用程序测试。</p>
+<p><a name="interacting-with-your-application"></a></p>
+<h3>与你的应用程序进行交互</h3>
+<p>当然，除了断言文本是否存在于一个指定的响应中，你还可以做更多的交互。让我们来看看点击链接及填写表单的例子：</p>
+<h4>点击链接</h4>
+<p>在这个测试中，我们会生成一个请求并「点击」返回响应中的链接，接着断言我们会停留在指定的 URI 上。举个例子，假设在响应中有个链接，并写着「About Us」：</p>
+<pre><code>&lt;a href="/about-us"&gt;About Us&lt;/a&gt;</code></pre>
+<p>现在，我们编写一个测试，点击链接并断言用户会停留在正确的页面：</p>
+<pre><code>public function testBasicExample()
+{
+    $this-&gt;visit('/')
+         -&gt;click('About Us')
+         -&gt;seePageIs('/about-us');
+}</code></pre>
+<h4>使用表单</h4>
+<p>Laravel 还提供了几种用于测试表单的方法。通过 <code>type</code>、<code>select</code>、<code>check</code>、<code>attach</code> 及 <code>press</code> 方法让你与表单的所有输入框进行交互。举个例子，让我们想像一下有个在应用程序注册页面的表单：</p>
+<pre><code>&lt;form action="/register" method="POST"&gt;
+    {!! csrf_field() !!}
+
+    &lt;div&gt;
+        Name: &lt;input type="text" name="name"&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;input type="checkbox" value="yes" name="terms"&gt; Accept Terms
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;input type="submit" value="Register"&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+<p>我们可以编写一个测试来填写此表单，并检查结果：</p>
+<pre><code>public function testNewUserRegistration()
+{
+    $this-&gt;visit('/register')
+         -&gt;type('Taylor', 'name')
+         -&gt;check('terms')
+         -&gt;press('Register')
+         -&gt;seePageIs('/dashboard');
+}</code></pre>
+<p>当然，如果你的表单中包含了类似单选框或下拉式菜单的其它输入框，也可以很轻松的填入这些类型的区域。以下是每个表单的方法操作列表：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$this-&gt;type($text, $elementName)</code></td>
+<td>「输入（type）」文本在一个指定的区域</td>
+</tr>
+<tr>
+<td><code>$this-&gt;select($value, $elementName)</code></td>
+<td>「选择（select）」一个单选框或下拉式菜单的区域</td>
+</tr>
+<tr>
+<td><code>$this-&gt;check($elementName)</code></td>
+<td>「勾选（Check）」一个复选框的区域</td>
+</tr>
+<tr>
+<td><code>$this-&gt;attach($pathToFile, $elementName)</code></td>
+<td>「附加（Attach）」一个文件至表单</td>
+</tr>
+<tr>
+<td><code>$this-&gt;press($buttonTextOrElementName)</code></td>
+<td>「按下（Press）」一个指定文本或名称的按钮</td>
+</tr>
+</tbody>
+</table>
+<h4>使用附件</h4>
+<p>如果你的表单包含 <code>file</code> 的输入框类型，则可以使用 <code>attach</code> 方法来附加文件：</p>
+<pre><code>public function testPhotoCanBeUploaded()
+{
+    $this-&gt;visit('/upload')
+         -&gt;name('File Name', 'name')
+         -&gt;attach($absolutePathToFile, 'photo')
+         -&gt;press('Upload')
+         -&gt;see('Upload Successful!');
+}</code></pre>
+<p><a name="testing-json-apis"></a></p>
+<h3>测试 JSON APIs</h3>
+<p>Laravel 也提供了几个辅助函数来测试 JSON API 及其响应。举例来说，<code>get</code>、<code>post</code>、<code>put</code>、<code>patch</code> 及 <code>delete</code> 方法可以用于发出各种 HTTP 动作的请求。你也可以轻松的传入数据或标头到这些方法上。首先，让我们来编写一个测试，将 <code>POST</code> 请求发送至 <code>/user</code> ，并断言其会返回 JSON 格式的指定数组：</p>
+<pre><code>&lt;?php
+
+class ExampleTest extends TestCase
+{
+    /**
+     * 一个基本的功能测试示例。
+     *
+     * @return void
+     */
+    public function testBasicExample()
+    {
+        $this-&gt;post('/user', ['name' =&gt; 'Sally'])
+             -&gt;seeJson([
+                 'created' =&gt; true,
+             ]);
+    }
+}</code></pre>
+<p><code>seeJson</code> 方法会将传入的数组转换成 JSON，并验证该 JSON 片段是否存在于应用程序返回的 JSON 响应中的<strong>任何位置</strong>。也就是说，即使有其它的属性存在于该 JSON 响应中，但是只要指定的片段存在，此测试便会通过。</p>
+<h4>验证完全匹配的 JSON</h4>
+<p>如果你想验证传入的数组是否与应用程序返回的 JSON <strong>完全</strong>匹配，则可以使用 <code>seeJsonEquals</code> 方法：</p>
+<pre><code>&lt;?php
+
+class ExampleTest extends TestCase
+{
+    /**
+     * 一个基本的功能测试示例。
+     *
+     * @return void
+     */
+    public function testBasicExample()
+    {
+        $this-&gt;post('/user', ['name' =&gt; 'Sally'])
+             -&gt;seeJsonEquals([
+                 'created' =&gt; true,
+             ]);
+    }
+}</code></pre>
+<p><a name="sessions-and-authentication"></a></p>
+<h3>Sessions 和认证</h3>
+<p>Laravel 提供了几个可在测试时使用 Session 的辅助函数。首先，你需要设置 Session 数据至指定的数组中，并使用 <code>withSession</code> 方法。在应用程序的测试请求发送之前，可先给数据加载 session：</p>
+<pre><code>&lt;?php
+
+class ExampleTest extends TestCase
+{
+    public function testApplication()
+    {
+        $this-&gt;withSession(['foo' =&gt; 'bar'])
+             -&gt;visit('/');
+    }
+}</code></pre>
+<p>当然，一般使用 Session 时都是用于维持用户的状态，如认证用户。<code>actingAs</code> 辅助函数提供了简单的方式来让指定的用户认证为当前的用户。举个例子，我们可以使用<a href="#model-factories">模型工厂</a>来生成并认证用户：</p>
+<pre><code>&lt;?php
+
+class ExampleTest extends TestCase
+{
+    public function testApplication()
+    {
+        $user = factory(App\User::class)-&gt;create();
+
+        $this-&gt;actingAs($user)
+             -&gt;withSession(['foo' =&gt; 'bar'])
+             -&gt;visit('/')
+             -&gt;see('Hello, '.$user-&gt;name);
+    }
+}</code></pre>
+<p><a name="disabling-middleware"></a></p>
+<h3>停用中间件</h3>
+<p>测试应用程序时，你会发现，在某些测试中停用<a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a>是很方便的。这让你可以隔离任何中间件的所有影响，以便更好的测试路由及控制器。Laravel 包含了一个简洁的 <code>WithoutMiddleware</code> trait，你能在测试类中使用它来自动停用所有的中间件：</p>
+<pre><code>&lt;?php
+
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+class ExampleTest extends TestCase
+{
+    use WithoutMiddleware;
+
+    //
+}</code></pre>
+<p>如果你只想要在某几个测试方法中停用中间件，则可以在测试方法中调用 <code>withoutMiddleware</code> 方法：</p>
+<pre><code>&lt;?php
+
+class ExampleTest extends TestCase
+{
+    /**
+     * 一个基本的功能测试示例。
+     *
+     * @return void
+     */
+    public function testBasicExample()
+    {
+        $this-&gt;withoutMiddleware();
+
+        $this-&gt;visit('/')
+             -&gt;see('Laravel 5');
+    }
+}</code></pre>
+<p><a name="custom-http-requests"></a></p>
+<h3>自定义 HTTP 请求</h3>
+<p>如果你想要创建一个自定义的 HTTP 请求到应用程序上，并获取完整的 <code>Illuminate\Http\Response</code> 对象，则可以使用 <code>call</code> 方法：</p>
+<pre><code>public function testApplication()
+{
+    $response = $this-&gt;call('GET', '/');
+
+    $this-&gt;assertEquals(200, $response-&gt;status());
+}</code></pre>
+<p>如果你创建的是 <code>POST</code>、<code>PUT</code>、或是 <code>PATCH</code> 请求，则可以在请求时传入一个数组作为输入数据。当然，你也可以在路由及控制器中通过<a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求实例</a>取用这些数据：</p>
+<pre><code>   $response = $this-&gt;call('POST', '/user', ['name' =&gt; 'Taylor']);</code></pre>
+<p><a name="phpunit-assertions"></a></p>
+<h3>PHPUnit 断言</h3>
+<p>Laravel 为 <a href="javascript:if(confirm('https://phpunit.de/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phpunit.de/'" tppabs="https://phpunit.de/">PHPUnit</a> 测试提供了一些额外的断言方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-&gt;assertResponseOk();</code></td>
+<td>断言客户端的响应拥有 OK 状态码。</td>
+</tr>
+<tr>
+<td><code>-&gt;assertResponseStatus($code);</code></td>
+<td>断言客户端的响应拥有指定的状态码。</td>
+</tr>
+<tr>
+<td><code>-&gt;assertViewHas($key, $value = null);</code></td>
+<td>断言响应视图拥有指定的部分绑定数据。</td>
+</tr>
+<tr>
+<td><code>-&gt;assertViewHasAll(array $bindings);</code></td>
+<td>断言响应视图拥有指定的绑定数据列表。</td>
+</tr>
+<tr>
+<td><code>-&gt;assertViewMissing($key);</code></td>
+<td>断言响应视图不包含指定的部分绑定数据。</td>
+</tr>
+<tr>
+<td><code>-&gt;assertRedirectedTo($uri, $with = []);</code></td>
+<td>断言客户端是否被重定向至指定的 URI。</td>
+</tr>
+<tr>
+<td><code>-&gt;assertRedirectedToRoute($name, $parameters = [], $with = []);</code></td>
+<td>断言客户端是否被重定向到指定的路由。</td>
+</tr>
+<tr>
+<td><code>-&gt;assertRedirectedToAction($name, $parameters = [], $with = []);</code></td>
+<td>断言客户端是否被重定向到指定的行为。</td>
+</tr>
+<tr>
+<td><code>-&gt;assertSessionHas($key, $value = null);</code></td>
+<td>断言 session 中有指定的值。</td>
+</tr>
+<tr>
+<td><code>-&gt;assertSessionHasAll(array $bindings);</code></td>
+<td>断言 session 中有指定的列表值。</td>
+</tr>
+<tr>
+<td><code>-&gt;assertSessionHasErrors($bindings = [], $format = null);</code></td>
+<td>断言 session 有错误的绑定。</td>
+</tr>
+<tr>
+<td><code>-&gt;assertHasOldInput();</code></td>
+<td>断言 session 有旧的输入数据。</td>
+</tr>
+</tbody>
+</table>
+<p><a name="working-with-databases"></a></p>
+<h2>使用数据库</h2>
+<p>Laravel 也提供了多种有用的工具来让你更容易的测试使用数据库的应用程序。首先，你可以使用 <code>seeInDatabase</code> 辅助函数，来断言数据库中是否存在与指定条件互相匹配的数据。举例来说，如果我们想验证 <code>users</code> 数据表中是否存在 <code>email</code> 值为 <code>sally@example.com</code> 的数据，我们可以按照以下的方式来做测试：</p>
+<pre><code>public function testDatabase()
+{
+    // 创建调用至应用程序...
+
+    $this-&gt;seeInDatabase('users', ['email' =&gt; 'sally@example.com']);
+}</code></pre>
+<p>当然，使用 <code>seeInDatabase</code> 方法及其它的辅助函数只是为了方便。你也可以随意使用 PHPUnit 内置的所有断言方法来扩充测试。</p>
+<p><a name="resetting-the-database-after-each-test"></a></p>
+<h3>每次测试结束后重置数据库</h3>
+<p>在每次测试结束后都需要对数据进行重置，这样前面的测试数据就不会干扰到后面的测试。</p>
+<h4>使用迁移</h4>
+<p>其中有一种方式就是在每次测试后都还原数据库，并在下次测试前运行迁移。Laravel 提供了简洁的 <code>DatabaseMigrations</code> trait，它会自动帮你处理好这些操作。你只需在测试类中使用此 trait 即可：</p>
+<pre><code>&lt;?php
+
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+class ExampleTest extends TestCase
+{
+    use DatabaseMigrations;
+
+    /**
+     * 一个基本的功能测试示例。
+     *
+     * @return void
+     */
+    public function testBasicExample()
+    {
+        $this-&gt;visit('/')
+             -&gt;see('Laravel 5');
+    }
+}</code></pre>
+<h4>使用事务</h4>
+<p>另一个方式，就是将每个测试案例都包含在数据库事务中。Laravel 提供了一个简洁的 <code>DatabaseTransactions</code> trait 来自动帮你处理好这些操作：</p>
+<pre><code>&lt;?php
+
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+class ExampleTest extends TestCase
+{
+    use DatabaseTransactions;
+
+    /**
+     * 一个基本的功能测试示例。
+     *
+     * @return void
+     */
+    public function testBasicExample()
+    {
+        $this-&gt;visit('/')
+             -&gt;see('Laravel 5');
+    }
+}</code></pre>
+<blockquote>
+<p><strong>注意：</strong>此 trait 的事务只包含默认的数据库连接。</p>
+</blockquote>
+<p><a name="model-factories"></a></p>
+<h3>模型工厂</h3>
+<p>测试时，常常需要在运行测试之前写入一些数据到数据库中。创建测试数据时，除了手动的来设置每个字段的值，还可以使用 <a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">Eloquent 模型</a>的「工厂」来设置每个属性的默认值。在开始之前，你可以先查看下应用程序的 <code>database/factories/ModelFactory.php</code> 文件。此文件包含一个现成的工厂定义：</p>
+<pre><code>$factory-&gt;define(App\User::class, function (Faker\Generator $faker) {
+    return [
+        'name' =&gt; $faker-&gt;name,
+        'email' =&gt; $faker-&gt;email,
+        'password' =&gt; bcrypt(str_random(10)),
+        'remember_token' =&gt; str_random(10),
+    ];
+});</code></pre>
+<p>闭包内为工厂的定义，你可以返回模型中所有属性的默认测试值。在该闭包内会接收到 <a href="javascript:if(confirm('https://github.com/fzaninotto/Faker  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://github.com/fzaninotto/Faker'" tppabs="https://github.com/fzaninotto/Faker">Faker</a> PHP 函数库的实例，它可以让你很方便的生成各种随机数据以进行测试。</p>
+<p>当然，你也可以随意将自己额外的工厂增加至 <code>ModelFactory.php</code> 文件。</p>
+<h4>多个工厂类型</h4>
+<p>有时你可能希望针对同一个 Eloquent 模型类来创建多个工厂。例如，除了一般用户的工厂之外，还有「管理员」工厂。你可以使用 <code>defineAs</code> 方法来定义这个工厂：</p>
+<pre><code>$factory-&gt;defineAs(App\User::class, 'admin', function ($faker) {
+    return [
+        'name' =&gt; $faker-&gt;name,
+        'email' =&gt; $faker-&gt;email,
+        'password' =&gt; str_random(10),
+        'remember_token' =&gt; str_random(10),
+        'admin' =&gt; true,
+    ];
+});</code></pre>
+<p>除了从一般用户工厂复制所有基本属性，你也可以使用 <code>raw</code> 方法来获取所有基本属性。一旦你获取到这些属性，就可以轻松的为其增加任何额外值：</p>
+<pre><code>$factory-&gt;defineAs(App\User::class, 'admin', function ($faker) use ($factory) {
+    $user = $factory-&gt;raw(App\User::class);
+
+    return array_merge($user, ['admin' =&gt; true]);
+});</code></pre>
+<h4>在测试中使用工厂</h4>
+<p>在工厂定义后，就可以在测试或是数据库的填充文件中，通过全局的 <code>factory</code> 函数来生成模型实例。接着让我们先来看看几个创建模型的例子。首先我们会使用 <code>make</code> 方法创建模型，但不将它们保存至数据库：</p>
+<pre><code>public function testDatabase()
+{
+    $user = factory(App\User::class)-&gt;make();
+
+    // 在测试中使用模型...
+}</code></pre>
+<p>如果你想重写模型中的某些默认值，则可以传递一个包含数值的数组至 <code>make</code> 方法。只有指定的数值会被替换，其它剩余的数值则会按照工厂指定的默认值来设置：</p>
+<pre><code>$user = factory(App\User::class)-&gt;make([
+    'name' =&gt; 'Abigail',
+   ]);</code></pre>
+<p>你也可以创建一个含有多个模型的集合，或创建一个指定类型的模型：</p>
+<pre><code>// 创建三个 App\User 实例...
+$users = factory(App\User::class, 3)-&gt;make();
+
+// 创建一个 App\User「管理员」实例...
+$user = factory(App\User::class, 'admin')-&gt;make();
+
+// 创建三个 App\User「管理员」实例...
+$users = factory(App\User::class, 'admin', 3)-&gt;make();</code></pre>
+<h4>保存工厂模型</h4>
+<p>你不仅可使用 <code>create</code> 方法来创建模型实例，而且也可以使用 Eloquent 的 <code>save</code> 方法来将它们保存至数据库：</p>
+<pre><code>public function testDatabase()
+{
+    $user = factory(App\User::class)-&gt;create();
+
+    // 在测试中使用模型...
+}</code></pre>
+<p>同样的，你可以在数组传递至 <code>create</code> 方法时重写模型的属性：</p>
+<pre><code>$user = factory(App\User::class)-&gt;create([
+    'name' =&gt; 'Abigail',
+   ]);</code></pre>
+<h4>增加关联至模型</h4>
+<p>你甚至可以保存多个模型到数据库上。在本例中，我们还会增加关联至我们所创建的模型。当使用 <code>create</code> 方法创建多个模型时，它会返回一个 Eloquent <a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">集合实例</a>，让你能够使用集合所提供的便利函数，像是 <code>each</code>：</p>
+<pre><code>$users = factory(App\User::class, 3)
+           -&gt;create()
+           -&gt;each(function($u) {
+                $u-&gt;posts()-&gt;save(factory(App\Post::class)-&gt;make());
+            });</code></pre>
+<p><a name="mocking"></a></p>
+<h2>模拟</h2>
+<p><a name="mocking-events"></a></p>
+<h3>模拟事件</h3>
+<p>如果你正在频繁地使用 Laravel 的事件系统，你可能希望在测试时停止或是模拟某些事件。举例来说，如果你正在测试用户注册功能，你可能不希望所有 <code>UserRegistered</code> 事件的处理进程都被运行，因为它们会触发「欢迎」邮件的发送。</p>
+<p>Laravel 提供了简洁的 <code>expectsEvents</code> 方法，以验证预期的事件有被运行，可防止该事件的任何处理进程被运行：</p>
+<pre><code>&lt;?php
+
+class ExampleTest extends TestCase
+{
+    public function testUserRegistration()
+    {
+        $this-&gt;expectsEvents(App\Events\UserRegistered::class);
+
+        // 测试用户注册的代码...
+    }
+}</code></pre>
+<p>如果你希望防止所有事件的处理进程被运行，则可以使用 <code>withoutEvents</code> 方法：</p>
+<pre><code>&lt;?php
+
+class ExampleTest extends TestCase
+{
+    public function testUserRegistration()
+    {
+        $this-&gt;withoutEvents();
+
+        // 测试用户注册的代码...
+    }
+}</code></pre>
+<p><a name="mocking-jobs"></a></p>
+<h3>模拟任务</h3>
+<p>有时你可能希望当请求发送至应用程序时，简单的对控制器所派送的任务进行测试。这么做能够让你隔离测试路由或控制器，设置除了任务以外的逻辑。当然，在此之后你也可以在一个单独的测试案例中来测试该任务。</p>
+<p>Laravel 提供了一个简洁的 <code>expectsJobs</code> 方法，以验证预期的任务有被派送，但任务本身不会被运行：</p>
+<pre><code>&lt;?php
+
+class ExampleTest extends TestCase
+{
+    public function testPurchasePodcast()
+    {
+        $this-&gt;expectsJobs(App\Jobs\PurchasePodcast::class);
+
+        // 测试购买 podcast 的代码...
+    }
+}</code></pre>
+<blockquote>
+<p><strong>注意：</strong> 此方法只检测 <code>DispatchesJobs</code> trait 的派送方法所派送出的任务。它并不会检测直接发送到 <code>Queue::push</code> 的任务。</p>
+</blockquote>
+<p><a name="mocking-facades"></a></p>
+<h3>模拟 Facades</h3>
+<p>测试时，你可能时常需要模拟调用一个 Laravel <a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">facade</a>。可参考下方的控制器行为：</p>
+<pre><code>&lt;?php
+
+namespace App\Http\Controllers;
+
+use Cache;
+use Illuminate\Routing\Controller;
+
+class UserController extends Controller
+{
+    /**
+     * 显示应用程序所有用户的列表。
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $value = Cache::get('key');
+
+        //
+    }
+}</code></pre>
+<p>我们可以通过 <code>shouldReceive</code> 方法模拟调用 <code>Cache</code> facade，它会返回一个 <a href="javascript:if(confirm('https://github.com/padraic/mockery  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://github.com/padraic/mockery'" tppabs="https://github.com/padraic/mockery">Mockery</a> 模拟的实例。因为 facades 实际上已经被 Laravel 的<a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a>解决并管理着，它们比起一般的静态类更有可测性。举个例子，让我们来模拟调用 <code>Cache</code> facade：</p>
+<pre><code>&lt;?php
+
+class FooTest extends TestCase
+{
+    public function testGetIndex()
+    {
+        Cache::shouldReceive('get')
+                    -&gt;once()
+                    -&gt;with('key')
+                    -&gt;andReturn('value');
+
+        $this-&gt;visit('/users')-&gt;see('value');
+    }
+}</code></pre>
+<blockquote>
+<p><strong>注意：</strong> 你不应该模拟 <code>Request</code> facade。应该在测试时使用如 <code>call</code> 及 <code>post</code> 这样的 HTTP 辅助函数来传递你想要的数据。</p>
+</blockquote>
+		</div>
+
+		<div class="main-footer" style="border-top:1px dashed rgba(0, 0, 0, 0.1);padding-top: 30px;margin-top:30px;margin-bottom: 20px;">
+			<div class="prev-next-wrap clearfix">
+
+									<a class="btn btn-default pull-left" href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling"><i class="fa fa-arrow-left"></i> 任务调度</a>
+				
+			    &nbsp;
+								    <a class="btn btn-default pull-right" href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证 <i class="fa fa-arrow-right"></i></a>
+							</div>
+		</div>
+
+	</article>
+</div>
+
+		<footer class="main">
+			<ul>
+				<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+			</ul>
+			<p>Laravel is a trademark of Taylor Otwell. Copyright &copy; Taylor Otwell.</p>
+			<p class="less-significant"><a href="javascript:if(confirm('http://jackmcdade.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://jackmcdade.com/'" tppabs="http://jackmcdade.com/">Design by Jack McDade</a></p>
+
+			<p class="less-significant">
+				<a href="javascript:if(confirm('http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao'" tppabs="http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao" target="_blank">由 UCloud 赞助  <img src="dYfOYswiQY.png" tppabs="https://dn-phphub.qbox.me/uploads/images/201605/03/1/dYfOYswiQY.png" width="98" data-toggle="tooltip" data-placement="top" title="本站服务器由 UCloud 赞助"></a>.
+		      </p>
+		</footer>
+
+	</div>
+
+	<script src="laravel.js" tppabs="http://laravel-china.org/assets/js/laravel.js"></script>
+	<script src="viewport-units-buggyfill.js" tppabs="http://laravel-china.org/assets/js/viewport-units-buggyfill.js"></script>
+	<script>window.viewportUnitsBuggyfill.init();</script>
+    <script>
+
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','analytics.js'/*tpa=http://7xijlf.com2.z0.glb.qiniucdn.com/js/analytics.js*/,'ga');
+
+		ga('create', 'UA-53903425-7', 'auto');
+		ga('send', 'pageview');
+
+		$(window).load(function() {
+		  // When the page has loaded
+		  $(".main-content").fadeIn(10);
+		});
+    </script>
+</body>
+</html>

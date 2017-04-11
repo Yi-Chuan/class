@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>获取元素</title>
+	<style type="text/css">
+		*{
+			/*padding:0px;
+			margin:0px;*/
+			list-style:none;
+			text-decoration:none;
+			font-family:microsoft yahei;
+		}
+		#all{
+			padding:10px;
+			width:800px;
+			height:auto;
+			border:solid 1px #333;
+			margin:0 auto;
+			
+		}
+		#menu a{font-size:14px;}
+		#header{width:97%;height:80px;border:solid 1px #444;margin:10px;}
+		#section{width:97%;height:auto;border:solid 1px #444;margin:10px;}
+		
+		#footer{width:97%;height:50px;border:solid 1px #444;margin:10px;}
+		#header ul{height:auto;overflow:hidden;padding-left:100px;}
+		#header ul li{width:60px;height:30px;float:left;border:solid 1px #456;text-align:center;line-height:30px;}
+		
+		#logo{width:200px;height:auto;float:left;position:relative;}
+		#logo img{margin-top:-40px;}
+		#section ul{height:auto;overflow:hidden;padding:20px;}
+		#section li{width:200px;height:150px;float:left;border:solid 2px pink;padding:10px;margin-right:21px;margin-bottom:21px;}
+		#img{width:100px;float:left;}
+		#copy{height:auto;overflow:hidden;padding-left:100px;}
+		#move{width:80px;height:40px;background:pink;position:fixed;right:0px;top:100px;cursor:pointer;font-family:courier;line-height:40px;}
+		#allmove{width:80px;height:40px;background:pink;position:fixed;right:0px;top:200px;cursor:pointer;font-family:courier;line-height:40px;}
+		#recovery{width:80px;height:40px;background:pink;position:fixed;right:0px;top:300px;cursor:pointer;font-family:courier;line-height:40px;}
+	</style>
+	<script type="text/javascript">
+	window.onload = function(){
+		var lis = images.getElementsByTagName('li');//获取所有的li
+		// for(var i=0;i<lis.length;i++){		
+		// 	lis[i].style.transform = 'rotate('+(Math.ceil(Math.random()*90)-45)+'deg)';
+		// }
+		
+		move.onclick = function(){
+			for(var i=0;i<lis.length;i++){		
+				lis[i].style.transform = 'rotate('+(Math.ceil(Math.random()*90)-45)+'deg)';
+			}
+			return false;
+		}
+		allmove.onclick = function(){
+			var d = 0;
+			var inte = setInterval(function(){
+				document.body.style.transform = 'rotate('+d+'deg)';
+				d+=10;
+				if(d > 360){
+					clearInterval(inte);
+				}
+			},10)
+		}
+		recovery.onclick = function(){
+			for(var i=0;i<lis.length;i++){		
+				lis[i].style.transform = 'rotate(0deg)';
+			}
+			return false;
+		}
+	}
+	</script>
+</head>
+<body>
+	<!-- 内容 start -->
+	<div id="all">
+		<!-- 头部 start -->
+		<div id="header">
+			<div id="logo"><img src="./sunli/logo.png" alt="" width="100%"></div>
+			<ul id="menu">
+				<li><a href="国内">国内</a></li>
+				<li><a href="国外">国外</a></li>
+				<li><a href="科技">科技</a></li>
+				<li><a href="生活">生活</a></li>
+			</ul>
+		</div>
+		<!-- 头部 end -->
+		
+		<!-- 内容 start -->
+		<div id="section">
+			<ul id="images">
+				<li class="w"><a href=""><img src="./sunli/1.jpg" alt="" width="100%"></a></li>
+				<li class="w"><a href=""><img src="./sunli/2.jpg" alt="" width="100%"></a></li>
+				<li class="w"><a href=""><img src="./sunli/3.jpg" alt="" width="100%"></a></li>
+				<li><a href=""><img src="./sunli/4.jpg" alt="" width="100%"></a></li>
+				<li id="f"><a href=""><img src="./sunli/5.jpg" alt="" width="100%"></a></li>
+				<li><a href=""><img src="./sunli/6.jpg" alt="" width="100%"></a></li>
+				<li name="y"><a href=""><img src="./sunli/7.jpg" alt="" width="100%"></a></li>
+				<li name="y"><a href=""><img src="./sunli/8.jpg" alt="" width="100%"></a></li>
+				<li name="y"><a href=""><img src="./sunli/9.jpg" alt="" width="100%"></a></li>
+			</ul>
+		</div>
+		<!-- 内容 end -->
+		
+		<!-- 底部 start -->
+		<div id="footer">
+			<div id="img"><img src="./sunli/logo.png" alt="" width="100%"></div>
+			<div id="copy">© Copyright 2014. All Rights Reserved.</div>
+		</div>
+		<!-- 底部 end -->
+	
+	</div>
+	<!-- 内容 end -->
+	<div id="move">Image</div>
+	<div id="allmove">Body</div>
+	<div id="recovery">Recovery</div>
+	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+	<script type="text/javascript">
+//获取元素
+//通过id来获取元素 document.getElementById();
+// $('#logo').css('border','solid 2px red');
+//通过标签名来获取元素
+// $('li').css('background','#369');
+//通过class类名获取元素
+// $('.w').css('background','#369');
+//逗号 并列获取
+// $('#logo,#menu').css('background','#369');
+//空格 层级获取
+// $('#images li').css('background','#369');
+//过滤获取元素
+//获取第一个和最后一个元素
+// $('li:first').css('background','#369');
+// $('li:last').css('background','#369');
+//获取指定索引的元素 索引从0开始 
+// $('li:eq(7)').css('background','#369');
+// $('li').eq(7).css('background','#369');
+//获取包含指定文本的元素
+// $('li:contains(国)').css('background','#369');
+//通过包含指定属性来获取元素 通过属性来获取
+// $('li[name=y]').css('background','#369');
+
+//父子关系获取
+//获取所有的子元素
+// $('#images').children().css('background','#369');
+//获取第一个子元素
+// $('ul li:first-child').css('background','#369');
+//获取最后一个子元素
+// $('ul li:last-child').css('background','#369');
+//获取指定索引的子元素 索引从1开始
+// $('ul li:nth-child(3)').css('background','#369');
+//获取元素上一个同级元素
+// $('#f').prev().css('background','#369');
+//获取元素下一个同级元素
+// $('#f').next().css('background','#369');
+//获取父级元素
+// $('#f').parent().css('background','#369');
+//获取先辈级元素
+// $('#f').parents('#all').css('border','solid 1px red');
+//获取同辈元素 (同辈元素不包含自己)
+// $('#f').siblings().css('background','#369');
+//在父级元素中查找指定的子元素
+$('#images').find('.w').css('background','#369');
+
+	</script>
+	
+	
+</body>
+</html>

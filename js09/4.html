@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax基本操作:参数</title>
+</head>
+<body>
+	<button id="btn">发送ajax</button>
+	<script type="text/javascript">
+
+
+	//获取元素 绑定单击事件
+	 var btn = document.getElementById('btn');
+	 btn.onclick = function(){
+	 	//1.创建ajax对象
+	 	var x = new XMLHttpRequest();
+
+	 	//2创建事件函数(处理从服务器返回的结果)
+	 	x.onreadystatechange = function(){
+	 		//判断当状态为4  并且响应为200
+	 		if(x.readyState == 4 && x.status == 200){
+	 			//接收返回数据
+	 			var res = x.responseText;
+	 			console.log(res);
+	 		
+	 		}
+	 	}
+
+	 	//3,初始化ajax请求 true异步 false 同步
+	 	x.open('post','3.php',true);
+
+	 	//设置头信息 如果post请求需要带参数时 必须设置头信息
+	 	x.setRequestHeader('content-type','application/x-www-form-urlencoded');
+
+	 	//4 执行发生
+	 	x.send('a=100&b=200&c=300');
+	 }
+	</script>
+</body>
+</html>

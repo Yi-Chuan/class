@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<select name="" id="sheng">
+		<option value="">--请选择--</option>
+	</select>
+	<select name="" id="shi">
+		<option value="">--请选择--</option>
+	</select>
+	<select name="" id="xian">
+		<option value="">--请选择--</option>
+	</select>
+	<script type="text/javascript">
+
+//获取元素
+var sheng = document.getElementById('sheng');
+var shi = document.getElementById('shi');
+var xian = document.getElementById('xian');
+
+//定义省市对象
+var citys = [];
+citys['山东'] = ['济南','济宁'];
+citys['山西'] = ['太原','临汾'];
+citys['河北'] = ['石家庄','承德'];
+
+//定义县
+var shuzu = [];
+shuzu['济南'] = ['东城','西城'];
+shuzu['济宁'] = ['兖州','汶上'];
+shuzu['太原'] = ['太原1','太原2'];
+shuzu['临汾'] = ['临汾1','临汾2'];
+shuzu['石家庄'] = ['石家庄1','石家庄2'];
+shuzu['承德'] = ['承德1','承德2'];
+
+var str = '<option value="">--请选择--</option>';
+for(var i  in citys){
+	// console.log(i);
+	str += '<option value="'+i+'">'+i+'</option>';
+}
+sheng.innerHTML  = str;
+
+sheng.onchange = function(){
+	// console.log(citys[this.value]);
+	var p = citys[this.value];
+	var str = '<option value="">--请选择--</option>';
+	for(var i in p){
+		str+= '<option value="'+p[i]+'">'+p[i]+'</option>'
+	}
+	shi.innerHTML = str;
+}
+
+shi.onchange = function(){
+	var p = shuzu[this.value];
+	var str = '<option value="">--请选择--</option>';
+	for(var i in p){
+		str += '<option value="'+p[i]+'">'+p[i]+'</option>'
+	}
+	xian.innerHTML = str;
+}
+
+
+
+	</script>
+</body>
+</html>

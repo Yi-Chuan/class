@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>ajax上传图片</title>
+	
+  
+</head>
+    <body>
+		<label for="number">选择图片：</label>
+		<span>
+			<img id="load1" name="load1" src="image/loading.png" width="100%" />
+			<input type="file" name='imagefile1'  id='image1' size="60" onchange="loadimg1();"/>
+		</span>
+		<form id="login" action="enter.php" method="post" onsubmit="return check();" enctype="multipart/form-data">
+			<textarea name="content" id="content" cols="40" rows="12"></textarea>
+			<button type="submit" name="submit">提交</button>
+		
+        </form>       
+	</body>
+<script>
+ 
+function sendfile1(){
+
+	var fd=new FormData();
+
+	var pic =document.getElementById('image1').files[0];
+
+	fd.append('pic',pic);
+
+	var xhr=new XMLHttpRequest();
+
+	xhr.open('POST','ajax_image.php',true);
+
+	xhr.onreadystatechange=function(){
+	  if(this.readyState==4){
+	    // console.log(this.responseText);
+	    document.getElementById('load1').src=this.responseText;
+	    var inform=document.getElementById('inform');
+	  }
+	}
+	xhr.send(fd);
+}
+function loadimg1()
+{
+  document.getElementById('load1').src = "image/loading.gif";
+  sendfile1();
+}
+    
+
+  </script>
+</html>

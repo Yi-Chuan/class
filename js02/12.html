@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>编码和反编码,eval</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 求值函数 eval 重点 将执行表达式 
+		//如果参数时js语句(合法的js语法)就直接执行
+		var a = "var b = 'aaaa'";
+
+		eval(a);//var b = 'aaaa' 将字符串转换为js表达式来执行
+		// alert(b);//b 就成为了一个变量
+
+		//编码 escape() 把一些特殊字符 转成 ASCII 
+		var str = 'http://www.baidu.com?name=苍老师&id=10';
+
+		var res = escape(str);
+
+		//反编码 unescape
+		var b = unescape(res);
+		console.log(b);
+
+		/*
+			作用
+				把网址加密 
+		*/
+
+	</script>
+</body>
+</html>

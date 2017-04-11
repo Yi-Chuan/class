@@ -1,0 +1,798 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=UTF-8"utf-8">
+	<title>Laravel 5.1 中文文档：队列
+</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="@summerblue">
+	<meta name="description" content="队列,简介,编写任务类,生成任务类,任务类结构,将任务推送到队列上,延迟性任务,从请求中派送任务,任务事件,运行队列侦听器,Supervisor 设置,将任务侦听器设为后台服务,随着在后台服务的任务侦听器进行布署,处理失败的任务,任务失败事件,重新尝试运行失败任务,简介,Laravel 的队列服务为不同的队列后端系统提供了一套统一的 API 。队列允许你将一个耗时的任务进行延迟处理，例如像 e-m...
+">
+	<meta name="keywords" content="队列,laravel5.1文档,laravel5.1中文文档,laravel中国,laravel中文,laravel框架中文,laravel文档,laravel框架中国,laravel中文文档
+">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lte IE 9]>
+		<script src="html5shiv.min.js" tppabs="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="laravel.css" tppabs="http://laravel-china.org/assets/css/laravel.css">
+	<style media="screen">
+		div.main-content {
+		  display: none;
+		}
+		.loading-effect {
+			position: fixed;
+			left: 50%;
+			top:300px;
+		    z-index: -1;
+		}
+	</style>
+</head>
+<body class="docs language-php ">
+
+	<span class="overlay"></span>
+
+	<div class="loading-effect">
+		<div class="loader-inner line-scale">
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		  </div>
+	</div>
+
+
+	<div class="main-content">
+
+		<nav class="main">
+			<div class="container">
+				<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/" class="brand">
+					<img src="laravel-logo.png" tppabs="http://laravel-china.org/assets/img/laravel-logo.png" height="30">
+					Laravel
+				</a>
+
+				<div class="responsive-sidebar-nav">
+					<a href="#" class="toggle-slide menu-link btn">&#9776;</a>
+				</div>
+
+									<div class="switcher">
+	<div class="dropdown">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			<!--<span class="faint">v</span> -->
+			5.1
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">5.1</a>
+				</li>
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="queues-1.htm" tppabs="http://laravel-china.org/docs/4.2/queues">4.2</a>
+				</li>
+					</ul>
+	</div>
+</div>
+				
+				<ul class="main-nav">
+					<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+				</ul>
+			</div>
+		</nav>
+
+		<nav id="slide-menu" class="slide-menu" role="navigation">
+
+	<div class="brand">
+		<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">
+			<img src="laravel-logo-white.png" tppabs="http://laravel-china.org/assets/img/laravel-logo-white.png" height="50">
+		</a>
+	</div>
+
+	<ul class="slide-main-nav">
+		<li><a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">Home</a></li>
+		<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+	</ul>
+
+	<div class="slide-docs-nav">
+		<h2>文档</h2>
+
+		<a type="button" class="turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</div>
+
+</nav>
+
+<div class="docs-wrapper container">
+
+	<section class="sidebar">
+
+		<div class="header">
+			<a type="button" class="btn btn-primary btn-lg btn-block turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		</div>
+
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</section>
+
+	<article>
+
+		<div class="alert alert-warning" role="alert">
+
+			<h4>拥抱 Laravel 5.1 LTS</h4>
+			<p>
+				强烈建议在 2018 年之前使用 Laravel 5.1 来构建项目，Laravel 5.1 是 LTS 的发行版本, 发行于 2015 年 6 月份，自发布起提供两年时间的 Bug 修复（2017 年 6 月）, 3 年时间的安全修复（2018 年 6 月）。
+			</p>
+			 <p>
+			 	LTS 版本是此项目能提供的最长时间维护版本。一般的发行版本, 只提供 6 个月的 Bug 修复支持, 一年的安全修复支持.
+			 </p>
+		</div>
+
+		<div class="main-content">
+			<h1>队列</h1>
+<ul>
+<li><a href="#introduction">简介</a></li>
+<li><a href="#writing-job-classes">编写任务类</a>
+<ul>
+<li><a href="#generating-job-classes">生成任务类</a></li>
+<li><a href="#job-class-structure">任务类结构</a></li>
+</ul></li>
+<li><a href="#pushing-jobs-onto-the-queue">将任务推送到队列上</a>
+<ul>
+<li><a href="#delayed-jobs">延迟性任务</a></li>
+<li><a href="#dispatching-jobs-from-requests">从请求中派送任务</a></li>
+<li><a href="#job-events">任务事件</a></li>
+</ul></li>
+<li><a href="#running-the-queue-listener">运行队列侦听器</a>
+<ul>
+<li><a href="#supervisor-configuration">Supervisor 设置</a></li>
+<li><a href="#daemon-queue-listener">将任务侦听器设为后台服务</a></li>
+<li><a href="#deploying-with-daemon-queue-listeners">随着在后台服务的任务侦听器进行布署</a></li>
+</ul></li>
+<li><a href="#dealing-with-failed-jobs">处理失败的任务</a>
+<ul>
+<li><a href="#failed-job-events">任务失败事件</a></li>
+<li><a href="#retrying-failed-jobs">重新尝试运行失败任务</a></li>
+</ul></li>
+</ul>
+<p><a name="introduction"></a></p>
+<h2>简介</h2>
+<p>Laravel 的队列服务为不同的队列后端系统提供了一套统一的 API 。队列允许你将一个耗时的任务进行延迟处理，例如像 e-mail 发送。这能让应用程序对页面的请求有更快的响应。</p>
+<p><a name="configuration"></a></p>
+<h3>配置</h3>
+<p>队列的配置文件被保存在 <code>config/queue.php</code> 中。在这个文件内你可以找到包含在 Laravel 中的每一种队列驱动连接设置。它们包含了数据库、<a href="javascript:if(confirm('http://kr.github.com/beanstalkd  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://kr.github.com/beanstalkd'" tppabs="http://kr.github.com/beanstalkd">Beanstalkd</a>、<a href="javascript:if(confirm('http://iron.io/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://iron.io/'" tppabs="http://iron.io/">IronMQ</a>、<a href="javascript:if(confirm('http://aws.amazon.com/sqs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://aws.amazon.com/sqs'" tppabs="http://aws.amazon.com/sqs">Amazon SQS</a>、<a href="javascript:if(confirm('http://redis.io/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://redis.io/'" tppabs="http://redis.io/">Redis</a> 以及提供本机使用的 synchronous 驱动。</p>
+<p>另外框架也提供了 <code>null</code> 这个队列驱动用来丢弃队列任务。</p>
+<h3>驱动的必要设置</h3>
+<h4>数据库</h4>
+<p>要使用 <code>database</code> 这个队列驱动的话，则需要创建一个数据表来记住任务，你可以用 <code>queue:table</code> 这个 Artisan 命令来创建这个数据表的迁移。当迁移建好后，就可以用 <code>migrate</code> 这个命令来创建数据表。</p>
+<pre><code>php artisan queue:table
+
+php artisan migrate</code></pre>
+<h4>其它队列系统的依赖扩展包</h4>
+<p>在使用列表里的队列服务前，必须安装以下依赖扩展包：</p>
+<ul>
+<li>Amazon SQS：<code>aws/aws-sdk-php ~3.0</code></li>
+<li>Beanstalkd：<code>pda/pheanstalk ~3.0</code></li>
+<li>IronMQ：<code>iron-io/iron_mq ~2.0|~4.0</code></li>
+<li>Redis：<code>predis/predis ~1.0</code></li>
+</ul>
+<p><a name="writing-job-classes"></a></p>
+<h2>编写任务类</h2>
+<p><a name="generating-job-classes"></a></p>
+<h3>生成任务类</h3>
+<p>在你的应用程序中，队列的任务类都默认放在 <code>app/Jobs</code> 目录下，你可以用以下的 Artisan 命令来生成一个新的队列任务：</p>
+<pre><code>php artisan make:job SendReminderEmail --queued</code></pre>
+<p>这个命令将会在 <code>app/Jobs</code> 下生成一个新的类，而这个类会实现 <code>Illuminate\Contracts\Queue\ShouldQueue</code> 接口，让 Laravel 知道这个任务应该是被放到队列里的，而不是要直接运行。</p>
+<p><a name="job-class-structure"></a></p>
+<h3>任务类结构</h3>
+<p>任务类的结构很简单，一般来说只会包含一个让队列用来调用此任务的 <code>handle</code> 方法。我们用以下这个类来做示范：</p>
+<pre><code>&lt;?php
+
+namespace App\Jobs;
+
+use App\User;
+use App\Jobs\Job;
+use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class SendReminderEmail extends Job implements SelfHandling, ShouldQueue
+{
+    use InteractsWithQueue, SerializesModels;
+
+    protected $user;
+
+    /**
+     * 创建一个新的任务实例。
+     *
+     * @param  User  $user
+     * @return void
+     */
+    public function __construct(User $user)
+    {
+        $this-&gt;user = $user;
+    }
+
+    /**
+     * 运行任务。
+     *
+     * @param  Mailer  $mailer
+     * @return void
+     */
+    public function handle(Mailer $mailer)
+    {
+        $mailer-&gt;send('emails.reminder', ['user' =&gt; $this-&gt;user], function ($m) {
+            //
+        });
+
+        $this-&gt;user-&gt;reminders()-&gt;create(...);
+    }
+}</code></pre>
+<p>注意，在这个例子中，我们在任务类的构造器中直接传递了一个 <a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">Eloquent 模型</a>。因为我们在任务类里引用了 <code>SerializesModels</code> 这个 trait，使得 Eloquent 模型在处理任务时可以被优雅地序列化和反序列化。如果你的队列任务类在构造器中接收了一个 Eloquent 模型，那么只有可识别出该模型的属性会被序列化到队列里。当任务被实际运行时，队列系统便会自动从数据库中重新取回完整的模型。这整个过程对你的应用程序来说是完全透明的，这样可以避免在序列化完整的 Eloquent 模式实例时所带来的一些问题。</p>
+<p>在队列处理任务时，会调用 <code>handle</code> 方法，而这里我们也可以通过 <code>handle</code> 方法的参数类型提示，让 Laravel 的<a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a>自动注入依赖对象。</p>
+<h4>当发生错误的时候</h4>
+<p>如果在处理任务时抛出了一个异常，它将会自动被释放回队列里并再次尝试运行。当该任务一直出错时，它会不断被发布重试，直到超过应用程序所允许的最大重试值。最大重试值可以在运行 <code>queue:listen</code> 或 <code>queue:work</code> 命令时，用 <code>--tries</code> 选项来设置。关于运行队列侦听器的更多信息在稍后会有<a href="#running-the-queue-listener">详细说明</a>。</p>
+<h4>手动释放任务</h4>
+<p>生成出来的任务类引用了 <code>InteractsWithQueue</code> 这个 trait，它提供了 <code>release</code> 方法让我们可以手动释放任务。在 <code>release</code> 方法中可指定一个参数，表示此任务被重新运行之前所等待的秒数。</p>
+<pre><code>public function handle(Mailer $mailer)
+{
+    if (condition) {
+        $this-&gt;release(10);
+    }
+}</code></pre>
+<h4>检查重试次数</h4>
+<p>如前面所提到的，当任务被处理时若发生一些异常，则任务将会被自动释放回队列中。这时候可以用 <code>attempt</code> 方法来检查重试次数：</p>
+<pre><code>public function handle(Mailer $mailer)
+{
+    if ($this-&gt;attempts() &gt; 3) {
+        //
+    }
+}</code></pre>
+<p><a name="pushing-jobs-onto-the-queue"></a></p>
+<h2>将任务推送到队列上</h2>
+<p>在 <code>app/Http/Controllers/Controller.php</code> 中 Laravel 定义了一个默认控制器，它引用了 <code>DispatchesJob</code> 这个 trait。而这个 trait 提供了数个方法来方便你推送任务到队列上，例如 <code>dispatch</code> 方法：</p>
+<pre><code>&lt;?php
+
+namespace App\Http\Controllers;
+
+use App\User;
+use Illuminate\Http\Request;
+use App\Jobs\SendReminderEmail;
+use App\Http\Controllers\Controller;
+
+class UserController extends Controller
+{
+    /**
+     * 发送提醒的 e-mail 给指定用户。
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function sendReminderEmail(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $this-&gt;dispatch(new SendReminderEmail($user));
+    }
+}</code></pre>
+<p>当然有时候你不一定是从应用程序的路由或控制器来派发任务的，因此你可以在应用程序中的任何类里引用 <code>DispatchesJobs</code> 这个 trait ，以便使用它的各种派发方法。以下就是使用该 trait 的类：</p>
+<pre><code>&lt;?php
+
+namespace App;
+
+use Illuminate\Foundation\Bus\DispatchesJobs;
+
+class ExampleClass
+{
+    use DispatchesJobs;
+}</code></pre>
+<h4>指定任务所属的队列</h4>
+<p>你可以指定任务应该要送到哪一个队列上。</p>
+<p>要推送任务到不同的队列上，你需要将任务先「分类」，甚至可能要指定每个队列能有多少作业器可以运行任务。这并不会推送任务到你在配置文件中所定义的不同队列「连接」上，而是会推送到某个有单个连接的队列。要指定任务运行的队列，可以用任务实例的 <code>onQueue</code> 方法。<code>onQueue</code> 是 <code>Illuminate\Bus\Queueable</code> trait 所提供的方法，而它已经包含在 <code>App\Jobs\Job</code> 基类中：</p>
+<pre><code>&lt;?php
+
+namespace App\Http\Controllers;
+
+use App\User;
+use Illuminate\Http\Request;
+use App\Jobs\SendReminderEmail;
+use App\Http\Controllers\Controller;
+
+class UserController extends Controller
+{
+    /**
+     * 发送提醒的 e-mail 给指定用户。
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function sendReminderEmail(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $job = (new SendReminderEmail($user))-&gt;onQueue('emails');
+
+        $this-&gt;dispatch($job);
+    }
+}</code></pre>
+<p><a name="delayed-jobs"></a></p>
+<h3>延迟性任务</h3>
+<p>有时你可能会希望队列任务能晚一点再运行，例如在用户注册 15 分钟后才通过队列任务发送提醒信件。这可以通过任务类引用的 <code>Illuminate\Bus\Queueable</code> 这个 trait 所提供的 <code>delay</code> 方法来实现：</p>
+<pre><code>&lt;?php
+
+namespace App\Http\Controllers;
+
+use App\User;
+use Illuminate\Http\Request;
+use App\Jobs\SendReminderEmail;
+use App\Http\Controllers\Controller;
+
+class UserController extends Controller
+{
+    /**
+     * 发送提醒的 e-mail 给指定用户。
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function sendReminderEmail(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $job = (new SendReminderEmail($user))-&gt;delay(60);
+
+        $this-&gt;dispatch($job);
+    }
+}</code></pre>
+<p>在这个例子里，我们指定该任务延迟 60 秒后再运行。</p>
+<blockquote>
+<p><strong>注意：</strong>Amazon 的 SQS 服务最大的延迟时间是 15 分钟。</p>
+</blockquote>
+<p><a name="dispatching-jobs-from-requests"></a></p>
+<h3>从请求中派送任务</h3>
+<p>Laravel 提供了一些辅助函数以方便你在任务中对应 HTTP 请求的变量。像是在 <code>DispatchesJobs</code> 这个 trait 就提供了 <code>dispatchFrom</code> 方法，而 Laravel 基础控制器已经默认引入了这个 trait：</p>
+<pre><code>&lt;?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class CommerceController extends Controller
+{
+    /**
+     * 处理指定的订单。
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function processOrder(Request $request, $id)
+    {
+        // 处理该请求...
+
+        $this-&gt;dispatchFrom('App\Jobs\ProcessOrder', $request);
+    }
+}</code></pre>
+<p>这个方法会检查任务类的构造器，并且从 HTTP 请求 (或任何 <code>ArrayAccess</code> 对象) 中取出变量，来作为构造器中需要的参数。所以如果我们的任务类构造器接受一个 <code>productId</code> 变量的话，那么队列就会试着从 HTTP 请求中提取 <code>productId</code> 这个参数。</p>
+<p>你也可以直接将一个数组传入到 <code>dispatchFrom</code> 方法的第三个参数里，这个数组会被用来作为构造器中所有不在请求里的变量：</p>
+<pre><code>$this-&gt;dispatchFrom('App\Jobs\ProcessOrder', $request, [
+    'taxPercentage' =&gt; 20,
+]);</code></pre>
+<p><a name="job-events"></a></p>
+<h3>任务事件</h3>
+<h4>任务完成事件</h4>
+<p><code>Queue::after</code> 方法可以让你注册一个队列任务运行完成后会被执行的回调。在此回调进行额外纪录、队列后续任务、或为仪表板增加统计等操作都是很好的时机。举个例子，我们可以在 Laravel 所包含的 <code>AppServiceProvider</code> 中附加一个回调到此事件上：</p>
+<pre><code>&lt;?php
+
+namespace App\Providers;
+
+use Queue;
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * 启动所有应用程序服务。
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        Queue::after(function ($connection, $job, $data) {
+            //
+        });
+    }
+
+    /**
+     * 注册服务提供者。
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+}</code></pre>
+<p><a name="running-the-queue-listener"></a></p>
+<h2>运行队列侦听器</h2>
+<h4>启动队列侦听器</h4>
+<p>Laravel 引入了一个 Artisan 命令，用来运行被推送到队列里的任务。你可以通过 <code>queue:listen</code> 命令来运行侦听器：</p>
+<pre><code>php artisan queue:listen</code></pre>
+<p>你也可以指定侦听器应该利用哪一个队列进行连接：</p>
+<pre><code>php artisan queue:listen connection</code></pre>
+<p>要注意的是，在这个工作命令启动后，它将会继续运行直到被手动停止为止。你可以利用像 <a href="javascript:if(confirm('http://supervisord.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://supervisord.org/'" tppabs="http://supervisord.org/">Supervisor</a> 这样的进程监控软件，来确保队列侦听器不会停止运行。</p>
+<h4>队列优先顺序</h4>
+<p>你可以给 <code>listen</code> 命令一个以逗号分隔的队列连接列表，来设置队列的优先顺序：</p>
+<pre><code>php artisan queue:listen --queue=high,low</code></pre>
+<p>在这个例子里，在 <code>high</code> 这个队列中的任务永远会先被处理，然后才是 <code>low</code> 队列里的任务。</p>
+<h4>指定任务的超时参数</h4>
+<p>你还可以设置每个任务被允许运行的时间长度，单位是秒数：</p>
+<pre><code>php artisan queue:listen --timeout=60</code></pre>
+<h4>指定队列的休眠期</h4>
+<p>此外，你也可以指定队列要等待多少秒后才能取新的任务来运行：</p>
+<pre><code>php artisan queue:listen --sleep=5</code></pre>
+<p>注意这里是指队列在没有任务的状态下才会休眠。如果已经有多个任务卡在这个队列上，那么它会持续运行而不会休眠。</p>
+<p><a name="supervisor-configuration"></a></p>
+<h3>Supervisor 设置</h3>
+<p>Supervisor 是一个 Linux 操作系统上的进程监控软件，它会在 <code>queue:listen</code> 或 <code>queue:work</code> 命令发生失败后自动重启它们。要在 Ubuntu 安装 Supervisor，可以用以下命令：</p>
+<pre><code>sudo apt-get install supervisor</code></pre>
+<p>Supervisor 的配置文件一般是放在 <code>/etc/supervisor/conf.d</code> 目录下，在这个目录中你可以创建任意数量的配置文件来要求 Supervisor 监控你的进程。例如我们创建一个 <code>laravel-worker.conf</code> 来启动与监控一个 <code>queue:work</code> 进程：</p>
+<pre><code>[program:laravel-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /home/forge/app.com/artisan queue:work sqs --sleep=3 --tries=3 --daemon
+autostart=true
+autorestart=true
+user=forge
+numprocs=8
+redirect_stderr=true
+stdout_logfile=/home/forge/app.com/worker.log</code></pre>
+<p>这个例子里的 <code>numprocs</code> 命令会要求 Supervisor 运行并监控 8 个 <code>queue:work</code> 进程，并且在它们运行失败后重新启动。当然，你必须更改 <code>command</code> 命令的 <code>queue:work sqs</code>，以显示你所选择的队列驱动。</p>
+<p>当这个配置文件被创建后，你需要更新 Supervisor 的设置，并用以下命令来启动该进程：</p>
+<pre><code>sudo supervisorctl reread
+
+sudo supervisorctl update
+
+sudo supervisorctl start laravel-worker:*</code></pre>
+<p>更多有关 Supervisor 的设置与使用，请参考 <a href="javascript:if(confirm('http://supervisord.org/index.html  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://supervisord.org/index.html'" tppabs="http://supervisord.org/index.html">Supervisor 官方文档</a>。或是使用 <a href="javascript:if(confirm('https://forge.laravel.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://forge.laravel.com/'" tppabs="https://forge.laravel.com/">Laravel Forge</a> 所提供的 Web 接口，来自动设置与管理你的 Supervisor 设置。</p>
+<p><a name="daemon-queue-listener"></a></p>
+<h3>将任务侦听器设为后台服务</h3>
+<p>在 <code>queue:work</code> Artisan 命令里包含了 <code>--daemon</code> 选项，强制队列服务器持续处理任务，而不需要重新启动整个框架。比起 <code>queue:listen</code> 命令，这将明显的减少 CPU 的用量。</p>
+<p>用 <code>--daemon</code> 旗标在后台服务模式下启动队列服务器：</p>
+<pre><code>php artisan queue:work connection --daemon
+
+php artisan queue:work connection --daemon --sleep=3
+
+php artisan queue:work connection --daemon --sleep=3 --tries=3</code></pre>
+<p>如你所见，<code>queue:work</code> 命令提供了多个和 <code>queue:listen</code> 命令相同的选项。你可以用 <code>php artisan help queue:work</code> 命令来查看所有可用的选项。</p>
+<h3>在后台服务的队列侦听器中开发时所要考量的事项</h3>
+<p>在后台运行的队列侦听器在处理完每个任务前不会重新启动框架。因此你应该在任务运行完成前，谨慎地释放所有内存占用较高的资源。例如你利用 GD 函数库来处理图片，就要在结束前用 <code>imagedestroy</code> 来释放内存。</p>
+<p>如果你的数据库连接也要在使用完后进行关闭，则可以用 <code>DB::reconnect</code> 方法来确保有新的数据库进行连接。</p>
+<p><a name="deploying-with-daemon-queue-listeners"></a></p>
+<h3>在后台任务侦听器进行布署</h3>
+<p>由于后台队列工作器是长驻进程，因此除非队列重新启动，否则任何代码上的任何修改都不会被应用。所以要布署一个有用到后台队列服务器的应用程序，最简单的方式就是在布署脚本文件中对作业器进行重启。你可以在布署命令中加入以下命令，来优雅地重启所有作业器：</p>
+<pre><code>php artisan queue:restart</code></pre>
+<p>这个命令会优雅地告知所有队列服务器，在它们处理完当前任务后重新启动，这样就不会有任务遗失的问题。</p>
+<blockquote>
+<p><strong>注意：</strong>这个命令依靠缓存系统来安排任务的重新启动。默认状况下，APCu 无法在 CLI 的任务上运作。如果你正在使用 APCu 的话，请把 <code>apc.enable_cli=1</code> 加到你的 APCu 设置里。</p>
+</blockquote>
+<p><a name="dealing-with-failed-jobs"></a></p>
+<h2>处理失败的任务</h2>
+<p>计划永远赶不上变化，有时候你的队列任务就是会失败。不过别担心，我们有准备好它发生时的应对方法。Laravel 有个很方便的方式可以指定任务的最大重试次数。当任务运行超过该重试次数时，它就会被写入至 <code>failed_jobs</code> 这个数据表中。而失败任务的名称可以在 <code>config/queue.php</code> 这个配置文件中设置。</p>
+<p>要创建 <code>failed_jobs</code> 数据表的迁移类，你可以用 <code>queue:failed-table</code> 命令：</p>
+<pre><code>php artisan queue:failed-table</code></pre>
+<p>当你运行<a href="#running-the-queue-listener">队列侦听器</a>时，可以用 <code>queue:listen</code> 命令的 <code>--tries</code> 参数来指定任务的最大重试次数：</p>
+<pre><code>php artisan queue:listen connection-name --tries=3</code></pre>
+<p><a name="failed-job-events"></a></p>
+<h3>任务失败事件</h3>
+<p>如果你想注册一个当队列任务失败时会被调用的事件，则可以用 <code>Queue::failing</code> 方法。这样你就有机会通过这个事件来用 e-mail 或 <a href="javascript:if(confirm('https://www.hipchat.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://www.hipchat.com/'" tppabs="https://www.hipchat.com/">HipChat</a> 通知你的团队。例如我们可以在 Laravel 内置的 <code>AppServiceProvider</code> 中对这个事件附加一个回调函数：</p>
+<pre><code>&lt;?php
+
+namespace App\Providers;
+
+use Queue;
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * 启动任何应用程序的服务。
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        Queue::failing(function ($connection, $job, $data) {
+            // 通知团队失败的任务...
+        });
+    }
+
+    /**
+     * 注册服务容器。
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+}</code></pre>
+<h4>在任务类里处理失败的方法</h4>
+<p>如果想有拥有更精细的控制，则可以在在任务类里直接定义一个 <code>failed</code> 方法，这个方法允许你指定错误发生时该执行哪些动作。</p>
+<pre><code>&lt;?php
+
+namespace App\Jobs;
+
+use App\Jobs\Job;
+use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class SendReminderEmail extends Job implements SelfHandling, ShouldQueue
+{
+    use InteractsWithQueue, SerializesModels;
+
+    /**
+     * 运行任务。
+     *
+     * @param  Mailer  $mailer
+     * @return void
+     */
+    public function handle(Mailer $mailer)
+    {
+        //
+    }
+
+    /**
+     * 处理一个失败的任务
+     *
+     * @return void
+     */
+    public function failed()
+    {
+        // 当任务失败时会被调用...
+    }
+}</code></pre>
+<p><a name="retrying-failed-jobs"></a></p>
+<h3>重新尝试运行失败任务</h3>
+<p>要查看你在 <code>failed_jobs</code> 数据表中的所有失败任务，则可以用 <code>queue:failed</code> 这个 Artisan 命令：</p>
+<pre><code>php artisan queue:failed</code></pre>
+<p><code>queue:failed</code> 命令会列出所有任务的 ID、连接、队列以及失败时间，任务 ID 可以被用在重试失败的任务上。例如要重试一个 ID 为 5 的失败任务，其命令如下：</p>
+<pre><code>php artisan queue:retry 5</code></pre>
+<p>要重试所有失败的任务，可以使用 <code>queue:retry</code> 并使用 <code>all</code> 作为 ID：</p>
+<pre><code>php artisan queue:retry all</code></pre>
+<p>如果你想删除掉一个失败任务，可以用 <code>queue:forget</code> 命令：</p>
+<pre><code>php artisan queue:forget 5</code></pre>
+<p><code>queue:flush</code> 命令可以让你删除所有失败的任务：</p>
+<pre><code>php artisan queue:flush</code></pre>
+		</div>
+
+		<div class="main-footer" style="border-top:1px dashed rgba(0, 0, 0, 0.1);padding-top: 30px;margin-top:30px;margin-bottom: 20px;">
+			<div class="prev-next-wrap clearfix">
+
+									<a class="btn btn-default pull-left" href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination"><i class="fa fa-arrow-left"></i> 分页</a>
+				
+			    &nbsp;
+								    <a class="btn btn-default pull-right" href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis <i class="fa fa-arrow-right"></i></a>
+							</div>
+		</div>
+
+	</article>
+</div>
+
+		<footer class="main">
+			<ul>
+				<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+			</ul>
+			<p>Laravel is a trademark of Taylor Otwell. Copyright &copy; Taylor Otwell.</p>
+			<p class="less-significant"><a href="javascript:if(confirm('http://jackmcdade.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://jackmcdade.com/'" tppabs="http://jackmcdade.com/">Design by Jack McDade</a></p>
+
+			<p class="less-significant">
+				<a href="javascript:if(confirm('http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao'" tppabs="http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao" target="_blank">由 UCloud 赞助  <img src="dYfOYswiQY.png" tppabs="https://dn-phphub.qbox.me/uploads/images/201605/03/1/dYfOYswiQY.png" width="98" data-toggle="tooltip" data-placement="top" title="本站服务器由 UCloud 赞助"></a>.
+		      </p>
+		</footer>
+
+	</div>
+
+	<script src="laravel.js" tppabs="http://laravel-china.org/assets/js/laravel.js"></script>
+	<script src="viewport-units-buggyfill.js" tppabs="http://laravel-china.org/assets/js/viewport-units-buggyfill.js"></script>
+	<script>window.viewportUnitsBuggyfill.init();</script>
+    <script>
+
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','analytics.js'/*tpa=http://7xijlf.com2.z0.glb.qiniucdn.com/js/analytics.js*/,'ga');
+
+		ga('create', 'UA-53903425-7', 'auto');
+		ga('send', 'pageview');
+
+		$(window).load(function() {
+		  // When the page has loaded
+		  $(".main-content").fadeIn(10);
+		});
+    </script>
+</body>
+</html>

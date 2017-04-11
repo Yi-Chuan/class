@@ -1,0 +1,17 @@
+mysql中导入导出的集中形式
+     navicat
+     mysqldump
+
+     1. 导入导出的速度（命令行模式导入导出文本文件）
+     outfile
+     infile
+     select name from user into outfile “/tmp/test.txt"
+     load data infile “/tmp/test.txt” into table user(name)
+     2.使用SQL文件
+     3.关闭数据库，将data目录拷贝出来（然后关闭数据库，再将其拷贝回去）
+
+     root 密码丢失
+     1.关闭mysql数据库
+     2. 打开一个dos栏，mysqld --skip-grant-tables     // 跳过授权表mysql.user和mysql.db这些表
+     3. 新打开一个dos栏，直接输入mysql进入数据库，进入mysql.user修改用户名和密码，使用password修改
+	update user set password=password('123456') where user='root';

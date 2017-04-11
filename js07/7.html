@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>节点操作</title>
+<style type="text/css">
+#all{width: 500px;min-height:500px;
+margin:50px 100px;border:1px solid red;}
+.item{width: 100px;height: 100px;border-radius:50%;
+background: #f39;float: left;margin: 10px;}
+</style>
+</head>
+<body>
+	<button>在元素的尾部插入元素</button>
+	<button>在元素的头部插入元素</button>
+	<button>删除第二个元素</button>
+	<button>替换第三个元素</button>
+	<button>克隆最后一个元素,插入到前面</button>
+	<br>
+	<div id='all'></div>
+	<script type="text/javascript">
+//获取页面中的but
+var btn = document.getElementsByTagName('button');
+var all = document.getElementById('all');
+
+//绑定单击事件
+btn[0].onclick = function(){
+	//创建元素
+	var newDiv = createDiv();
+	//从尾部添加
+	all.appendChild(newDiv);
+	addEvent();
+}
+
+//第二个btn
+btn[1].onclick = function(){
+	//创建元素
+	var newDiv = createDiv();
+	//获取第一个元素
+	var f = all.firstElementChild;
+	//insertBefore 在元素的头部插入
+	//参数1,要插入的元素对象,参数2 在谁的前面插入
+	all.insertBefore(newDiv,f);
+	addEvent();
+
+}
+
+//第三个
+btn[2].onclick = function(){
+	//获取第二个元素 进行删除
+	var s = all.firstElementChild.nextElementSibling;
+	//执行删除
+	all.removeChild(s);
+}
+
+//第四个
+btn[3].onclick = function(){
+	//获取第三个元素
+	var s = all.firstElementChild.nextElementSibling.nextElementSibling;
+	//创建新的div
+	var newDiv = createDiv();
+	//执行替换 参数1新的对象 参数2 要替换谁
+	all.replaceChild(newDiv,s);
+}
+
+//第五个
+btn[4].onclick = function(){
+	//获取最后一个
+	var s = all.lastElementChild;
+	//执行克隆 参数true 如果不传参数true 克隆不了子标签或文本
+	var newD = s.cloneNode(true);
+	//获取第一个
+	var f = all.firstElementChild;
+	//执行插入
+	all.insertBefore(newD,f);
+	addEvent();
+}
+
+
+//封装函数绑定事件
+function addEvent(){
+	//获取所有的item
+	var ds = document.getElementsByClassName('item');
+	//遍历
+	for (var i = 0; i < ds.length; i++) {
+		ds[i].onclick = function(){
+			var res = confirm('您确定要删除码?');
+			if(res){
+				//执行删除
+				all.removeChild(this);
+			}
+		}
+		//这种方式的绑定时进行效果叠加
+		// ds[i].addEventListener('click',function(){
+		// 	alert('sss');
+		// })
+	};
+	
+}
+
+
+//封装函数创建div
+function createDiv(){
+	//创建div
+	var newDiv = document.createElement('div');
+	//添加属性
+	newDiv.className = 'item';
+	//随机颜色
+	var r = rand(0,255);
+	var g = rand(0,255);
+	var b = rand(0,255);
+	newDiv.style.background = 'rgb('+r+','+g+','+b+')';
+	//加入文本
+	// newDiv.innerHTML = 'iloveyouto';
+	//在文档中通过classname来获取元素
+	//document.getElementsByClassName
+	// newDiv.onclick  = function(){
+	// 	// alert('sss');
+	// 	var res = confirm('您确定要删除码?');
+	// 	if(res){
+	// 		//执行删除
+	// 		all.removeChild(this);
+	// 	}
+	// }		
+	//返回 并没有插入到文档中
+	return newDiv;
+}
+
+//随机函数
+function rand(m,n){
+	return Math.floor(Math.random()*(n-m+1))+m;
+}
+
+	</script>
+</body>
+</html>

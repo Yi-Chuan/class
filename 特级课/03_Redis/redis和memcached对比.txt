@@ -1,0 +1,12 @@
+1.
+     Memcached是多线程，非阻塞IO复用的网络模型
+     Redis使用单线程的IO复用模型
+
+2.Memcached不可以持久化
+     Redis支持持久话保存
+
+3.数据类型
+     Memcached数据类型单一：只有get和set两个命令设置获取值
+     Redis数据类型：字符串，哈希，列表，集合，有序集合
+
+4.Memcached不支持事物，Redis支持事物

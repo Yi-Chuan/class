@@ -1,0 +1,685 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=UTF-8"utf-8">
+	<title>Laravel 5.1 中文文档：发行说明
+</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="@summerblue">
+	<meta name="description" content="发行说明,支持政策,Laravel 5.1.11,Laravel 5.1.4,Laravel 5.1,Laravel 5.0,Laravel 4.2,Laravel 4.1,发行说明,Laravel 5.1 LTS 版本会提供两年的 BUG 修复及三年的安全性修复，LTS 版本是 Laravel 能提供的支持及维护最长时间支持的发行版。,对于一般的版本，会提供六个月的 BUG 修复及一年的安全性修...
+">
+	<meta name="keywords" content="发行说明,laravel5.1文档,laravel5.1中文文档,laravel中国,laravel中文,laravel框架中文,laravel文档,laravel框架中国,laravel中文文档
+">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lte IE 9]>
+		<script src="html5shiv.min.js" tppabs="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="laravel.css" tppabs="http://laravel-china.org/assets/css/laravel.css">
+	<style media="screen">
+		div.main-content {
+		  display: none;
+		}
+		.loading-effect {
+			position: fixed;
+			left: 50%;
+			top:300px;
+		    z-index: -1;
+		}
+	</style>
+</head>
+<body class="docs language-php ">
+
+	<span class="overlay"></span>
+
+	<div class="loading-effect">
+		<div class="loader-inner line-scale">
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		  </div>
+	</div>
+
+
+	<div class="main-content">
+
+		<nav class="main">
+			<div class="container">
+				<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/" class="brand">
+					<img src="laravel-logo.png" tppabs="http://laravel-china.org/assets/img/laravel-logo.png" height="30">
+					Laravel
+				</a>
+
+				<div class="responsive-sidebar-nav">
+					<a href="#" class="toggle-slide menu-link btn">&#9776;</a>
+				</div>
+
+									<div class="switcher">
+	<div class="dropdown">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			<!--<span class="faint">v</span> -->
+			5.1
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">5.1</a>
+				</li>
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="releases-1.htm" tppabs="http://laravel-china.org/docs/4.2/releases">4.2</a>
+				</li>
+					</ul>
+	</div>
+</div>
+				
+				<ul class="main-nav">
+					<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+				</ul>
+			</div>
+		</nav>
+
+		<nav id="slide-menu" class="slide-menu" role="navigation">
+
+	<div class="brand">
+		<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">
+			<img src="laravel-logo-white.png" tppabs="http://laravel-china.org/assets/img/laravel-logo-white.png" height="50">
+		</a>
+	</div>
+
+	<ul class="slide-main-nav">
+		<li><a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">Home</a></li>
+		<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+	</ul>
+
+	<div class="slide-docs-nav">
+		<h2>文档</h2>
+
+		<a type="button" class="turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</div>
+
+</nav>
+
+<div class="docs-wrapper container">
+
+	<section class="sidebar">
+
+		<div class="header">
+			<a type="button" class="btn btn-primary btn-lg btn-block turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		</div>
+
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</section>
+
+	<article>
+
+		<div class="alert alert-warning" role="alert">
+
+			<h4>拥抱 Laravel 5.1 LTS</h4>
+			<p>
+				强烈建议在 2018 年之前使用 Laravel 5.1 来构建项目，Laravel 5.1 是 LTS 的发行版本, 发行于 2015 年 6 月份，自发布起提供两年时间的 Bug 修复（2017 年 6 月）, 3 年时间的安全修复（2018 年 6 月）。
+			</p>
+			 <p>
+			 	LTS 版本是此项目能提供的最长时间维护版本。一般的发行版本, 只提供 6 个月的 Bug 修复支持, 一年的安全修复支持.
+			 </p>
+		</div>
+
+		<div class="main-content">
+			<h1>发行说明</h1>
+<ul>
+<li><a href="#support-policy">支持政策</a></li>
+<li><a href="#laravel-5.1.11">Laravel 5.1.11</a></li>
+<li><a href="#laravel-5.1.4">Laravel 5.1.4</a></li>
+<li><a href="#laravel-5.1">Laravel 5.1</a></li>
+<li><a href="#laravel-5.0">Laravel 5.0</a></li>
+<li><a href="#laravel-4.2">Laravel 4.2</a></li>
+<li><a href="#laravel-4.1">Laravel 4.1</a></li>
+</ul>
+<p><a name="support-policy"></a></p>
+<h2>发行说明</h2>
+<p>Laravel 5.1 LTS 版本会提供两年的 BUG 修复及三年的安全性修复，LTS 版本是 Laravel 能提供的支持及维护最长时间支持的发行版。</p>
+<p>对于一般的版本，会提供六个月的 BUG 修复及一年的安全性修复。</p>
+<blockquote>
+<p><strong><a href="javascript:if(confirm('http://github.com/summerblue  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://github.com/summerblue'" tppabs="http://github.com/summerblue">Summer</a>：</strong>  Laravel 5.1 LTS 于 2015 年 6 月份发布，自发布起提供两年时间的 Bug 修复（2017 年 6 月）, 3 年时间的安全修复（2018 年 6 月）。</p>
+</blockquote>
+<p><a name="laravel-5.1.11"></a></p>
+<h2>Laravel 5.1.11</h2>
+<p>Laravel 5.1.11 推出了内置的<a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">授权</a>支持！通过回调或授权策略类方便的组织你应用程序的授权逻辑，使用简单明了的方法对行为进行授权。</p>
+<p>更多的信息请参考<a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">授权的文档</a>。</p>
+<p><a name="laravel-5.1.4"></a></p>
+<h2>Laravel 5.1.4</h2>
+<p>Laravel 5.1.4 为框架推出了简单的登录限制。查阅 <a href="authentication.htm#authentication-throttling" tppabs="http://laravel-china.org/docs/5.1/authentication#authentication-throttling">认证的文档</a>以获取更多信息。</p>
+<p><a name="laravel-5.1"></a></p>
+<h2>Laravel 5.1</h2>
+<p>Laravel 5.1 继续以 Laravel 5.0 改进而成，通过采用 PSR-2 及添加事件广播、中间件参数、Artisan 的改进及其它等等。</p>
+<h3>PHP 5.5.9+</h3>
+<p>由于 PHP 5.4 将在九月「结束寿命」，不再接收来自 PHP 开发团队的安全性更新，Laravel 需要 PHP 5.5.9 或更高的版本。PHP 5.5.9 可以兼容最新版本的 PHP 函数库，像是 Guzzle 及 AWS SDK。</p>
+<h3>LTS</h3>
+<p>Laravel 5.1 是 Laravel 生态系统内 <strong>长期支持</strong> 的第一个版本。Laravel 5.1 会获得两年的 BUG 修复及三年的安全性修复，此策略也使 Laravel 能更好的服务于较大型的企业客户及消费者。</p>
+<h3>PSR-2</h3>
+<p><a href="javascript:if(confirm('https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md'" tppabs="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md">PSR-2 代码风格指南</a> 已经被 Laravel 框架采用为默认的代码风格指南。此外，所以的生成器都已进行更新，以生成 PSR-2 兼容的语法。</p>
+<h3>文档</h3>
+<p>Laravel 文档的每一页已被精心审阅，并得到显著的改善。所有的代码例子也进行了严密检查，并以提供更多的上下文关联性与情境。</p>
+<h3>事件广播</h3>
+<p>在许多现代的 Web 应用程序，WebSockets 都用来实现即时更新用户状态，当在服务器上更新一些数据，WebSocket 连接通常发送一个消息通过客户端处理。</p>
+<p>为了协助你创建这些类型的应用程序，Laravel 让你经由 WebSocket 连接来「广播」你的事件，广播事件让你能够在服务器端代码和客户端 JavaScript 框架间分享相同的事件名称。</p>
+<p>了解更多关于事件广播，请查阅<a href="events.htm#broadcasting-events" tppabs="http://laravel-china.org/docs/5.1/events#broadcasting-events">事件的文档</a>。</p>
+<h3>中间件参数</h3>
+<p>中间件接收自定义传参，例如，如果应用程序要在运行特定操作之前，检查当前登录的用户是否具备该操作的「角色」，可以创建 <code>RoleMiddleware</code> 来接收角色名称作为额外的传参。</p>
+<pre><code>&lt;?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+
+class RoleMiddleware
+{
+    /**
+     * 运行请求过滤。
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  string  $role
+     * @return mixed
+     */
+    public function handle($request, Closure $next, $role)
+    {
+        if (! $request-&gt;user()-&gt;hasRole($role)) {
+            // 重定向...
+        }
+
+        return $next($request);
+    }
+
+}</code></pre>
+<p>在路由中可使用冒号 <code>:</code> 来区隔中间件名称与指派参数，多个参数可使用逗号作为分隔：</p>
+<pre><code>Route::put('post/{id}', ['middleware' =&gt; 'role:editor', function ($id) {
+    //
+}]);</code></pre>
+<p>关于中间件的更多信息，请查阅<a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件的文档</a>。</p>
+<h3>测试改进</h3>
+<p>Laravel 内置的测试功能已得到显著的改善。各种新的方法提供了流畅、简明的接口与应用程序进行交互，并检查响应。例如，查看下方的测试：</p>
+<pre><code>public function testNewUserRegistration()
+{
+    $this-&gt;visit('/register')
+         -&gt;type('Taylor', 'name')
+         -&gt;check('terms')
+         -&gt;press('Register')
+         -&gt;seePageIs('/dashboard');
+}</code></pre>
+<p>关于测试的更多信息，请查阅<a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试的文档</a>。</p>
+<h3>模型工厂</h3>
+<p>Laravel 现在提供一个简单的方式创建仿真的 Eloquent 模型，使用<a href="testing.htm#model-factories" tppabs="http://laravel-china.org/docs/5.1/testing#model-factories">模型工厂</a>。模型工厂让你简单的为 Eloquent 模型定义一组「默认」的属性，并为你的测试或数据填充生成测试模型实例。模型工厂也使用高级的 <a href="javascript:if(confirm('https://github.com/fzaninotto/Faker  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://github.com/fzaninotto/Faker'" tppabs="https://github.com/fzaninotto/Faker">Faker</a> PHP 函数库来生成随机属性的数据：</p>
+<pre><code>$factory-&gt;define(App\User::class, function ($faker) {
+    return [
+        'name' =&gt; $faker-&gt;name,
+        'email' =&gt; $faker-&gt;email,
+        'password' =&gt; str_random(10),
+        'remember_token' =&gt; str_random(10),
+    ];
+});</code></pre>
+<p>更多关于模型工厂的消息，请查阅<a href="testing.htm#model-factories" tppabs="http://laravel-china.org/docs/5.1/testing#model-factories">它的文档</a>。</p>
+<h3>Artisan 的改进</h3>
+<p>Artisan 命令现在可以使用简单的方式定义，相似于路由的「署名」，提供了一个非常简单的接口来定义命令行的参数及选项。举个例子，你可以定义一个简单的命令及它的选项，如下：</p>
+<pre><code>/**
+ * 命令行的名字及署名。
+ *
+ * @var string
+ */
+protected $signature = 'email:send {user} {--force}';</code></pre>
+<p>更多关于定义 Artisan 命令的消息，请参考 <a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 的文档</a>。</p>
+<h3>文件夹结构</h3>
+<p>为了更好地表明目的，<code>app/Commands</code> 目录已经被更名为 <code>app/Jobs</code>。此外，<code>app/Handler</code> 目录已经被合并成一个只包含事件侦听器的 <code>app/Listeners</code> 目录。但是，这不是一个重大的改变，你不必更新成新的文件夹结构也能使用 Laravel 5.1。</p>
+<h3>加密</h3>
+<p>在 Laravel 之前的版本，加密是通过 <code>mcrypt</code> PHP 扩展功能进行处理。不过，从 Laravel 5.1 起，加密通过更积极维护的 <code>openssl</code> 扩展功能进行处理。</p>
+<p><a name="laravel-5.0"></a></p>
+<h2>Laravel 5.0</h2>
+<p>Laravel 5.0 在默认的项目上引进了新的应用程序架构。新的架构提供了更好的基础在 Laravel 中创建强健的应用程序，以及在应用程序中全面采用新的自动加载标准（PSR-4）。首先，来查看一些主要更动：</p>
+<h3>新的目录结构</h3>
+<p>旧的 <code>app/models</code> 目录已经完全被移除。相对的，你所有的代码都放在 <code>app</code> 目录下，以及默认情况下使用 <code>App</code> 命名空间。这个默认的命名空间可以快速的使用新的 <code>app:name</code> Artisan 命令来做更改。</p>
+<p>控制器、中间件，以及请求（Laravel 5.0 中新型态的类），现在分门别类的放在 <code>app/Http</code> 目录下，因为他们都与应用程序的 HTTP 传输层相关。除了一个路由设置的文件外，所有的中间件现在都分开成为独自的类档。</p>
+<p>新的 <code>app/Providers</code> 目录取代了旧版 Laravel 4.x <code>app/start</code> 里的文件。这些服务提供者为应用程序提供了各种的引导功能，像是错误处理，日志纪录，路由加载等等。当然，你可以任意的创建新的服务提供者到应用程序中。</p>
+<p>应用程序的语言文件和视图都被移到 <code>resources</code> 目录下。</p>
+<h3>Contracts</h3>
+<p>所有 Laravel 主要组件实现所用的接口都放在 <code>illuminate/contracts</code> 保存库中。这个保存库没有其它的外部依赖。这些方便、集成的接口，可以让你用来让依赖注入变得低耦合，将可以简单作为 Laravel Facades 的替代选项。</p>
+<p>更多关于 contracts 的信息，参考<a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">完整文档</a>。</p>
+<h3>路由缓存</h3>
+<p>如果你的应用程序全部都是使用控制器路由，你可以使用新的 <code>route:cache</code> Artisan 命令来大幅度地加快注册路由。这对于有 100 个以上路由规则的应用程序很有用，可以<strong>大幅度地</strong>加快应用程序这部分的处理速度。</p>
+<h3>路由中间件</h3>
+<p>除了像 Laravel 4 风格的路由「过滤器」，Laravel 5 现在有 HTTP 中间件，而原本的认证和 CSRF 「过滤器」已经改写成中间件。中间件提供了单个、一致的接口取代了各种过滤器，让你在请求进到应用程序前，可以简单地检查甚至拒绝请求。</p>
+<p>更多关于中间件的信息，参考<a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">完整文档</a>。</p>
+<h3>控制器方法注入</h3>
+<p>除了之前有的建构函数注入外，你现在可以在控制器方法使用类型提示进行依赖注入。<a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a>会自动注入依赖，即使路由包含了其它参数也不成问题：</p>
+<pre><code>public function createPost(Request $request, PostRepository $posts)
+{
+    //
+}</code></pre>
+<h3>认证基本架构</h3>
+<p>用户注册，认证，以及重设密码的控制器现在已经默认含括了，包含相对应的视图，放在 <code>resources/views/auth</code>。除此之外，「users」数据表迁移也已经默认存在框架中了。这些简单的资源，可以让你快速开发应用程序的点子，而不用陷在编写认证模板的泥淖上。认证相关的视图可以经由 <code>auth/login</code> 以及 <code>auth/register</code> 路由访问。<code>App\Services\Auth\Registrar</code> 服务会负责处理用户认证和添加的相关逻辑。</p>
+<h3>事件对象</h3>
+<p>你现在可以将事件定义成对象，而不是仅使用字符串。例如，瞧瞧以下的事件：
+&lt;?php</p>
+<pre><code>class PodcastWasPurchased
+{
+    public $podcast;
+
+    public function __construct(Podcast $podcast)
+    {
+        $this-&gt;podcast = $podcast;
+    }
+}</code></pre>
+<p>这个事件可以像一般使用那样被派发：</p>
+<pre><code>Event::fire(new PodcastWasPurchased($podcast));</code></pre>
+<p>当然，你的事件处理会收到事件的对象而不是数据的列表：</p>
+<pre><code>&lt;?php
+
+class ReportPodcastPurchase
+{
+    public function handle(PodcastWasPurchased $event)
+    {
+        //
+    }
+}</code></pre>
+<p>更多关于使用事件的信息，参考<a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">完整文档</a>。</p>
+<h3>命令及队列</h3>
+<p>除了 Laravel 4 形式的队列任务，Laravel 5 以简单的命令对象作为队列任务。这些命令放在 <code>app/Commands</code> 目录下。下面是个例子的命令：</p>
+<pre><code>&lt;?php
+
+class PurchasePodcast extends Command implements SelfHandling, ShouldBeQueued
+{
+
+    use SerializesModels;
+
+    protected $user, $podcast;
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct(User $user, Podcast $podcast)
+    {
+        $this-&gt;user = $user;
+        $this-&gt;podcast = $podcast;
+    }
+
+    /**
+     * Execute the command.
+     *
+     * @return void
+     */
+    public function handle()
+    {
+        // Handle the logic to purchase the podcast...
+
+        event(new PodcastWasPurchased($this-&gt;user, $this-&gt;podcast));
+    }
+}</code></pre>
+<p>Laravel 的基底控制器使用了新的 <code>DispatchesCommands</code> trait，让你可以简单的派发命令运行。</p>
+<pre><code>$this-&gt;dispatch(new PurchasePodcastCommand($user, $podcast));</code></pre>
+<p>当然，你也可以将命令视为同步运行（而不会被放到队列里）的任务。事实上，使用命令是个好方式，让你可以封装应用程序需要运行的复杂任务。更多相关的信息，参考 <a href="5.1.htm" tppabs="http://laravel-china.org/docs/5.1/bus">command bus</a> 文档。</p>
+<h3>数据库队列</h3>
+<p><code>database</code> 队列驱动现在已经包含在 Laravel 中了，提供了简单的本地端队列驱动，让你除了数据库相关软件外不需安装其它扩展包。</p>
+<h3>Laravel 调度器</h3>
+<p>过去，开发者可以生成 Cron 设置，用以调度所有他们想要运行的命令行命令。然而，这是件很头痛的事情，因为你的命令行调度不在版本控制中，而你必须登录到服务器里加入 Cron 设置。让生活变得简单点。Laravel 命令行调度，让你可以流畅而且具有表达性的定义在 Laravel 里面，定义你的命令调度，而且只需要在服务器里设置一个 Cron 设置。</p>
+<p>它会看起来如下：</p>
+<pre><code>$schedule-&gt;command('artisan:command')-&gt;dailyAt('15:00');</code></pre>
+<p>当然，快参考<a href="artisan.htm#scheduling-artisan-commands" tppabs="http://laravel-china.org/docs/5.1/artisan#scheduling-artisan-commands">完整文档</a>学习所有调度相关知识。</p>
+<h3>Tinker 与 Psysh</h3>
+<p><code>php artisan tinker</code> 命令现在使用 Justin Hileman 的 <a href="javascript:if(confirm('https://github.com/bobthecow/psysh  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://github.com/bobthecow/psysh'" tppabs="https://github.com/bobthecow/psysh">Psysh</a>，一个 PHP 更强大的 REPL。如果你喜欢 Laravel 4 的 Boris，你也会喜欢上 Psysh。更好的是，它可以在 Windows 上运行！要开始使用，只要输入：</p>
+<pre><code>php artisan tinker</code></pre>
+<h3>DotEnv</h3>
+<p>比起一堆令人困惑的、嵌套的环境配置档目录，Laravel 5 现在使用了 Vance Lucas 的 <a href="javascript:if(confirm('https://github.com/vlucas/phpdotenv  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://github.com/vlucas/phpdotenv'" tppabs="https://github.com/vlucas/phpdotenv">DotEnv</a>。这个扩展包提供了超级简单的方式管理配置文件，并且让 Laravel 5 环境侦测变得轻松。更多的细节，参考完整的<a href="5.1.htm#environment-configuration" tppabs="http://laravel-china.org/docs/5.1/configuration#environment-configuration">配置文件文档</a>。</p>
+<h3>Laravel Elixir</h3>
+<p>Jeffrey Way 的 Laravel Elixir 提供了一个流畅、口语化的接口，可以编译以及合并 assets。如果你曾经因为学习 Grunt 或 Gulp 而被吓到，不必再害怕了。Elixir 让使用 Gulp 编译 Less、Sass 及 CoffeeScript 变得简单。它甚至可以帮你运行测试！</p>
+<p>更多关于 Elixir 的信息，参考<a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">完整文档</a>。</p>
+<h3>Laravel Socialite</h3>
+<p>Laravel Socialite 是个选用的，Laravel 5.0 以上兼容的扩展包，提供了无痛的 OAuth 认证。目前 Socialite 支持 Facebook、Twitter、Google 以及 GitHub。它写起来可能像这样：</p>
+<pre><code>public function redirectForAuth()
+{
+    return Socialize::with('twitter')-&gt;redirect();
+}
+
+public function getUserFromProvider()
+{
+    $user = Socialize::with('twitter')-&gt;user();
+}</code></pre>
+<p>不用再花上数小时编写 OAuth 的认证流程。只要几分钟！查看<a href="authentication.htm#social-authentication" tppabs="http://laravel-china.org/docs/5.1/authentication#social-authentication">完整文档</a> 里有所有的细节。</p>
+<h3>文件系统集成</h3>
+<p>Laravel 现在包含了强大的<a href="javascript:if(confirm('https://github.com/thephpleague/flysystem  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://github.com/thephpleague/flysystem'" tppabs="https://github.com/thephpleague/flysystem">文件系统</a>（一个文件系统的抽象函数库），提供了无痛的集成，把本地端文件系统、Amazon S3 和 Rackspace 云存储集成在一起，
+有统一且优雅的 API！现在要将文件存到 Amazon S3 相当简单：</p>
+<pre><code>Storage::put('file.txt', 'contents');</code></pre>
+<p>更多关于 Laravel 文件系统集成，参考<a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">完整文档</a>。</p>
+<h3>Form Requests</h3>
+<p>Laravel 5.0 引进了 <strong>form requests</strong>，是继承自 <code>Illuminate\Foundation\Http\FormRequest</code> 的类。这些 request 对象可以和控制器方法依赖注入结合，提供一个不需模版的方法，来验证用户输入。让我们深入点，看一个 <code>FormRequest</code> 的例子：</p>
+<pre><code>&lt;?php
+
+namespace App\Http\Requests;
+
+class RegisterRequest extends FormRequest
+{
+    public function rules()
+    {
+        return [
+            'email' =&gt; 'required|email|unique:users',
+            'password' =&gt; 'required|confirmed|min:8',
+        ];
+    }
+
+    public function authorize()
+    {
+        return true;
+    }
+}</code></pre>
+<p>定义好类后，我们可以在控制器动作里使用类型提示：</p>
+<pre><code>public function register(RegisterRequest $request)
+{
+    var_dump($request-&gt;input());
+}</code></pre>
+<p>当 Laravel 的服务容器辨别出要注入的类是个 <code>FormRequest</code> 实例，该请求将会被<strong>自动验证</strong>。意味着，当你的控制器动作被调用了，你可以安全的假设 HTTP 的请求输入己经被验证过，根据你在 form request 类里自定的规则。甚至，若这个请求验证不通过，一个 HTTP 重定向（可以自定），会自动发出，错误消息可以被闪存到 session 中或是转换成 JSON 返回。<strong>表单验证再简单不过如此。</strong>更多关于 <code>FormRequest</code> 验证，参考<a href="validation.htm#form-request-validation" tppabs="http://laravel-china.org/docs/5.1/validation#form-request-validation">文档</a>。</p>
+<h3>简易控制器请求验证</h3>
+<p>Laravel 5 基底控制器包含一个 <code>ValidatesRequests</code> trait。这个 trait 包含了一个简单的 <code>validate</code> 方法可以验证请求。如果对你的应用程序来说 <code>FormRequests</code> 太复杂了，参考这个：</p>
+<pre><code>public function createPost(Request $request)
+{
+    $this-&gt;validate($request, [
+        'title' =&gt; 'required|max:255',
+        'body' =&gt; 'required',
+    ]);
+}</code></pre>
+<p>如果验证失败，会抛出异常以及返回适当的 HTTP 响应到浏览器。验证错误信息会被闪存到 session！而如果请求是 AJAX 请求，Laravel 会自动返回 JSON 格式的验证错误信息。</p>
+<p>更多关于这个新方法的信息，参考<a href="validation.htm#controller-validation" tppabs="http://laravel-china.org/docs/5.1/validation#controller-validation">这个文档</a>。</p>
+<h3>新的生成器</h3>
+<p>因应新的应用程序默认架构，框架添加了 Artisan generator 命令。使用 <code>php artisan list</code> 瞧瞧更多细节。</p>
+<h3>配置文件缓存</h3>
+<p>你现在可以通过 <code>config:cache</code> 命令将所有的配置文件缓存在单个文件中了。</p>
+<h3>Symfony VarDumper</h3>
+<p>出名的 <code>dd</code> 辅助函数，其可以在调试时输出变量信息，已经升级成使用令人惊艳的 Symfony VarDumper 扩展包。它提供了颜色标记的输出，甚至数组可以自动缩合。在项目中试试下列代码：</p>
+<pre><code>dd([1, 2, 3]);</code></pre>
+<p><a name="laravel-4.2"></a></p>
+<h2>Laravel 4.2</h2>
+<p>此发行版本的完整更动列表可以从一个 4.2 的完整安装下，运行 <code>php artisan changes</code> 命令，或者 <a href="javascript:if(confirm('https://github.com/laravel/framework/blob/4.2/src/Illuminate/Foundation/changes.json  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://github.com/laravel/framework/blob/4.2/src/Illuminate/Foundation/changes.json'" tppabs="https://github.com/laravel/framework/blob/4.2/src/Illuminate/Foundation/changes.json">Github 上的更动纪录</a>。此纪录仅含括主要的强化更新和此发行的更动部分。</p>
+<blockquote>
+<p><strong>附注:</strong> 在 4.2 发布周期间，许多小的 BUG 修正与功能强化被整并至各个 4.1 的子发行版本中。所以最好确认 Laravel 4.1 版本的更新列表。</p>
+</blockquote>
+<h3>PHP 5.4 需求</h3>
+<p>Laravel 4.2 需要 PHP 5.4 以上的版本。此 PHP 更新版本让我们可以使用 PHP 的新功能：traits 来为像是 <a href="billing.htm" tppabs="http://laravel-china.org/docs/billing">Laravel 收银台</a> 来提供更具表达力的接口。PHP 5.4 也比 PHP 5.3 带来显著的速度及性能提升。</p>
+<h3>Laravel Forge</h3>
+<p>Larvel Forge，一个网页应用程序，提供一个简单的接口去创建管理你云端上的 PHP 服务器，像是 Linode、DigitalOcean、Rackspace 和 Amazon EC2。支持自动化 nginx 设置、SSH 密钥管理、Cron job 自动化、通过 NewRelic &amp; Papertrail 服务器监控、「推送部署」、Laravel queue worker 设置等等。Forge 提供最简单且更实惠的方式来部署所有你的 Laravel 应用程序。</p>
+<p>默认 Laravel 4.2 的安装里，<code>app/config/database.php</code> 配置文件默认已为 Forge 设置完成，让在平台上的全新应用程序更方便部署。</p>
+<p>关于 Laravel Forge 的更多信息可以在<a href="javascript:if(confirm('https://forge.laravel.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://forge.laravel.com/'" tppabs="https://forge.laravel.com/">官方 Forge 网站</a>上找到。</p>
+<h3>Laravel Homestead</h3>
+<p>Laravel Homestead 是一个为部署健全的 Laravel 和 PHP 应用程序的官方 Vagrant 环境。绝大多数的封装包的依赖与软件在发布前已经部署处理完成，让封装包可以极快的被启用。Homestead 包含 Nginx 1.6、PHP 5.5.12、MySQL、Postres、Redis、Memcached、Beanstalk、Node、Gulp、Grunt 和 Bower。Homestead 包含一个简单的 <code>Homestead.yaml</code> 配置文件，让你在单个个封装包中管理多个 Laravel 应用程序。</p>
+<p>默认的 Laravel 4.2 安装中包含的 <code>app/config/local/database.php</code> 配置文件使用 Homestead 的数据库作为默认。让 Laravel 初始化安装与设置更为方便。</p>
+<p>官方文档已经更新并包含在 <a href="homestead.htm" tppabs="http://laravel-china.org/docs/homestead">Homestead 文档</a> 中。</p>
+<h3>Laravel 收银台</h3>
+<p>Laravel 收银台是一个简单、具表达性的资源库，用来管理 Stripe 的订阅帐务。虽然在安装中此组件依然是选用，我们依然将收银台文档包含在主要 Laravel 文档中。此收银台发布版本带来了数个错误修正、多货币支持还有支持最新的 Stripe API。</p>
+<h3>Queue Workers 常驻程序</h3>
+<p>Artisan <code>queue:work</code> 命令现在支持 <code>--daemon</code> 参数让 worker 可以以「常驻程序」启用。代表 worker 可以持续的处理队列工作不需要重启框架。这让一个复杂的应用程序部署过程中，使得 CPU 的使用有显著的降低。</p>
+<p>更多关于 Queue Workers 常驻程序信息请详阅 <a href="queues.htm#daemon-queue-worker" tppabs="http://laravel-china.org/docs/queues#daemon-queue-worker">queue 文档</a>。</p>
+<h3>Mail API Drivers</h3>
+<p>Laravel 4.2 为 <code>Mail</code> 函数采用了新的 Mailgun 和 Mandrill API 驱动。对许多应用程序而言，他提供了比 SMTP 更快也更可靠的方法来递送邮件。新的驱动使用了 Guzzle 4 HTTP 资源库。</p>
+<h3>软删除 Traits</h3>
+<p>对于软删除和全作用域更简洁的方案，PHP 5.4 的 <code>traits</code> 提供了一个更加简洁的软删除架构和全局作用域，这些新架构为框架提供了更有扩展性的功能，并且让框架更加简洁。</p>
+<p>更多关于软删除的文档请见: <a href="eloquent.htm#soft-deleting" tppabs="http://laravel-china.org/docs/eloquent#soft-deleting">Eloquent documentation</a>.</p>
+<h3>更为方便的 认证(auth) &amp; Remindable Traits</h3>
+<p>得益于 PHP 5.4 traits，我们有了一个更简洁的用户认证和密码提醒接口，这也让 <code>User</code> 模型文档更加精简。</p>
+<h3>&quot;简易分页&quot;</h3>
+<p>一个新的 <code>simplePaginate</code> 方法已被加入到查找以及 Eloquent 查找器中。让你在分页视图中，使用简单的「上一页」和「下一页」链接查找更为高效。</p>
+<h3>迁移确认</h3>
+<p>在正式环境中，破坏性的迁移动作将会被再次确认。如果希望取消提示字符确认请使用 <code>--force</code> 参数。</p>
+<p><a name="laravel-4.1"></a></p>
+<h2>Laravel 4.1</h2>
+<h3>完整更动列表</h3>
+<p>此发行版本的完整更动列表，可以在版本 4.1 的安装中命令行运行 <code>php artisan changes</code> 获取，或者浏览 <a href="javascript:if(confirm('https://github.com/laravel/framework/blob/4.1/src/Illuminate/Foundation/changes.json  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://github.com/laravel/framework/blob/4.1/src/Illuminate/Foundation/changes.json'" tppabs="https://github.com/laravel/framework/blob/4.1/src/Illuminate/Foundation/changes.json">Github 更动档</a> 中了解。其中只记录了该版本比较主要的强化功能和更动。</p>
+<h3>新的 SSH 组件</h3>
+<p>一个全新的 <code>SSH</code> 组件在此发行版本中登场。此功能让你可以轻易的 SSH 至远程服务器并运行命令。更多信息，可以参阅 <a href="5.1.htm" tppabs="http://laravel-china.org/docs/ssh">SSH 组件文档</a>。</p>
+<p>新的 <code>php artisan tail</code> 命令就是使用这个新的 SSH 组件。更多的信息，请参阅 <code>tail</code> <a href="javascript:if(confirm('http://laravel.com/docs/ssh  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel.com/docs/ssh#tailing-remote-logs'" tppabs="http://laravel.com/docs/ssh#tailing-remote-logs">命令集文档</a>。</p>
+<h3>Boris In Tinker</h3>
+<p>如果你的系统支持 <a href="javascript:if(confirm('https://github.com/d11wtq/boris  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://github.com/d11wtq/boris'" tppabs="https://github.com/d11wtq/boris">Boris REPL</a>，<code>php artisan thinker</code> 命令将会使用到它。系统中也必须先行安装好 <code>readline</code> 和 <code>pcntl</code> 两个 PHP 扩展包。如果你没这些扩展包，从 4.0 之后将会使用到它。</p>
+<h3>Eloquent 强化</h3>
+<p>Eloquent 添加了新的 <code>hasManyThrough</code> 关系链。想要了解更多，请参见 <a href="eloquent.htm#has-many-through" tppabs="http://laravel-china.org/docs/eloquent#has-many-through">Eloquent 文档</a>。</p>
+<p>一个新的 <code>whereHas</code> 方法也同时登场，他将允许<a href="eloquent.htm#querying-relations" tppabs="http://laravel-china.org/docs/eloquent#querying-relations">检索基于关系模型的约束</a>。</p>
+<h3>数据库读写分离</h3>
+<p>Query Builder 和 Eloquent 目前通过数据库层，已经可以自动做到读写分离。更多的信息，请参考 <a href="database.htm#read-write-connections" tppabs="http://laravel-china.org/docs/database#read-write-connections">文档</a>。</p>
+<h3>队列排序</h3>
+<p>队列排序已经被支持，只要在 <code>queue:listen</code> 命令后将队列以逗号分隔送出。</p>
+<h3>失败队列作业处理</h3>
+<p>现在队列将会自动处理失败的作业，只要在 <code>queue:listen</code> 后加上 <code>--tries</code> 即可。更多的失败作业处理可以参见 <a href="queues.htm#failed-jobs" tppabs="http://laravel-china.org/docs/queues#failed-jobs">队列文档</a>。</p>
+<h3>缓存标签</h3>
+<p>缓存「区块」已经被「标签」取代。缓存标签允许你将多个「标签」指向同一个缓存对象，而且可以清空所有被指定某个标签的所有对象。更多使用缓存标签信息请见 <a href="cache.htm#cache-tags" tppabs="http://laravel-china.org/docs/cache#cache-tags">缓存文档</a>。</p>
+<h3>更具弹性的密码提醒</h3>
+<p>密码提醒引擎已经可以提供更强大的开发弹性，如：认证密码、显示状态消息等等。使用强化的密码提醒引擎，更多的信息 <a href="5.1.htm#password-reminders-and-reset" tppabs="http://laravel-china.org/docs/security#password-reminders-and-reset">请参阅文档</a>。</p>
+<h3>强化路由引擎</h3>
+<p>Laravel 4.1 拥有一个完全重新编写的路由层。API 一样不变。然而与 4.0 相比，速度快上 100%。整个引擎大幅的简化，且对于路由表达式的编译大大减少对 Symfony Routing 的依赖。</p>
+<h3>强化 Session 引擎</h3>
+<p>此发行版本中，我们亦发布了全新的 Session 引擎。如同路由增进的部分，新的 Session 曾更加简化且更快速。我们不再使用 Symfony 的 Session 处理工具，并且使用更简单、更容易维护的自定义解法。</p>
+<h3>Doctrine DBAL</h3>
+<p>如果你有在你的迁移中使用到 <code>renameColumn</code>，之后你必须在 <code>composer.json</code> 里加 <code>doctrine/dbal</code> 进依赖扩展包中。此扩展包不再默认包含在 Laravel 之中。</p>
+		</div>
+
+		<div class="main-footer" style="border-top:1px dashed rgba(0, 0, 0, 0.1);padding-top: 30px;margin-top:30px;margin-bottom: 20px;">
+			<div class="prev-next-wrap clearfix">
+
+									<a class="btn btn-default pull-left" href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about"><i class="fa fa-arrow-left"></i> 翻译说明</a>
+				
+			    &nbsp;
+								    <a class="btn btn-default pull-right" href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引 <i class="fa fa-arrow-right"></i></a>
+							</div>
+		</div>
+
+	</article>
+</div>
+
+		<footer class="main">
+			<ul>
+				<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+			</ul>
+			<p>Laravel is a trademark of Taylor Otwell. Copyright &copy; Taylor Otwell.</p>
+			<p class="less-significant"><a href="javascript:if(confirm('http://jackmcdade.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://jackmcdade.com/'" tppabs="http://jackmcdade.com/">Design by Jack McDade</a></p>
+
+			<p class="less-significant">
+				<a href="javascript:if(confirm('http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao'" tppabs="http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao" target="_blank">由 UCloud 赞助  <img src="dYfOYswiQY.png" tppabs="https://dn-phphub.qbox.me/uploads/images/201605/03/1/dYfOYswiQY.png" width="98" data-toggle="tooltip" data-placement="top" title="本站服务器由 UCloud 赞助"></a>.
+		      </p>
+		</footer>
+
+	</div>
+
+	<script src="laravel.js" tppabs="http://laravel-china.org/assets/js/laravel.js"></script>
+	<script src="viewport-units-buggyfill.js" tppabs="http://laravel-china.org/assets/js/viewport-units-buggyfill.js"></script>
+	<script>window.viewportUnitsBuggyfill.init();</script>
+    <script>
+
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','analytics.js'/*tpa=http://7xijlf.com2.z0.glb.qiniucdn.com/js/analytics.js*/,'ga');
+
+		ga('create', 'UA-53903425-7', 'auto');
+		ga('send', 'pageview');
+
+		$(window).load(function() {
+		  // When the page has loaded
+		  $(".main-content").fadeIn(10);
+		});
+    </script>
+</body>
+</html>

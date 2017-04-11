@@ -1,0 +1,773 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=UTF-8"utf-8">
+	<title>Laravel 5.1 中文文档：数据库: 迁移
+</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="@summerblue">
+	<meta name="description" content="数据库: 迁移,简介,生成迁移,迁移结构,运行迁移,还原迁移,编写迁移,创建数据表,重命名与删除数据表,创建字段,修改字段,移除字段,创建索引,移除索引,外键约束,简介,迁移就像是数据库中的版本控制，它让团队能够轻松的修改跟共享应用程序的数据库结构。迁移通常会搭配上 Laravel 的结构构造器来让你轻松的构建数据库结构。,Laravel 的 Schema facade 对数据表的创建和操作提供了...
+">
+	<meta name="keywords" content="数据库: 迁移,laravel5.1文档,laravel5.1中文文档,laravel中国,laravel中文,laravel框架中文,laravel文档,laravel框架中国,laravel中文文档
+">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lte IE 9]>
+		<script src="html5shiv.min.js" tppabs="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="laravel.css" tppabs="http://laravel-china.org/assets/css/laravel.css">
+	<style media="screen">
+		div.main-content {
+		  display: none;
+		}
+		.loading-effect {
+			position: fixed;
+			left: 50%;
+			top:300px;
+		    z-index: -1;
+		}
+	</style>
+</head>
+<body class="docs language-php ">
+
+	<span class="overlay"></span>
+
+	<div class="loading-effect">
+		<div class="loader-inner line-scale">
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		  </div>
+	</div>
+
+
+	<div class="main-content">
+
+		<nav class="main">
+			<div class="container">
+				<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/" class="brand">
+					<img src="laravel-logo.png" tppabs="http://laravel-china.org/assets/img/laravel-logo.png" height="30">
+					Laravel
+				</a>
+
+				<div class="responsive-sidebar-nav">
+					<a href="#" class="toggle-slide menu-link btn">&#9776;</a>
+				</div>
+
+									<div class="switcher">
+	<div class="dropdown">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			<!--<span class="faint">v</span> -->
+			5.1
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">5.1</a>
+				</li>
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="migrations-1.htm" tppabs="http://laravel-china.org/docs/4.2/migrations">4.2</a>
+				</li>
+					</ul>
+	</div>
+</div>
+				
+				<ul class="main-nav">
+					<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+				</ul>
+			</div>
+		</nav>
+
+		<nav id="slide-menu" class="slide-menu" role="navigation">
+
+	<div class="brand">
+		<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">
+			<img src="laravel-logo-white.png" tppabs="http://laravel-china.org/assets/img/laravel-logo-white.png" height="50">
+		</a>
+	</div>
+
+	<ul class="slide-main-nav">
+		<li><a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">Home</a></li>
+		<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+	</ul>
+
+	<div class="slide-docs-nav">
+		<h2>文档</h2>
+
+		<a type="button" class="turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</div>
+
+</nav>
+
+<div class="docs-wrapper container">
+
+	<section class="sidebar">
+
+		<div class="header">
+			<a type="button" class="btn btn-primary btn-lg btn-block turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		</div>
+
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</section>
+
+	<article>
+
+		<div class="alert alert-warning" role="alert">
+
+			<h4>拥抱 Laravel 5.1 LTS</h4>
+			<p>
+				强烈建议在 2018 年之前使用 Laravel 5.1 来构建项目，Laravel 5.1 是 LTS 的发行版本, 发行于 2015 年 6 月份，自发布起提供两年时间的 Bug 修复（2017 年 6 月）, 3 年时间的安全修复（2018 年 6 月）。
+			</p>
+			 <p>
+			 	LTS 版本是此项目能提供的最长时间维护版本。一般的发行版本, 只提供 6 个月的 Bug 修复支持, 一年的安全修复支持.
+			 </p>
+		</div>
+
+		<div class="main-content">
+			<h1>数据库: 迁移</h1>
+<ul>
+<li><a href="#introduction">简介</a></li>
+<li><a href="#generating-migrations">生成迁移</a></li>
+<li><a href="#migration-structure">迁移结构</a></li>
+<li><a href="#running-migrations">运行迁移</a>
+<ul>
+<li><a href="#rolling-back-migrations">还原迁移</a></li>
+</ul></li>
+<li><a href="#writing-migrations">编写迁移</a>
+<ul>
+<li><a href="#creating-tables">创建数据表</a></li>
+<li><a href="#renaming-and-dropping-tables">重命名与删除数据表</a></li>
+<li><a href="#creating-columns">创建字段</a></li>
+<li><a href="#modifying-columns">修改字段</a></li>
+<li><a href="#dropping-columns">移除字段</a></li>
+<li><a href="#creating-indexes">创建索引</a></li>
+<li><a href="#dropping-indexes">移除索引</a></li>
+<li><a href="#foreign-key-constraints">外键约束</a></li>
+</ul></li>
+</ul>
+<p><a name="introduction"></a></p>
+<h2>简介</h2>
+<p>迁移就像是数据库中的版本控制，它让团队能够轻松的修改跟共享应用程序的数据库结构。迁移通常会搭配上 Laravel 的结构构造器来让你轻松的构建数据库结构。</p>
+<p>Laravel 的 <code>Schema</code> <a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">facade</a> 对数据表的创建和操作提供了相应支持。它在所有 Laravel 支持的数据库系统中共用了一套相同的 API。</p>
+<p><a name="generating-migrations"></a></p>
+<h2>生成迁移</h2>
+<p>你可以使用 <code>make:migration</code> <a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令</a> 来创建迁移：</p>
+<pre><code>php artisan make:migration create_users_table</code></pre>
+<p>新的迁移文件将会被放置在 <code>database/migrations</code> 目录中。每个迁移文件的名称都包含了一个时间戳，以便让 Laravel 确认迁移的顺序。</p>
+<p><code>--table</code> 和 <code>--create</code> 选项可用来指定数据表的名称，或是该迁移被执行时会创建的新数据表。这些选项需在预生成迁移文件时填入指定的数据表：</p>
+<pre><code>php artisan make:migration add_votes_to_users_table --table=users
+
+php artisan make:migration create_users_table --create=users</code></pre>
+<p>如果你想为生成的迁移指定一个自定义输出路径，则可以在运行 <code>make:migration</code> 命令时使用 <code>--path</code> 选项。提供的路径必须是相对于应用程序的基本路径。</p>
+<p><a name="migration-structure"></a></p>
+<h2>迁移结构</h2>
+<p>一个迁移类会包含两个方法：<code>up</code> 和 <code>down</code>。<code>up</code> 方法可为数据库增加新的数据表、字段、或索引，而 <code>down</code> 方法则可简单的反向运行 <code>up</code> 方法的操作。</p>
+<p>你可以在这两个方法中使用 Laravel 结构构造器来创建及修改数据表。若要了解<code>结构</code>构造器中的所有可用方法，<a href="#creating-tables">可查阅它的文档</a>。让我们来创建一张 <code>flights</code> 数据表作为示例：</p>
+<pre><code>&lt;?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateFlightsTable extends Migration
+{
+    /**
+     * 运行迁移。
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('flights', function (Blueprint $table) {
+            $table-&gt;increments('id');
+            $table-&gt;string('name');
+            $table-&gt;string('airline');
+            $table-&gt;timestamps();
+        });
+    }
+
+    /**
+     * 还原迁移。
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('flights');
+    }
+}</code></pre>
+<p><a name="running-migrations"></a></p>
+<h2>运行迁移</h2>
+<p>要运行应用程序中的所有未执行迁移，可以使用 <code>migrate</code> Artisan 命令。如果你使用了 <a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead 虚拟主机</a>，则应该在虚拟机中运行如下命令：</p>
+<pre><code>php artisan migrate</code></pre>
+<p>如果在你运行时出现「class not found」的错误，请试着在运行 <code>composer dump-autoload</code> 命令后再次运行迁移命令。</p>
+<h4>在线上环境强制运行迁移</h4>
+<p>一些迁移的操作是具有破坏性的，意思是它们可能会导致数据丢失。为了保护线上环境的数据库，系统会在这些命令被运行之前显示确认提示。若要忽略此提示并强制运行命令，则可以使用 <code>--force</code> 标记：</p>
+<pre><code>php artisan migrate --force</code></pre>
+<p><a name="rolling-back-migrations"></a></p>
+<h3>还原迁移</h3>
+<p>若要将迁移还原至上一个「操作」，则可以使用 <code>rollback</code> 命令。请注意，此还原是对上一次执行的「批量」迁移进行还原，其中可能包括多个迁移文件：</p>
+<pre><code>php artisan migrate:rollback</code></pre>
+<p><code>migrate:reset</code> 命令会还原应用程序中的所有迁移：</p>
+<pre><code>php artisan migrate:reset</code></pre>
+<h4>单个命令还原或运行迁移</h4>
+<p><code>migrate:refresh</code> 命令首先会还原数据库的所有迁移，接着再运行 <code>migrate</code> 命令。此命令能有效的重建整个数据库：</p>
+<pre><code>php artisan migrate:refresh
+
+php artisan migrate:refresh --seed</code></pre>
+<p><a name="writing-migrations"></a></p>
+<h2>编写迁移</h2>
+<p><a name="creating-tables"></a></p>
+<h3>创建数据表</h3>
+<p>要创建一张新的数据表，则可以使用 <code>Schema</code> facade 的 <code>create</code>方法。<code>create</code> 方法接收两个参数。第一个参数为数据表的名称，第二个参数为一个<code>闭包</code>，此闭包会接收一个用于定义新数据表的 <code>Blueprint</code> 对象：</p>
+<pre><code>Schema::create('users', function (Blueprint $table) {
+    $table-&gt;increments('id');
+});</code></pre>
+<p>当然，当创建数据表时，你也可以使用任何结构构造器的<a href="#creating-columns">字段方法</a>来定义数据表的字段。</p>
+<h4>检查数据表或字段是否存在</h4>
+<p>你可以使用 <code>hasTable</code> 和 <code>hasColumn</code> 方法简单的检查数据表或字段是否存在：</p>
+<pre><code>if (Schema::hasTable('users')) {
+    //
+}
+
+if (Schema::hasColumn('users', 'email')) {
+    //
+}</code></pre>
+<h4>连接与存储引擎</h4>
+<p>如果你想要在一个非默认的数据库连接中进行结构操作，则可以使用 <code>connection</code> 方法：</p>
+<pre><code>Schema::connection('foo')-&gt;create('users', function ($table) {
+    $table-&gt;increments('id');
+});</code></pre>
+<p>若要设置数据表的存储引擎，只需在结构构造器上设置 <code>engine</code> 属性即可：</p>
+<pre><code>Schema::create('users', function ($table) {
+    $table-&gt;engine = 'InnoDB';
+
+    $table-&gt;increments('id');
+});</code></pre>
+<p><a name="renaming-and-dropping-tables"></a></p>
+<h3>重命名与删除数据表</h3>
+<p>若要重命名一张已存在的数据表，则可以使用 <code>rename</code> 方法：</p>
+<pre><code>Schema::rename($from, $to);</code></pre>
+<p>要删除已存在的数据表，可使用 <code>drop</code> 或 <code>dropIfExists</code> 方法：</p>
+<pre><code>Schema::drop('users');
+
+Schema::dropIfExists('users');</code></pre>
+<p><a name="creating-columns"></a></p>
+<h3>创建字段</h3>
+<p>若要更新一张已存在的数据表，我们会使用 <code>Schema</code> facade 的 <code>table</code> 方法。如同 <code>create</code> 方法，<code>table</code> 方法会接收两个参数：一个是数据表的名称，另一个则是接收 <code>Blueprint</code> 实例的<code>闭包</code>。我们可以使用它来为数据表新增字段：</p>
+<pre><code>Schema::table('users', function ($table) {
+    $table-&gt;string('email');
+});</code></pre>
+<h4>可用的字段类型</h4>
+<p>结构构造器包含了许多字段类型，供你构建数据表时使用：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$table-&gt;bigIncrements('id');</code></td>
+<td>递增 ID（主键），相当于「UNSIGNED BIG INTEGER」型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;bigInteger('votes');</code></td>
+<td>相当于 BIGINT 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;binary('data');</code></td>
+<td>相当于 BLOB 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;boolean('confirmed');</code></td>
+<td>相当于 BOOLEAN 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;char('name', 4);</code></td>
+<td>相当于 CHAR 型态，并带有长度。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;date('created_at');</code></td>
+<td>相当于 DATE 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;dateTime('created_at');</code></td>
+<td>相当于 DATETIME 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;decimal('amount', 5, 2);</code></td>
+<td>相当于 DECIMAL 型态，并带有精度与基数。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;double('column', 15, 8);</code></td>
+<td>相当于 DOUBLE 型态，总共有 15 位数，在小数点后面有 8 位数。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;enum('choices', ['foo', 'bar']);</code></td>
+<td>相当于 ENUM 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;float('amount');</code></td>
+<td>相当于 FLOAT 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;increments('id');</code></td>
+<td>递增的 ID (主键)，使用相当于「UNSIGNED INTEGER」的型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;integer('votes');</code></td>
+<td>相当于 INTEGER 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;json('options');</code></td>
+<td>相当于 JSON 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;jsonb('options');</code></td>
+<td>相当于 JSONB 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;longText('description');</code></td>
+<td>相当于 LONGTEXT 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;mediumInteger('numbers');</code></td>
+<td>相当于 MEDIUMINT 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;mediumText('description');</code></td>
+<td>相当于 MEDIUMTEXT 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;morphs('taggable');</code></td>
+<td>加入整数 <code>taggable_id</code> 与字符串 <code>taggable_type</code>。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;nullableTimestamps();</code></td>
+<td>与 <code>timestamps()</code> 相同，但允许为 NULL。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;rememberToken();</code></td>
+<td>加入 <code>remember_token</code> 并使用 VARCHAR(100) NULL。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;smallInteger('votes');</code></td>
+<td>相当于 SMALLINT 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;softDeletes();</code></td>
+<td>加入 <code>deleted_at</code> 字段用于软删除操作。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;string('email');</code></td>
+<td>相当于 VARCHAR 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;string('name', 100);</code></td>
+<td>相当于 VARCHAR 型态，并带有长度。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;text('description');</code></td>
+<td>相当于 TEXT 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;time('sunrise');</code></td>
+<td>相当于 TIME 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;tinyInteger('numbers');</code></td>
+<td>相当于 TINYINT 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;timestamp('added_on');</code></td>
+<td>相当于 TIMESTAMP 型态。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;timestamps();</code></td>
+<td>加入 <code>created_at</code> 和 <code>pdated_at</code> 字段。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;uuid('id');</code></td>
+<td>相当于 UUID 型态。</td>
+</tr>
+</tbody>
+</table>
+<h4>字段修饰</h4>
+<p>除了上述的字段类型列表，还有一些其它的字段「修饰」，你可以将它增加到字段中。例如，若要让字段「nullable」，那么你可以使用 <code>nullable</code> 方法：</p>
+<pre><code>Schema::table('users', function ($table) {
+    $table-&gt;string('email')-&gt;nullable();
+});</code></pre>
+<p>以下列表为字段的可用修饰。此列表不包括<a href="#creating-indexes">索引修饰</a>：</p>
+<table>
+<thead>
+<tr>
+<th>修饰</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-&gt;first()</code></td>
+<td>将此字段放置在数据表的「第一个」（仅限 MySQL）</td>
+</tr>
+<tr>
+<td><code>-&gt;after('column')</code></td>
+<td>将此字段放置在其它字段「之后」（仅限 MySQL）</td>
+</tr>
+<tr>
+<td><code>-&gt;nullable()</code></td>
+<td>此字段允许写入 NULL 值</td>
+</tr>
+<tr>
+<td><code>-&gt;default($value)</code></td>
+<td>为此字段指定「默认」值</td>
+</tr>
+<tr>
+<td><code>-&gt;unsigned()</code></td>
+<td>设置 <code>integer</code> 字段为 <code>UNSIGNED</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="changing-columns"></a>
+<a name="modifying-columns"></a></p>
+<h3>修改字段</h3>
+<h4>先决条件</h4>
+<p>在修改字段之前，请务必在你的 <code>composer.json</code> 中增加 <code>doctrine/dbal</code> 依赖。Doctrine DBAL 函数库被用于判断当前字段的状态以及创建调整指定字段的 SQL 查询。</p>
+<h4>更新字段属性</h4>
+<p><code>change</code> 方法让你可以修改一个已存在的字段类型，或修改字段属性。例如，你或许想增加字符串字段的长度。要看看 <code>change</code> 方法的具体作用，让我们来将 <code>name</code> 字段的长度从 25 增加到 50：</p>
+<pre><code>Schema::table('users', function ($table) {
+    $table-&gt;string('name', 50)-&gt;change();
+});</code></pre>
+<p>我们也能将字段修改为 nullable：</p>
+<pre><code>Schema::table('users', function ($table) {
+    $table-&gt;string('name', 50)-&gt;nullable()-&gt;change();
+});</code></pre>
+<p><a name="renaming-columns"></a></p>
+<h4>重命名字段</h4>
+<p>要重命名字段，可使用结构构造器的 <code>renameColumn</code> 方法。在重命名字段前，请确定你的 <code>composer.json</code> 文件内已经加入 <code>doctrine/dbal</code> 依赖：</p>
+<pre><code>Schema::table('users', function ($table) {
+    $table-&gt;renameColumn('from', 'to');
+});</code></pre>
+<blockquote>
+<p><strong>注意：</strong>数据表的 <code>enum</code> 字段暂时不支持修改字段名称。</p>
+</blockquote>
+<p><a name="dropping-columns"></a></p>
+<h3>移除字段</h3>
+<p>要移除字段，可使用结构构造器的 <code>dropColumn</code> 方法：</p>
+<pre><code>Schema::table('users', function ($table) {
+    $table-&gt;dropColumn('votes');
+});</code></pre>
+<p>你可以传递字段的名称数组至 <code>dropCloumn</code> 方法来移除多个字段：</p>
+<pre><code>Schema::table('users', function ($table) {
+    $table-&gt;dropColumn(['votes', 'avatar', 'location']);
+});</code></pre>
+<blockquote>
+<p><strong>注意：</strong>在 SQLite 数据库中移除字段前，你需要先增加 <code>doctrine/dbal</code> 依赖至你的 <code>composer.json</code> 文件，并在你的命令行中运行 <code>composer update</code> 命令来安装该函数库。</p>
+<p><strong>注意：</strong>SQLite 数据库并不支持在单个迁移中移除或修改多个字段。</p>
+</blockquote>
+<p><a name="creating-indexes"></a></p>
+<h3>创建索引</h3>
+<p>结构构造器支持多种类型的索引。首先，让我们先来看看一个示例，其指定了字段的值必须是唯一的。你可以简单的在字段定义之后链式调用 <code>unique</code> 方法来创建索引：</p>
+<pre><code>$table-&gt;string('email')-&gt;unique();</code></pre>
+<p>此外，你也可以在定义完字段之后创建索引。例如：</p>
+<pre><code>$table-&gt;unique('email');</code></pre>
+<p>你也可以传递一个字段的数组至索引方法来创建复合索引：</p>
+<pre><code>$table-&gt;index(['account_id', 'created_at']);</code></pre>
+<h4>可用的索引类型</h4>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$table-&gt;primary('id');</code></td>
+<td>加入主键。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;primary(['first', 'last']);</code></td>
+<td>加入复合键。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;unique('email');</code></td>
+<td>加入唯一索引。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;index('state');</code></td>
+<td>加入基本索引。</td>
+</tr>
+</tbody>
+</table>
+<p><a name="dropping-indexes"></a></p>
+<h3>移除索引</h3>
+<p>若要移除索引，则必须指定索引的名称。Laravel 默认会自动给索引分配合理的名称。其将数据表名称，索引的字段名称，及索引类型简单地连接在了一起。举例如下：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$table-&gt;dropPrimary('users_id_primary');</code></td>
+<td>从「users」数据表移除主键。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;dropUnique('users_email_unique');</code></td>
+<td>从「users」数据表移除唯一索引。</td>
+</tr>
+<tr>
+<td><code>$table-&gt;dropIndex('geo_state_index');</code></td>
+<td>从「geo」数据表移除基本索引。</td>
+</tr>
+</tbody>
+</table>
+<p><a name="foreign-key-constraints"></a></p>
+<h3>外键约束</h3>
+<p>Laravel 也为创建外键约束提供了支持，用于在数据库层中的强制引用完整性。例如，让我们定义一个有 <code>user_id</code> 字段的 <code>posts</code> 数据表，<code>user_id</code> 引用了 <code>users</code> 数据表的 <code>id</code> 字段：</p>
+<pre><code>Schema::table('posts', function ($table) {
+    $table-&gt;integer('user_id')-&gt;unsigned();
+
+    $table-&gt;foreign('user_id')-&gt;references('id')-&gt;on('users');
+});</code></pre>
+<p>你也可以指定约束的「on delete」及「on update」：</p>
+<pre><code>$table-&gt;foreign('user_id')
+      -&gt;references('id')-&gt;on('users')
+      -&gt;onDelete('cascade');</code></pre>
+<p>要移除外键，你可以使用 <code>dropForeign</code> 方法。外键约束与索引采用相同的命名方式。所以，我们可以将数据表名称和约束字段连接起来，接着在该名称后面加上「_foreign」后缀：</p>
+<pre><code>$table-&gt;dropForeign('posts_user_id_foreign');</code></pre>
+<p>你也通过传递一个自动使用传统约束名称的数组值来移除外键：</p>
+<pre><code>$table-&gt;dropForeign(['user_id']);</code></pre>
+		</div>
+
+		<div class="main-footer" style="border-top:1px dashed rgba(0, 0, 0, 0.1);padding-top: 30px;margin-top:30px;margin-bottom: 20px;">
+			<div class="prev-next-wrap clearfix">
+
+									<a class="btn btn-default pull-left" href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries"><i class="fa fa-arrow-left"></i> 查询构造器</a>
+				
+			    &nbsp;
+								    <a class="btn btn-default pull-right" href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充 <i class="fa fa-arrow-right"></i></a>
+							</div>
+		</div>
+
+	</article>
+</div>
+
+		<footer class="main">
+			<ul>
+				<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+			</ul>
+			<p>Laravel is a trademark of Taylor Otwell. Copyright &copy; Taylor Otwell.</p>
+			<p class="less-significant"><a href="javascript:if(confirm('http://jackmcdade.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://jackmcdade.com/'" tppabs="http://jackmcdade.com/">Design by Jack McDade</a></p>
+
+			<p class="less-significant">
+				<a href="javascript:if(confirm('http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao'" tppabs="http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao" target="_blank">由 UCloud 赞助  <img src="dYfOYswiQY.png" tppabs="https://dn-phphub.qbox.me/uploads/images/201605/03/1/dYfOYswiQY.png" width="98" data-toggle="tooltip" data-placement="top" title="本站服务器由 UCloud 赞助"></a>.
+		      </p>
+		</footer>
+
+	</div>
+
+	<script src="laravel.js" tppabs="http://laravel-china.org/assets/js/laravel.js"></script>
+	<script src="viewport-units-buggyfill.js" tppabs="http://laravel-china.org/assets/js/viewport-units-buggyfill.js"></script>
+	<script>window.viewportUnitsBuggyfill.init();</script>
+    <script>
+
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','analytics.js'/*tpa=http://7xijlf.com2.z0.glb.qiniucdn.com/js/analytics.js*/,'ga');
+
+		ga('create', 'UA-53903425-7', 'auto');
+		ga('send', 'pageview');
+
+		$(window).load(function() {
+		  // When the page has loaded
+		  $(".main-content").fadeIn(10);
+		});
+    </script>
+</body>
+</html>

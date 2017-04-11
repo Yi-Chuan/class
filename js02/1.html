@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>循环控制</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 循环控制 for while
+		var i = 1;
+		while(i<=10){
+			if(i == 6){
+				i++;
+				continue;//跳过本次循环继续执行下一次
+			}
+			if(i == 8){
+				break;//跳出循环
+			}
+			document.write(i);
+			i++;//在循环中必须时向着跳出循环方向发展
+		}
+
+		document.write('<hr />');
+
+		//for
+		for(var i=1;i<=10;i++){	
+			document.write(i);
+		}
+		document.write('<hr />');
+
+		//99
+		for(var i=1;i<=9;i++){
+			for(var j=1;j<=i;j++){
+				document.write(j+'x'+i+'='+(j*i)+'&nbsp;&nbsp;');
+			}
+			document.write('<br />');
+		}
+
+	</script>
+</body>
+</html>

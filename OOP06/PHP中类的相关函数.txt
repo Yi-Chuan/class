@@ -1,0 +1,102 @@
+﻿
+============================
+	Classes/Object 函数 
+============================
+  参考手册中--与对象和类有关的扩展函数
+1. class_alias — 为类创建一个别名
+------------------------------------------------
+	格式：bool class_alias ([ string $original [, string $alias ]] )
+	示例：
+		class foo { }
+		class_alias('foo', 'bar');
+
+		$a = new foo;
+		$b = new bar;
+		// the objects are the same
+		var_dump($a == $b, $a === $b);  //bool(true)
+		var_dump($a instanceof $b);		//bool(false)
+
+		// the classes are the same
+		var_dump($a instanceof foo);	//bool(true)
+		var_dump($a instanceof bar);	//bool(true)
+
+		var_dump($b instanceof foo);	//bool(true)
+		var_dump($b instanceof bar);	//bool(true)
+
+*2. class_exists — 检查类是否已定义
+-----------------------------------------------------------
+	格式： bool class_exists ( string $class_name [, bool $autoload ] )
+		--如果由 class_name 所指的类已经定义，此函数返回 TRUE，否则返回 FALSE。
+		
+		默认将会尝试调用 __autoload，如果不想让 class_exists() 调用 __autoload，
+		可以将 autoload 参数设为 FALSE。
+
+3. get_called_class — the "Late Static Binding" class name
+---------------------------------------------------------------------
+	(PHP 5 >= 5.3.0)  获取调用者的类名
+
+*4. get_class_methods — 返回由类的方法名组成的数组
+----------------------------------------------------------------------
+	格式：array get_class_methods ( mixed $class_name )
+		返回由 class_name 指定的类中定义的方法名所组成的数组。如果出错，则返回 NULL。 
+		
+		从 PHP 4.0.6 开始，可以指定对象本身来代替 class_name
+
+5. get_class_vars — 返回由类的默认公有属性组成的数组
+-----------------------------------------------------------------------
+	格式： array get_class_vars ( string $class_name )
+		返回由类的默认公有属性组成的关联数组，此数组的元素以 varname => value 的形式存在。 
+
+*6. get_class — 返回对象的类名
+-----------------------------------------------------------------------
+	格式： string get_class ([ object $obj ] )
+		返回对象实例 obj 所属类的名字。如果 obj 不是一个对象则返回 FALSE。
+
+7. get_declared_classes — 返回由已定义类的名字所组成的数组
+--------------------------------------------------------------------------
+	格式：array get_declared_classes ( void )
+		返回由当前脚本中已定义类的名字组成的数组。 
+
+8. get_declared_interfaces — 返回一个数组包含所有已声明的接口
+	class_implements()  返回指定类实现的接口 组成数组
+--------------------------------------------------------------------------
+	格式：array get_declared_interfaces ( void )
+		本函数返回一个数组，其内容是当前脚本中所有已声明的接口的名字。 
+
+9. get_object_vars — 返回由对象属性组成的关联数组
+------------------------------------------------------------------
+	格式：array get_object_vars ( object $obj )
+		返回由 obj 指定的对象中定义的属性组成的关联数组。 
+
+10. get_parent_class — 返回对象或类的父类名
+------------------------------------------------------------------
+	格式：string get_parent_class ([ mixed $obj ] )
+		如果 obj 是对象，则返回对象实例 obj 所属类的父类名。
+
+11. interface_exists — 检查接口是否已被定义
+------------------------------------------------------------------
+	格式：bool interface_exists ( string $interface_name [, bool $autoload ] )
+		本函数在由 interface_name 给出的接口已定义时返回 TRUE，否则返回 FALSE。
+
+*12. is_a — 如果对象属于该类或该类是此对象的父类则返回 TRUE
+	我们可以使用运算符： instanceof代替上面的is_a操作
+------------------------------------------------------------------
+	格式：bool is_a ( object $object , string $class_name )
+		如果对象是该类或该类是此对象的父类则返回 TRUE，否则返回 FALSE。 
+		
+13. is_subclass_of — 如果此对象是该类的子类，则返回 TRUE
+------------------------------------------------------------------
+	格式：bool is_subclass_of ( object $object , string $class_name )
+		如果对象 object 所属类是类 class_name 的子类，则返回 TRUE，否则返回 FALSE。 
+
+*14. method_exists — 检查类的方法是否存在
+--------------------------------------------------------------------
+	格式：bool method_exists ( object $object , string $method_name )
+		如果 method_name 所指的方法在 object 所指的对象类中已定义，则返回 TRUE，否则返回 FALSE。
+
+*15. property_exists — 检查对象或类是否具有该属性
+--------------------------------------------------------------------
+	格式：bool property_exists ( mixed $class , string $property )
+		本函数检查给出的 property 是否存在于指定的类中（以及是否能在当前范围内访问）。 
+
+

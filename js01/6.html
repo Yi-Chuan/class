@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>布尔类型转换</title>
+</head>
+<body>
+<script type="text/javascript">
+//php中为假的几种情况 false 0 0.0 '0' '' array() null
+//js中为假的几种情况 false 0 0.0 '' null NaN undefined
+//Boolean() 是一个函数,用来将其它类型的值转换为布尔类型
+
+
+var b = false;
+var b = 0;
+var b = 0.0;
+var b = '';
+var b = '0';//true
+var b = null;
+var b = new Array();//true
+var ob = new Object();//true
+var b = NaN;
+var b = undefined;
+var b = function(){alert('wwww');}//true
+
+var res = Boolean(ob);
+console.log(ob);
+console.log(res);
+console.log(typeof(res));
+
+</script>
+</body>
+</html>

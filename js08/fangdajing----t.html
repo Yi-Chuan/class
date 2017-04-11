@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>JavaScript实例</title>
+        <style>
+            #did{width:200px;height:200px;position:absolute;overflow:hidden;display:none;}
+            
+        </style>
+    </head>
+    <body>
+        <h2 id="hid">JavaScript实例--放大镜效果</h2>
+        <img id="mid" src="./images/2.jpg" width="384"/>
+        <div id="did">
+            <img src="./images/2.jpg"/>
+        </div>
+        <script  type="text/javascript">
+            //获取被放大图片img标签
+            var mid = document.getElementById("mid");
+            var did = document.getElementById("did");
+            //添加鼠标移入和移出事件
+            mid.onmouseover = function(){
+                did.style.top = mid.offsetTop+"px";
+                did.style.left = mid.offsetLeft+mid.offsetWidth+5+"px";
+                did.style.display = "block";
+            }
+            mid.onmouseout = function(){
+                did.style.display = "none";
+            }
+            //添加鼠标移动事件
+            mid.onmousemove = function(ent){
+                //获取兼容的事件对象
+                var event = ent || window.event;
+                //获取移动位置
+                var top = event.clientY-mid.offsetTop;
+                var left = event.clientX-mid.offsetLeft;
+                //控制did的滚动条距离
+                did.scrollTop = top*5-100;
+                did.scrollLeft = left*5-100;
+            }
+        </script>
+    </body>
+</html>

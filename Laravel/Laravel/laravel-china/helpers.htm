@@ -1,0 +1,947 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=UTF-8"utf-8">
+	<title>Laravel 5.1 中文文档：辅助函数
+</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="@summerblue">
+	<meta name="description" content="辅助函数,简介,可用方法,简介,Laravel 包含一些多样化的 PHP 辅助函数函数。许多在 Laravel 自身框架中使用；如果你觉得实用，也可以在你应用当中使用。,可用方法,    .collection-method-list &gt; p {,        column-count: 3; -moz-column-count: 3; -webkit-column-count: 3;,...
+">
+	<meta name="keywords" content="辅助函数,laravel5.1文档,laravel5.1中文文档,laravel中国,laravel中文,laravel框架中文,laravel文档,laravel框架中国,laravel中文文档
+">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lte IE 9]>
+		<script src="html5shiv.min.js" tppabs="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="laravel.css" tppabs="http://laravel-china.org/assets/css/laravel.css">
+	<style media="screen">
+		div.main-content {
+		  display: none;
+		}
+		.loading-effect {
+			position: fixed;
+			left: 50%;
+			top:300px;
+		    z-index: -1;
+		}
+	</style>
+</head>
+<body class="docs language-php ">
+
+	<span class="overlay"></span>
+
+	<div class="loading-effect">
+		<div class="loader-inner line-scale">
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		  </div>
+	</div>
+
+
+	<div class="main-content">
+
+		<nav class="main">
+			<div class="container">
+				<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/" class="brand">
+					<img src="laravel-logo.png" tppabs="http://laravel-china.org/assets/img/laravel-logo.png" height="30">
+					Laravel
+				</a>
+
+				<div class="responsive-sidebar-nav">
+					<a href="#" class="toggle-slide menu-link btn">&#9776;</a>
+				</div>
+
+									<div class="switcher">
+	<div class="dropdown">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			<!--<span class="faint">v</span> -->
+			5.1
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">5.1</a>
+				</li>
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="helpers-1.htm" tppabs="http://laravel-china.org/docs/4.2/helpers">4.2</a>
+				</li>
+					</ul>
+	</div>
+</div>
+				
+				<ul class="main-nav">
+					<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+				</ul>
+			</div>
+		</nav>
+
+		<nav id="slide-menu" class="slide-menu" role="navigation">
+
+	<div class="brand">
+		<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">
+			<img src="laravel-logo-white.png" tppabs="http://laravel-china.org/assets/img/laravel-logo-white.png" height="50">
+		</a>
+	</div>
+
+	<ul class="slide-main-nav">
+		<li><a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">Home</a></li>
+		<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+	</ul>
+
+	<div class="slide-docs-nav">
+		<h2>文档</h2>
+
+		<a type="button" class="turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</div>
+
+</nav>
+
+<div class="docs-wrapper container">
+
+	<section class="sidebar">
+
+		<div class="header">
+			<a type="button" class="btn btn-primary btn-lg btn-block turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		</div>
+
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</section>
+
+	<article>
+
+		<div class="alert alert-warning" role="alert">
+
+			<h4>拥抱 Laravel 5.1 LTS</h4>
+			<p>
+				强烈建议在 2018 年之前使用 Laravel 5.1 来构建项目，Laravel 5.1 是 LTS 的发行版本, 发行于 2015 年 6 月份，自发布起提供两年时间的 Bug 修复（2017 年 6 月）, 3 年时间的安全修复（2018 年 6 月）。
+			</p>
+			 <p>
+			 	LTS 版本是此项目能提供的最长时间维护版本。一般的发行版本, 只提供 6 个月的 Bug 修复支持, 一年的安全修复支持.
+			 </p>
+		</div>
+
+		<div class="main-content">
+			<h1>辅助函数</h1>
+<ul>
+<li><a href="#introduction">简介</a></li>
+<li><a href="#available-methods">可用方法</a></li>
+</ul>
+<p><a name="introduction"></a></p>
+<h2>简介</h2>
+<p>Laravel 包含一些多样化的 PHP 辅助函数函数。许多在 Laravel 自身框架中使用；如果你觉得实用，也可以在你应用当中使用。</p>
+<p><a name="available-methods"></a></p>
+<h2>可用方法</h2>
+<style>
+    .collection-method-list > p {
+        column-count: 3; -moz-column-count: 3; -webkit-column-count: 3;
+        column-gap: 2em; -moz-column-gap: 2em; -webkit-column-gap: 2em;
+    }
+
+    .collection-method-list a {
+        display: block;
+    }
+</style>
+<h3>数组</h3>
+<div class="collection-method-list">
+<p><a href="#method-array-add">array_add</a>
+<a href="#method-array-collapse">array_collapse</a>
+<a href="#method-array-divide">array_divide</a>
+<a href="#method-array-dot">array_dot</a>
+<a href="#method-array-except">array_except</a>
+<a href="#method-array-first">array_first</a>
+<a href="#method-array-flatten">array_flatten</a>
+<a href="#method-array-forget">array_forget</a>
+<a href="#method-array-get">array_get</a>
+<a href="#method-array-has">array_has</a>
+<a href="#method-array-only">array_only</a>
+<a href="#method-array-pluck">array_pluck</a>
+<a href="#method-array-pull">array_pull</a>
+<a href="#method-array-set">array_set</a>
+<a href="#method-array-sort">array_sort</a>
+<a href="#method-array-sort-recursive">array_sort_recursive</a>
+<a href="#method-array-where">array_where</a>
+<a href="#method-head">head</a>
+<a href="#method-last">last</a></p>
+</div>
+<h3>路径</h3>
+<div class="collection-method-list">
+<p><a href="#method-app-path">app_path</a>
+<a href="#method-base-path">base_path</a>
+<a href="#method-config-path">config_path</a>
+<a href="#method-database-path">database_path</a>
+<a href="#method-elixir">elixir</a>
+<a href="#method-public-path">public_path</a>
+<a href="#method-storage-path">storage_path</a></p>
+</div>
+<h3>字符串</h3>
+<div class="collection-method-list">
+<p><a href="#method-camel-case">camel_case</a>
+<a href="#method-class-basename">class_basename</a>
+<a href="#method-e">e</a>
+<a href="#method-ends-with">ends_with</a>
+<a href="#method-snake-case">snake_case</a>
+<a href="#method-str-limit">str_limit</a>
+<a href="#method-starts-with">starts_with</a>
+<a href="#method-str-contains">str_contains</a>
+<a href="#method-str-finish">str_finish</a>
+<a href="#method-str-is">str_is</a>
+<a href="#method-str-plural">str_plural</a>
+<a href="#method-str-random">str_random</a>
+<a href="#method-str-singular">str_singular</a>
+<a href="#method-str-slug">str_slug</a>
+<a href="#method-studly-case">studly_case</a>
+<a href="#method-trans">trans</a>
+<a href="#method-trans-choice">trans_choice</a></p>
+</div>
+<h3>网址</h3>
+<div class="collection-method-list">
+<p><a href="#method-action">action</a>
+<a href="#method-asset">asset</a>
+<a href="#method-secure-asset">secure_asset</a>
+<a href="#method-route">route</a>
+<a href="#method-url">url</a></p>
+</div>
+<h3>其它</h3>
+<div class="collection-method-list">
+<p><a href="#method-auth">auth</a>
+<a href="#method-back">back</a>
+<a href="#method-bcrypt">bcrypt</a>
+<a href="#method-collect">collect</a>
+<a href="#method-config">config</a>
+<a href="#method-csrf-field">csrf_field</a>
+<a href="#method-csrf-token">csrf_token</a>
+<a href="#method-dd">dd</a>
+<a href="#method-env">env</a>
+<a href="#method-event">event</a>
+<a href="#method-factory">factory</a>
+<a href="#method-method-field">method_field</a>
+<a href="#method-old">old</a>
+<a href="#method-redirect">redirect</a>
+<a href="#method-request">request</a>
+<a href="#method-response">response</a>
+<a href="#method-session">session</a>
+<a href="#method-value">value</a>
+<a href="#method-view">view</a>
+<a href="#method-with">with</a></p>
+</div>
+<p><a name="method-listing"></a></p>
+<h2>方法列表</h2>
+<style>
+    #collection-method code {
+        font-size: 14px;
+    }
+
+    #collection-method:not(.first-collection-method) {
+        margin-top: 50px;
+    }
+</style>
+<p><a name="arrays"></a></p>
+<h2>数组</h2>
+<p><a name="method-array-add"></a></p>
+<h4 id="collection-method" class="first-collection-method"><code>array_add()</code></h4>
+<p>如果指定的键不存在于该数组，<code>array_add</code> 函数便会将指定的键值对加到数组中：</p>
+<pre><code>$array = array_add(['name' =&gt; 'Desk'], 'price', 100);
+
+// ['name' =&gt; 'Desk', 'price' =&gt; 100]</code></pre>
+<p><a name="method-array-collapse"></a></p>
+<h4 id="collection-method"><code>array_collapse()</code></h4>
+<p><code>array_collapse</code> 函数将数组的每一个数组折成单个数组：</p>
+<pre><code>$array = array_collapse([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
+
+// [1, 2, 3, 4, 5, 6, 7, 8, 9]</code></pre>
+<p><a name="method-array-divide"></a></p>
+<h4 id="collection-method"><code>array_divide()</code></h4>
+<p><code>array_divide</code> 函数返回两个数组，一个包含原本数组的键，另一个包含原本数组的值：</p>
+<pre><code>list($keys, $values) = array_divide(['name' =&gt; 'Desk']);
+
+// $keys: ['name']
+
+// $values: ['Desk']</code></pre>
+<p><a name="method-array-dot"></a></p>
+<h4 id="collection-method"><code>array_dot()</code></h4>
+<p><code>array_dot</code> 函数把多维数组扁平化成一维数组，并用「点」式语法表示深度：</p>
+<pre><code>$array = array_dot(['foo' =&gt; ['bar' =&gt; 'baz']]);
+
+// ['foo.bar' =&gt; 'baz'];</code></pre>
+<p><a name="method-array-except"></a></p>
+<h4 id="collection-method"><code>array_except()</code></h4>
+<p><code>array_except</code> 函数从数组移除指定的键值对：</p>
+<pre><code>$array = ['name' =&gt; 'Desk', 'price' =&gt; 100];
+
+$array = array_except($array, ['price']);
+
+// ['name' =&gt; 'Desk']</code></pre>
+<p><a name="method-array-first"></a></p>
+<h4 id="collection-method"><code>array_first()</code></h4>
+<p><code>array_first</code> 函数返回数组中第一个通过测试的元素：</p>
+<pre><code>$array = [100, 200, 300];
+
+$value = array_first($array, function ($key, $value) {
+    return $value &gt;= 150;
+});
+
+// 200</code></pre>
+<p>可传递第三个参数作为默认值。当没有任何数值通过测试时将返回该数值：</p>
+<pre><code>$value = array_first($array, $callback, $default);</code></pre>
+<p><a name="method-array-flatten"></a></p>
+<h4 id="collection-method"><code>array_flatten()</code></h4>
+<p><code>array_flatten</code> 函数将多维数组扁平化成一维。</p>
+<pre><code>$array = ['name' =&gt; 'Joe', 'languages' =&gt; ['PHP', 'Ruby']];
+
+$array = array_flatten($array);
+
+// ['Joe', 'PHP', 'Ruby'];</code></pre>
+<p><a name="method-array-forget"></a></p>
+<h4 id="collection-method"><code>array_forget()</code></h4>
+<p><code>array_forget</code> 函数以「点」式语法从深度嵌套数组中移除指定的键值对：</p>
+<pre><code>$array = ['products' =&gt; ['desk' =&gt; ['price' =&gt; 100]]];
+
+array_forget($array, 'products.desk');
+
+// ['products' =&gt; []]</code></pre>
+<p><a name="method-array-get"></a></p>
+<h4 id="collection-method"><code>array_get()</code></h4>
+<p><code>array_get</code> 函数使用「点」式语法从深度嵌套数组中取回指定的值：</p>
+<pre><code>$array = ['products' =&gt; ['desk' =&gt; ['price' =&gt; 100]]];
+
+$value = array_get($array, 'products.desk');
+
+// ['price' =&gt; 100]</code></pre>
+<p><code>array_get</code> 函数同样接受默认值，当指定的键找不到时返回：</p>
+<pre><code>$value = array_get($array, 'names.john', 'default');</code></pre>
+<p><a name="method-array-has"></a></p>
+<h4 id="collection-method"><code>array_has()</code></h4>
+<p><code>array_has</code> 函数使用「点」式语法检查指定的项目是否存在于数组中：</p>
+<pre><code>$array = ['products' =&gt; ['desk' =&gt; ['price' =&gt; 100]]];
+
+$hasDesk = array_has($array, ['products.desk']);
+
+// true</code></pre>
+<p><a name="method-array-only"></a></p>
+<h4 id="collection-method"><code>array_only()</code></h4>
+<p><code>array_only</code> 函数从数组返回指定的键值对：</p>
+<pre><code>$array = ['name' =&gt; 'Desk', 'price' =&gt; 100, 'orders' =&gt; 10];
+
+$array = array_only($array, ['name', 'price']);
+
+// ['name' =&gt; 'Desk', 'price' =&gt; 100]</code></pre>
+<p><a name="method-array-pluck"></a></p>
+<h4 id="collection-method"><code>array_pluck()</code></h4>
+<p><code>array_pluck</code> 函数从数组拉出一列指定的键值对：</p>
+<pre><code>$array = [
+    ['developer' =&gt; ['id' =&gt; 1, 'name' =&gt; 'Taylor']],
+    ['developer' =&gt; ['id' =&gt; 2, 'name' =&gt; 'Abigail']],
+];
+
+$array = array_pluck($array, 'developer.name');
+
+// ['Taylor', 'Abigail'];</code></pre>
+<p>你也能指定要以什么作为结果列的键值：</p>
+<pre><code>$array = array_pluck($array, 'developer.name', 'developer.id');
+
+// [1 =&gt; 'Taylor', 2 =&gt; 'Abigail'];</code></pre>
+<p><a name="method-array-pull"></a></p>
+<h4 id="collection-method"><code>array_pull()</code></h4>
+<p><code>array_pull</code> 函数从数组移除并返回指定的键值对：</p>
+<pre><code>$array = ['name' =&gt; 'Desk', 'price' =&gt; 100];
+
+$name = array_pull($array, 'name');
+
+// $name: Desk
+
+// $array: ['price' =&gt; 100]</code></pre>
+<p><a name="method-array-set"></a></p>
+<h4 id="collection-method"><code>array_set()</code></h4>
+<p><code>array_set</code> 函数使用「点」式语法在深度嵌套数组中写入值：</p>
+<pre><code>$array = ['products' =&gt; ['desk' =&gt; ['price' =&gt; 100]]];
+
+array_set($array, 'products.desk.price', 200);
+
+// ['products' =&gt; ['desk' =&gt; ['price' =&gt; 200]]]</code></pre>
+<p><a name="method-array-sort"></a></p>
+<h4 id="collection-method"><code>array_sort()</code></h4>
+<p><code>array_sort</code> 函数借助指定闭包结果排序数组：</p>
+<pre><code>$array = [
+    ['name' =&gt; 'Desk'],
+    ['name' =&gt; 'Chair'],
+];
+
+$array = array_values(array_sort($array, function ($value) {
+    return $value['name'];
+}));
+
+/*
+    [
+        ['name' =&gt; 'Chair'],
+        ['name' =&gt; 'Desk'],
+    ]
+*/</code></pre>
+<p><a name="method-array-sort-recursive"></a></p>
+<h4 id="collection-method"><code>array_sort_recursive()</code></h4>
+<p><code>array_sort_recursive</code> 函数使用 <code>sort</code> 函数递归排序数组：</p>
+<pre><code>$array = [
+    [
+        'Roman',
+        'Taylor',
+        'Li',
+    ],
+    [
+        'PHP',
+        'Ruby',
+        'JavaScript',
+    ],
+];
+
+$array = array_sort_recursive($array);
+
+/*
+    [
+        [
+            'Li',
+            'Roman',
+            'Taylor',
+        ],
+        [
+            'JavaScript',
+            'PHP',
+            'Ruby',
+        ]
+    ];
+*/</code></pre>
+<p><a name="method-array-where"></a></p>
+<h4 id="collection-method"><code>array_where()</code></h4>
+<p><code>array_where</code> 函数使用指定的闭包过滤数组：</p>
+<pre><code>$array = [100, '200', 300, '400', 500];
+
+$array = array_where($array, function ($key, $value) {
+    return is_string($value);
+});
+
+// [1 =&gt; 200, 3 =&gt; 400]</code></pre>
+<p><a name="method-head"></a></p>
+<h4 id="collection-method"><code>head()</code></h4>
+<p><code>head</code> 函数返回指定数组的第一个元素：</p>
+<pre><code>$array = [100, 200, 300];
+
+$first = head($array);
+
+// 100</code></pre>
+<p><a name="method-last"></a></p>
+<h4 id="collection-method"><code>last()</code></h4>
+<p><code>last</code> 函数返回指定数组的最后一个元素：</p>
+<pre><code>$array = [100, 200, 300];
+
+$last = last($array);
+
+// 300</code></pre>
+<p><a name="paths"></a></p>
+<h2>路径</h2>
+<p><a name="method-app-path"></a></p>
+<h4 id="collection-method"><code>app_path()</code></h4>
+<p><code>app_path</code> 函数获取 <code>app</code> 文件夹的完整路径：</p>
+<pre><code>$path = app_path();</code></pre>
+<p>你同样可以使用 <code>app_path</code> 函数生成针对指定文件相对于 app 目录的完整路径：</p>
+<pre><code>$path = app_path('Http/Controllers/Controller.php');</code></pre>
+<p><a name="method-base-path"></a></p>
+<h4 id="collection-method"><code>base_path()</code></h4>
+<p><code>base_path</code> 函数获取项目根目录的完整路径：</p>
+<pre><code>$path = base_path();</code></pre>
+<p>你同样可以使用 <code>base_path</code> 函数生成针对指定文件相对于项目根目录的完整路径：</p>
+<pre><code>$path = base_path('vendor/bin');</code></pre>
+<p><a name="method-config-path"></a></p>
+<h4 id="collection-method"><code>config_path()</code></h4>
+<p><code>config_path</code> 函数获取应用配置目录的完整路径：</p>
+<pre><code>$path = config_path();</code></pre>
+<p><a name="method-database-path"></a></p>
+<h4 id="collection-method"><code>database_path()</code></h4>
+<p><code>database_path</code> 函数获取应用数据库目录的完整路径：</p>
+<pre><code>$path = database_path();</code></pre>
+<p><a name="method-elixir"></a></p>
+<h4 id="collection-method"><code>elixir()</code></h4>
+<p><code>elixir</code> 函数获取加上版本号的 <a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a> 文件路径：</p>
+<pre><code>elixir($file);</code></pre>
+<p><a name="method-public-path"></a></p>
+<h4 id="collection-method"><code>public_path()</code></h4>
+<p><code>public_path</code> 函数获取 <code>public</code> 目录的完整路径：</p>
+<pre><code>$path = public_path();</code></pre>
+<p><a name="method-storage-path"></a></p>
+<h4 id="collection-method"><code>storage_path()</code></h4>
+<p><code>storage_path</code> 函数获取 <code>storage</code> 目录的完整路径：</p>
+<pre><code>$path = storage_path();</code></pre>
+<p>你同样可以使用 <code>storage_path</code> 函数生成针对指定文件相对于 storage 目录的完整路径：</p>
+<pre><code>$path = storage_path('app/file.txt');</code></pre>
+<p><a name="strings"></a></p>
+<h2>字符串</h2>
+<p><a name="method-camel-case"></a></p>
+<h4 id="collection-method"><code>camel_case()</code></h4>
+<p><code>camel_case</code> 函数会将指定的字符串转换成 <code>驼峰式命名</code>：</p>
+<pre><code>$camel = camel_case('foo_bar');
+
+// fooBar</code></pre>
+<p><a name="method-class-basename"></a></p>
+<h4 id="collection-method"><code>class_basename()</code></h4>
+<p><code>class_basename</code> 返回不包含命名空间的类名称：</p>
+<pre><code>$class = class_basename('Foo\Bar\Baz');
+
+// Baz</code></pre>
+<p><a name="method-e"></a></p>
+<h4 id="collection-method"><code>e()</code></h4>
+<p><code>e</code> 函数对指定字符串运行 <code>htmlentities</code>：</p>
+<pre><code>echo e('&lt;html&gt;foo&lt;/html&gt;');
+
+// &amp;lt;html&amp;gt;foo&amp;lt;/html&amp;gt;</code></pre>
+<p><a name="method-ends-with"></a></p>
+<h4 id="collection-method"><code>ends_with()</code></h4>
+<p><code>ends_with</code> 函数判断指定字符串结尾是否为指定内容：</p>
+<pre><code>$value = ends_with('This is my name', 'name');
+
+// true</code></pre>
+<p><a name="method-snake-case"></a></p>
+<h4 id="collection-method"><code>snake_case()</code></h4>
+<p><code>snake_case</code> 函数会将指定的字符串转换成 <code>蛇形命名</code>：</p>
+<pre><code>$snake = snake_case('fooBar');
+
+// foo_bar</code></pre>
+<p><a name="method-str-limit"></a></p>
+<h4 id="collection-method"><code>str_limit()</code></h4>
+<p><code>str_limit</code> 函数限制字符串的字符数量。该函数接受一个字符串作为第一个参数，以及最大字符数量作为第二参数：</p>
+<pre><code>$value = str_limit('The PHP framework for web artisans.', 7);
+
+// The PHP...</code></pre>
+<p><a name="method-starts-with"></a></p>
+<h4 id="collection-method"><code>starts_with()</code></h4>
+<p><code>starts_with</code> 函数判断字符串开头是否为指定内容：</p>
+<pre><code>$value = starts_with('This is my name', 'This');
+
+// true</code></pre>
+<p><a name="method-str-contains"></a></p>
+<h4 id="collection-method"><code>str_contains()</code></h4>
+<p><code>str_contains</code> 函数判断指定字符串是否包含指定内容：</p>
+<pre><code>$value = str_contains('This is my name', 'my');
+
+// true</code></pre>
+<p><a name="method-str-finish"></a></p>
+<h4 id="collection-method"><code>str_finish()</code></h4>
+<p><code>str_finish</code> 函数添加指定内容到字符串结尾：</p>
+<pre><code>$string = str_finish('this/string', '/');
+
+// this/string/</code></pre>
+<p><a name="method-str-is"></a></p>
+<h4 id="collection-method"><code>str_is()</code></h4>
+<p><code>str_is</code> 函数判断指定的字符串与指定的格式是否符合。星号可作为通配符使用：</p>
+<pre><code>$value = str_is('foo*', 'foobar');
+
+// true
+
+$value = str_is('baz*', 'foobar');
+
+// false</code></pre>
+<p><a name="method-str-plural"></a></p>
+<h4 id="collection-method"><code>str_plural()</code></h4>
+<p><code>str_plural</code> 函数转换字符串成复数形。该函数目前仅支持英文：</p>
+<pre><code>$plural = str_plural('car');
+
+// cars
+
+$plural = str_plural('child');
+
+// children</code></pre>
+<p>你可以提供一个整数作为第二参数，来获取字符串的单数或复数形式：</p>
+<pre><code>$plural = str_plural('child', 2);
+
+// children
+
+$plural = str_plural('child', 1);
+
+// child</code></pre>
+<p><a name="method-str-random"></a></p>
+<h4 id="collection-method"><code>str_random()</code></h4>
+<p><code>str_random</code> 函数生成指定长度的随机字符串：</p>
+<pre><code>$string = str_random(40);</code></pre>
+<p><a name="method-str-singular"></a></p>
+<h4 id="collection-method"><code>str_singular()</code></h4>
+<p><code>str_singular</code> 函数转换字符串成单数形式。该函数目前仅支持英文：</p>
+<pre><code>$singular = str_singular('cars');
+
+// car</code></pre>
+<p><a name="method-str-slug"></a></p>
+<h4 id="collection-method"><code>str_slug()</code></h4>
+<p><code>str_slug</code> 函数从指定字符串生成网址友善的「slug」：</p>
+<pre><code>$title = str_slug("Laravel 5 Framework", "-");
+
+// laravel-5-framework</code></pre>
+<p><a name="method-studly-case"></a></p>
+<h4 id="collection-method"><code>studly_case()</code></h4>
+<p><code>studly_case</code> 函数将指定字符串转换成 <code>首字大写命名</code>：</p>
+<pre><code>$value = studly_case('foo_bar');
+
+// FooBar</code></pre>
+<p><a name="method-trans"></a></p>
+<h4 id="collection-method"><code>trans()</code></h4>
+<p><code>trans</code> 函数根据你的<a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化文件</a>翻译指定的语句：</p>
+<pre><code>echo trans('validation.required'):</code></pre>
+<p><a name="method-trans-choice"></a></p>
+<h4 id="collection-method"><code>trans_choice()</code></h4>
+<p><code>trans_choice</code> 函数根据后缀变化翻译指定的语句：</p>
+<pre><code>$value = trans_choice('foo.bar', $count);</code></pre>
+<p><a name="urls"></a></p>
+<h2>网址</h2>
+<p><a name="method-action"></a></p>
+<h4 id="collection-method"><code>action()</code></h4>
+<p><code>action</code> 函数生成指定控制器行为网址。你不需要输入该控制器的完整命名空间。作为替代，请输入基于 <code>App\Http\Controllers</code> 命名空间的控制器类名称：</p>
+<pre><code>$url = action('HomeController@getIndex');</code></pre>
+<p>如果该方法支持路由参数，你可以作为第二参数传递：</p>
+<pre><code>$url = action('UserController@profile', ['id' =&gt; 1]);</code></pre>
+<p><a name="method-asset"></a></p>
+<h4 id="collection-method"><code>asset()</code></h4>
+<p>根据目前请求的协定（HTTP 或 HTTPS）生成资源文件网址：</p>
+<pre><code>$url = asset('img/photo.jpg');</code></pre>
+<p><a name="method-secure-asset"></a></p>
+<h4 id="collection-method"><code>secure_asset()</code></h4>
+<p>根据 HTTPS 生成资源文件网址：</p>
+<pre><code>echo secure_asset('foo/bar.zip', $title, $attributes = []);</code></pre>
+<p><a name="method-route"></a></p>
+<h4 id="collection-method"><code>route()</code></h4>
+<p><code>route</code> 函数生成指定路由名称网址：</p>
+<pre><code>$url = route('routeName');</code></pre>
+<p>如果该路由接受参数，你可以作为第二参数传递：</p>
+<pre><code>$url = route('routeName', ['id' =&gt; 1]);</code></pre>
+<p><a name="method-url"></a></p>
+<h4 id="collection-method"><code>url()</code></h4>
+<p><code>url</code> 函数生成指定路径的完整网址：</p>
+<pre><code>echo url('user/profile');
+
+echo url('user/profile', [1]);</code></pre>
+<p><a name="miscellaneous"></a></p>
+<h2>其它</h2>
+<p><a name="method-auth"></a></p>
+<h4 id="collection-method"><code>auth()</code></h4>
+<p><code>auth</code> 函数返回一个认证器实例。你可以使用它取代 <code>Auth</code> facade：</p>
+<pre><code>$user = auth()-&gt;user();</code></pre>
+<p><a name="method-back"></a></p>
+<h4 id="collection-method"><code>back()</code></h4>
+<p><code>back()</code> 函数生成一个重定向响应让用户回到之前的位置：</p>
+<pre><code>return back();</code></pre>
+<p><a name="method-bcrypt"></a></p>
+<h4 id="collection-method"><code>bcrypt()</code></h4>
+<p><code>bcrypt</code> 函数使用 Bcrypt 哈希指定的数值。你可以使用它替代 <code>Hash</code> facade：</p>
+<pre><code>$password = bcrypt('my-secret-password');</code></pre>
+<p><a name="method-collect"></a></p>
+<h4 id="collection-method"><code>collect()</code></h4>
+<p><code>collect</code> 函数从指定的项目生成<a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a>实例：</p>
+<pre><code>$collection = collect(['taylor', 'abigail']);</code></pre>
+<p><a name="method-config"></a></p>
+<h4 id="collection-method"><code>config()</code></h4>
+<p><code>config</code> 获取设置选项的设置值。设置值可通过「点」式语法读取，其中包含要访问的文件名以及选项名称。可传递一默认值在找不到指定的设置选项时返回该数值：</p>
+<pre><code>$value = config('app.timezone');
+
+$value = config('app.timezone', $default);</code></pre>
+<p><code>config</code> 辅助函数也可以在运行期间，根据指定的键值对指定设置值：</p>
+<pre><code>config(['app.debug' =&gt; true]);</code></pre>
+<p><a name="method-csrf-field"></a></p>
+<h4 id="collection-method"><code>csrf_field()</code></h4>
+<p><code>csrf_field</code> 函数生成包含 CSRF 令牌内容的 HTML 表单隐藏字段。例如，使用 <a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 语法</a>：</p>
+<pre><code>{!! csrf_field() !!}</code></pre>
+<p><a name="method-csrf-token"></a></p>
+<h4 id="collection-method"><code>csrf_token()</code></h4>
+<p><code>csrf_token</code> 函数获取当前 CSRF 令牌的内容：</p>
+<pre><code>$token = csrf_token();</code></pre>
+<p><a name="method-dd"></a></p>
+<h4 id="collection-method"><code>dd()</code></h4>
+<p><code>dd</code> 函数输出指定变量并结束脚本运行：</p>
+<pre><code>dd($value);</code></pre>
+<p><a name="method-env"></a></p>
+<h4 id="collection-method"><code>env()</code></h4>
+<p><code>env</code> 函数获取环境变量值或返回默认值：</p>
+<pre><code>$env = env('APP_ENV');
+
+// 当变量不存在时返回一个默认值...
+$env = env('APP_ENV', 'production');</code></pre>
+<p><a name="method-event"></a></p>
+<h4 id="collection-method"><code>event()</code></h4>
+<p><code>event</code> 函数配送指定<a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a>到所属的侦听器：</p>
+<pre><code>event(new UserRegistered($user));</code></pre>
+<p><a name="method-factory"></a></p>
+<h4 id="collection-method"><code>factory()</code></h4>
+<p><code>factory</code> 函数根据指定类、名称以及总数生成模型工厂构造器（model factory builder）。可用于<a href="testing.htm#model-factories" tppabs="http://laravel-china.org/docs/5.1/testing#model-factories">测试</a>或<a href="seeding.htm#using-model-factories" tppabs="http://laravel-china.org/docs/5.1/seeding#using-model-factories">数据填充</a>：</p>
+<pre><code>$user = factory(App\User::class)-&gt;make();</code></pre>
+<p><a name="method-method-field"></a></p>
+<h4 id="collection-method"><code>method_field()</code></h4>
+<p><code>method_field</code> 函数生成模拟 HTTP 表单动作内容的 HTML 表单隐藏字段。例如，使用 <a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 语法</a>：</p>
+<pre><code>&lt;form method="POST"&gt;
+    {!! method_field('delete') !!}
+&lt;/form&gt;</code></pre>
+<p><a name="method-old"></a></p>
+<h4 id="collection-method"><code>old()</code></h4>
+<p><code>old</code> 函数<a href="requests.htm#retrieving-input" tppabs="http://laravel-china.org/docs/5.1/requests#retrieving-input">获取</a>闪存到 session 的旧有输入数值：</p>
+<pre><code>$value = old('value');</code></pre>
+<p><a name="method-redirect"></a></p>
+<h4 id="collection-method"><code>redirect()</code></h4>
+<p><code>redirect</code> 函数返回重定向器实例以进行 <a href="responses.htm#redirects" tppabs="http://laravel-china.org/docs/5.1/responses#redirects">重定向</a>：</p>
+<pre><code>return redirect('/home');</code></pre>
+<p><a name="method-request"></a></p>
+<h4 id="collection-method"><code>request()</code></h4>
+<p><code>request</code> 函数获取目前的<a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a>实例或输入的项目：</p>
+<pre><code>$request = request();
+
+$value = request('key', $default = null)</code></pre>
+<p><a name="method-response"></a></p>
+<h4 id="collection-method"><code>response()</code></h4>
+<p><code>response</code> 函数创建一个<a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a>实例或获取一个响应工厂（response factory）实例：</p>
+<pre><code>return response('Hello World', 200, $headers);
+
+return response()-&gt;json(['foo' =&gt; 'bar'], 200, $headers);</code></pre>
+<p><a name="method-session"></a></p>
+<h4 id="collection-method"><code>session()</code></h4>
+<p><code>session</code> 函数可用于获取或设置单个 session 内容：</p>
+<pre><code>$value = session('key');</code></pre>
+<p>你可以通过传递键值对给该函数进行内容设置：</p>
+<pre><code>session(['chairs' =&gt; 7, 'instruments' =&gt; 3]);</code></pre>
+<p>该函数在没有传递参数时，将返回 session 实例：</p>
+<pre><code>$value = session()-&gt;get('key');
+
+session()-&gt;put('key', $value);</code></pre>
+<p><a name="method-value"></a></p>
+<h4 id="collection-method"><code>value()</code></h4>
+<p><code>value</code> 函数返回指定数值。而当你传递一个 <code>闭包</code> 给该函数，该 <code>闭包</code> 将被运行并返回结果：</p>
+<pre><code>$value = value(function() { return 'bar'; });</code></pre>
+<p><a name="method-view"></a></p>
+<h4 id="collection-method"><code>view()</code></h4>
+<p><code>view</code> 函数获取<a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a> 实例：</p>
+<pre><code>return view('auth.login');</code></pre>
+<p><a name="method-with"></a></p>
+<h4 id="collection-method"><code>with()</code></h4>
+<p><code>with</code> 函数返回指定的数值。该函数主要用于链式调用回所保存的 seesion 内容，除此之外不大可能用到：</p>
+<pre><code>$value = with(new Foo)-&gt;work();</code></pre>
+		</div>
+
+		<div class="main-footer" style="border-top:1px dashed rgba(0, 0, 0, 0.1);padding-top: 30px;margin-top:30px;margin-bottom: 20px;">
+			<div class="prev-next-wrap clearfix">
+
+									<a class="btn btn-default pull-left" href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing"><i class="fa fa-arrow-left"></i> 哈希</a>
+				
+			    &nbsp;
+								    <a class="btn btn-default pull-right" href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化 <i class="fa fa-arrow-right"></i></a>
+							</div>
+		</div>
+
+	</article>
+</div>
+
+		<footer class="main">
+			<ul>
+				<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+			</ul>
+			<p>Laravel is a trademark of Taylor Otwell. Copyright &copy; Taylor Otwell.</p>
+			<p class="less-significant"><a href="javascript:if(confirm('http://jackmcdade.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://jackmcdade.com/'" tppabs="http://jackmcdade.com/">Design by Jack McDade</a></p>
+
+			<p class="less-significant">
+				<a href="javascript:if(confirm('http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao'" tppabs="http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao" target="_blank">由 UCloud 赞助  <img src="dYfOYswiQY.png" tppabs="https://dn-phphub.qbox.me/uploads/images/201605/03/1/dYfOYswiQY.png" width="98" data-toggle="tooltip" data-placement="top" title="本站服务器由 UCloud 赞助"></a>.
+		      </p>
+		</footer>
+
+	</div>
+
+	<script src="laravel.js" tppabs="http://laravel-china.org/assets/js/laravel.js"></script>
+	<script src="viewport-units-buggyfill.js" tppabs="http://laravel-china.org/assets/js/viewport-units-buggyfill.js"></script>
+	<script>window.viewportUnitsBuggyfill.init();</script>
+    <script>
+
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','analytics.js'/*tpa=http://7xijlf.com2.z0.glb.qiniucdn.com/js/analytics.js*/,'ga');
+
+		ga('create', 'UA-53903425-7', 'auto');
+		ga('send', 'pageview');
+
+		$(window).load(function() {
+		  // When the page has loaded
+		  $(".main-content").fadeIn(10);
+		});
+    </script>
+</body>
+</html>

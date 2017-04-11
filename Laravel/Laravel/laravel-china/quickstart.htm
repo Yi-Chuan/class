@@ -1,0 +1,729 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=UTF-8"utf-8">
+	<title>Laravel 5.1 中文文档：基本任务清单
+</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="@summerblue">
+	<meta name="description" content="基本任务清单,简介,安装,准备数据库,数据库迁移,Eloquent 模型,路由,构建路由,显示视图,构建布局与视图,定义布局,定义子视图,增加任务,验证,创建任务,显示已有的任务,删除任务,增加删除按钮,删除该任务,简介,此快速入门指南主要为 Laravel 框架提供基本的介绍，其中内容包括数据库迁移、Eloquent ORM、路由、验证、视图，及 Blade 模版。如果你是第一次使用 Larav...
+">
+	<meta name="keywords" content="基本任务清单,laravel5.1文档,laravel5.1中文文档,laravel中国,laravel中文,laravel框架中文,laravel文档,laravel框架中国,laravel中文文档
+">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lte IE 9]>
+		<script src="html5shiv.min.js" tppabs="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="laravel.css" tppabs="http://laravel-china.org/assets/css/laravel.css">
+	<style media="screen">
+		div.main-content {
+		  display: none;
+		}
+		.loading-effect {
+			position: fixed;
+			left: 50%;
+			top:300px;
+		    z-index: -1;
+		}
+	</style>
+</head>
+<body class="docs language-php ">
+
+	<span class="overlay"></span>
+
+	<div class="loading-effect">
+		<div class="loader-inner line-scale">
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		  </div>
+	</div>
+
+
+	<div class="main-content">
+
+		<nav class="main">
+			<div class="container">
+				<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/" class="brand">
+					<img src="laravel-logo.png" tppabs="http://laravel-china.org/assets/img/laravel-logo.png" height="30">
+					Laravel
+				</a>
+
+				<div class="responsive-sidebar-nav">
+					<a href="#" class="toggle-slide menu-link btn">&#9776;</a>
+				</div>
+
+									<div class="switcher">
+	<div class="dropdown">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			<!--<span class="faint">v</span> -->
+			5.1
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">5.1</a>
+				</li>
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="4.2.htm" tppabs="http://laravel-china.org/docs/4.2/quickstart">4.2</a>
+				</li>
+					</ul>
+	</div>
+</div>
+				
+				<ul class="main-nav">
+					<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+				</ul>
+			</div>
+		</nav>
+
+		<nav id="slide-menu" class="slide-menu" role="navigation">
+
+	<div class="brand">
+		<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">
+			<img src="laravel-logo-white.png" tppabs="http://laravel-china.org/assets/img/laravel-logo-white.png" height="50">
+		</a>
+	</div>
+
+	<ul class="slide-main-nav">
+		<li><a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">Home</a></li>
+		<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+	</ul>
+
+	<div class="slide-docs-nav">
+		<h2>文档</h2>
+
+		<a type="button" class="turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</div>
+
+</nav>
+
+<div class="docs-wrapper container">
+
+	<section class="sidebar">
+
+		<div class="header">
+			<a type="button" class="btn btn-primary btn-lg btn-block turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		</div>
+
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</section>
+
+	<article>
+
+		<div class="alert alert-warning" role="alert">
+
+			<h4>拥抱 Laravel 5.1 LTS</h4>
+			<p>
+				强烈建议在 2018 年之前使用 Laravel 5.1 来构建项目，Laravel 5.1 是 LTS 的发行版本, 发行于 2015 年 6 月份，自发布起提供两年时间的 Bug 修复（2017 年 6 月）, 3 年时间的安全修复（2018 年 6 月）。
+			</p>
+			 <p>
+			 	LTS 版本是此项目能提供的最长时间维护版本。一般的发行版本, 只提供 6 个月的 Bug 修复支持, 一年的安全修复支持.
+			 </p>
+		</div>
+
+		<div class="main-content">
+			<h1>基本任务清单</h1>
+<ul>
+<li><a href="#introduction">简介</a></li>
+<li><a href="#installation">安装</a></li>
+<li><a href="#prepping-the-database">准备数据库</a>
+<ul>
+<li><a href="#database-migrations">数据库迁移</a></li>
+<li><a href="#eloquent-models">Eloquent 模型</a></li>
+</ul></li>
+<li><a href="#routing">路由</a>
+<ul>
+<li><a href="#stubbing-the-routes">构建路由</a></li>
+<li><a href="#displaying-a-view">显示视图</a></li>
+</ul></li>
+<li><a href="#building-layouts-and-views">构建布局与视图</a>
+<ul>
+<li><a href="#defining-the-layout">定义布局</a></li>
+<li><a href="#defining-the-child-view">定义子视图</a></li>
+</ul></li>
+<li><a href="#adding-tasks">增加任务</a>
+<ul>
+<li><a href="#validation">验证</a></li>
+<li><a href="#creating-the-task">创建任务</a></li>
+<li><a href="#displaying-existing-tasks">显示已有的任务</a></li>
+</ul></li>
+<li><a href="#deleting-tasks">删除任务</a>
+<ul>
+<li><a href="#adding-the-delete-button">增加删除按钮</a></li>
+<li><a href="#deleting-the-task">删除该任务</a></li>
+</ul></li>
+</ul>
+<p><a name="introduction"></a></p>
+<h2>简介</h2>
+<p>此快速入门指南主要为 Laravel 框架提供基本的介绍，其中内容包括数据库迁移、Eloquent ORM、路由、验证、视图，及 Blade 模版。如果你是第一次使用 Laravel 框架或 PHP，那么这会是个很好的开头。如果你已经在使用 Laravel 或者其它的框架，不仿参考我们高级的快速入门指南。</p>
+<p>为了在 Laravel 功能中给样本做基本的选择，我们将会构建一个简单的任务清单，可以使用它追踪所有想完成的任务（典型的「代办事项清单」例子）。此项目完整的源代码<a href="javascript:if(confirm('http://github.com/laravel/quickstart-basic  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://github.com/laravel/quickstart-basic'" tppabs="http://github.com/laravel/quickstart-basic">在 GitHub 上</a>。</p>
+<p><a name="installation"></a></p>
+<h2>安装</h2>
+<p>首先你需要安装一个全新的 Laravel 框架。你可以选择使用 <a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead 虚拟机</a>或是其它本机 PHP 环境来运行框架。只要你准备好了本机环境，就可以使用 Composer 安装 Laravel 框架：</p>
+<pre><code>composer create-project laravel/laravel quickstart --prefer-dist</code></pre>
+<p>你可以随意阅读快速入门指南的剩余部分；不过，如果你想下载这个快速入门指南的源代码并在你的本机机器运行，那么你需要克隆它的 Git 代码仓库并安装依赖：</p>
+<pre><code>git clone https://github.com/laravel/quickstart-basic quickstart
+cd quickstart
+composer install
+php artisan migrate</code></pre>
+<p>欲了解更多关于构建本机 Laravel 开发环境的文档，请查阅完整的 <a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a> 及<a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a>文档。</p>
+<p><a name="prepping-the-database"></a></p>
+<h2>准备数据库</h2>
+<p><a name="database-migrations"></a></p>
+<h3>数据库迁移</h3>
+<p>首先，让我们使用迁移来定义数据表以容纳我们所有的任务。Laravel 的数据库迁移提供了一个简单的方式，使用流畅、一目了然的 PHP 代码来定义数据表的结构与修改。你无需再告诉团队成员要手动增加字段至他们本机的数据库副本中，你的队友就可以简单运行你推送到版本控制的迁移。</p>
+<p>让我们来构建一张将容纳所有任务的数据表。<a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行接口</a>可以被用于生成各种类，为你构建 Laravel 项目时节省大量手动输入的时间。在此例中，让我们使用 <code>make:migration</code> 命令为 <code>tasks</code> 数据表生成新的数据库迁移：</p>
+<pre><code>php artisan make:migration create_tasks_table --create=tasks</code></pre>
+<p>此迁移会被放置在你项目的 <code>database/migrations</code> 目录中。你可能已经注意到，<code>make:migration</code> 命令已经增加了自动递增的 ID 及时间戳至迁移文件。让我们编辑这个文件并为任务的名称增加额外的 <code>string</code> 字段：</p>
+<pre><code>&lt;?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateTasksTable extends Migration
+{
+    /**
+     * 运行迁移。
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('tasks', function (Blueprint $table) {
+            $table-&gt;increments('id');
+            $table-&gt;string('name');
+            $table-&gt;timestamps();
+        });
+    }
+
+    /**
+     * 还原迁移。
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('tasks');
+    }
+}</code></pre>
+<p>我们可以使用 <code>migrate</code> Artisan 命令运行迁移。如果你使用了 Homestead，则必须在虚拟机中运行这个命令，因为你的主机无法直接访问数据库：</p>
+<pre><code>php artisan migrate</code></pre>
+<p>这个命令会创建我们所有的数据表。如果你使用了数据库客户端来检查数据表，那么你应该会看到新的 <code>tasks</code> 数据表，其中包含了我们迁移中所定义的字段。接着，我们已经准备好为我们的任务定义一个 Eloquent ORM 模型了！</p>
+<p><a name="eloquent-models"></a></p>
+<h3>Eloquent 模型</h3>
+<p><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">Eloquent</a> 是 Laravel 默认的 ORM（对象关联映射）。Eloqunet 通过明确的定义「模型」，让你可以很轻松的在数据库获取及保存数据。一般情况下，每个 Eloqunet 模型会直接对应一张数据表。</p>
+<p>所以，让我们定义一个对应至 <code>tasks</code> 数据表的 <code>Task</code> 模型。同样的，我们可以使用 Artisan 命令来生成此模型。在此例中，我们会使用 <code>make:model</code> 命令：</p>
+<pre><code>php artisan make:model Task</code></pre>
+<p>这个模型会放置在你应用程序的 <code>app</code> 目录中。默认情况下此模型类将是空的。我们不必明确告知 Eloquent 模型要对应哪张数据表，因为它会假设数据表是模型名称的复数型态。所以，在此例中，<code>Task</code> 模型会假设对应至 <code>tasks</code> 数据表。所以我们的空模型看起来应该如下：</p>
+<pre><code>&lt;?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Task extends Model
+{
+    //
+}</code></pre>
+<p>在为我们的应用程序增加路由时，我们会学习更多关于如何使用 Eloquent 模型的知识。当然，你也可以随意参考<a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">完整的 Eloquent 文档</a>来获取更多信息。</p>
+<p><a name="routing"></a></p>
+<h2>路由</h2>
+<p><a name="stubbing-the-routes"></a></p>
+<h3>构建路由</h3>
+<p>接着，我们已经在应用程序中准备好增加一些路由。这些路由会将 URLs 指向控制器或是匿名函数上，当用户进入特定页面时即会被运行。默认情况下，Laravel 所有的路由都会被定义在 <code>app/Http/routes.php</code> 文件中，每个新的 Laravel 项目都会包含此文件。</p>
+<p>对于本应用程序，我们知道最后会用到三个路由：一个路由用于显示我们所有任务的清单、一个路由用于添加任务、一个路由用于删除已有的任务。所以，让我们在 <code>app/Http/routes.php</code> 中构建这所有路由：</p>
+<pre><code>&lt;?php
+
+use App\Task;
+use Illuminate\Http\Request;
+
+/**
+ * 显示所有任务
+ */
+Route::get('/', function () {
+    //
+});
+
+/**
+ * 增加新的任务
+ */
+Route::post('/task', function (Request $request) {
+    //
+});
+
+/**
+ * 删除一个已有的任务
+ */
+Route::delete('/task/{id}', function ($id) {
+    //
+});</code></pre>
+<p><a name="displaying-a-view"></a></p>
+<h3>显示视图</h3>
+<p>接着，让我们填写我们的 <code>/</code> 路由。在此路由中，我们想要渲染一个包含添加任务的表单，及目前所有任务清单的 HTML 模版。</p>
+<p>在 Laravel 里，所有的 HTML 模版都保存在 <code>resources/views</code> 目录，且我们可以在路由中使用 <code>view</code> 辅助函数来返回这些模版的其中一个：</p>
+<pre><code>Route::get('/', function () {
+    return view('tasks');
+});</code></pre>
+<p>当然，我们必须明确定义这些视图，所以现在开始动手做吧！</p>
+<p><a name="building-layouts-and-views"></a></p>
+<h2>构建布局与视图</h2>
+<p>这个应用程序只会有一张视图，包含添加任务的表单，及目前所有任务的清单。为了帮助你想像此视图的画面，下方是完成后应用程序的截屏，采用了基本的 Bootstrap CSS 样式：</p>
+<p><img src="basic-overview.png" tppabs="https://laravel.tw/assets/img/quickstart/basic-overview.png" alt="应用程序图片" /></p>
+<p><a name="defining-the-layout"></a></p>
+<h3>定义布局</h3>
+<p>几乎所有的网页应用程序都会在不同页面中共用相同的布局。举个例子，应用程序通常在每个页面（如果我们有一个以上页面）的顶部都拥有导航栏。Laravel 使用了 Blade <strong>布局</strong>来让不同页面共用这些相同的功能。</p>
+<p>如同我们前面讨论的那样，Laravel 所有的视图都被保存在 <code>resources/views</code>。所以，让我们来定义一个新的布局视图至 <code>resources/views/layouts/app.blade.php</code> 中。<code>.blade.php</code> 扩展名会告知框架使用 <a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板引擎</a>渲染此视图。当然，你可以在 Laravel 使用纯 PHP 的模版。不过，Blade 提供了更方便的捷径来编写干净、简洁的模板。</p>
+<p>我们的 <code>app.blade.php</code> 视图看起来应该如下面这样：</p>
+<pre><code>// resources/views/layouts/app.blade.php
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;title&gt;Laravel 快速入门 - 基本&lt;/title&gt;
+
+        &lt;!-- CSS 及 JavaScript --&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;div class="container"&gt;
+            &lt;nav class="navbar navbar-default"&gt;
+                &lt;!-- Navbar 内容 --&gt;
+            &lt;/nav&gt;
+        &lt;/div&gt;
+
+        @yield('content')
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>注意布局中的 <code>@yield('content')</code> 部分。这是特殊的 Blade 命令，让子页面可以在此处注入自己的内容以扩展布局。接着，让我们定义将会使用此布局并提供主要内容的子视图。</p>
+<p><a name="defining-the-child-view"></a></p>
+<h3>定义子视图</h3>
+<p>很好，我们的应用程序布局已经完成。接下来，我们需要定义包含创建任务的表单及列出已有任务数据库表的视图。让我们将此视图定义在 <code>resources/views/tasks.blade.php</code>。</p>
+<p>我们会跳过一些 Bootstrap CSS 模版，只专注在重要的事物上。你可以在 <a href="javascript:if(confirm('https://github.com/laravel/quickstart-basic  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://github.com/laravel/quickstart-basic'" tppabs="https://github.com/laravel/quickstart-basic">GitHub</a> 下载到应用程序的完整源代码：</p>
+<pre><code>// resources/views/tasks.blade.php
+
+@extends('layouts.app')
+
+@section('content')
+
+    &lt;!-- Bootstrap 模版... --&gt;
+
+    &lt;div class="panel-body"&gt;
+        &lt;!-- 显示验证错误 --&gt;
+        @include('common.errors')
+
+        &lt;!-- 新任务的表单 --&gt;
+        &lt;form action="/task" method="POST" class="form-horizontal"&gt;
+            {{ csrf_field() }}
+
+            &lt;!-- 任务名称 --&gt;
+            &lt;div class="form-group"&gt;
+                &lt;label for="task" class="col-sm-3 control-label"&gt;Task&lt;/label&gt;
+
+                &lt;div class="col-sm-6"&gt;
+                    &lt;input type="text" name="name" id="task-name" class="form-control"&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- 增加任务按钮--&gt;
+            &lt;div class="form-group"&gt;
+                &lt;div class="col-sm-offset-3 col-sm-6"&gt;
+                    &lt;button type="submit" class="btn btn-default"&gt;
+                        &lt;i class="fa fa-plus"&gt;&lt;/i&gt; 增加任务
+                    &lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+
+    &lt;!-- 代办：目前任务 --&gt;
+@endsection</code></pre>
+<h4>一些注意事项的说明</h4>
+<p>在继续开始之前，让我们先来谈谈有关模板的一些注意事项。首先 <code>@extends</code> 命令会告知 Blade，我们使用了定义于 <code>resources/views/layouts/app.blade.php</code> 的布局。所有在 <code>@section('content')</code> 及 <code>@endsection</code> 之间的内容都会被注入到 <code>app.blade.php</code> 布局中的 <code>@yield('content')</code> 位置里。</p>
+<p>现在我们已经为我们的应用程序定义了基本的布局及视图。请记住我们在 <code>/</code> 路由中返回了此视图，就像这样：</p>
+<pre><code>Route::get('/', function () {
+    return view('tasks');
+});</code></pre>
+<p>接着，我们已经准备好增加代码至我们的 <code>POST /task</code> 路由，以处理接收到的表单输入并增加新的任务至数据库中。</p>
+<blockquote>
+<p><strong>注意：</strong><code>@include('common.errors')</code> 命令会加载位于 <code>resources/views/common/errors.blade.php</code> 的模板。我们尚未定义此模板，但是我们将会在后面定义它！</p>
+</blockquote>
+<p><a name="adding-tasks"></a></p>
+<h2>增加任务</h2>
+<p><a name="validation"></a></p>
+<h3>验证</h3>
+<p>现在我们的视图中已经有一个表单，我们需要增加代码至我们的 <code>POST /task</code> 路由来验证接收到的表单输入并创建新的任务。首先，让我们先来验证表单输入。</p>
+<p>对此表单来说，我们要让 <code>name</code> 字段为必填，且它必须少于 <code>255</code> 字符。如果验证失败，我们会将用户重定向回 <code>/</code> URL，并将旧的输入及错误消息闪存到 <a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">session</a> 中：</p>
+<pre><code>Route::post('/task', function (Request $request) {
+    $validator = Validator::make($request-&gt;all(), [
+        'name' =&gt; 'required|max:255',
+    ]);
+
+    if ($validator-&gt;fails()) {
+        return redirect('/')
+            -&gt;withInput()
+            -&gt;withErrors($validator);
+    }
+
+    // 创建该任务...
+});</code></pre>
+<h4><code>$errors</code> 变量</h4>
+<p>让我们休息一下说说例子中 <code>-&gt;withErrors($validator)</code> 的部分。<code>-&gt;withErrors($validator)</code> 的调用会通过指定的验证器实例将错误消息闪存至 session 中，所以我们可以在视图中通过 <code>$errors</code> 变量访问它们。</p>
+<p>我们在视图中使用了 <code>@include('common.errors')</code> 命令来渲染表单的错误验证消息。<code>common.errors</code> 让我们可以简单的在所有的页面都显示相同格式的错误验证消息。现在让我们定义此视图的内容：</p>
+<pre><code>// resources/views/common/errors.blade.php
+
+@if (count($errors) &gt; 0)
+    &lt;!-- 表单错误清单 --&gt;
+    &lt;div class="alert alert-danger"&gt;
+        &lt;strong&gt;哎呀！出了些问题！&lt;/strong&gt;
+
+        &lt;br&gt;&lt;br&gt;
+
+        &lt;ul&gt;
+            @foreach ($errors-&gt;all() as $error)
+                &lt;li&gt;{{ $error }}&lt;/li&gt;
+            @endforeach
+        &lt;/ul&gt;
+    &lt;/div&gt;
+@endif</code></pre>
+<blockquote>
+<p><strong>注意：</strong><code>errors</code> 变量可用于<strong>每个</strong> Laravel 的视图中。如果没有错误验证消息存在，那么它就会是一个空的 <code>ViewErrorBag</code> 实例。</p>
+</blockquote>
+<p><a name="creating-the-task"></a></p>
+<h3>创建任务</h3>
+<p>现在输入已经被验证处理完毕。让我们继续填写我们的路由来创建一条新的任务。一旦新的任务被创建，我们将会把用户重定向回 <code>/</code> URL。要创建该任务，我们可以在为新的 Eloquent 模型创建及设置属性后使用 <code>save</code> 方法：</p>
+<pre><code>Route::post('/task', function (Request $request) {
+    $validator = Validator::make($request-&gt;all(), [
+        'name' =&gt; 'required|max:255',
+    ]);
+
+    if ($validator-&gt;fails()) {
+        return redirect('/')
+            -&gt;withInput()
+            -&gt;withErrors($validator);
+    }
+
+    $task = new Task;
+    $task-&gt;name = $request-&gt;name;
+    $task-&gt;save();
+
+    return redirect('/');
+});</code></pre>
+<p>好极了！我们现在已经可以成功的创建任务了。接着，让我们继续构建已有的任务清单，并增加至我们的视图中。</p>
+<p><a name="displaying-existing-tasks"></a></p>
+<h3>显示已有的任务</h3>
+<p>首先，我们需要编辑我们的 <code>/</code> 路由，以传递所有已有的任务至视图。<code>view</code> 函数接收一个能在视图中被取用的数据数组作为第二个参数，数组中的每个键都会在视图中作为变量：</p>
+<pre><code>Route::get('/', function () {
+    $tasks = Task::orderBy('created_at', 'asc')-&gt;get();
+
+    return view('tasks', [
+        'tasks' =&gt; $tasks
+    ]);
+});</code></pre>
+<p>一旦数据被传递，我们便可以在 <code>tasks.blade.php</code> 视图中将任务切分并将它们显示至数据库表中。<code>@foreach</code> 命令结构让我们可以编写简洁的循环的语句，并编译成快速的纯 PHP 代码：</p>
+<pre><code>@extends('layouts.app')
+
+@section('content')
+    &lt;!-- 创建任务表单... --&gt;
+
+    &lt;!-- 目前任务 --&gt;
+    @if (count($tasks) &gt; 0)
+        &lt;div class="panel panel-default"&gt;
+            &lt;div class="panel-heading"&gt;
+                目前任务
+            &lt;/div&gt;
+
+            &lt;div class="panel-body"&gt;
+                &lt;table class="table table-striped task-table"&gt;
+
+                    &lt;!-- 表头 --&gt;
+                    &lt;thead&gt;
+                        &lt;th&gt;Task&lt;/th&gt;
+                        &lt;th&gt;&amp;nbsp;&lt;/th&gt;
+                    &lt;/thead&gt;
+
+                    &lt;!-- 表身 --&gt;
+                    &lt;tbody&gt;
+                        @foreach ($tasks as $task)
+                            &lt;tr&gt;
+                                &lt;!-- 任务名称 --&gt;
+                                &lt;td class="table-text"&gt;
+                                    &lt;div&gt;{{ $task-&gt;name }}&lt;/div&gt;
+                                &lt;/td&gt;
+
+                                &lt;td&gt;
+                                    &lt;!-- 待办：删除按钮 --&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        @endforeach
+                    &lt;/tbody&gt;
+                &lt;/table&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    @endif
+@endsection</code></pre>
+<p>我们任务应用程序大部分都完成了。但是，当我们完成已有的任务后，还没有任何方式可以删除它们。接着让我们增加此功能！</p>
+<p><a name="deleting-tasks"></a></p>
+<h2>删除任务</h2>
+<p><a name="adding-the-delete-button"></a></p>
+<h3>增加删除按钮</h3>
+<p>我们在我们的代码中应该放删除按钮的地方放了「待办」的注释。所以，让我们在 <code>tasks.blade.php</code> 视图中列出任务的每一行并增加一个删除按钮。我们会为列表中的每个任务创建一个只有单个按钮的小表单。当按钮被按下时，一个 <code>DELETE /task</code> 的请求将会被发送到应用程序：</p>
+<pre><code>&lt;tr&gt;
+    &lt;!-- 任务名称 --&gt;
+    &lt;td class="table-text"&gt;
+        &lt;div&gt;{{ $task-&gt;name }}&lt;/div&gt;
+    &lt;/td&gt;
+
+    &lt;!-- 删除按钮 --&gt;
+    &lt;td&gt;
+        &lt;form action="/task/{{ $task-&gt;id }}" method="POST"&gt;
+            {{ csrf_field() }}
+            {{ method_field('DELETE') }}
+
+            &lt;button&gt;删除任务&lt;/button&gt;
+        &lt;/form&gt;
+    &lt;/td&gt;
+&lt;/tr&gt;</code></pre>
+<p><a name="a-note-on-method-spoofing"></a></p>
+<h4>方法欺骗的注记</h4>
+<p>注意，删除按钮的表单 <code>method</code> 被列为 <code>POST</code>，即使我们响应的请求使用了 <code>Route::delete</code> 路由。HTML 表单只允许 <code>GET</code> 及 <code>POST</code> HTTP 动词，所以我们需要有个方式在表单中假冒一个 <code>DELETE</code> 请求。</p>
+<p>我们可以在表单中通过 <code>method_field('DELETE')</code> 函数输出的结果假冒一个 <code>DELETE</code> 请求。此函数会生成一个隐藏的表单输入，Laravel 会辨识并覆盖掉实际使用的 HTTP 请求方法。生成的字段看起来如下：</p>
+<pre><code>&lt;input type="hidden" name="_method" value="DELETE"&gt;</code></pre>
+<p><a name="deleting-the-task"></a></p>
+<h3>删除该任务</h3>
+<p>最后，让我们增加实际的删除逻辑。我们可以使用 Eloquent 的 <code>findOrFail</code> 方法通过 ID 获取模型，当该模型不存在时则会抛出 404 异常。一旦我们成功获取到模型，我们就可以使用 <code>delete</code> 方法来删除该条记录。只要该记录被删除，我们便会把用户重定向回 <code>/</code> URL：</p>
+<pre><code>Route::delete('/task/{id}', function ($id) {
+    Task::findOrFail($id)-&gt;delete();
+
+    return redirect('/');
+});</code></pre>
+		</div>
+
+		<div class="main-footer" style="border-top:1px dashed rgba(0, 0, 0, 0.1);padding-top: 30px;margin-top:30px;margin-bottom: 20px;">
+			<div class="prev-next-wrap clearfix">
+
+									<a class="btn btn-default pull-left" href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade"><i class="fa fa-arrow-left"></i> Blade 模板</a>
+				
+			    &nbsp;
+								    <a class="btn btn-default pull-right" href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单 <i class="fa fa-arrow-right"></i></a>
+							</div>
+		</div>
+
+	</article>
+</div>
+
+		<footer class="main">
+			<ul>
+				<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+			</ul>
+			<p>Laravel is a trademark of Taylor Otwell. Copyright &copy; Taylor Otwell.</p>
+			<p class="less-significant"><a href="javascript:if(confirm('http://jackmcdade.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://jackmcdade.com/'" tppabs="http://jackmcdade.com/">Design by Jack McDade</a></p>
+
+			<p class="less-significant">
+				<a href="javascript:if(confirm('http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao'" tppabs="http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao" target="_blank">由 UCloud 赞助  <img src="dYfOYswiQY.png" tppabs="https://dn-phphub.qbox.me/uploads/images/201605/03/1/dYfOYswiQY.png" width="98" data-toggle="tooltip" data-placement="top" title="本站服务器由 UCloud 赞助"></a>.
+		      </p>
+		</footer>
+
+	</div>
+
+	<script src="laravel.js" tppabs="http://laravel-china.org/assets/js/laravel.js"></script>
+	<script src="viewport-units-buggyfill.js" tppabs="http://laravel-china.org/assets/js/viewport-units-buggyfill.js"></script>
+	<script>window.viewportUnitsBuggyfill.init();</script>
+    <script>
+
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','analytics.js'/*tpa=http://7xijlf.com2.z0.glb.qiniucdn.com/js/analytics.js*/,'ga');
+
+		ga('create', 'UA-53903425-7', 'auto');
+		ga('send', 'pageview');
+
+		$(window).load(function() {
+		  // When the page has loaded
+		  $(".main-content").fadeIn(10);
+		});
+    </script>
+</body>
+</html>

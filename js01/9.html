@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>流程控制</title>
+</head>
+<body>
+	<script type="text/javascript">
+	/*
+		if else switch
+
+	*/
+	//扩展for循环写99乘法表 1遍
+	document.write('2222');
+
+	// else if 中间必须加一个空格
+	var date = 1;
+	// if(date == 1){
+	// 	alert('今天周一');
+	// }else if(date == 2){
+	// 	alert('今天周二');
+	// }else{
+	// 	alert('都是工作日');
+	// }
+
+	switch(date){
+		case '1'://值必须时全等于
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+			alert('工作日');
+			break;
+		case 6:
+		case 7:
+			alert('狂欢');
+			break;
+		default:
+			alert('你是火星来的逗逼码');
+			break;
+	}
+	
+	
+	// 用for 99乘法表
+	for(var i=1;i<= 10;i++){
+		if(i == 6){
+			continue;//跳出本次循环 继续下一次
+		}
+		if(i == 8){
+			break;//跳出循环 结束
+		}
+		document.write(i+'<br>');
+	}
+
+	var i=0;
+	while(i<=9){
+		i++;//必须得有向着结束循环的方向发展
+		document.write(i);
+	}
+
+
+	</script>
+</body>
+</html>

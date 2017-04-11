@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象的声明方式第三种</title>
+</head>
+<body>
+<script type="text/javascript">
+// 构造函数形式 创建对象
+function MeiNv(name,age,height){
+	//属性
+	this.name = name;//注意 成员之间使用;分号分割
+	this.age = age;
+	this.height = height;
+
+	//方法
+	this.sing = function(){
+		alert('唱歌呢');
+	};//这个分号别忘记了
+	this.dance = function(){
+		alert('跳舞呢');
+	}
+}
+
+//创建对象
+var jiajia = new MeiNv('佳佳','18','177cm');
+var nana = new MeiNv('娜娜','19','170cm');
+
+//属性
+	// alert(nana.name);
+
+	delete nana.age;
+
+	nana.age = 18;
+// 方法
+	// nana.dance();
+
+// console.log(jiajia);
+// console.log(nana);
+
+//对象的遍历 for in
+for(var i in nana){//i 属性名 name age sex dance ....
+	console.log(i);
+	console.log(nana[i]);
+}
+
+//with 简便操作
+with(jiajia){
+	// console.log(name);
+	document.write(name);
+}
+
+console.log(jiajia.name);
+
+</script>
+</body>
+</html>

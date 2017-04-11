@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{$title}</title>
+	<style type="text/css">
+		/*忽略smarty解析*/
+		{literal}
+		body{background: #369;}
+		{/literal}
+	</style>
+	<link rel="stylesheet" href="./1.css">
+</head>
+<body>
+	<div></div>
+	<!-- html注释 smarty解析 但是不显示 -->
+	<!-- {$l} -->
+	<!-- smarty注释 不解析 -->
+	{*$l*}
+	<br>
+	<span>字符串链接</span>
+	{$str|cat:'verymuch'}
+	<br>
+	<span>格式日期</span>
+	{$smarty.now|date_format:'%Y%m%d'}
+	<br>
+	<span>使用自己的函数</span>
+	{date('Y-m-d',$smarty.now)}
+	<br>
+	<span>默认值</span>
+	{$username|default:'请登录'}
+	<br>
+	<span>变量调节器</span>
+	{$like|truncate:13}
+	<br>
+	{$str|replace:'love':'like'}
+	<br>
+	{str_replace('love','like',$str)}
+</body>
+</html>

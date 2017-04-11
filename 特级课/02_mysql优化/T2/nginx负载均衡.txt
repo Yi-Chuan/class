@@ -1,0 +1,21 @@
+负载均衡的配置
+
+第一步：在host文件中，将nginx服务器的IP绑定到nginx.com(自定义)域名C:\Windows\System32\drivers\etc
+
+第二步：/etc/nginx/nginx.conf配置文件中，在http的{}内添加下面配置
+upstream nginx.com{
+ // 承担负载均衡的应用服务器的IP地址
+    server 192.168.0.251 weight=3;
+    server 192.168.0.252 weight=2;
+}
+server{
+    listen 80;
+    server_name nginx.com;
+    location /{
+        proxy_pass    http://nginx.com;
+    }
+}
+
+第三步：nginx -t检测nginx的配置是否正确
+
+第四步：重启nginx服务器

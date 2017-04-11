@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>节点集合</title>
+</head>
+<body>
+	<form action="">
+		<input type="text" name="username"><br>
+		<input type="text" name="password"><br>
+	</form>
+	<form action=""></form>
+	<form action=""></form>
+	<form action=""></form>
+	<br>
+	<a href="https://www.baidu.com">百度</a>
+	<a href="http://www.taobao.com">淘宝</a>
+	<a href="http://www.xiaomi.com">小米</a>
+	<a href="http://www.t.tt">锤子</a>
+	<br>
+	<img src="./images/30.jpg" width="200px">
+	<img src="./images/31.jpg" width="200px">
+	<img src="./images/32.jpg" width="200px">
+	<script type="text/javascript">
+//获取所有的form表单
+var fs = document.forms;
+// console.log(fs[0]);
+
+//找到第一个form表单
+var f = fs[0];
+
+//elements获取元素 获取表单中的子元素 input 
+// console.log(f.elements);
+//通过下标直接获取表单中的第一个元素
+var username = f.elements[0];
+//值的设置
+// username.value = 'iloveyou';
+// alert(username.value);
+
+//通过name属性获取元素
+// console.log(f.password);
+
+//获取页面中的所有的a链接
+var as = document.links;
+// console.log(as);
+
+//获取所有的img
+var imgs = document.images;
+console.log(imgs);
+	
+
+	</script>
+</body>
+</html>

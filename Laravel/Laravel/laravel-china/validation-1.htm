@@ -1,0 +1,708 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=UTF-8"utf-8">
+	<title>Laravel 4.2 中文文档：验证
+</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="@summerblue">
+	<meta name="description" content="验证,基本用法,使用错误信息,错误信息 &amp; 视图,使用验证规则,添加条件验证规则,自定义错误信息,自定义验证规则,基本用法,Laravel 通过 Validation 类让您可以简单、方便的验证数据正确性及查看相应的验证错误信息。,基本验证例子,$validator = Validator::make(,    array(&#039;name&#039; =&gt; &#039;Dayle&#039;),,    array(...
+">
+	<meta name="keywords" content="验证,laravel4.2文档,laravel4.2中文文档,laravel中国,laravel中文,laravel框架中文,laravel文档,laravel框架中国,laravel中文文档
+">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lte IE 9]>
+		<script src="html5shiv.min.js" tppabs="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="laravel.css" tppabs="http://laravel-china.org/assets/css/laravel.css">
+	<style media="screen">
+		div.main-content {
+		  display: none;
+		}
+		.loading-effect {
+			position: fixed;
+			left: 50%;
+			top:300px;
+		    z-index: -1;
+		}
+	</style>
+</head>
+<body class="docs language-php ">
+
+	<span class="overlay"></span>
+
+	<div class="loading-effect">
+		<div class="loader-inner line-scale">
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		  </div>
+	</div>
+
+
+	<div class="main-content">
+
+		<nav class="main">
+			<div class="container">
+				<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/" class="brand">
+					<img src="laravel-logo.png" tppabs="http://laravel-china.org/assets/img/laravel-logo.png" height="30">
+					Laravel
+				</a>
+
+				<div class="responsive-sidebar-nav">
+					<a href="#" class="toggle-slide menu-link btn">&#9776;</a>
+				</div>
+
+									<div class="switcher">
+	<div class="dropdown">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			<!--<span class="faint">v</span> -->
+			4.2
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">5.1</a>
+				</li>
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="validation-1.htm" tppabs="http://laravel-china.org/docs/4.2/validation">4.2</a>
+				</li>
+					</ul>
+	</div>
+</div>
+				
+				<ul class="main-nav">
+					<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+				</ul>
+			</div>
+		</nav>
+
+		<nav id="slide-menu" class="slide-menu" role="navigation">
+
+	<div class="brand">
+		<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">
+			<img src="laravel-logo-white.png" tppabs="http://laravel-china.org/assets/img/laravel-logo-white.png" height="50">
+		</a>
+	</div>
+
+	<ul class="slide-main-nav">
+		<li><a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">Home</a></li>
+		<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+	</ul>
+
+	<div class="slide-docs-nav">
+		<h2>文档</h2>
+
+		<a type="button" class="turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		<ul>
+<li>前言
+<ul>
+<li><a href="introduction.htm" tppabs="http://laravel-china.org/docs/4.2/introduction">Laravel 介绍</a></li>
+<li><a href="quick.htm" tppabs="http://laravel-china.org/docs/4.2/quick">快速入门</a></li>
+<li><a href="releases-1.htm" tppabs="http://laravel-china.org/docs/4.2/releases">框架更新记录</a></li>
+<li><a href="upgrade-1.htm" tppabs="http://laravel-china.org/docs/4.2/upgrade">升级指南</a></li>
+</ul></li>
+<li>快速上手
+<ul>
+<li><a href="installation-1.htm" tppabs="http://laravel-china.org/docs/4.2/installation">安装文档</a></li>
+<li><a href="configuration.htm" tppabs="http://laravel-china.org/docs/4.2/configuration">配置信息</a></li>
+<li><a href="homestead-1.htm" tppabs="http://laravel-china.org/docs/4.2/homestead">Homestead</a></li>
+<li><a href="lifecycle-1.htm" tppabs="http://laravel-china.org/docs/4.2/lifecycle">程序的生命周期</a></li>
+<li><a href="routing-1.htm" tppabs="http://laravel-china.org/docs/4.2/routing">路由 Routing</a></li>
+<li><a href="requests-1.htm" tppabs="http://laravel-china.org/docs/4.2/requests">处理用户请求和输入</a></li>
+<li><a href="responses-1.htm" tppabs="http://laravel-china.org/docs/4.2/responses">视图和响应</a></li>
+<li><a href="controllers-1.htm" tppabs="http://laravel-china.org/docs/4.2/controllers">控制器</a></li>
+<li><a href="errors-1.htm" tppabs="http://laravel-china.org/docs/4.2/errors">错误和日志</a></li>
+</ul></li>
+<li>更多 Laravel 知识
+<ul>
+<li><a href="security.htm" tppabs="http://laravel-china.org/docs/4.2/security">身份认证功能</a></li>
+<li><a href="billing-1.htm" tppabs="http://laravel-china.org/docs/4.2/billing">收费系统</a></li>
+<li><a href="cache-1.htm" tppabs="http://laravel-china.org/docs/4.2/cache">缓存</a></li>
+<li><a href="extending.htm" tppabs="http://laravel-china.org/docs/4.2/extending">扩展框架</a></li>
+<li><a href="events-1.htm" tppabs="http://laravel-china.org/docs/4.2/events">事件</a></li>
+<li><a href="facades-1.htm" tppabs="http://laravel-china.org/docs/4.2/facades">Facades</a></li>
+<li><a href="html.htm" tppabs="http://laravel-china.org/docs/4.2/html">表单和HTML</a></li>
+<li><a href="helpers-1.htm" tppabs="http://laravel-china.org/docs/4.2/helpers">帮助函数</a></li>
+<li><a href="ioc.htm" tppabs="http://laravel-china.org/docs/4.2/ioc">IoC Container</a></li>
+<li><a href="localization-1.htm" tppabs="http://laravel-china.org/docs/4.2/localization">本地化</a></li>
+<li><a href="mail-1.htm" tppabs="http://laravel-china.org/docs/4.2/mail">邮件发送 Mail</a></li>
+<li><a href="packages-1.htm" tppabs="http://laravel-china.org/docs/4.2/packages">扩展包开发</a></li>
+<li><a href="pagination-1.htm" tppabs="http://laravel-china.org/docs/4.2/pagination">分页功能</a></li>
+<li><a href="queues-1.htm" tppabs="http://laravel-china.org/docs/4.2/queues">队列</a></li>
+<li><a href="security.htm" tppabs="http://laravel-china.org/docs/4.2/security">安全</a></li>
+<li><a href="session-1.htm" tppabs="http://laravel-china.org/docs/4.2/session">会话</a></li>
+<li><a href="ssh.htm" tppabs="http://laravel-china.org/docs/4.2/ssh">远程连接模块 SSH</a></li>
+<li><a href="templates.htm" tppabs="http://laravel-china.org/docs/4.2/templates">模版引擎</a></li>
+<li><a href="testing-1.htm" tppabs="http://laravel-china.org/docs/4.2/testing">单元测试</a></li>
+<li><a href="validation-1.htm" tppabs="http://laravel-china.org/docs/4.2/validation">表单验证</a></li>
+</ul></li>
+<li>数据库 Database
+<ul>
+<li><a href="database-1.htm" tppabs="http://laravel-china.org/docs/4.2/database">数据库简单使用</a></li>
+<li><a href="queries-1.htm" tppabs="http://laravel-china.org/docs/4.2/queries">查询构造器</a></li>
+<li><a href="eloquent-1.htm" tppabs="http://laravel-china.org/docs/4.2/eloquent">Eloquent ORM</a></li>
+<li><a href="schema.htm" tppabs="http://laravel-china.org/docs/4.2/schema">表结构构造器</a></li>
+<li><a href="migrations-1.htm" tppabs="http://laravel-china.org/docs/4.2/migrations">Migrations &amp; Seeding</a></li>
+<li><a href="redis-1.htm" tppabs="http://laravel-china.org/docs/4.2/redis">Redis</a></li>
+</ul></li>
+<li>命令行 Artisan CLI
+<ul>
+<li><a href="artisan-1.htm" tppabs="http://laravel-china.org/docs/4.2/artisan">命令行 Artisan 介绍</a></li>
+<li><a href="commands.htm" tppabs="http://laravel-china.org/docs/4.2/commands">开发 Artisan 命令</a></li>
+</ul></li>
+</ul>
+	</div>
+
+</nav>
+
+<div class="docs-wrapper container">
+
+	<section class="sidebar">
+
+		<div class="header">
+			<a type="button" class="btn btn-primary btn-lg btn-block turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		</div>
+
+		<ul>
+<li>前言
+<ul>
+<li><a href="introduction.htm" tppabs="http://laravel-china.org/docs/4.2/introduction">Laravel 介绍</a></li>
+<li><a href="quick.htm" tppabs="http://laravel-china.org/docs/4.2/quick">快速入门</a></li>
+<li><a href="releases-1.htm" tppabs="http://laravel-china.org/docs/4.2/releases">框架更新记录</a></li>
+<li><a href="upgrade-1.htm" tppabs="http://laravel-china.org/docs/4.2/upgrade">升级指南</a></li>
+</ul></li>
+<li>快速上手
+<ul>
+<li><a href="installation-1.htm" tppabs="http://laravel-china.org/docs/4.2/installation">安装文档</a></li>
+<li><a href="configuration.htm" tppabs="http://laravel-china.org/docs/4.2/configuration">配置信息</a></li>
+<li><a href="homestead-1.htm" tppabs="http://laravel-china.org/docs/4.2/homestead">Homestead</a></li>
+<li><a href="lifecycle-1.htm" tppabs="http://laravel-china.org/docs/4.2/lifecycle">程序的生命周期</a></li>
+<li><a href="routing-1.htm" tppabs="http://laravel-china.org/docs/4.2/routing">路由 Routing</a></li>
+<li><a href="requests-1.htm" tppabs="http://laravel-china.org/docs/4.2/requests">处理用户请求和输入</a></li>
+<li><a href="responses-1.htm" tppabs="http://laravel-china.org/docs/4.2/responses">视图和响应</a></li>
+<li><a href="controllers-1.htm" tppabs="http://laravel-china.org/docs/4.2/controllers">控制器</a></li>
+<li><a href="errors-1.htm" tppabs="http://laravel-china.org/docs/4.2/errors">错误和日志</a></li>
+</ul></li>
+<li>更多 Laravel 知识
+<ul>
+<li><a href="security.htm" tppabs="http://laravel-china.org/docs/4.2/security">身份认证功能</a></li>
+<li><a href="billing-1.htm" tppabs="http://laravel-china.org/docs/4.2/billing">收费系统</a></li>
+<li><a href="cache-1.htm" tppabs="http://laravel-china.org/docs/4.2/cache">缓存</a></li>
+<li><a href="extending.htm" tppabs="http://laravel-china.org/docs/4.2/extending">扩展框架</a></li>
+<li><a href="events-1.htm" tppabs="http://laravel-china.org/docs/4.2/events">事件</a></li>
+<li><a href="facades-1.htm" tppabs="http://laravel-china.org/docs/4.2/facades">Facades</a></li>
+<li><a href="html.htm" tppabs="http://laravel-china.org/docs/4.2/html">表单和HTML</a></li>
+<li><a href="helpers-1.htm" tppabs="http://laravel-china.org/docs/4.2/helpers">帮助函数</a></li>
+<li><a href="ioc.htm" tppabs="http://laravel-china.org/docs/4.2/ioc">IoC Container</a></li>
+<li><a href="localization-1.htm" tppabs="http://laravel-china.org/docs/4.2/localization">本地化</a></li>
+<li><a href="mail-1.htm" tppabs="http://laravel-china.org/docs/4.2/mail">邮件发送 Mail</a></li>
+<li><a href="packages-1.htm" tppabs="http://laravel-china.org/docs/4.2/packages">扩展包开发</a></li>
+<li><a href="pagination-1.htm" tppabs="http://laravel-china.org/docs/4.2/pagination">分页功能</a></li>
+<li><a href="queues-1.htm" tppabs="http://laravel-china.org/docs/4.2/queues">队列</a></li>
+<li><a href="security.htm" tppabs="http://laravel-china.org/docs/4.2/security">安全</a></li>
+<li><a href="session-1.htm" tppabs="http://laravel-china.org/docs/4.2/session">会话</a></li>
+<li><a href="ssh.htm" tppabs="http://laravel-china.org/docs/4.2/ssh">远程连接模块 SSH</a></li>
+<li><a href="templates.htm" tppabs="http://laravel-china.org/docs/4.2/templates">模版引擎</a></li>
+<li><a href="testing-1.htm" tppabs="http://laravel-china.org/docs/4.2/testing">单元测试</a></li>
+<li><a href="validation-1.htm" tppabs="http://laravel-china.org/docs/4.2/validation">表单验证</a></li>
+</ul></li>
+<li>数据库 Database
+<ul>
+<li><a href="database-1.htm" tppabs="http://laravel-china.org/docs/4.2/database">数据库简单使用</a></li>
+<li><a href="queries-1.htm" tppabs="http://laravel-china.org/docs/4.2/queries">查询构造器</a></li>
+<li><a href="eloquent-1.htm" tppabs="http://laravel-china.org/docs/4.2/eloquent">Eloquent ORM</a></li>
+<li><a href="schema.htm" tppabs="http://laravel-china.org/docs/4.2/schema">表结构构造器</a></li>
+<li><a href="migrations-1.htm" tppabs="http://laravel-china.org/docs/4.2/migrations">Migrations &amp; Seeding</a></li>
+<li><a href="redis-1.htm" tppabs="http://laravel-china.org/docs/4.2/redis">Redis</a></li>
+</ul></li>
+<li>命令行 Artisan CLI
+<ul>
+<li><a href="artisan-1.htm" tppabs="http://laravel-china.org/docs/4.2/artisan">命令行 Artisan 介绍</a></li>
+<li><a href="commands.htm" tppabs="http://laravel-china.org/docs/4.2/commands">开发 Artisan 命令</a></li>
+</ul></li>
+</ul>
+	</section>
+
+	<article>
+
+		<div class="alert alert-warning" role="alert">
+
+			<h4>拥抱 Laravel 5.1 LTS</h4>
+			<p>
+				强烈建议在 2018 年之前使用 Laravel 5.1 来构建项目，Laravel 5.1 是 LTS 的发行版本, 发行于 2015 年 6 月份，自发布起提供两年时间的 Bug 修复（2017 年 6 月）, 3 年时间的安全修复（2018 年 6 月）。
+			</p>
+			 <p>
+			 	LTS 版本是此项目能提供的最长时间维护版本。一般的发行版本, 只提供 6 个月的 Bug 修复支持, 一年的安全修复支持.
+			 </p>
+		</div>
+
+		<div class="main-content">
+			<h1>验证</h1>
+<ul>
+<li><a href="#basic-usage">基本用法</a></li>
+<li><a href="#working-with-error-messages">使用错误信息</a></li>
+<li><a href="#error-messages-and-views">错误信息 &amp; 视图</a></li>
+<li><a href="#available-validation-rules">使用验证规则</a></li>
+<li><a href="#conditionally-adding-rules">添加条件验证规则</a></li>
+<li><a href="#custom-error-messages">自定义错误信息</a></li>
+<li><a href="#custom-validation-rules">自定义验证规则</a></li>
+</ul>
+<p><a name="basic-usage"></a></p>
+<h2>基本用法</h2>
+<p>Laravel 通过 <code>Validation</code> 类让您可以简单、方便的验证数据正确性及查看相应的验证错误信息。</p>
+<h4>基本验证例子</h4>
+<pre><code>$validator = Validator::make(
+    array('name' =&gt; 'Dayle'),
+    array('name' =&gt; 'required|min:5')
+);</code></pre>
+<p>上文中通过 <code>make</code> 这个方法来的第一个参数来设定所需要被验证的数据名称，第二个参数设定该数据可被接受的规则。</p>
+<h4>使用数组来定义规则</h4>
+<p>多个验证规则可以使用&quot;|&quot;符号分隔，或是单一数组作为单独的元素分隔。</p>
+<pre><code>$validator = Validator::make(
+    array('name' =&gt; 'Dayle'),
+    array('name' =&gt; array('required', 'min:5'))
+);</code></pre>
+<h4>验证多个字段</h4>
+<pre><code>$validator = Validator::make(
+    array(
+        'name' =&gt; 'Dayle',
+        'password' =&gt; 'lamepassword',
+        'email' =&gt; 'email@example.com'
+    ),
+    array(
+        'name' =&gt; 'required',
+        'password' =&gt; 'required|min:8',
+        'email' =&gt; 'required|email|unique:users'
+    )
+);</code></pre>
+<p>当一个 <code>Validator</code> 实例被建立，<code>fails</code>（或 <code>passes</code>） 这两个方法就可以在验证时使用，如下：</p>
+<pre><code>if ($validator-&gt;fails())
+{
+    // The given data did not pass validation
+}</code></pre>
+<p>假如验证失败，您可以从验证器中接收错误信息。</p>
+<pre><code>$messages = $validator-&gt;messages();</code></pre>
+<p>您可能不需要错误信息，只想取得无法通过验证的规则，您可以使用 'failed' 方法：</p>
+<pre><code>$failed = $validator-&gt;failed();</code></pre>
+<h4>验证文件</h4>
+<p><code>Validator</code> 类提供了一些规则用来验证文件，例如 <code>size</code>, <code>mimes</code> 等等。当需要验证文件时，您仅需将它们和您其他的数据一同送给验证器即可。</p>
+<p><a name="working-with-error-messages"></a></p>
+<h2>使用错误信息</h2>
+<p>当您调用一个 <code>Validator</code> 实例的 <code>messages</code> 方法后，您会得到一个命名为 <code>MessageBag</code> 的变量，该变量里有许多方便的方法能让您取得相关的错误信息。</p>
+<h4>查看一个字段的第一个错误信息</h4>
+<pre><code>echo $messages-&gt;first('email');</code></pre>
+<h4>查看一个字段的所有错误信息</h4>
+<pre><code>foreach ($messages-&gt;get('email') as $message)
+{
+    //
+}</code></pre>
+<h4>查看所有字段的所有错误信息</h4>
+<pre><code>foreach ($messages-&gt;all() as $message)
+{
+    //
+}</code></pre>
+<h4>判断一个字段是否有错误信息</h4>
+<pre><code>if ($messages-&gt;has('email'))
+{
+    //
+}</code></pre>
+<h4>错误信息格式化输出</h4>
+<pre><code>echo $messages-&gt;first('email', '&lt;p&gt;:message&lt;/p&gt;');</code></pre>
+<blockquote>
+<p><strong>注意:</strong> 默认错误信息以 Bootstrap 兼容语法输出。</p>
+</blockquote>
+<h4>查看所有错误信息并以格式化输出</h4>
+<pre><code>foreach ($messages-&gt;all('&lt;li&gt;:message&lt;/li&gt;') as $message)
+{
+    //
+}</code></pre>
+<p><a name="error-messages-and-views"></a></p>
+<h2>错误信息 &amp; 视图</h2>
+<p>当您开始进行验证数据时，您会需要一个简易的方法去取得错误信息并回传到您的视图中，在 Laravel 中您可以很方便的处理这些操作，您可以通过下面的路由例子来了解：</p>
+<pre><code>Route::get('register', function()
+{
+    return View::make('user.register');
+});
+
+Route::post('register', function()
+{
+    $rules = array(...);
+
+    $validator = Validator::make(Input::all(), $rules);
+
+    if ($validator-&gt;fails())
+    {
+        return Redirect::to('register')-&gt;withErrors($validator);
+    }
+});</code></pre>
+<p>需要记住的是，当验证失败后，我们会使用 <code>withErrors</code> 方法来将 <code>Validator</code> 实例进行重新导向。这个方法会将错误信息存入 session 中，这样才能在下个请求中被使用。</p>
+<p>然而，我们并不需要特别去将错误信息绑定在我们 GET 路由的视图中。因为 Laravel 会确认在 Session 数据中检查是否有错误信息，并且自动将它们绑定至视图中。<strong>所以请注意，<code>$errors</code> 变量存在于所有的视图中，所有的请求里，</strong>让您可以直接假设 <code>$errors</code> 变量已被定义且可以安全地使用。<code>$errors</code> 变量是 <code>MessageBag</code> 类的一个实例。</p>
+<p>所以，重新导向之后，您可以自然的在视图中使用 <code>$errors</code> 变量：</p>
+<pre><code>&lt;?php echo $errors-&gt;first('email'); ?&gt;</code></pre>
+<h3>命名错误清单</h3>
+<p>假如您在一个页面中有许多的表单, 您可能希望为错误命名一个<code>MessageBag</code>. 这样能方便您针对特定的表单查看其错误信息, 我们只要简单的在 <code>withErrors</code> 的第二个参数设定名称即可：</p>
+<pre><code>return Redirect::to('register')-&gt;withErrors($validator, 'login');</code></pre>
+<p>接着您可以从一个 <code>$errors</code> 变量中取得已命名的 <code>MessageBag</code> 实例：</p>
+<pre><code>&lt;?php echo $errors-&gt;login-&gt;first('email'); ?&gt;</code></pre>
+<p><a name="available-validation-rules"></a></p>
+<h2>现有的的验证规则</h2>
+<p>以下是现有的的验证规则清单与他们的函数名称：</p>
+<ul>
+<li><a href="#rule-accepted">Accepted</a></li>
+<li><a href="#rule-active-url">Active URL</a></li>
+<li><a href="#rule-after">After (Date)</a></li>
+<li><a href="#rule-alpha">Alpha</a></li>
+<li><a href="#rule-alpha-dash">Alpha Dash</a></li>
+<li><a href="#rule-alpha-num">Alpha Numeric</a></li>
+<li><a href="#rule-array">Array</a></li>
+<li><a href="#rule-before">Before (Date)</a></li>
+<li><a href="#rule-between">Between</a></li>
+<li><a href="#rule-boolean">Boolean</a></li>
+<li><a href="#rule-confirmed">Confirmed</a></li>
+<li><a href="#rule-date">Date</a></li>
+<li><a href="#rule-date-format">Date Format</a></li>
+<li><a href="#rule-different">Different</a></li>
+<li><a href="#rule-digits">Digits</a></li>
+<li><a href="#rule-digits-between">Digits Between</a></li>
+<li><a href="#rule-email">E-Mail</a></li>
+<li><a href="#rule-exists">Exists (Database)</a></li>
+<li><a href="#rule-image">Image (File)</a></li>
+<li><a href="#rule-in">In</a></li>
+<li><a href="#rule-integer">Integer</a></li>
+<li><a href="#rule-ip">IP Address</a></li>
+<li><a href="#rule-max">Max</a></li>
+<li><a href="#rule-mimes">MIME Types</a></li>
+<li><a href="#rule-min">Min</a></li>
+<li><a href="#rule-not-in">Not In</a></li>
+<li><a href="#rule-numeric">Numeric</a></li>
+<li><a href="#rule-regex">Regular Expression</a></li>
+<li><a href="#rule-required">Required</a></li>
+<li><a href="#rule-required-if">Required If</a></li>
+<li><a href="#rule-required-with">Required With</a></li>
+<li><a href="#rule-required-with-all">Required With All</a></li>
+<li><a href="#rule-required-without">Required Without</a></li>
+<li><a href="#rule-required-without-all">Required Without All</a></li>
+<li><a href="#rule-same">Same</a></li>
+<li><a href="#rule-size">Size</a></li>
+<li><a href="#rule-string">String</a></li>
+<li><a href="#rule-timezone">Timezone</a></li>
+<li><a href="#rule-unique">Unique (Database)</a></li>
+<li><a href="#rule-url">URL</a></li>
+</ul>
+<p><a name="rule-accepted"></a></p>
+<h4>accepted</h4>
+<p>字段值为 <em>yes</em>, <em>on</em>, 或是 <em>1</em> 时，验证才会通过。这在确认&quot;服务条款&quot;是否同意时很有用。</p>
+<p><a name="rule-active-url"></a></p>
+<h4>active_url</h4>
+<p>字段值通过 PHP 函数 <code>checkdnsrr</code> 来验证是否为一个有效的网址。</p>
+<p><a name="rule-after"></a></p>
+<h4>after:<em>date</em></h4>
+<p>验证字段是否是在指定日期之后。这个日期将会使用 PHP <code>strtotime</code> 函数验证。</p>
+<p><a name="rule-alpha"></a></p>
+<h4>alpha</h4>
+<p>字段仅全数为字母字串时通过验证。</p>
+<p><a name="rule-alpha-dash"></a></p>
+<h4>alpha_dash</h4>
+<p>字段值仅允许字母、数字、破折号（-）以及底线（_）</p>
+<p><a name="rule-alpha-num"></a></p>
+<h4>alpha_num</h4>
+<p>字段值仅允许字母、数字</p>
+<p><a name="rule-array"></a></p>
+<h4>array</h4>
+<p>字段值仅允许为数组</p>
+<p><a name="rule-before"></a></p>
+<h4>before:<em>date</em></h4>
+<p>验证字段是否是在指定日期之前。这个日期将会使用 PHP <code>strtotime</code> 函数验证。</p>
+<p><a name="rule-between"></a></p>
+<h4>between:<em>min</em>,<em>max</em></h4>
+<p>字段值需介于指定的 <em>min</em> 和 <em>max</em> 值之间。字串、数值或是文件都是用同样的方式来进行验证。</p>
+<p><a name="rule-boolean"></a></p>
+<h4>boolean</h4>
+<p>The field under validation must be able to be cast as a boolean. Accepted input are <code>true</code>, <code>false</code>, <code>1</code>, <code>0</code>, <code>"1"</code> and <code>"0"</code>.</p>
+<p><a name="rule-confirmed"></a></p>
+<h4>confirmed</h4>
+<p>字段值需与对应的字段值 <code>foo_confirmation</code> 相同。例如，如果验证的字段是 <code>password</code> ，那对应的字段 <code>password_confirmation</code> 就必须存在且与 <code>password</code> 字段相符。</p>
+<p><a name="rule-date"></a></p>
+<h4>date</h4>
+<p>字段值通过 PHP <code>strtotime</code> 函数验证是否为一个合法的日期。</p>
+<p><a name="rule-date-format"></a></p>
+<h4>date_format:<em>format</em></h4>
+<p>字段值通过 PHP <code>date_parse_from_format</code> 函数验证符合 <em>format</em> 制定格式的日期是否为合法日期。</p>
+<p><a name="rule-different"></a></p>
+<h4>different:<em>field</em></h4>
+<p>字段值需与指定的字段 <em>field</em> 值不同。</p>
+<p><a name="rule-digits"></a></p>
+<h4>digits:<em>value</em></h4>
+<p>字段值需为数字且长度需为 <em>value</em>。</p>
+<p><a name="rule-digits-between"></a></p>
+<h4>digits_between:<em>min</em>,<em>max</em></h4>
+<p>字段值需为数字，且长度需介于 <em>min</em> 与 <em>max</em> 之间。</p>
+<p><a name="rule-boolean"></a></p>
+<h4>boolean</h4>
+<p>字段必须可以转换成布尔值，可接受的值为 <code>true</code>, <code>false</code>, <code>1</code>, <code>0</code>, <code>"1"</code>, <code>"0"</code>。</p>
+<p><a name="rule-email"></a></p>
+<h4>email</h4>
+<p>字段值需符合 email 格式。</p>
+<p><a name="rule-exists"></a></p>
+<h4>exists:<em>table</em>,<em>column</em></h4>
+<p>字段值需与存在于数据库 <em>table</em> 中的 <em>column</em> 字段值其一相同。</p>
+<h4>Exists 规则的基本使用方法</h4>
+<pre><code>'state' =&gt; 'exists:states'</code></pre>
+<h4>指定一个自定义的字段名称</h4>
+<pre><code>'state' =&gt; 'exists:states,abbreviation'</code></pre>
+<p>您可以指定更多条件且那些条件将会被新增至 &quot;where&quot; 查询里：</p>
+<pre><code>'email' =&gt; 'exists:staff,email,account_id,1'
+/* 这个验证规则为 email 需存在于 staff 这个数据库表中 email 字段中且 account_id=1 */</code></pre>
+<p>通过<code>NULL</code>搭配&quot;where&quot;的缩写写法去检查数据库的是否为<code>NULL</code></p>
+<pre><code>'email' =&gt; 'exists:staff,email,deleted_at,NULL'</code></pre>
+<p><a name="rule-image"></a></p>
+<h4>image</h4>
+<p>文件必需为图片(jpeg, png, bmp 或 gif)</p>
+<p><a name="rule-in"></a></p>
+<h4>in:<em>foo</em>,<em>bar</em>,...</h4>
+<p>字段值需符合事先给予的清单的其中一个值</p>
+<p><a name="rule-integer"></a></p>
+<h4>integer</h4>
+<p>字段值需为一个整数值</p>
+<p><a name="rule-ip"></a></p>
+<h4>ip</h4>
+<p>字段值需符合 IP 位址格式。</p>
+<p><a name="rule-max"></a></p>
+<h4>max:<em>value</em></h4>
+<p>字段值需小于等于 <em>value</em>。字串、数字和文件则和 <a href="#rule-size"><code>size</code></a> 规则一致。</p>
+<p><a name="rule-mimes"></a></p>
+<h4>mimes:<em>foo</em>,<em>bar</em>,...</h4>
+<p>文件的 MIME 类需在给定清单中的列表中才能通过验证。</p>
+<h4>MIME规则基本用法</h4>
+<pre><code>'photo' =&gt; 'mimes:jpeg,bmp,png'</code></pre>
+<p><a name="rule-min"></a></p>
+<h4>min:<em>value</em></h4>
+<p>字段值需大于等于 <em>value</em>。字串、数字和文件则和 <a href="#rule-size"><code>size</code></a> 规则一致。</p>
+<p><a name="rule-not-in"></a></p>
+<h4>not_in:<em>foo</em>,<em>bar</em>,...</h4>
+<p>字段值不得为给定清单中其一。</p>
+<p><a name="rule-numeric"></a></p>
+<h4>numeric</h4>
+<p>字段值需为数字。</p>
+<p><a name="rule-regex"></a></p>
+<h4>regex:<em>pattern</em></h4>
+<p>字段值需符合给定的正规表示式。</p>
+<p><strong>注意:</strong> 当使用<code>regex</code>模式时，您必须使用数组来取代&quot;|&quot;作为分隔，尤其是当正规表示式中含有&quot;|&quot;字串。</p>
+<p><a name="rule-required"></a></p>
+<h4>required</h4>
+<p>字段值为必填。</p>
+<p><a name="rule-required-if"></a></p>
+<h4>required_if:<em>field</em>,<em>value</em>,...</h4>
+<p>字段值在 <em>field</em> 字段值为 <em>value</em> 时为必填。</p>
+<p><a name="rule-required-with"></a></p>
+<h4>required_with:<em>foo</em>,<em>bar</em>,...</h4>
+<p>字段值 <em>仅在</em> 任一指定字段有值情况下为必填。</p>
+<p><a name="rule-required-with-all"></a></p>
+<h4>required_with_all:<em>foo</em>,<em>bar</em>,...</h4>
+<p>字段值 <em>仅在</em> 所有指定字段皆有值情况下为必填。</p>
+<p><a name="rule-required-without"></a></p>
+<h4>required_without:<em>foo</em>,<em>bar</em>,...</h4>
+<p>字段值 <em>仅在</em> 任一指定字段没有值情况下为必填。</p>
+<p><a name="rule-required-without-all"></a></p>
+<h4>required_without_all:<em>foo</em>,<em>bar</em>,...</h4>
+<p>字段值 <em>仅在</em> 所有指定字段皆没有值情况下为必填。</p>
+<p><a name="rule-same"></a></p>
+<h4>same:<em>field</em></h4>
+<p>字段值需与指定字段 <em>field</em> 等值。</p>
+<p><a name="rule-size"></a></p>
+<h4>size:<em>value</em></h4>
+<p>字段值的尺寸需符合给定 <em>value</em> 值。对于字串来说，<em>value</em> 为需符合的字串长度。对于数字来说，<em>value</em> 为需符合的整数值。对于文件来说，<em>value</em> 为需符合的文件大小（单位 kb)。</p>
+<p><a name="rule-string"></a></p>
+<h4>string:<em>value</em></h4>
+<p>字段值必须是一个字符串类型。</p>
+<p><a name="rule-string"></a></p>
+<h4>string:<em>value</em></h4>
+<p>The field under validation must be a string type.</p>
+<p><a name="rule-timezone"></a></p>
+<h4>timezone</h4>
+<p>字段值通过 PHP <code>timezone_identifiers_list</code> 函数来验证是否为有效的时区。</p>
+<p><a name="rule-unique"></a></p>
+<h4>unique:<em>table</em>,<em>column</em>,<em>except</em>,<em>idColumn</em></h4>
+<p>字段值在给定的数据库中需为唯一值。如果 <code>column（字段）</code> 选项没有指定，将会使用字段名称。</p>
+<h4>唯一(Unique)规则的基本用法</h4>
+<pre><code>'email' =&gt; 'unique:users'</code></pre>
+<h4>指定一个自定义的字段名称</h4>
+<pre><code>'email' =&gt; 'unique:users,email_address'</code></pre>
+<h4>强制唯一规则忽略指定的 ID</h4>
+<pre><code>'email' =&gt; 'unique:users,email_address,10'</code></pre>
+<h4>增加额外的 Where 条件</h4>
+<p>您也可以指定更多的条件式到 &quot;where&quot; 查询语句中：</p>
+<pre><code>'email' =&gt; 'unique:users,email_address,NULL,id,account_id,1'</code></pre>
+<p>上述规则为只有 <code>account_id</code> 为 <code>1</code> 的数据列会做唯一规则的验证。</p>
+<p><a name="rule-url"></a></p>
+<h4>url</h4>
+<p>字段值需符合 URL 的格式。</p>
+<blockquote>
+<p><strong>注意:</strong> 此函数会使用 PHP <code>filter_var</code> 方法验证。</p>
+</blockquote>
+<p><a name="conditionally-adding-rules"></a></p>
+<h2>添加条件验证规则</h2>
+<p>某些情况下，您可能 <strong>只想</strong> 当字段有值时，才进行验证。这时只要增加 <code>sometimes</code> 条件进条件列表中，就可以快速达成：</p>
+<pre><code>$v = Validator::make($data, array(
+    'email' =&gt; 'sometimes|required|email',
+));</code></pre>
+<p>在上述例子中，<code>email</code> 字段只会在当其在 <code>$data</code> 数组中有值的情况下才会被验证。</p>
+<h4>复杂的条件式验证</h4>
+<p>有时，您可以希望给指定字段在其他字段长度有超过 100 时才验证是否为必填。或者您希望有两个字段，当其中一字段有值时，另一字段将会有一个默认值。增加这样的验证条件并不复杂。首先，利用您尚未更动的 <em>静态规则</em> 创建一个 <code>Validator</code> 实例：</p>
+<pre><code>$v = Validator::make($data, array(
+    'email' =&gt; 'required|email',
+    'games' =&gt; 'required|numeric',
+));</code></pre>
+<p>假设我们的网页应用程序是专为游戏收藏家所设计。如果游戏收藏家收藏超过一百款游戏，我们希望他们说明为什么他们拥有这么多游戏。如，可能他们经营一家二手游戏商店，或是他们可能只是享受收集的乐趣。有条件的加入此需求，我们可以在 <code>Validator</code> 实例中使用 <code>sometimes</code> 方法。</p>
+<pre><code>$v-&gt;sometimes('reason', 'required|max:500', function($input)
+{
+    return $input-&gt;games &gt;= 100;
+});</code></pre>
+<p>传递至 <code>sometimes</code> 方法的第一个参数是我们要条件式认证的字段名称。第二个参数是我们想加入验证规则。 <code>闭包（Closure）</code> 作为第三个参数传入，如果回传值为 <code>true</code> 那该规则就会被加入。这个方法可以轻而易举的建立复杂的条件式验证。您也可以一次对多个字段增加条件式验证：</p>
+<pre><code>$v-&gt;sometimes(array('reason', 'cost'), 'required', function($input)
+{
+    return $input-&gt;games &gt;= 100;
+});</code></pre>
+<blockquote>
+<p><strong>注意:</strong> 传递至您的 <code>Closure</code> 的 <code>$input</code> 参数为 <code>Illuminate\Support\Fluent</code> 的实例且用来作为获取您的输入及文件的对象。</p>
+</blockquote>
+<p><a name="custom-error-messages"></a></p>
+<h2>自定义错误信息</h2>
+<p>如果有需要，您可以设置自定义的错误信息取代默认错误信息。这里有几个方式可以设定自定义消息。</p>
+<h4>传递自定义消息进验证器</h4>
+<pre><code>$messages = array(
+    'required' =&gt; 'The :attribute field is required.',
+);
+
+$validator = Validator::make($input, $rules, $messages);</code></pre>
+<blockquote>
+<p><strong>注意:</strong> 在验证中，<code>:attribute</code> 占位符会被字段的实际名称给取代。您也可以在验证信息中使用其他的占位符。</p>
+</blockquote>
+<h4>其他的验证占位符</h4>
+<pre><code>$messages = array(
+    'same'    =&gt; 'The :attribute and :other must match.',
+    'size'    =&gt; 'The :attribute must be exactly :size.',
+    'between' =&gt; 'The :attribute must be between :min - :max.',
+    'in'      =&gt; 'The :attribute must be one of the following types: :values',
+);</code></pre>
+<h4>为特定属性给予一个自定义信息</h4>
+<p>有时您只想为一个特定字段指定一个客制错误信息：</p>
+<pre><code>$messages = array(
+    'email.required' =&gt; 'We need to know your e-mail address!',
+);</code></pre>
+<p><a name="localization"></a></p>
+<h4>在语言包文件中指定自定义消息</h4>
+<p>某些状况下，您可能希望在语言包文件中设定您的自定义消息，而非直接将他们传递给 <code>Validator</code>。要达到目的，将您的信息增加至 <code>app/lang/xx/validation.php</code> 文件的 <code>custom</code> 数组中。</p>
+<pre><code>'custom' =&gt; array(
+    'email' =&gt; array(
+        'required' =&gt; 'We need to know your e-mail address!',
+    ),
+),</code></pre>
+<p><a name="custom-validation-rules"></a></p>
+<h2>自定义验证规则</h2>
+<h4>注册自定义验证规则</h4>
+<p>Laravel 提供了各种有用的验证规则，但是，您可能希望可以设定自定义验证规则。注册生成自定义的验证规则的方法之一就是使用 <code>Validator::extend</code> 方法：</p>
+<pre><code>Validator::extend('foo', function($attribute, $value, $parameters)
+{
+    return $value == 'foo';
+});</code></pre>
+<p>自定义验证器闭包接收三个参数：要被验证的 <code>$attribute(属性)</code> 的名称，属性的值 <code>$value</code>，传递至验证规则的 <code>$parameters</code> 数组。</p>
+<p>您同样可以传递一个类和方法到 <code>extend</code> 方法中，取代原本的闭包：</p>
+<pre><code>Validator::extend('foo', 'FooValidator@validate');</code></pre>
+<p>注意,您同时需要为您的自定义规则订立一个错误信息。您可以使用行内自定义信息数组或是在认证语言文件里新增。</p>
+<h4>扩展 Validator 类</h4>
+<p>除了使用闭包回呼(Closure callbacks)来扩展 Validator 外，您一样可以直接扩展 Validator 类。您可以写一个扩展自 <code>Illuminate\Validation\Validator</code> 的验证器类。您也可以增加验证方法到以 <code>validate</code> 为开头的类中：</p>
+<pre><code>&lt;?php
+
+class CustomValidator extends Illuminate\Validation\Validator {
+
+    public function validateFoo($attribute, $value, $parameters)
+    {
+        return $value == 'foo';
+    }
+
+}</code></pre>
+<h4>拓展自定义验证器</h4>
+<p>接下来，您需要注册您自定义验证器扩展：</p>
+<pre><code>Validator::resolver(function($translator, $data, $rules, $messages)
+{
+    return new CustomValidator($translator, $data, $rules, $messages);
+});</code></pre>
+<p>当创建自定义验证规则时，您可能有时需要为错误信息定义自定义的占位符。您可以如上所述创建一个自定义的验证器，然后增加 <code>replaceXXX</code> 函数进验证器中。</p>
+<pre><code>protected function replaceFoo($message, $attribute, $rule, $parameters)
+{
+    return str_replace(':foo', $parameters[0], $message);
+}</code></pre>
+<p>如果您想要增加一个自定义信息 &quot;replacer&quot; 但不扩展 <code>Validator</code> 类，您可以使用 <code>Validator::replacer</code> 方法：</p>
+<pre><code>Validator::replacer('rule', function($message, $attribute, $rule, $parameters)
+{
+    //
+});</code></pre>
+		</div>
+
+		<div class="main-footer" style="border-top:1px dashed rgba(0, 0, 0, 0.1);padding-top: 30px;margin-top:30px;margin-bottom: 20px;">
+			<div class="prev-next-wrap clearfix">
+
+				
+			    &nbsp;
+							</div>
+		</div>
+
+	</article>
+</div>
+
+		<footer class="main">
+			<ul>
+				<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+			</ul>
+			<p>Laravel is a trademark of Taylor Otwell. Copyright &copy; Taylor Otwell.</p>
+			<p class="less-significant"><a href="javascript:if(confirm('http://jackmcdade.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://jackmcdade.com/'" tppabs="http://jackmcdade.com/">Design by Jack McDade</a></p>
+
+			<p class="less-significant">
+				<a href="javascript:if(confirm('http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao'" tppabs="http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao" target="_blank">由 UCloud 赞助  <img src="dYfOYswiQY.png" tppabs="https://dn-phphub.qbox.me/uploads/images/201605/03/1/dYfOYswiQY.png" width="98" data-toggle="tooltip" data-placement="top" title="本站服务器由 UCloud 赞助"></a>.
+		      </p>
+		</footer>
+
+	</div>
+
+	<script src="laravel.js" tppabs="http://laravel-china.org/assets/js/laravel.js"></script>
+	<script src="viewport-units-buggyfill.js" tppabs="http://laravel-china.org/assets/js/viewport-units-buggyfill.js"></script>
+	<script>window.viewportUnitsBuggyfill.init();</script>
+    <script>
+
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','analytics.js'/*tpa=http://7xijlf.com2.z0.glb.qiniucdn.com/js/analytics.js*/,'ga');
+
+		ga('create', 'UA-53903425-7', 'auto');
+		ga('send', 'pageview');
+
+		$(window).load(function() {
+		  // When the page has loaded
+		  $(".main-content").fadeIn(10);
+		});
+    </script>
+</body>
+</html>

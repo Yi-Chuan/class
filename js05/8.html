@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>键盘移动div</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0;}
+		div{width: 150px;height: 150px;background: #369;position:absolute;}
+	</style>
+</head>
+<body>
+<div id="move"></div>
+<script type="text/javascript">
+// 不仅键盘能移动div  还能用鼠标来移动div 扩展
+//全局变量
+var step = 5;
+
+//绑定键盘按下的事件
+window.onkeydown = function(e){
+	//检测按键信息
+	var k = e.keyCode;
+	//判断按键信息
+	switch(k){
+		case 38:
+			moveUp();//向上
+			break;
+		case 40:
+			moveDown();//向下
+			break;
+		case 37:
+			moveLeft();//向左
+			break;
+		case 39:
+			moveRight();//向右
+			break;
+	}
+}
+
+//封装移动方法 向下
+function moveDown(){
+	//获取当前元素距离顶部top
+	var t = move.offsetTop;
+	//计算新的top
+	var newTop = t + step;
+	//设置新的top
+	move.style.top = newTop + 'px';
+}
+
+//封装移动方法 向上
+function moveUp(){
+	//获取当前元素距离顶部top
+	var t = move.offsetTop;
+	//计算新的top
+	var newTop = t - step;
+	//判断越界
+	if(newTop < 0){
+		newTop = 0;
+	}
+	//设置新的top
+	move.style.top = newTop + 'px';
+}
+
+
+//封装移动方法 向右
+function moveRight(){
+	//获取当前元素距离顶部 Left
+	var r = move.offsetLeft;
+	//计算新的
+	var newRight = r + step;
+	//设置新的
+	move.style.left = newRight + 'px';
+}
+
+//封装移动方法 向左
+function moveLeft(){
+	//获取当前元素距离顶部 Left
+	var r = move.offsetLeft;
+	//计算新的
+	var newleft = r - step;
+	//判断越界
+	if(newleft < 0){
+		newleft = 0;
+	}
+	//设置新的
+	move.style.left = newleft + 'px';
+}
+
+</script>
+</body>
+</html>

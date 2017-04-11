@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>鼠标移入移出事件</title>
+	<style type="text/css">
+		.d{width: 150px;height: 150px;background: #777;margin: 10px;float: left;}
+	</style>
+</head>
+<body>
+	<div class="d"></div>
+	<div class="d"></div>
+	<div class="d"></div>
+	<div class="d"></div>
+	<script type="text/javascript">
+	/*获取页面中所有的div*/
+	var divs = document.getElementsByTagName('div');
+
+	//绑定事件 onmouseover鼠标移入事件 鼠标放上去事件
+	for(var i=0;i<divs.length;i++){
+		divs[i].onmouseover = function(){
+			//获取随机颜色
+			var r = rand(0,255);
+			var g = rand(0,255);
+			var b = rand(0,255);
+			var str = 'rgb('+r+','+g+','+b+')';
+			//修改样式
+			this.style.background = str;
+		}
+	}
+
+	//绑定事件 onmouseout 鼠标移出事件 鼠标离开事件
+	for(var i=0;i<divs.length;i++){
+		divs[i].onmouseout = function(){
+			//获取随机颜色
+			var r = rand(0,255);
+			var g = rand(0,255);
+			var b = rand(0,255);
+			var str = 'rgb('+r+','+g+','+b+')';
+			//修改样式
+			this.style.background = str;
+		}
+	}
+
+	//随机函数
+	function rand(m,n){
+		return Math.floor(Math.random()*(n-m+1))+m;
+	}
+	</script>
+</body>
+</html>

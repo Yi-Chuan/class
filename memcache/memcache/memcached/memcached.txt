@@ -1,0 +1,127 @@
+1. 为什么使用缓存
+	缓解数据库压力
+	缓解耗时的程序压力
+2. PHP缓存的种类
+	2.1 编译缓存
+	2.2 数据缓存
+		  文件缓存（xml，json，数组...）
+		  memcache (把数据缓存到 内存 中)
+		  NoSQL缓存
+	2.3 静态页面缓存
+1.1 初认MemCache
+			memcached 服务器  分布式存储
+		1.2 MemCache在Web中的应用
+			缓存数据库数据 
+				① 海量数据
+				② 高并发操作（频繁读取数据）
+		1.3为什么要用memcache
+				分布式存储
+				libevent 作为底层
+
+
+cmd
+	C: 切换盘符
+	/  根目录
+	dir查看当前目录
+	net start 查看启动的服务 或者在任务管理器中查看
+
+memcached 操作
+
+ memcached.exe -d install 安装
+
+ memcached.exe -d uninstall  卸载
+
+ memcached.exe -d start 	启动
+
+ memcached.exe -d stop 	停止
+ 
+telnet 命令连接memcache
+
+telnet       ip            端口号
+
+telnet      127.0.0.1      11211
+
+status  查看当前状态
+写入缓存
+	set  键名  标记  有效时间  数据的长度
+	set  love   10     0         10
+	i love you
+获取缓存
+	get love
+
+delete  删除缓存
+	delete   键名
+	delete   love
+	
+flush_all清空所有缓存
+
+	phpinfo();
+	extension_dir
+	Loaded Configuration File 
+
+
+//实例化Memcache
+$mem = new Memcache();
+
+//连接Memcache
+$mem->connect('127.0.0.1','11211');
+// 添加一台memcache服务器
+$mem->addServer('127.0.0.1','11211');
+
+//保存数据
+$mem->set('name','yichuanshigedashuaige',MEMCACHE_COMPRESSED,60);
+$arr = array('apple','orange','pear');
+$res = $memcache->set('arr',$arr,MEMCACHE_COMPRESSED,300);
+
+//获取数据
+$mem->get('name')
+
+//清除所有数据
+$mem->flush();
+
+PHP Memcahe类
+	connect(ip, port) 		连接一台memcache服务器
+	addServer(ip, port) 	添加一台memcache服务器
+	getExtendedStats()	获取连接池中所有的服务器信息
+	getServerStatus(host, port)		获取指定服务器的连接状态
+	add(key, value, tag, expires) 			添加一条数据
+	replace(key, value, tag, expires) 	修改一条数据
+	set(key, value, tag, expires)			 添加或修改一条数据
+	get(key) 	根据键获取值
+	delete(key) 删除指定一条数据
+	flush() 删除全部
+	close()  关闭连接
+	getStats() 	获取memcache服务器信息  返回数组
+	getVersion() 	获取memcache服务器版本号
+	
+Memcache服务器的安全防护
+	1. 设置防火墙 
+	2. 如果不是分布式，可以设置只让本机或指定的机器访问 memached.exe -l 127.0.0.1
+	
+【Memcache的安全】
+
+我们上面的Memcache服务器端都是直接通过客户端连接后直接操作，没有任何的验证过程，
+这样如果服务器是直接暴露在互联网上的话是比较危险，轻则数据泄露被其他无关人员查看，
+重则服务器被入侵，因为Mecache是以root权限运行的，
+况且里面可能存在一些我们未知的bug或者是缓冲区溢出的情况，这些都是我们未知的，
+所以危险性是可以预见的。
+
+为了安全起见，我做两点建议，能够稍微的防止黑客的入侵或者数据的泄露。
+
+[ 内网访问]
+最好把两台服务器之间的访问是内网形态的，一般是Web服务器跟Memcache服务器之间。
+普遍的服务器都是有两块网卡，一块指向互联网，一块指向内网，
+那么就让Web服务器通过内网的网卡来访问Memcache服务器，
+我们Memcache的服务器上启动的时候就监听内网的IP地址和端口，
+内网间的访问能够有效阻止其他非法的访问。
+
+[ 设置防火墙]
+防火墙是简单有效的方式，如果却是两台服务器都是挂在网的，
+并且需要通过外网IP来访问Memcache的话，
+那么可以考虑使用防火墙或者代理程序来过滤非法访问。
+一般我们在Linux下可以使用iptables或者FreeBSD下的ipfw来指定一些规则防止一些非法的访问，
+比如我们可以设置只允许我们的Web服务器来访问我们Memcache服务器，同时阻止其他的访问。
+
+
+
+

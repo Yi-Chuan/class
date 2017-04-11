@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数字类型转换</title>
+</head>
+<body>
+<script type="text/javascript">
+// parseInt parse解析 int 整形
+
+var n  = '5211314';
+var n = '521iloveyou';//521
+var n = 'ilove521iloveyou';//NaN
+var n = '5.1314';//5
+
+var res = parseInt(n);
+
+
+//parseFloat
+var n = '3.1415';
+var n = '3.1415sjdiaji';
+var n = 'i3.1415sjdiaji';
+var n = '3.14.15';//第二个点无效
+var res = parseFloat(n);
+
+
+// Number
+var n = '521';
+var n = '521.1314';
+var n = '521abc';//NaN
+var n = 'n321';//NaN
+var n = true;//1
+var n = false;//0
+var n = new Object();//NaN
+var n = new Array();//0
+var n = null;//0
+var n = undefined;//NaN
+var n = function(){alert(22222);}//NaN
+
+var res = Number(n);
+
+console.log(n);
+console.log(typeof(n));
+console.log(res);
+console.log(typeof(res));
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>navigator对象</title>
+</head>
+<body>
+<script type="text/javascript">
+/*
+window.navigator 对象包含有关访问者浏览器的信息。
+
+appCodeName	返回浏览器的代码名。
+IE/Firefox/Chrome 系列浏览器中，
+它的值都是 "Mozilla"。
+appMinorVersion	返回浏览器的次级版本。( IE 8 支持 ) 	取得浏览器的平台和版本信息
+appName	返回浏览器的名称。IE 返回 'Microsoft Internet Explorer'，Firefox/Chrome 均为 Netscape。
+appVersion	返回浏览器的平台和版本信息。 ( IE 8 )	4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)
+browserLanguage	返回当前浏览器的语言。( 仅 IE 支持 ) 	zh-cn   ||| Firefox/Chrome 返回 "undefined"。
+cpuClass	返回浏览器系统的 CPU 等级。 	x86 ( 仅 IE 支持 )
+onLine	返回指明系统是否处于脱机模式的布尔值。false 表示脱机(仅 IE 支持 )
+platform	返回运行浏览器的操作系统平台。 	Win32
+systemLanguage	返回 OS 使用的默认语言。得到浏览器所在操作系统使用的语言(仅 IE 支持 ) 	zh-cn
+userLanguage	返回 OS 的自然语言设置。 	得到浏览器所在操作系统的自然语言设置(仅 IE 支持 ) 	zh-cn
+
+************************************************************************************************
+userAgent	返回由客户机发送服务器的 user-agent 头部的值。得到浏览器用于 HTTP 请求的用户代理头的值
+cookieEnabled	返回指明浏览器中是否启用 cookie 的布尔值。如果启用cookie返回true，否则返回false
+
+
+userAgent 返回由客户机发送服务器的 user-agent 头部的值
+"Mozilla/5.0 (Windows NT ...o/20100101 Firefox/31.0"
+火狐 Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0  
+谷歌 Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36
+ IE  Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET4.0C; .NET4.0E) 
+*/
+console.log(navigator.cookieEnabled);//检测当前的浏览器的cookie是否可用
+console.log(navigator.userAgent);//返回由客户机发送服务器的 user-agent 头部的值
+
+	</script>
+</body>
+</html>

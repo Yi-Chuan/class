@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>onsubmit onreset</title>
+</head>
+<body>
+<form id="myform" action="">
+	用户名:<input type="text"><br>
+	密码:<input type="password"><br>
+	<input type="submit" value="提交">
+	<input type="reset" value="重置">
+</form>
+<script type="text/javascript">
+var f = document.getElementById('myform');
+
+//表单提交事件
+myform.onsubmit = function(){
+	alert('确定要登录吗?有病毒哦...');
+	// 阻止默认行为
+	return false;
+}
+
+// 表单重置事件
+myform.onreset = function(){
+	// alert('你确定要重置吗');
+	// confirm() 方法用于显示一个带有指定消息和 确定及取消按钮的对话框。
+	var res = confirm('您确定要重置吗?思密达');
+	console.log(res);
+	if(res){
+		// 如果为真,不阻止默认行为
+		return true;
+	}else{
+		// 如果为假,阻止默认行为
+		return false;
+	}
+}
+</script>
+</body>
+</html>

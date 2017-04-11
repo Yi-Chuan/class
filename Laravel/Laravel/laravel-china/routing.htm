@@ -1,0 +1,653 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=UTF-8"utf-8">
+	<title>Laravel 5.1 中文文档：HTTP 路由
+</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="@summerblue">
+	<meta name="description" content="HTTP 路由,基本路由,路由参数,基础路由参数,可选的路由参数,正则表达式限制参数,命名路由,路由群组,中间件,命名空间,子域名路由,路由前缀,CSRF 保护,介绍,异常 URIs,X-CSRF-Token,X-XSRF-Token,路由模型绑定,跨站请求伪造,抛出 404 错误,基本路由,你可以在 app/Http/routes.php 文件中定义应用程序的大多数路由，该文件将会被 App\P...
+">
+	<meta name="keywords" content="HTTP 路由,laravel5.1文档,laravel5.1中文文档,laravel中国,laravel中文,laravel框架中文,laravel文档,laravel框架中国,laravel中文文档
+">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lte IE 9]>
+		<script src="html5shiv.min.js" tppabs="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="laravel.css" tppabs="http://laravel-china.org/assets/css/laravel.css">
+	<style media="screen">
+		div.main-content {
+		  display: none;
+		}
+		.loading-effect {
+			position: fixed;
+			left: 50%;
+			top:300px;
+		    z-index: -1;
+		}
+	</style>
+</head>
+<body class="docs language-php ">
+
+	<span class="overlay"></span>
+
+	<div class="loading-effect">
+		<div class="loader-inner line-scale">
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		  </div>
+	</div>
+
+
+	<div class="main-content">
+
+		<nav class="main">
+			<div class="container">
+				<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/" class="brand">
+					<img src="laravel-logo.png" tppabs="http://laravel-china.org/assets/img/laravel-logo.png" height="30">
+					Laravel
+				</a>
+
+				<div class="responsive-sidebar-nav">
+					<a href="#" class="toggle-slide menu-link btn">&#9776;</a>
+				</div>
+
+									<div class="switcher">
+	<div class="dropdown">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			<!--<span class="faint">v</span> -->
+			5.1
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">5.1</a>
+				</li>
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="routing-1.htm" tppabs="http://laravel-china.org/docs/4.2/routing">4.2</a>
+				</li>
+					</ul>
+	</div>
+</div>
+				
+				<ul class="main-nav">
+					<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+				</ul>
+			</div>
+		</nav>
+
+		<nav id="slide-menu" class="slide-menu" role="navigation">
+
+	<div class="brand">
+		<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">
+			<img src="laravel-logo-white.png" tppabs="http://laravel-china.org/assets/img/laravel-logo-white.png" height="50">
+		</a>
+	</div>
+
+	<ul class="slide-main-nav">
+		<li><a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">Home</a></li>
+		<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+	</ul>
+
+	<div class="slide-docs-nav">
+		<h2>文档</h2>
+
+		<a type="button" class="turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</div>
+
+</nav>
+
+<div class="docs-wrapper container">
+
+	<section class="sidebar">
+
+		<div class="header">
+			<a type="button" class="btn btn-primary btn-lg btn-block turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		</div>
+
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</section>
+
+	<article>
+
+		<div class="alert alert-warning" role="alert">
+
+			<h4>拥抱 Laravel 5.1 LTS</h4>
+			<p>
+				强烈建议在 2018 年之前使用 Laravel 5.1 来构建项目，Laravel 5.1 是 LTS 的发行版本, 发行于 2015 年 6 月份，自发布起提供两年时间的 Bug 修复（2017 年 6 月）, 3 年时间的安全修复（2018 年 6 月）。
+			</p>
+			 <p>
+			 	LTS 版本是此项目能提供的最长时间维护版本。一般的发行版本, 只提供 6 个月的 Bug 修复支持, 一年的安全修复支持.
+			 </p>
+		</div>
+
+		<div class="main-content">
+			<h1>HTTP 路由</h1>
+<ul>
+<li><a href="#basic-routing">基本路由</a></li>
+<li><a href="#route-parameters">路由参数</a>
+<ul>
+<li><a href="#required-parameters">基础路由参数</a></li>
+<li><a href="#parameters-optional-parameters">可选的路由参数</a></li>
+<li><a href="#parameters-regular-expression-constraints">正则表达式限制参数</a></li>
+</ul></li>
+<li><a href="#named-routes">命名路由</a></li>
+<li><a href="#route-groups">路由群组</a>
+<ul>
+<li><a href="#route-group-middleware">中间件</a></li>
+<li><a href="#route-group-namespaces">命名空间</a></li>
+<li><a href="#route-group-sub-domain-routing">子域名路由</a></li>
+<li><a href="#route-group-prefixes">路由前缀</a></li>
+</ul></li>
+<li><a href="#csrf-protection">CSRF 保护</a>
+<ul>
+<li><a href="#csrf-introduction">介绍</a></li>
+<li><a href="#csrf-excluding-uris">异常 URIs</a></li>
+<li><a href="#csrf-x-csrf-token">X-CSRF-Token</a></li>
+<li><a href="#csrf-x-xsrf-token">X-XSRF-Token</a></li>
+</ul></li>
+<li><a href="#route-model-binding">路由模型绑定</a></li>
+<li><a href="#form-method-spoofing">跨站请求伪造</a></li>
+<li><a href="#throwing-404-errors">抛出 404 错误</a></li>
+</ul>
+<p><a name="basic-routing"></a></p>
+<h2>基本路由</h2>
+<p>你可以在 <code>app/Http/routes.php</code> 文件中定义应用程序的大多数路由，该文件将会被 <code>App\Providers\RouteServiceProvider</code> 类加载。最基本的 Laravel 路由仅接受 URI 和一个<code>闭包</code>：</p>
+<pre><code>Route::get('/', function () {
+    return 'Hello World';
+});
+
+Route::post('foo/bar', function () {
+    return 'Hello World';
+});
+
+Route::put('foo/bar', function () {
+    //
+});
+
+Route::delete('foo/bar', function () {
+    //
+});</code></pre>
+<blockquote>
+<p><strong><a href="javascript:if(confirm('http://github.com/summerblue  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://github.com/summerblue'" tppabs="http://github.com/summerblue">Summer</a>：</strong> 请不要在 <code>routes.php</code> 文件里面写逻辑代码，逻辑处理代码请在 Controller 里书写。</p>
+<ol>
+<li>因为这是最佳实践，一开始做对了，后面节省你重构代码的时间；</li>
+<li><a href="controllers.htm#%E8%B7%AF%E7%94%B1%E7%BC%93%E5%AD%98" tppabs="http://laravel-china.org/docs/5.1/controllers#%E8%B7%AF%E7%94%B1%E7%BC%93%E5%AD%98">路由缓存</a> 并不会作用在基于闭包的路由。</li>
+</ol>
+</blockquote>
+<h4>为多重动作注册路由</h4>
+<p>有时候你可能需要注册一个可响应多个 HTTP 动作的路由。这时可通过 <code>Route</code> <a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">facade</a> 的 <code>match</code> 方法来实现：</p>
+<pre><code>Route::match(['get', 'post'], '/', function () {
+    return 'Hello World';
+});</code></pre>
+<p>或者，你甚至可以通过 <code>any</code> 方法来使用注册路由并响应所有的 HTTP 动作：</p>
+<pre><code>Route::any('foo', function () {
+    return 'Hello World';
+});</code></pre>
+<h4>生成 URLs 路由</h4>
+<p>你可以通过 <code>url</code> 辅助函数生成应用程序路由：</p>
+<pre><code>$url = url('foo');</code></pre>
+<p><a name="route-parameters"></a></p>
+<h2>路由参数</h2>
+<p><a name="required-parameters"></a></p>
+<h3>基础路由参数</h3>
+<p>有时候你可能需要在你的 URI 路由中来获取一些参数。例如，从 URL 获取用户的 ID。这时可通过自定义路由参数来获取：</p>
+<pre><code>Route::get('user/{id}', function ($id) {
+    return 'User '.$id;
+});</code></pre>
+<p>你可以依照路由需要，定义任意数量的路由参数：</p>
+<pre><code>Route::get('posts/{post}/comments/{comment}', function ($postId, $commentId) {
+    //
+});</code></pre>
+<p>路由的参数都会被放在「大括号」内。当运行路由时，参数会通过路由<code>闭包</code>来传递。</p>
+<blockquote>
+<p><strong>注意：</strong>路由参数不能包含 <code>-</code> 字符。请用下划线 (<code>_</code>) 替换。</p>
+</blockquote>
+<p><a name="parameters-optional-parameters"></a></p>
+<h3>可选的路由参数</h3>
+<p>有时候你可能需要指定路由参数，但是让路由参数的存在是可选的。这时可以在参数名称后面加上 <code>?</code> 来实现：</p>
+<pre><code>Route::get('user/{name?}', function ($name = null) {
+    return $name;
+});
+
+Route::get('user/{name?}', function ($name = 'John') {
+    return $name;
+});</code></pre>
+<p><a name="parameters-regular-expression-constraints"></a></p>
+<h3>正则表达式限制参数</h3>
+<p>你可以在路由实例上使用 <code>where</code> 方法来限制路由参数格式。<code>where</code> 方法接受参数的名称和定义参数应该如何被限制的正则表达式：</p>
+<pre><code>Route::get('user/{name}', function ($name) {
+    //
+})
+-&gt;where('name', '[A-Za-z]+');
+
+Route::get('user/{id}', function ($id) {
+    //
+})
+-&gt;where('id', '[0-9]+');
+
+Route::get('user/{id}/{name}', function ($id, $name) {
+    //
+})
+-&gt;where(['id' =&gt; '[0-9]+', 'name' =&gt; '[a-z]+']);</code></pre>
+<p><a name="parameters-global-constraints"></a></p>
+<h4>全局限制</h4>
+<p>如果你希望路由参数可以总是遵循正则表达式，则可以使用 <code>pattern</code> 方法。你应该在 <code>RouteServiceProvider</code> 的 <code>boot</code> 方法里定义这些模式：</p>
+<pre><code>/**
+ * 定义你的路由模型绑定，模式过滤器等。
+ *
+ * @param  \Illuminate\Routing\Router  $router
+ * @return void
+ */
+public function boot(Router $router)
+{
+    $router-&gt;pattern('id', '[0-9]+');
+
+    parent::boot($router);
+}</code></pre>
+<p>模式一旦被定义，便会自动应用到所有使用该参数名称的路由上：</p>
+<pre><code>Route::get('user/{id}', function ($id) {
+    // Only called if {id} is numeric.
+});</code></pre>
+<p><a name="named-routes"></a></p>
+<h2>命名路由</h2>
+<p>命名路由让你可以更方便的为特定路由生成 URL 或进行重定向。你可以使用 <code>as</code> 数组键指定名称到路由上：</p>
+<pre><code>Route::get('user/profile', ['as' =&gt; 'profile', function () {
+    //
+}]);</code></pre>
+<p>还可以指定路由名称到控制器动作：</p>
+<pre><code>Route::get('user/profile', [
+    'as' =&gt; 'profile', 'uses' =&gt; 'UserController@showProfile'
+]);</code></pre>
+<p>除了可以在路由的数组定义中指定路由名称外，你也可以在路由定义后方链式调用 <code>name</code> 方法：</p>
+<pre><code>Route::get('user/profile', 'UserController@showProfile')-&gt;name('profile');</code></pre>
+<h4>路由群组和命名路由</h4>
+<p>如果你使用了<a href="#route-groups">路由群组</a>，那么你可以在路由群组的属性数组中指定一个 <code>as</code> 关键字，这将允许你为路由群组中的所有路由设置相同的前缀名称：</p>
+<pre><code>Route::group(['as' =&gt; 'admin::'], function () {
+    Route::get('dashboard', ['as' =&gt; 'dashboard', function () {
+        // 路由名称为「admin::dashboard」
+    }]);
+});</code></pre>
+<h4>对命名路由生成 URLs</h4>
+<p>一旦你在指定的路由中分配了名称，则可通过 <code>route</code> 函数来使用路由名称生成 URLs 或重定位：</p>
+<pre><code>$url = route('profile');
+
+$redirect = redirect()-&gt;route('profile');</code></pre>
+<p>如果路由定义了参数，那么你可以把参数作为第二个参数传递给 <code>route</code> 方法。指定的参数将自动加入到 URL 中：</p>
+<pre><code>Route::get('user/{id}/profile', ['as' =&gt; 'profile', function ($id) {
+    //
+}]);
+
+$url = route('profile', ['id' =&gt; 1]);</code></pre>
+<p><a name="route-groups"></a></p>
+<h2>路由群组</h2>
+<p>路由群组允许你共用路由属性，例如：中间件、命名空间，你可以利用路由群组到多个路由中套用这些属性，而不需在每个路由上都设置一次。共用属性被指定为数组格式，当作 <code>Route::group</code> 方法的第一个参数：</p>
+<p>为了了解更多路由群组的相关内容，我们可通过几个常用样例来熟悉这些特性。</p>
+<p><a name="route-group-middleware"></a></p>
+<h3>中间件</h3>
+<p>要想指定中间件到所有群组内的路由中，则可以在群组属性数组里使用 <code>middleware</code> 参数。中间件将会依照列表内指定的顺序运行：</p>
+<pre><code>Route::group(['middleware' =&gt; 'auth'], function () {
+    Route::get('/', function ()    {
+        // 使用 Auth 中间件
+    });
+
+    Route::get('user/profile', function () {
+        // 使用 Auth 中间件
+    });
+});</code></pre>
+<p><a name="route-group-namespaces"></a></p>
+<h3>命名空间</h3>
+<p>另一个常见的例子是，指定相同的 PHP 命名空间给控制器群组。可以使用 <code>namespace</code> 参数来指定群组内所有控制器的命名空间：</p>
+<pre><code>Route::group(['namespace' =&gt; 'Admin'], function()
+{
+    // 控制器在「App\Http\Controllers\Admin」命名空间
+
+    Route::group(['namespace' =&gt; 'User'], function()
+    {
+        // 控制器在「App\Http\Controllers\Admin\User」命名空间
+    });
+});</code></pre>
+<p>请记住，默认 <code>RouteServiceProvider</code> 会在命名空间群组内导入你的 <code>routes.php</code> 文件，让你不用指定完整的 <code>App\Http\Controllers</code> 命名空间前缀就能注册控制器路由。所以，我们只需要指定在基底 <code>App\Http\Controllers</code> 根命名空间之后的部分命名空间。</p>
+<p><a name="route-group-sub-domain-routing"></a></p>
+<h3>子域名路由</h3>
+<p>路由群组也可以被用来做处理通配符的子域名。子域名可以像路由 URIs 分配路由参数，让你在路由或控制器中获取子域名参数。使用路由群组属性数组上的 <code>domain</code> 指定子域名变量名称：</p>
+<pre><code>Route::group(['domain' =&gt; '{account}.myapp.com'], function () {
+    Route::get('user/{id}', function ($account, $id) {
+        //
+    });
+});</code></pre>
+<p><a name="route-group-prefixes"></a></p>
+<h3>路由前缀</h3>
+<p>通过路由群组数组属性中的 <code>prefix</code>，在路由群组内为每个路由指定的 URI 加上前缀。例如，你可能想要在路由群组中将所有的路由 URIs 加上前缀 <code>admin</code>：</p>
+<pre><code>Route::group(['prefix' =&gt; 'admin'], function () {
+    Route::get('users', function ()    {
+        // 符合「/admin/users」URL
+    });
+});</code></pre>
+<p>你也可以使用 <code>prefix</code> 参数去指定路由群组中共用的参数：</p>
+<pre><code>Route::group(['prefix' =&gt; 'accounts/{account_id}'], function () {
+    Route::get('detail', function ($account_id)    {
+        // 符合 accounts/{account_id}/detail URL
+    });
+});</code></pre>
+<p><a name="csrf-protection"></a></p>
+<h2>CSRF 保护</h2>
+<p><a name="csrf-introduction"></a></p>
+<h3>介绍</h3>
+<p>Laravel 提供简单的方法保护你的应用程序不受到 <a href="javascript:if(confirm('http://en.wikipedia.org/wiki/Cross-site_request_forgery  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://en.wikipedia.org/wiki/Cross-site_request_forgery'" tppabs="http://en.wikipedia.org/wiki/Cross-site_request_forgery">跨网站请求伪造</a> 攻击。跨网站请求伪造是一种恶意的攻击，借以通过身份验证的用户身份来运行未经授权的命令。</p>
+<p>Laravel 会自动生成一个 CSRF token 给每个受应用程序管理的活动用户的 Session。该 token 用来验证用户是否为实际发出请求的用户。若要生成一个包含 CSRF token 的 <code>_token</code> 隐藏输入字段，可以使用 <code>csrf_field</code> 辅助函数：</p>
+<pre><code>&lt;?php echo csrf_field(); ?&gt;</code></pre>
+<p><code>csrf_field</code> 辅助函数生成以下的 HTML：</p>
+<pre><code>&lt;input type="hidden" name="_token" value="&lt;?php echo csrf_token(); ?&gt;"&gt;</code></pre>
+<p>当然，也可以在 Blade <a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">模板引擎</a> 中使用：</p>
+<pre><code>{{ csrf_field() }}</code></pre>
+<p>你不需要手动验证 POST、PUT 或 DELETE 请求的 CSRF token。在 <code>VerifyCsrfToken</code> <a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">HTTP 中间件</a> 将自动验证请求与 session 中的 token 是否相符。</p>
+<p><a name="csrf-excluding-uris"></a></p>
+<h3>不受 CSRF 保护的 URIs</h3>
+<p>有时候你可能会希望一组 URIs 不要被 CSRF 保护。例如，你如果使用 <a href="javascript:if(confirm('https://stripe.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://stripe.com/'" tppabs="https://stripe.com/">Stripe</a> 处理付款，并且利用他们的 webhook 系统，你需要从 Laravel CSRF 保护中排除 webhook 的处理路由。</p>
+<p>可以在 <code>VerifyCsrfToken</code> 中间件中增加 <code>$except</code> 属性来排除 URIs：</p>
+<pre><code>&lt;?php
+
+namespace App\Http\Middleware;
+
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
+
+class VerifyCsrfToken extends BaseVerifier
+{
+    /**
+     * URIs 应被 CSRF 验证执行。
+     *
+     * @var array
+     */
+    protected $except = [
+        'stripe/*',
+    ];
+}</code></pre>
+<p><a name="csrf-x-csrf-token"></a></p>
+<h3>X-CSRF-TOKEN</h3>
+<p>除了检查 CSRF token 是否被当作 POST 参数之外，在 Laravel <code>VerifyCsrfToken</code> 中间件也会检查请求标头中的 <code>X-CSRF-TOKEN</code>。例如，你可以将其保存在 meta 标签中：</p>
+<pre><code>&lt;meta name="csrf-token" content="{{ csrf_token() }}"&gt;</code></pre>
+<p>一旦你创建了 <code>meta</code> 标签，你就可以使用 jQuery 之类的函数库将 token 加入到所有的请求标头。基于 AJAX 的应用，提供了简单、方便的 CSRF 保护：</p>
+<pre><code>$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+});</code></pre>
+<p><a name="csrf-x-xsrf-token"></a></p>
+<h3>X-XSRF-TOKEN</h3>
+<p>Laravel 也会在 <code>XSRF-TOKEN</code> cookie 中保存 CSRF token。你也可以使用 cookie 的值来设置 <code>X-XSRF-TOKEN</code> 请求标头。一些 JavaScript 框架会自动帮你处理，例如：Angular。你不大可能会需要手动去设置这个值。</p>
+<p><a name="route-model-binding"></a></p>
+<h2>路由模型绑定</h2>
+<p>Laravel 路由模型绑定提供了一个方便的方式来注入类实例到你的路由中。例如，除了注入一个用户的 ID，你也可以注入与指定 ID 相符的完整 <code>User</code> 类实例。</p>
+<p>首先，使用路由的 <code>model</code> 方法为指定参数指定类。必须在 <code>RouteServiceProvider::boot</code> 方法中定义你的模型绑定：</p>
+<h4>绑定参数至模型</h4>
+<pre><code>public function boot(Router $router)
+{
+    parent::boot($router);
+
+    $router-&gt;model('user', 'App\User');
+}</code></pre>
+<p>接着，定义包含 <code>{user}</code> 参数的路由：</p>
+<pre><code>$router-&gt;get('profile/{user}', function(App\User $user) {
+    //
+});</code></pre>
+<p>因为我们已经绑定 <code>{user}</code> 参数至 <code>App\User</code> 模型，所以 <code>User</code> 实例会被注入至该路由。所以，举个例子，一个至 <code>profile/1</code> 的请求会注入 ID 为 1 的 <code>User</code> 实例。</p>
+<blockquote>
+<p><strong>注意：</strong>如果符合的模型不存在于数据库中，就会自动抛出一个 404 异常。</p>
+</blockquote>
+<p>如果你希望指定你自己的「不存在」行为，只需传递一个闭包作为 <code>model</code> 方法的第三个参数：</p>
+<pre><code>$router-&gt;model('user', 'App\User', function() {
+    throw new NotFoundHttpException;
+});</code></pre>
+<p>如果你希望使用你自己的解析逻辑，那么你必须使用 <code>Route::bind</code> 方法。你传递至 <code>bind</code> 方法的闭包会获取 URI 的部分值，且会返回你想注入至路由的类实例：</p>
+<pre><code>$router-&gt;bind('user', function($value) {
+    return App\User::where('name', $value)-&gt;first();
+});</code></pre>
+<p><a name="form-method-spoofing"></a></p>
+<h2>跨站请求伪造</h2>
+<p>HTML 表单没有支持 <code>PUT</code>、<code>PATCH</code> 或 <code>DELETE</code> 动作。所以在从 HTML 表单中调用被定义的 <code>PUT</code>、<code>PATCH</code> 或 <code>DELETE</code> 路由时，你将需要在表单中增加隐藏的 <code>_method</code> 字段。跟随 <code>_method</code> 字段送出的值将被作为 HTTP 的请求方法使用：</p>
+<pre><code>&lt;form action="/foo/bar" method="POST"&gt;
+    &lt;input type="hidden" name="_method" value="PUT"&gt;
+    &lt;input type="hidden" name="_token" value="{{ csrf_token() }}"&gt;
+&lt;/form&gt;</code></pre>
+<p>你也可以使用 <code>methid_field</code> 辅助函数来生成隐藏的输入字段 <code>_method</code>：</p>
+<pre><code>&lt;?php echo method_field('PUT'); ?&gt;</code></pre>
+<p>当然，也可以使用 Blade <a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">模板引擎</a>：</p>
+<pre><code>{{ method_field('PUT') }}</code></pre>
+<p><a name="throwing-404-errors"></a></p>
+<h2>抛出 404 错误</h2>
+<p>这里有两种方法来从路由手动触发 404 错误。首先，你可以使用 <code>abort</code> 辅助函数。<code>abort</code> 辅助函数只是简单的抛出一个带有指定状态代码的 <code>Symfony\Component\HttpFoundation\Exception\HttpException</code>：</p>
+<pre><code>abort(404);</code></pre>
+<p>其次，你也可以手动抛出 <code>Symfony\Component\HttpKernel\Exception\NotFoundHttpException</code> 的实例。</p>
+<p>更多有关如何操作 404 异常和自定义响应，可以到<a href="errors.htm#http-exceptions" tppabs="http://laravel-china.org/docs/5.1/errors#http-exceptions">错误</a>章节内参考文档。</p>
+		</div>
+
+		<div class="main-footer" style="border-top:1px dashed rgba(0, 0, 0, 0.1);padding-top: 30px;margin-top:30px;margin-bottom: 20px;">
+			<div class="prev-next-wrap clearfix">
+
+									<a class="btn btn-default pull-left" href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead"><i class="fa fa-arrow-left"></i> Homestead</a>
+				
+			    &nbsp;
+								    <a class="btn btn-default pull-right" href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件 <i class="fa fa-arrow-right"></i></a>
+							</div>
+		</div>
+
+	</article>
+</div>
+
+		<footer class="main">
+			<ul>
+				<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+			</ul>
+			<p>Laravel is a trademark of Taylor Otwell. Copyright &copy; Taylor Otwell.</p>
+			<p class="less-significant"><a href="javascript:if(confirm('http://jackmcdade.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://jackmcdade.com/'" tppabs="http://jackmcdade.com/">Design by Jack McDade</a></p>
+
+			<p class="less-significant">
+				<a href="javascript:if(confirm('http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao'" tppabs="http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao" target="_blank">由 UCloud 赞助  <img src="dYfOYswiQY.png" tppabs="https://dn-phphub.qbox.me/uploads/images/201605/03/1/dYfOYswiQY.png" width="98" data-toggle="tooltip" data-placement="top" title="本站服务器由 UCloud 赞助"></a>.
+		      </p>
+		</footer>
+
+	</div>
+
+	<script src="laravel.js" tppabs="http://laravel-china.org/assets/js/laravel.js"></script>
+	<script src="viewport-units-buggyfill.js" tppabs="http://laravel-china.org/assets/js/viewport-units-buggyfill.js"></script>
+	<script>window.viewportUnitsBuggyfill.init();</script>
+    <script>
+
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','analytics.js'/*tpa=http://7xijlf.com2.z0.glb.qiniucdn.com/js/analytics.js*/,'ga');
+
+		ga('create', 'UA-53903425-7', 'auto');
+		ga('send', 'pageview');
+
+		$(window).load(function() {
+		  // When the page has loaded
+		  $(".main-content").fadeIn(10);
+		});
+    </script>
+</body>
+</html>

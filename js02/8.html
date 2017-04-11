@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>定时器</title>
+</head>
+<body>
+<script type="text/javascript">
+//单次定时器 //第一参数就是执行的代码 第二个参数 时间  毫秒 多久后执行
+	// setTimeout('alert("三秒后执行了我")',3000);
+	// setTimeout('func()',3000);//如果第一个参数是字符串时 想调用函数,需要函数名()
+	// setTimeout(func,3000);//如果第一个参数函数时 只传函数名 没有小括号
+	// setTimeout(function(){
+	// 	alert('我时一个函数');
+	// },3000);//如果第一个参数就时一个匿名函数
+
+//多次定时器 每隔多长时间执行一次
+	// setInterval(func,1000);
+
+
+//封装函数
+function func(){
+	// alert('哎呦,不错哦');
+	console.log('哎呦,不错哦');
+}
+
+</script>
+</body>
+</html>

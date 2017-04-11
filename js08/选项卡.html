@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+*{margin: 0;padding: 0;list-style:none;}
+#all{width: 550px;}
+#option{
+	height:38px;line-height:38px;
+	border-bottom:1px solid #999;
+	border-left:1px solid #999;}
+#option li{
+	float: left;padding: 0 30px;
+	background-color:#f5f5f5;
+	border-right:1px solid #999;
+	border-top:1px solid #999;
+	height:37px;cursor:pointer;
+	}
+#card{border:1px solid #999;
+	border-top:none;
+	}
+#option li.active{
+	height:38px;
+	background-color:#fff;
+}
+#card li{
+	height:200px;
+	padding:20px;
+	display:none;
+}
+#card li.active{
+	display:block;
+}
+	</style>
+</head>
+<body>
+	<center>
+	<br>	
+	<div id="all">
+		<ul id="option">
+			<li class="active">全部订单</li>
+			<li>已完成订单</li>
+			<li>未付款订单</li>
+			<li>待评价订单</li>
+		</ul>
+		<ul id="card">
+			<li class="active">这是您 全部 订单</li>
+			<li>这是您 已完成的 订单</li>
+			<li>这是您 未付款de 订单</li>
+			<li>这是您 没评价的 订单</li>
+		</ul>
+	</div>
+	</center>
+	<script type="text/javascript">
+
+//获取所有选项
+var options = document.getElementById('option').getElementsByTagName('li');
+//获取所有的卡
+var cards = document.getElementById('card').getElementsByTagName('li');
+for (var i = 0; i < options.length; i++) {
+	options[i].index = i;
+	options[i].onclick = function(){
+		//全部变灰
+		for (var j = 0; j < options.length; j++) {
+			options[j].className = "";
+			cards[j].className = "";
+		};
+		//当前高亮
+		this.className = "active";
+		cards[this.index].className="active";
+	}
+};
+	</script>
+
+</body>
+</html>

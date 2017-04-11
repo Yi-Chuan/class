@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>鼠标移动div</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0;}
+		#move{width: 150px;height: 150px;background: #369;
+		position:absolute;}
+	</style>
+</head>
+<body>
+<div id="move"></div>
+<script type="text/javascript">
+//获取元素对象
+var move = document.getElementById('move');
+//全局变量
+var isDown = true;
+var x = 0;
+var y = 0;
+var t = 0;
+var l = 0;
+
+//绑定鼠标按下事件
+move.onmousedown = function(e){
+	//获取鼠标位置
+	x = e.clientX;
+	y = e.clientY;
+	//获取当前元素top和left
+	l = move.offsetLeft;
+	t = move.offsetTop;
+	//修改全局变量
+	isDown = false;
+}
+
+//绑定鼠标移动事件
+window.onmousemove = function(e){
+	//检测鼠标是否按下
+	if(isDown){ return }
+
+	//获取鼠标移动的位置
+	var _x = e.clientX;
+	var _y = e.clientY;
+	//计算新的left和top
+	var newLeft = _x-(x-l);
+	var newTop = _y-(y-t);
+
+	//修改样式
+	move.style.left = newLeft + 'px';
+	move.style.top = newTop + 'px';
+}
+
+//绑定鼠标抬起事件
+move.onmouseup = function(){
+	//修改全局变量
+	isDown = true;
+}
+
+</script>
+</body>
+</html>

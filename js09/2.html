@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax基本操作</title>
+</head>
+<body>
+<button id="btn">加载图片</button>
+<script type="text/javascript">
+//获取元素 绑定单击事件
+var btn = document.getElementById('btn');
+btn.onclick = function(){
+//准备发送ajax请求
+//1,创建ajax对象
+var x = new XMLHttpRequest();//非ie
+
+//2,创建事件函数(处理服务器返回的结果)
+//当readystate(ajax对象的属性) 发生改变时
+x.onreadystatechange = function(){
+	//判断只有当状态为4 并且请求响应为200时 才能从服务器获取数据
+	if(x.readyState == 4 && x.status == 200){
+		// alert('请求已经完成');
+		//responseText 接收从服务器返回的数据
+		var res = x.responseText;
+		//创建img标签
+		var img = document.createElement('img');
+		img.src = res;
+		img.style.width = '200px';
+		//执行插入
+		document.body.appendChild(img);
+	}
+}
+
+//3,初始化请求 参数1 请求方式 GET 参数2 请求的url 参数3 是否异步 true异步 false同步
+x.open('get','1.php',true);
+
+
+//4,执行发送
+x.send();
+}
+</script>
+</body>
+</html>

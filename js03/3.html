@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数组元素的操作</title>
+</head>
+<body>
+<script type="text/javascript">
+//声明一个数组
+var arr = [1,2,3,4,[11,22,33],5,6,7];
+
+
+//添加操作
+	//数字下标的方式
+	arr[9] = 10;
+	//通过方法来添加元素 推
+	//从数组尾部压入
+	var res = arr.push(12);//返回数组元素的个数
+	//从数组头部压入
+	var res = arr.unshift(0);
+
+//删除
+	//删除了元素的值,值变成了undefined
+	delete arr[2];
+	//方法
+	//删除并返回数组中最后一个元素
+	var res = arr.pop();
+	//删除并返回数组中第一个元素
+	var res = arr.shift();
+
+	//splice 删除 ,替换或数组元素
+	// var res = arr.splice(2,3);//从哪个下标开始,删除几个
+	var res = arr.splice(2,3,'a','b');//从哪个下标开始,删除几个,替换的值,
+
+//修改
+	arr[5] = 'iloveyou';
+
+//获取
+	// alert(arr[5]);
+
+// console.log(arr);
+// console.log(res);
+
+console.log(arr);
+//数组的遍历  for 推荐使用
+for(var i=0;i<arr.length;i++){
+	console.log(arr[i]);
+}
+
+//for in 遍历数组 元素的值如果为undefined时 遍历时就跳过
+// for(var i in arr){
+// 	console.log(arr[i]);
+// }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>单双引号的区别</title>
+</head>
+<body>
+<script type="text/javascript">
+var v = 'like';
+//JavaScript 单双引号都不能解析变量 $a
+var s1 = 'ilo '+v+' eyou';
+var s2 = "ilo v eyou";
+
+// alert(s1);
+// alert(s1);
+
+//转义字符 单双引号都能解析转义字符
+var s3 = 'i\tlove\r\nyou';
+var s4 = "i\tlike\r\nyou";
+
+// 都可以互相嵌套
+var s5 = 'i="love"';
+var s6 = "i='like'";
+
+//在js中书写字符串时要注意,不能随意换行
+var s7 = 'asdaiundiusan
+diusandiasdas';
+
+alert(s7);
+</script>
+</body>
+</html>

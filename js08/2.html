@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>放大镜</title>
+<style type="text/css">
+*{margin: 0;padding: 0;list-style:none;}
+#small{width: 400px;height: 400px;
+position: absolute;left:100px;top:50px;}
+#big{width: 400px;height: 400px;
+position: absolute;
+	left:510px;top:50px;
+	overflow: hidden;display:none;}
+#move{width: 100px;height: 100px;
+	background: url(./images/bg.png);
+	position: absolute;left:0px;top:0px;
+	display:none;}
+ul{width: 300px;height: 80px;
+	position:absolute;left:100px;top:460px;}
+li{width: 80px;height: 80px;float: left;
+	border:dashed 1px blue;margin-right: 5px;}
+</style>
+</head>
+<body style="height:2000px">
+	<div id="small">
+		<img id="simg" src="./images/2.jpg" width="100%">
+		<div id="move"></div>
+	</div>
+	<div id="big"><img id="bimg" 
+	style="position:absolute;left:0px;top:0px;" src="./images/2.jpg"></div>
+	<ul id="uimg">
+		<li><img src="./images/2.jpg" width="100%"></li>
+		<li><img src="./images/3.jpg" width="100%"></li>
+	</ul>
+	<script type="text/javascript">
+	//获取元素对象
+	var small = document.getElementById('small');
+	var big = document.getElementById('big');
+	var move = document.getElementById('move');
+	var bimg = document.getElementById('bimg');
+	var simg = document.getElementById('simg');
+
+//绑定鼠标移动事件
+small.onmousemove = function(e){
+	//显示小div和右侧区域
+	big.style.display = 'block';
+	move.style.display = 'block';
+
+	//获取鼠标位置
+	//client获取的位置是相对于浏览器可视区域
+	// var x = e.clientX;
+	// var y = e.clientY;
+	//page 获取的位置是相对于整个文档
+	var x = e.pageX;
+	var y = e.pageY;
+
+	//获取small的x和y
+	var _l = small.offsetLeft;
+	var _t = small.offsetTop;
+
+	//获取小图的宽高的一半
+	var _w = move.offsetWidth/2;
+	var _h = move.offsetHeight/2;
+
+	//计算新的left
+	var newL = x - _l - _w;
+	var newT = y - _t - _h;
+	//检测越界
+	if(newL <= 0){
+		newL = 0;
+	}
+	if(newT <= 0){
+		newT = 0;
+	}
+	//获取最大的left
+	var maxLeft = small.offsetWidth - move.offsetWidth;
+	var maxTop = small.offsetHeight - move.offsetHeight;
+	if(newL >= maxLeft){
+		newL = maxLeft;
+	}
+	if(newT >= maxTop){
+		newT = maxTop;
+	}
+
+	//给小图设置移动
+	move.style.left = newL + 'px';
+	move.style.top = newT + 'px';
+
+	// 左侧大div的宽高
+	var sw = small.offsetWidth;
+	var sh = small.offsetHeight;
+	// 计算移动比例
+	var xp = newL/sw;
+	var yp = newT/sh;
+
+	//获取右侧大图的宽高
+	var bw = bimg.offsetWidth;
+	var bh = bimg.offsetHeight;
+
+	//计算右侧大图移动的距离
+	var nL = bw*xp;
+	var nT = bh*yp;
+	//右侧大图移动
+	bimg.style.left = -nL +'px';
+	bimg.style.top = -nT +'px';
+
+	//计算左侧小图的宽高
+	var bp = big.offsetWidth/bimg.offsetWidth;
+	var bpp = big.offsetHeight/bimg.offsetHeight;
+
+	//计算新的宽高
+	var mw = sw*bp;
+	var mh = sh*bpp;
+
+	//给小图设置样式
+	move.style.width = mw + 'px';
+	move.style.height = mh + 'px';
+}
+
+//绑定鼠标离开事件
+small.onmouseout = function(){
+	//隐藏
+	big.style.display = 'none';
+	move.style.display = 'none';
+}
+
+//获取元素对象
+var ul = document.getElementById('uimg');
+//通过ul找里面的img
+var limg = ul.getElementsByTagName('img');
+//遍历
+for (var i = 0; i < limg.length; i++) {
+	limg[i].onclick = function(){
+		//获取src属性
+		var src = this.getAttribute('src');
+		//设置src属性
+		simg.src = src;
+		bimg.src = src;
+
+	}
+};
+	</script>
+</body>
+</html>

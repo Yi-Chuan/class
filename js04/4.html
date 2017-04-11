@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>全选,全不选,反选</title>
+</head>
+<body>
+	<!-- 扩展作业, 一个按钮5秒后可以点 之前不能点 (5)同意   同意-->
+	独自的解释:
+	<br>
+	<br>
+	<input type="checkbox">滚犊子<br>
+	<input type="checkbox">扯犊子<br>
+	<input type="checkbox">瘪犊子<br>
+	<input type="checkbox">王八犊子<br>
+	<input type="checkbox">完犊子<br>
+	<input type="checkbox">装犊子<br>
+	<button onclick ="func(1)">全选</button>
+	<button onclick="func(2)">全不选</button>
+	<button onclick="func(3)">反选</button>
+	<script type="text/javascript">
+	//获取所有的input标签 通过标签名来获取元素对象 集合
+	var input = document.getElementsByTagName('input');
+	//定义函数方法
+	function func(a){
+//遍历input
+for (var i = 0; i < input.length; i++) {
+//判断
+switch(a){
+	case 1:
+		input[i].checked = true;
+		break;
+	case 2:
+		input[i].checked = false;
+		break;
+	case 3:
+		input[i].checked = !input[i].checked;
+		break;
+
+}
+};
+	}
+	</script>
+</body>
+</html>

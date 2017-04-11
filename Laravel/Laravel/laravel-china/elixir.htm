@@ -1,0 +1,624 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=UTF-8"utf-8">
+	<title>Laravel 5.1 中文文档：Laravel Elixir
+</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="@summerblue">
+	<meta name="description" content="Laravel Elixir,简介,安装与配置,运行 Elixir,使用样式,Less,Sass,纯 CSS,Source Maps,使用脚本,CoffeeScript,Browserify,Babel,Scripts,复制文件与目录,版本与缓存清除,BrowserSync,调用既有的 Gulp 任务,编写 Elixir 扩展功能,简介,Laravel Elixir 提供了简洁流畅的 API，让你...
+">
+	<meta name="keywords" content="Laravel Elixir,laravel5.1文档,laravel5.1中文文档,laravel中国,laravel中文,laravel框架中文,laravel文档,laravel框架中国,laravel中文文档
+">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lte IE 9]>
+		<script src="html5shiv.min.js" tppabs="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="laravel.css" tppabs="http://laravel-china.org/assets/css/laravel.css">
+	<style media="screen">
+		div.main-content {
+		  display: none;
+		}
+		.loading-effect {
+			position: fixed;
+			left: 50%;
+			top:300px;
+		    z-index: -1;
+		}
+	</style>
+</head>
+<body class="docs language-php ">
+
+	<span class="overlay"></span>
+
+	<div class="loading-effect">
+		<div class="loader-inner line-scale">
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		      <div></div>
+		  </div>
+	</div>
+
+
+	<div class="main-content">
+
+		<nav class="main">
+			<div class="container">
+				<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/" class="brand">
+					<img src="laravel-logo.png" tppabs="http://laravel-china.org/assets/img/laravel-logo.png" height="30">
+					Laravel
+				</a>
+
+				<div class="responsive-sidebar-nav">
+					<a href="#" class="toggle-slide menu-link btn">&#9776;</a>
+				</div>
+
+									<div class="switcher">
+	<div class="dropdown">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			<!--<span class="faint">v</span> -->
+			5.1
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">5.1</a>
+				</li>
+							<li role="presentation">
+					<a role="menuitem" tabindex="-1" href="4.2.htm" tppabs="http://laravel-china.org/docs/4.2/elixir">4.2</a>
+				</li>
+					</ul>
+	</div>
+</div>
+				
+				<ul class="main-nav">
+					<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+				</ul>
+			</div>
+		</nav>
+
+		<nav id="slide-menu" class="slide-menu" role="navigation">
+
+	<div class="brand">
+		<a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">
+			<img src="laravel-logo-white.png" tppabs="http://laravel-china.org/assets/img/laravel-logo-white.png" height="50">
+		</a>
+	</div>
+
+	<ul class="slide-main-nav">
+		<li><a href="javascript:if(confirm('http://laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/'" tppabs="http://laravel-china.org/">Home</a></li>
+		<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+	</ul>
+
+	<div class="slide-docs-nav">
+		<h2>文档</h2>
+
+		<a type="button" class="turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</div>
+
+</nav>
+
+<div class="docs-wrapper container">
+
+	<section class="sidebar">
+
+		<div class="header">
+			<a type="button" class="btn btn-primary btn-lg btn-block turnofflight"><i class="fa fa-lightbulb-o"></i> <i class="fa fa-star-o"></i> 夜间模式 </a>
+		</div>
+
+		<ul>
+<li>前言
+<ul>
+<li><a href="about.htm" tppabs="http://laravel-china.org/docs/5.1/about">翻译说明</a></li>
+<li><a href="releases.htm" tppabs="http://laravel-china.org/docs/5.1/releases">发行说明</a></li>
+<li><a href="upgrade.htm" tppabs="http://laravel-china.org/docs/5.1/upgrade">升级导引</a></li>
+<li><a href="contributions.htm" tppabs="http://laravel-china.org/docs/5.1/contributions">贡献导引</a></li>
+<li><a href="javascript:if(confirm('http://laravel-china.org/api/5.1  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/api/5.1'" tppabs="http://laravel-china.org/api/5.1">API 文档</a></li>
+</ul></li>
+<li>环境配置
+<ul>
+<li><a href="installation.htm" tppabs="http://laravel-china.org/docs/5.1/installation">安装</a></li>
+<li><a href="homestead.htm" tppabs="http://laravel-china.org/docs/5.1/homestead">Homestead</a></li>
+</ul></li>
+<li>基本功能
+<ul>
+<li><a href="routing.htm" tppabs="http://laravel-china.org/docs/5.1/routing">路由</a></li>
+<li><a href="middleware.htm" tppabs="http://laravel-china.org/docs/5.1/middleware">中间件</a></li>
+<li><a href="controllers.htm" tppabs="http://laravel-china.org/docs/5.1/controllers">控制器</a></li>
+<li><a href="requests.htm" tppabs="http://laravel-china.org/docs/5.1/requests">请求</a></li>
+<li><a href="responses.htm" tppabs="http://laravel-china.org/docs/5.1/responses">响应</a></li>
+<li><a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a></li>
+<li><a href="blade.htm" tppabs="http://laravel-china.org/docs/5.1/blade">Blade 模板</a></li>
+</ul></li>
+<li>教程
+<ul>
+<li><a href="quickstart.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart">初级任务清单</a></li>
+<li><a href="quickstart-intermediate.htm" tppabs="http://laravel-china.org/docs/5.1/quickstart-intermediate">中级任务清单</a></li>
+</ul></li>
+<li>系统架构
+<ul>
+<li><a href="lifecycle.htm" tppabs="http://laravel-china.org/docs/5.1/lifecycle">请求的生命周期</a></li>
+<li><a href="structure.htm" tppabs="http://laravel-china.org/docs/5.1/structure">应用程序结构</a></li>
+<li><a href="providers.htm" tppabs="http://laravel-china.org/docs/5.1/providers">服务提供者</a></li>
+<li><a href="container.htm" tppabs="http://laravel-china.org/docs/5.1/container">服务容器</a></li>
+<li><a href="contracts.htm" tppabs="http://laravel-china.org/docs/5.1/contracts">Contracts</a></li>
+<li><a href="facades.htm" tppabs="http://laravel-china.org/docs/5.1/facades">Facades</a></li>
+</ul></li>
+<li>系统服务
+<ul>
+<li><a href="authentication.htm" tppabs="http://laravel-china.org/docs/5.1/authentication">用户认证</a></li>
+<li><a href="authorization.htm" tppabs="http://laravel-china.org/docs/5.1/authorization">用户授权</a></li>
+<li><a href="artisan.htm" tppabs="http://laravel-china.org/docs/5.1/artisan">Artisan 命令行</a></li>
+<li><a href="billing.htm" tppabs="http://laravel-china.org/docs/5.1/billing">交易</a></li>
+<li><a href="cache.htm" tppabs="http://laravel-china.org/docs/5.1/cache">缓存</a></li>
+<li><a href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections">集合</a></li>
+<li><a href="elixir.htm" tppabs="http://laravel-china.org/docs/5.1/elixir">Elixir</a></li>
+<li><a href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密</a></li>
+<li><a href="errors.htm" tppabs="http://laravel-china.org/docs/5.1/errors">错误与日志</a></li>
+<li><a href="events.htm" tppabs="http://laravel-china.org/docs/5.1/events">事件</a></li>
+<li><a href="filesystem.htm" tppabs="http://laravel-china.org/docs/5.1/filesystem">文件系统与云存储</a></li>
+<li><a href="hashing.htm" tppabs="http://laravel-china.org/docs/5.1/hashing">哈希</a></li>
+<li><a href="helpers.htm" tppabs="http://laravel-china.org/docs/5.1/helpers">辅助函数</a></li>
+<li><a href="localization.htm" tppabs="http://laravel-china.org/docs/5.1/localization">本地化</a></li>
+<li><a href="mail.htm" tppabs="http://laravel-china.org/docs/5.1/mail">邮件</a></li>
+<li><a href="packages.htm" tppabs="http://laravel-china.org/docs/5.1/packages">扩展包开发</a></li>
+<li><a href="pagination.htm" tppabs="http://laravel-china.org/docs/5.1/pagination">分页</a></li>
+<li><a href="queues.htm" tppabs="http://laravel-china.org/docs/5.1/queues">队列</a></li>
+<li><a href="redis.htm" tppabs="http://laravel-china.org/docs/5.1/redis">Redis</a></li>
+<li><a href="session.htm" tppabs="http://laravel-china.org/docs/5.1/session">Session</a></li>
+<li><a href="envoy.htm" tppabs="http://laravel-china.org/docs/5.1/envoy">Envoy</a></li>
+<li><a href="scheduling.htm" tppabs="http://laravel-china.org/docs/5.1/scheduling">任务调度</a></li>
+<li><a href="testing.htm" tppabs="http://laravel-china.org/docs/5.1/testing">测试</a></li>
+<li><a href="validation.htm" tppabs="http://laravel-china.org/docs/5.1/validation">表单验证</a></li>
+</ul></li>
+<li>数据库
+<ul>
+<li><a href="database.htm" tppabs="http://laravel-china.org/docs/5.1/database">入门</a></li>
+<li><a href="queries.htm" tppabs="http://laravel-china.org/docs/5.1/queries">查询构造器</a></li>
+<li><a href="migrations.htm" tppabs="http://laravel-china.org/docs/5.1/migrations">数据库迁移</a></li>
+<li><a href="seeding.htm" tppabs="http://laravel-china.org/docs/5.1/seeding">数据填充</a></li>
+</ul></li>
+<li>Eloquent ORM
+<ul>
+<li><a href="eloquent.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent">入门</a></li>
+<li><a href="eloquent-relationships.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-relationships">模型关联</a></li>
+<li><a href="eloquent-collections.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-collections">Eloquent 集合</a></li>
+<li><a href="eloquent-mutators.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-mutators">Getter/Setter</a></li>
+<li><a href="eloquent-serialization.htm" tppabs="http://laravel-china.org/docs/5.1/eloquent-serialization">序列化</a></li>
+</ul></li>
+</ul>
+	</section>
+
+	<article>
+
+		<div class="alert alert-warning" role="alert">
+
+			<h4>拥抱 Laravel 5.1 LTS</h4>
+			<p>
+				强烈建议在 2018 年之前使用 Laravel 5.1 来构建项目，Laravel 5.1 是 LTS 的发行版本, 发行于 2015 年 6 月份，自发布起提供两年时间的 Bug 修复（2017 年 6 月）, 3 年时间的安全修复（2018 年 6 月）。
+			</p>
+			 <p>
+			 	LTS 版本是此项目能提供的最长时间维护版本。一般的发行版本, 只提供 6 个月的 Bug 修复支持, 一年的安全修复支持.
+			 </p>
+		</div>
+
+		<div class="main-content">
+			<h1>Laravel Elixir</h1>
+<ul>
+<li><a href="#introduction">简介</a></li>
+<li><a href="#installation">安装与配置</a></li>
+<li><a href="#running-elixir">运行 Elixir</a></li>
+<li><a href="#working-with-stylesheets">使用样式</a>
+<ul>
+<li><a href="#less">Less</a></li>
+<li><a href="#sass">Sass</a></li>
+<li><a href="#plain-css">纯 CSS</a></li>
+<li><a href="#css-source-maps">Source Maps</a></li>
+</ul></li>
+<li><a href="#working-with-scripts">使用脚本</a>
+<ul>
+<li><a href="#coffeescript">CoffeeScript</a></li>
+<li><a href="#browserify">Browserify</a></li>
+<li><a href="#babel">Babel</a></li>
+<li><a href="#javascript">Scripts</a></li>
+</ul></li>
+<li><a href="#copying-files-and-directories">复制文件与目录</a></li>
+<li><a href="#versioning-and-cache-busting">版本与缓存清除</a></li>
+<li><a href="#browser-sync">BrowserSync</a></li>
+<li><a href="#calling-existing-gulp-tasks">调用既有的 Gulp 任务</a></li>
+<li><a href="#writing-elixir-extensions">编写 Elixir 扩展功能</a></li>
+</ul>
+<p><a name="introduction"></a></p>
+<h2>简介</h2>
+<p>Laravel Elixir 提供了简洁流畅的 API，让你能够在你的 Laravel 应用程序中定义基本的 <a href="javascript:if(confirm('http://gulpjs.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://gulpjs.com/'" tppabs="http://gulpjs.com/">Gulp</a> 任务。Elixir 支持许多常见的 CSS 与 JavaScrtip 预处理器，甚至包含了测试工具。使用链式调用，Elixir 让你流畅地定义开发流程，例如：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.sass('app.scss')
+       .coffee('app.coffee');
+});</code></pre>
+<p>如果你曾经对于上手 Gulp 及编译资源文件感到困惑，那么你将会爱上 Laravel Elixir，不过 Laravel 并不强迫你使用 Elixir，你可以自由的选用你喜欢的自动化开发流程工具。</p>
+<p><a name="installation"></a></p>
+<h2>安装及配置</h2>
+<h3>安装 Node</h3>
+<p>在开始使用 Elixir 之前，你必须先确定你的机器上有安装 Node.js。</p>
+<pre><code>node -v</code></pre>
+<p>默认情况下，Laravel Homestead 会包含你所需的一切；但是，如果你没有使用 Vagrant，那么你可以简单的浏览 <a href="javascript:if(confirm('http://nodejs.org/download/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://nodejs.org/download/'" tppabs="http://nodejs.org/download/">Node 的下载页面</a> 进行安装。</p>
+<h3>Gulp</h3>
+<p>接着，你需要全局安装 <a href="javascript:if(confirm('http://gulpjs.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://gulpjs.com/'" tppabs="http://gulpjs.com/">Gulp</a> 的 NPM 扩展包：</p>
+<pre><code>npm install --global gulp</code></pre>
+<h3>Laravel Elixir</h3>
+<p>最后的步骤就是安装 Elixir！在每一份新安装的 Laravel 代码里，你会发现根目录有个名为 <code>package.json</code> 的文件。想像它就如同你的 <code>composer.json</code> 文件，只不过它定义的是 Node 的依赖扩展包，而不是 PHP 的。你可以使用以下的命令安装依赖扩展包：</p>
+<pre><code>npm install</code></pre>
+<p>如果你是在 Windows 系统上或在 Windows 主机系统上运行 VM 进行开发，你需要在运行 <code>npm install</code> 命令时将 <code>--no-bin-links</code> 开启：</p>
+<pre><code>npm install --no-bin-links</code></pre>
+<p><a name="running-elixir"></a></p>
+<h2>运行 Elixir</h2>
+<p>Elixir 是创建于 <a href="javascript:if(confirm('http://gulpjs.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://gulpjs.com/'" tppabs="http://gulpjs.com/">Gulp</a> 之上，所以要运行你的 Elixir 任务，只需要在命令行运行 <code>gulp</code> 命令。在命令增加 <code>--production</code> 标示会告知 Elixir 压缩你的 CSS 及 JavaScript 文件：</p>
+<pre><code>// 运行所有任务...
+gulp
+
+// 运行所有任务并压缩所有 CSS 及 JavaScript...
+gulp --production</code></pre>
+<h4>监控资源文件修改</h4>
+<p>因为每次修改你的资源文件之后在命令行运行 <code>gulp</code> 命令会相当不便，因此你可以使用 <code>gulp watch</code> 命令。此命令会在你的命令行运行并监控资源文件的任何修改。当发生修改时，新文件将会自动被编译：</p>
+<pre><code>gulp watch</code></pre>
+<p><a name="working-with-stylesheets"></a></p>
+<h2>使用样式</h2>
+<p>项目根目录的 <code>gulpfile.js</code> 包含你所有的 Elixir 任务。Elixir 任务可以被链式调用起来，以定义你的资源文件该如何进行编译。</p>
+<p><a name="less"></a></p>
+<h3>Less</h3>
+<p>要将 <a href="javascript:if(confirm('http://lesscss.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lesscss.org/'" tppabs="http://lesscss.org/">Less</a> 编译为 CSS，你可以使用 <code>less</code> 方法。<code>less</code> 方法会假设你的 Less 文件被保存在 <code>resources/assets/less</code> 文件夹中。默认情况下，此例子的任务会将编译后的 CSS 放置于 <code>public/css/app.css</code>：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.less('app.less');
+});</code></pre>
+<p>你可能会想合并多个 Less 文件至单个 CSS 文件。同样的，生成的 CSS 会被放置于 <code>public/css/app.css</code>：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.less([
+        'app.less',
+        'controllers.less'
+    ]);
+});</code></pre>
+<p>如果你想自定义编译后的 CSS 输出位置，可以传递第二个参数至 <code>less</code> 方法：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.less('app.less', 'public/stylesheets');
+});
+
+// 指定输出的文件名称...
+elixir(function(mix) {
+    mix.less('app.less', 'public/stylesheets/style.css');
+});</code></pre>
+<p><a name="sass"></a></p>
+<h3>Sass</h3>
+<p><code>sass</code> 方法让你能编译 <a href="javascript:if(confirm('http://sass-lang.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://sass-lang.com/'" tppabs="http://sass-lang.com/">Sass</a> 至 CSS。Sass 文件的默认读取路径是 <code>resources/assets/sass</code>，你可以使用此方法：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.sass('app.scss');
+});</code></pre>
+<p>同样的，如同 <code>less</code> 方法，你可以编译多个 Sass 文件至单个的 CSS 文件，甚至可以自定义生成的 CSS 的输出目录：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.sass([
+        'app.scss',
+        'controllers.scss'
+    ], 'public/assets/css');
+});</code></pre>
+<p><a name="plain-css"></a></p>
+<h3>纯 CSS</h3>
+<p>如果你只是想将一些纯 CSS 样式合并成单个的文件，你可以使用 <code>styles</code> 方法。此方法的默认路径为 <code>resources/assets/css</code> 目录，而生成的 CSS 会被放置于 <code>public/css/all.css</code>：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.styles([
+        'normalize.css',
+        'main.css'
+    ]);
+});</code></pre>
+<p>当然，你也可以通过传递第二个参数至 <code>styles</code> 方法，将生成的文件输出至指定的位置：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.styles([
+        'normalize.css',
+        'main.css'
+    ], 'public/assets/css');
+});</code></pre>
+<p><a name="css-source-maps"></a></p>
+<h3>Source Maps</h3>
+<p>Source maps 在默认情况下是开启的。因此，针对每个被编译的文件，同目录内都会伴随着一个 <code>*.css.map</code> 文件。这个文件能够让你在浏览器调试时，可以追踪编译后的样式选择器至原始的 Sass 或 Less 位置。</p>
+<p>如果你不想为你的 CSS 生成 source maps，你可以使用一个简单的配置选项关闭它们：</p>
+<pre><code class="language-javascript">elixir.config.sourcemaps = false;
+
+elixir(function(mix) {
+    mix.sass('app.scss');
+});</code></pre>
+<p><a name="working-with-scripts"></a></p>
+<h2>使用脚本</h2>
+<p>Elixir 也提供了一些函数来帮助你使用 JavaScript 文件，像是编译 ECMAScript 6、编译 CoffeeScript、Browserify、压缩、及简单的串联纯 JavaScript 文件。</p>
+<p><a name="coffeescript"></a></p>
+<h3>CoffeeScript</h3>
+<p><code>coffee</code> 方法可以用于编译 <a href="javascript:if(confirm('http://coffeescript.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://coffeescript.org/'" tppabs="http://coffeescript.org/">CoffeeScript</a> 至纯 JavaScript。<code>coffee</code> 函数接收一个相对于 <code>resources/assets/coffee</code> 目录的 CoffeeScript 文件名字符串或数组，接着在 <code>public/js</code> 目录生成单个的 <code>app.js</code> 文件：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.coffee(['app.coffee', 'controllers.coffee']);
+});</code></pre>
+<p><a name="browserify"></a></p>
+<h3>Browserify</h3>
+<p>Elixir 还附带了一个 <code>browserify</code> 方法，给予你在浏览器引入模块及 ECMAScript 6 的有用的特性。</p>
+<p>此任务假设你的脚本都保存在 <code>resources/assets/js</code>，并会将生成的文件放置于 <code>public/js/main.js</code>：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.browserify('main.js');
+});</code></pre>
+<p>虽然 Browserify 附带了 Partialify 及 Babelify 转换器，但是只要你愿意，你可以随意安装并增加更多的转换器：</p>
+<pre><code>npm install aliasify --save-dev</code></pre>
+<pre><code class="language-javascript">elixir.config.js.browserify.transformers.push({
+    name: 'aliasify',
+    options: {}
+});
+
+elixir(function(mix) {
+    mix.browserify('main.js');
+});</code></pre>
+<p><a name="babel"></a></p>
+<h3>Babel</h3>
+<p><code>babel</code> 方法可被用于编译 <a href="javascript:if(confirm('https://babeljs.io/docs/learn-es2015/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://babeljs.io/docs/learn-es2015/'" tppabs="https://babeljs.io/docs/learn-es2015/">ECMAScript 6 与 7</a> 至纯 JavaScript。此函数接收一个相对于 <code>resources/assets/js</code> 目录的文件数组，接着在 <code>public/js</code> 目录生成单个的 <code>all.js</code> 文件：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.babel([
+        'order.js',
+        'product.js'
+    ]);
+});</code></pre>
+<p>若要选择不同的输出位置，只需简单的指定你希望的路径作为第二个参数。该方法除了 Babel 的编译外，特色与功能同等于 <code>mix.scripts()</code>。</p>
+<p><a name="javascript"></a></p>
+<h3>Scripts</h3>
+<p>如果你想将多个 JavaScript 文件合并至单个文件，你可以使用 <code>scripts</code> 方法。</p>
+<p><code>scripts</code> 方法假设所有的路径都相对于 <code>resources/assets/js</code> 目录，且默认会将生成的 JavaScript 放置于 <code>public/js/all.js</code>：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.scripts([
+        'jquery.js',
+        'app.js'
+    ]);
+});</code></pre>
+<p>如果你想多个脚本的集合合并成不同文件，你可以使用调用多个 <code>scripts</code> 方法。给予该方法的第二个参数会为每个串联决定生成的文件名称：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.scripts(['app.js', 'controllers.js'], 'public/js/app.js')
+       .scripts(['forum.js', 'threads.js'], 'public/js/forum.js');
+});</code></pre>
+<p>如果你想合并指定目录中的所有脚本，你可以使用 <code>scriptsIn</code> 方法。生成的 JavaScript 会被放置在 <code>public/js/all.js</code>：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.scriptsIn('public/js/some/directory');
+});</code></pre>
+<p><a name="copying-files-and-directories"></a></p>
+<h2>复制文件与目录</h2>
+<p><code>copy</code> 方法可以复制文件与目录至新位置。所有操作路径都相对于项目的根目录：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.copy('vendor/foo/bar.css', 'public/css/bar.css');
+});
+
+elixir(function(mix) {
+    mix.copy('vendor/package/views', 'resources/views');
+});</code></pre>
+<p><a name="versioning-and-cache-busting"></a></p>
+<h2>版本与缓存清除</h2>
+<p>许多的开发者会在它们编译后的资源文件中加上时间戳或是唯一的 token，强迫浏览器加载全新的资源文件以取代提供的旧版本代码副本。你可以使用 <code>version</code> 方法让 Elixir 处理它们。</p>
+<p><code>version</code> 方法接收一个相对于 <code>public</code> 目录的文件名称，接着为你的文件名称加上唯一的哈希值，以防止文件被缓存。举例来说，生成出来的文件名称可能像这样：<code>all-16d570a7.css</code>：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.version('css/all.css');
+});</code></pre>
+<p>在为文件生成版本之后，你可以在你的 <a href="views.htm" tppabs="http://laravel-china.org/docs/5.1/views">视图</a> 中使用 Laravel 的全局 <code>elixir</code> PHP 辅助函数来正确加载名称被哈希后的文件。<code>elixir</code> 函数会自动判断被哈希的文件名称：</p>
+<pre><code>&lt;link rel="stylesheet" href="{{ elixir('css/all.css') }}"&gt;</code></pre>
+<h4>为多个文件生成版本</h4>
+<p>你可以传递一个数组至 <code>version</code> 方法来为多个文件生成版本：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.version(['css/all.css', 'js/app.js']);
+});</code></pre>
+<p>一旦该文件被加上版本，你需要使用 <code>elixir</code> 辅助函数来生成哈希文件的正确链接。切记，你只需要传递未哈希文件的名称至 <code>elixir</code> 辅助函数。此函数会自动使用未哈希的名称来判断该文件为目前的哈希版本：</p>
+<pre><code>&lt;link rel="stylesheet" href="{{ elixir('css/all.css') }}"&gt;
+
+&lt;script src="{{ elixir('js/app.js') }}"&gt;&lt;/script&gt;</code></pre>
+<p><a name="browser-sync"></a></p>
+<h2>BrowserSync</h2>
+<p>当你对前端资源进行修改后，BrowserSync 会自动刷新你的网页浏览器。你可以使用 <code>browserSync</code> 方法来告知 Elixir，当你运行 <code>gulp watch</code> 命令时启动 BrowserSync 服务器：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.browserSync();
+});</code></pre>
+<p>一旦你运行 <code>gulp watch</code>，就能使用连接端口 3000 启用浏览器同步并访问你的网页应用程序：<code>http://homestead.app:3000</code>。如果你在本机开发所使用的域名不是 <code>homestead.app</code>，那么你可以传递一个 <a href="javascript:if(confirm('http://www.browsersync.io/docs/options/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://www.browsersync.io/docs/options/'" tppabs="http://www.browsersync.io/docs/options/">选项</a> 的数组作为 <code>browserSync</code> 方法的第一个参数：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.browserSync({
+        proxy: 'project.app'
+    });
+});</code></pre>
+<p><a name="calling-existing-gulp-tasks"></a></p>
+<h2>调用既有的 Gulp 任务</h2>
+<p>如果你需要在 Elixir 调用一个既有的 Gulp 任务，你可以使用 <code>task</code> 方法。举个例子，假设你有一个 Gulp 任务，当你调用时会输出一些简单的文本：</p>
+<pre><code class="language-javascript">gulp.task('speak', function() {
+    var message = 'Tea...Earl Grey...Hot';
+
+    gulp.src('').pipe(shell('say ' + message));
+});</code></pre>
+<p>如果你希望在 Elixir 中调用这个任务，使用 <code>mix.task</code> 方法并传递该任务的名称作为该方法唯一的参数：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.task('speak');
+});</code></pre>
+<h4>自定义监控器</h4>
+<p>如果你想注册一个监控器让你的自定义任务能在每次文件改变时就运行，只需传递一个正则表达式作为 <code>task</code> 方法的第二个参数：</p>
+<pre><code class="language-javascript">elixir(function(mix) {
+    mix.task('speak', 'app/**/*.php');
+});</code></pre>
+<p><a name="writing-elixir-extensions"></a></p>
+<h2>编写 Elixir 扩展功能</h2>
+<p>如果你需要比 Elixir 的 <code>task</code> 方法更灵活的方案，你可以创建自定义的 Elixir 扩展功能。Elixir 扩展功能允许你传递参数至你的自定义任务。举例来说，你可以编写一个扩展功能，像是：</p>
+<pre><code class="language-javascript">// 文件：elixir-extensions.js
+
+var gulp = require('gulp');
+var shell = require('gulp-shell');
+var Elixir = require('laravel-elixir');
+
+var Task = Elixir.Task;
+
+Elixir.extend('speak', function(message) {
+
+    new Task('speak', function() {
+        return gulp.src('').pipe(shell('say ' + message));
+    });
+
+});
+
+// mix.speak('Hello World');</code></pre>
+<p>就是这样！注意，你的 Gulp 具体的逻辑必须被放置在 <code>Task</code> 第二个参数传递的构造器函数里面。你可以将此扩展功能放置在 Gulpfile 的上方，取而代之也可以导出至一个自定义任务的文件。举个例子，如果你将你的扩展功能放置在 <code>elixir-extensions.js</code> 文件中，那么你可以在 <code>Gulpfile</code> 中像这样引入该文件：</p>
+<pre><code class="language-javascript">// 文件：Gulpfile.js
+
+var elixir = require('laravel-elixir');
+
+require('./elixir-extensions')
+
+elixir(function(mix) {
+    mix.speak('Tea, Earl Grey, Hot');
+});</code></pre>
+<h4>自定义监控器</h4>
+<p>如果你想在运行 <code>gulp watch</code> 时能够重新触发你的自定义任务，你可以注册一个监控器：</p>
+<pre><code class="language-javascript">new Task('speak', function() {
+    return gulp.src('').pipe(shell('say ' + message));
+})
+.watch('./app/**');</code></pre>
+		</div>
+
+		<div class="main-footer" style="border-top:1px dashed rgba(0, 0, 0, 0.1);padding-top: 30px;margin-top:30px;margin-bottom: 20px;">
+			<div class="prev-next-wrap clearfix">
+
+									<a class="btn btn-default pull-left" href="collections.htm" tppabs="http://laravel-china.org/docs/5.1/collections"><i class="fa fa-arrow-left"></i> 集合</a>
+				
+			    &nbsp;
+								    <a class="btn btn-default pull-right" href="encryption.htm" tppabs="http://laravel-china.org/docs/5.1/encryption">加密与解密 <i class="fa fa-arrow-right"></i></a>
+							</div>
+		</div>
+
+	</article>
+</div>
+
+		<footer class="main">
+			<ul>
+				<li class="nav-docs"><a href="javascript:if(confirm('http://laravel-china.org/docs  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://laravel-china.org/docs'" tppabs="http://laravel-china.org/docs">文档</a></li>
+<li class="nav-laracasts"><a href="javascript:if(confirm('https://laracasts.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://laracasts.com/'" tppabs="https://laracasts.com/" target="_blank">Laracasts</a></li>
+<li class="nav-docs"><a href="javascript:if(confirm('http://lumen.laravel-china.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://lumen.laravel-china.org/'" tppabs="http://lumen.laravel-china.org/">Lumen</a></li>
+<li class="nav-forge"><a href="javascript:if(confirm('https://cs.phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://cs.phphub.org/'" tppabs="https://cs.phphub.org/" target="_blank">Laravel LTS 速查表</a></li>
+<li class="dropdown">
+	<a href="javascript:if(confirm('https://phphub.org/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��һ��ʹ��δ֧��Э��ĵ�ַ(����: gopher)��  \n\n����Ҫ�ӷ�����������?'))window.location='https://phphub.org/'" tppabs="https://phphub.org/" target="_blank">Laravel 社区</a>
+</li>
+			</ul>
+			<p>Laravel is a trademark of Taylor Otwell. Copyright &copy; Taylor Otwell.</p>
+			<p class="less-significant"><a href="javascript:if(confirm('http://jackmcdade.com/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://jackmcdade.com/'" tppabs="http://jackmcdade.com/">Design by Jack McDade</a></p>
+
+			<p class="less-significant">
+				<a href="javascript:if(confirm('http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao'" tppabs="http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=phphub&utm_medium=display&utm_content=yejiao&ytag=phphubyejiao" target="_blank">由 UCloud 赞助  <img src="dYfOYswiQY.png" tppabs="https://dn-phphub.qbox.me/uploads/images/201605/03/1/dYfOYswiQY.png" width="98" data-toggle="tooltip" data-placement="top" title="本站服务器由 UCloud 赞助"></a>.
+		      </p>
+		</footer>
+
+	</div>
+
+	<script src="laravel.js" tppabs="http://laravel-china.org/assets/js/laravel.js"></script>
+	<script src="viewport-units-buggyfill.js" tppabs="http://laravel-china.org/assets/js/viewport-units-buggyfill.js"></script>
+	<script>window.viewportUnitsBuggyfill.init();</script>
+    <script>
+
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','analytics.js'/*tpa=http://7xijlf.com2.z0.glb.qiniucdn.com/js/analytics.js*/,'ga');
+
+		ga('create', 'UA-53903425-7', 'auto');
+		ga('send', 'pageview');
+
+		$(window).load(function() {
+		  // When the page has loaded
+		  $(".main-content").fadeIn(10);
+		});
+    </script>
+</body>
+</html>

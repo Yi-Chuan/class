@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>加载事件</title>
+	<style type="text/css">
+		#big{width: 200px;height: 100px;background: #369;}
+	</style>
+</head>
+<body>
+	
+	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+	<script type="text/javascript">
+	//加载完毕事件
+		// $(document).ready(function(){
+		// 	console.log($('#big'));
+		// })
+	//加载完毕事件
+	$(function(){
+		// alert('love');
+
+		//方法绑定事件
+		$('#big').bind('click',function(){
+			alert('love');
+		});
+		$('#big').bind('dblclick',function(){
+			alert('loves');
+		});
+
+		//解除事件绑定 如果不指定事件类型 解除所有
+		// $('#big').unbind();
+
+		//live 针对动态创建的元素 也能绑定事件
+		$('.item').live('click',function(){
+			alert(222);
+		});
+
+//触发事件 trigger
+$('#big').trigger('click');
+	})
+	</script>
+
+	<div id="big"></div>
+</body>
+</html>

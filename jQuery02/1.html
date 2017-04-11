@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>节点操作</title>
+	<style type="text/css">
+	#content{width: 700px;min-height:200px;border:solid 1px blue;
+		margin-left: 50px;margin-top: 50px;}
+	.item{width: 100px;height: 100px;border-radius:50%;
+		background: #369;float: left;margin: 5px;}
+	.w{border:solid 1px red;padding: 10px;}
+	</style>
+</head>
+<body>
+	<button>在div内部尾部添加元素</button>
+	<button>在div内部头部添加元素</button>
+	<button>在div外部尾部添加元素</button>
+	<button>在div外部头部添加元素</button>
+	<button>删除第一个元素</button>
+	<button>替换最后一个元素</button>
+	<button>克隆最后一个元素插入到前面</button>
+	<br>
+	<button>包裹</button>
+	<button>解包</button>
+	<br>
+	<div id="content">
+			
+	</div>
+	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+	<script type="text/javascript">
+	//绑定单击事件 
+	$('button').eq(0).click(function(){
+		//创建div
+		var div = createDiv();
+		//插入content里面
+		// $('#content').append(div);
+		//被动
+		div.appendTo('#content');
+	})
+
+	//绑定单击事件 
+	$('button').eq(1).click(function(){
+		//创建div
+		var div = createDiv();
+		//执行插入
+		// $('#content').prepend(div);
+		div.prependTo('#content');
+	})
+
+	//绑定单击事件 
+	$('button').eq(2).click(function(){
+		//创建div
+		var div = createDiv();
+
+		//执行插入
+		// $('#content').after(div);
+		div.insertAfter('#content');
+	})
+
+	//绑定单击事件 
+	$('button').eq(3).click(function(){
+		//创建div
+		var div = createDiv();
+
+		//执行插入
+		// $('#content').before(div);
+		div.insertBefore('#content');
+	})
+
+	//绑定单击事件 
+	$('button').eq(4).click(function(){
+		//获取第一个元素执行删除
+		$('#content .item:first').remove();
+		//清空 当前元素内的所有标签
+		// $('#content').empty();
+	})
+
+//绑定单击事件 
+$('button').eq(5).click(function(){
+	//创建div
+	var div = createDiv();
+	//获取最后一个元素
+	$('#content .item:last').replaceWith(div);
+})
+
+//绑定单击事件 
+$('button').eq(6).click(function(){
+	//克隆最后一个元素 默认时false 如果给true能够克隆事件
+	var cdiv = $('#content .item:last').clone(true);
+	$('#content').prepend(cdiv);
+})
+
+	//绑定单击事件 
+	$('button').eq(7).click(function(){
+		$('#content').wrap('<div class="w"></div>');
+	})
+	//绑定单击事件 
+	$('button').eq(8).click(function(){
+		$('#content').unwrap();
+	})
+
+
+	//绑定事件
+	// $('.item').click(function(){
+	// 	alert(222);
+	// })
+	// $('.item').click(function(){
+	// 	alert(222);
+	// })
+	
+	//live 针对动态创建的元素 也能绑定事件
+	$('.item').live('click',function(){
+		alert(222);
+	});
+
+
+
+	//封装函数
+	function createDiv(){
+		//创建元素
+		var div = $('<div class="item"></div>');
+		//拼接颜色字符串 随机
+		var color = "rgb("+rand(0,255)+","+rand(0,255)+","+rand(0,255)+")";
+		div.css('background',color);
+		//绑定事件
+		// div.click(function(){
+		// 	alert('love');
+		// })
+	
+		//返回创建好的div
+		return div;
+	}
+
+	function rand(m,n){
+		return Math.floor(Math.random()*(n-m+1))+m;
+	}
+	</script>
+</body>
+</html>

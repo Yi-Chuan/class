@@ -1,0 +1,52 @@
+大型网站的架构
+
+mysql优化：
+	数据库
+	数据表
+	php程序
+
+redis缓存
+
+
+面试题（6天）
+
+laravel
+微信
+SSH连接服务器，Git
+Ubuntu 2分钟
+
+
+应用服务器(192.168.134.250)
+Shop
+	Application
+	Public
+	ThinkPHP
+
+数据库服务器
+	'DB_DSN' => 'mysql:host=192.168.134.249;dbname=lamp134;charset=utf8';
+
+文件服务器
+	http://192.168.134.248/var/www/html/
+
+1PB= 1000T = 1000000GB = 1000000000MB
+
+
+$mem = new memcache();
+
+$mem->addServer('localhost', 11211);	// 本地缓存
+$mem->addServer('192.168.134.24', 11211);
+$mem->addServer('192.168.134.25', 11211);
+$mem->addServer('192.168.134.26', 11211);
+
+
+读（查询）
+写（增删改）
+
+
+NoSQL:
+基于内存
+memcached
+redis
+
+基于文档：（使用js语法进行增删改查）
+mongodb:

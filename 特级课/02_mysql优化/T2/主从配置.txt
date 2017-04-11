@@ -1,0 +1,51 @@
+环境：Ubuntu 14.04.3 Server mysql5.5
+
+一主一从
+一主多从
+
+1. 必须保证两台数据库的IP能够ping通，端口能够打开，防火墙关闭
+
+主数据的配置
+1. 更改配置文件:sudo vi /etc/mysql/my.cnf
+    # bind-address 127.0.0.1       // 找到此选项注释，默认访问本机
+  server-id=1                              //  区别服务器的标识符，只要唯一就行，默认1
+  log_bin=/var/log/mysql/mysql-bin.log     // binlog日志
+
+2. 重启MySQL     /etc/init.d/mysql restart
+     如果启动失败，查看my.cnf中log-error错误日志的位置，找到该文件查看错误信息
+
+3.进入mysql数据库，给从库赋予权限
+     grant replication slave on *.* to user@ip地址 identified by ‘123456’
+
+4. show master status：查看主数据库的binlog（最后一个binlog日志）状态信息
+     flush logs;多一个最新的bin－log日志
+     reset master;清空所有的bin－log日志
+
+mysql> show master status;
+
++------------------+----------+--------------+---------------------------------------------+
+
+| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB（忽略同步的库)               |
+
++------------------+----------+--------------+---------------------------------------------+
+| mysql-bin.000001 |     107  | test         | mysql,information_schema,performance_schema |
++------------------+----------+--------------+---------------------------------------------+
+
+从数据库的配置
+1. 修改配置文件 sudo vi /etc/mysql/my.cnf
+     server-id=2
+
+2. 重启MySQL
+     /etc/init.d/mysql restart
+
+3. 进入mysql，开启从服务器的同步
+     stop slave;     // 如果以前没有配置主从数据库，此选项可以省略
+4. 设置从主数据库赋值binlog日志的配置
+     change master to master_host='172.16.52.169', master_user='slave', master_password='123456', master_log_file='mysql-bin.000001', master_log_pos=107;(此处的file和pos需要查看主数据库的show master status状态)
+5. 开启slave
+     start slave;
+6. 查看slave信息，确认开启成功 show slave status\G;
+     Slave_IO_Running：YES
+     Slave_SQL_Running：YES
+     上述的值都变味yes则成功
+     如果失败，查看log-error日志，确认问题，修正问题

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>鼠标的位置和键盘的信息</title>
+	<style type="text/css">
+		#move{width: 100px;height: 100px;background: #369;position:absolute;}
+	</style>
+</head>
+<body>
+	<div id="move">
+		x:100 <br>
+		y:200
+	</div>
+
+	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+	<script type="text/javascript">
+	//鼠标位置
+	$(window).mousemove(function(e){
+		//获取鼠标位置
+		// var x = e.clientX;
+		// var y = e.clientY;
+		var x = e.pageX;
+		var y = e.pageY;
+		var str = "x:"+x+" <br>y:"+y;
+		//修改文本
+		$('#move').html(str);
+		//修元素的left top
+		$('#move').css({left:x+'px',top:y+'px'});
+	})
+
+	//键盘按键信息
+	$(window).keydown(function(e){
+		//获取信息
+		var k = e.keyCode;
+		console.log(k);
+	})
+	</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>screen对象</title>
+</head>
+<body style="width:3000px;height:2000px">
+<script type="text/javascript">
+/*
+window.screen 对象包含有关用户屏幕的信息。
+属性
+availHeight 返回屏幕的高度（不包括Windows任务栏） 
+availWidth 返回屏幕的宽度（不包括Windows任务栏） 
+colorDepth 返回目标设备或缓冲器上的调色板的比特深度 
+height 返回屏幕的总高度 
+pixelDepth 返回屏幕的颜色分辨率（每象素的位数） 
+width 返回屏幕的总宽度 
+
+页面的相关尺寸
+documentElement.clientWidth
+documentElement.clientHeight
+documentElement.scrollWidth
+documentElement.scrollHeight
+documentElement.scrollTop
+documentElement.scrollLeft
+*/
+
+// console.log(screen);
+// 屏幕的宽度
+var tw = window.screen.width;
+//屏幕的高度
+var th = window.screen.height;
+
+//浏览器的可用宽度
+var aw = window.screen.availWidth;
+// 浏览器的可用高度
+var ah = window.screen.availHeight;
+
+//重点掌握以下相关尺寸
+
+// 浏览器的可视区域宽度和高度
+var cw = document.documentElement.clientWidth;
+var ch = document.documentElement.clientHeight;
+
+// 当前整个文档的宽度和高度 指的是文档,不是可视区别,
+//例如出现滚动条时 注意margin和padding
+var dw = document.documentElement.scrollWidth;
+var dh = document.documentElement.scrollHeight;
+
+// 获取当前页面的滚动宽度和高度
+var sw = document.documentElement.scrollLeft;
+var sh = document.documentElement.scrollTop;
+
+//兼容问题  chrome需要下面这样写  但是在标准的w3c下为0
+var h = document.body.scrollLeft;
+var w = document.body.scrollTop;
+// console.log(sw);
+// console.log(sh);
+console.log(sw,sh);
+console.log(h,w);
+var t = document.documentElement.scrollTop || document.body.scrollTop;
+console.log(t);
+</script>
+</body>
+</html>

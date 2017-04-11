@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js操作form表单</title>
+</head>
+<body>
+	<form action="">
+		用户名: <input type="text" name="username"><br>
+		性别: <input type="radio" name="sex" value="0">女
+		<input type="radio" name="sex" value="1">男
+		<br>
+		爱好: <input type="checkbox" name="hobby[]" value="0">抽烟
+		<input type="checkbox" name="hobby[]" value="1">喝酒
+		<input type="checkbox" name="hobby[]" value="2">烫头发
+		<br>
+		下拉框:
+		<select name="lol" id="">
+			<option value="0">菊花信</option>
+			<option value="1">蛮三刀</option>
+			<option value="2">易大湿</option>
+			<option value="3">狮子狗</option>
+		</select>
+		<br>
+		个人简介:
+			<textarea name="intro" id="" cols="30" rows="10">
+				川哥咋就帅的这么自然
+			</textarea>
+		<br>
+		<!-- <input type="submit" value="提交"> -->
+		<button type="button">点我试试</button>
+	</form>
+	<button id="btn">插入隐藏域</button>
+<script type="text/javascript">
+//js操作form
+var form = document.forms[0];
+//文本框
+	//获取
+	var v = form.username.value;
+	// alert(v);
+	//赋值
+	form.username.value = 'iloveyou';
+//单选框
+	var s = form.sex;
+	// s[1].checked = true;
+	for (var i = 0; i < s.length; i++) {
+		if(s[i].value == '1'){
+			s[i].checked = true;
+		}
+	};
+
+	//获取
+	for (var i = 0; i < s.length; i++) {
+		//判断是否选中
+		if(s[i].checked){
+			// console.log(s[i].value);s
+		}
+	};
+//多选框 如果name属性是数组时 用[]
+	var hs = form['hobby[]'];
+	// console.log(hs);
+	//设置选中
+	for (var i = 0; i < hs.length; i++) {
+		if(hs[i].value == '2'){
+			hs[i].checked = true;
+		}
+	};
+
+	//获取选中的值
+	var arr = [];
+	for (var i = 0; i < hs.length; i++) {
+		if(hs[i].checked){
+			// arr.push(hs[i].value);
+			arr[arr.length] = hs[i].value;
+		}
+	};
+//下拉框
+	var lol = form.lol;
+	//获取选中的值
+	// alert(lol.value);
+	//设置
+	lol.value = '3';
+
+//文本域
+	// 获取
+	// alert(form.intro.value);
+	//设置
+	form.intro.value = 'iiiiiiiiiii';
+
+	// console.log(arr);
+//获取
+var btn = document.getElementById('btn');
+btn.onclick = function(){
+	//创建input
+	var inp = document.createElement('input');
+	//设置属性
+	inp.setAttribute('type','hidden');
+	inp.setAttribute('name','id');
+	inp.value = '5';
+	//插入
+	form.appendChild(inp);
+}
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>NaN</title>
+</head>
+<body>
+	<script type="text/javascript">
+	/*
+		NaN 这个数值 用于表示一个本来返回number类型的操作数 防止报错,就出现了NaN
+	*/
+	// Number是一个函数 将其它类型的值转为数值类型
+	var res = Number('iloveyou');
+
+	//任何一个数值和NaN进行运算得到的都是NaN
+	var res = 100 + NaN;
+	var res = 100 - NaN;
+	var res = 100 * NaN;
+	var res = 100 / NaN;
+	var res = 100 % NaN;
+
+	//任何数值和NaN进行比较得到的都是false (除了 != )
+	var res = 100 > NaN;
+	var res = 100 < NaN;
+	var res = 100 == NaN;
+	var res = NaN == NaN;
+	var res = 100 != NaN;
+	var res = 100 !== NaN;
+
+	//检测一个值是否为NaN
+	var r = NaN;
+	var r = 100;
+
+	var res = isNaN(r);
+
+	console.log(res);
+	console.log(typeof(res));
+
+	</script>
+</body>
+</html>
