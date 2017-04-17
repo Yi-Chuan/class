@@ -1,0 +1,30 @@
+1,把curl包放置到/lamp/ 去解压
+tar -xvzf curl-7.53.1.tar.gz
+2.配置
+./configure --prefix=/usr/local/curl-7.53.1/
+3.编译 安装
+make
+make install
+
+1.cd到/lamp/目录下
+cd /lamp/php-5.6.15/ext/curl
+2.调用phpize程序生成编译 配置文件
+/usr/local/php-5.6.15/bin/phpize
+3.调用configure生成akefile文件，然后调用make编译，make install安装
+./configure --with-php-config=/usr/local/php/bin/php-config --with-curl=/usr/local/curl-7.53.1/
+make
+make install
+ 
+4.修改php配置文件
+查看  curl.so文件是否安装到这个目录下
+cd /usr/local/php/lib/php/extensions/no-debug-non-zts-20060613/
+修改php扩展库目录
+vim /usr/local/php/etc/php.ini
+	下面的引入如果存在了就不需要再声明
+	extension_dir = “/usr/local/php5/lib/php/extensions/no-debug-non-zts-20060613/”；
+ 
+添加如下一行：
+extension="curl.so";
+ 
+5.重启apache程序
+ /usr/local/apache2/bin/apachectl restart
