@@ -7,7 +7,7 @@
 //    C. $_SERVER['USER_AGENT'];
 //    D. $_SERVER['AGENT'];
    
-// 02. 下面功能PHP无法实现的是：C、D
+// 02. 下面功能PHP无法实现的是：D
 //    A. 服务器端脚本运行
 //    B. 命令行脚本运行
 //    C. 客户端图形界面（GUI）程序
@@ -249,7 +249,8 @@
    // Select name,class,score from student order by class desc , score desc
 // 2) 查出每个班的及格人数和不及格人数，格式为：class、及格人数、不及格人数；3分
    // SELECT class, 
-   // SUM(CASE WHEN score>=60 THEN 1 ELSE 0 END), 
+   // SUM(CASE WHEN score>=60 
+THEN 1 ELSE 0 END), 
    // SUM(CASE WHEN score<60 THEN 1 ELSE 0 END) 
    // FROM tb1 GROUP BY class
 // 3) 用PHP写入连接数据库("localhost","msuser","mspass")、执行以上SQL、显示结果、判断错误、关闭数据库的过程   5分

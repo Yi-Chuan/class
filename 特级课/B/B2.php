@@ -39,78 +39,49 @@
 // echo $a,$b;
 
 // 5．	用php打印出前一天的时间格式是2006-5-10 22:21:21 （3分）
+
 // 6．	使用哪些工具进行版本控制（3分）
+
 // 7．	.如何实现字符串翻转？（3分）
+    // 答:echo strrev($a);
 // 8．	PHP的意思，它能干些什么？（3分）
+
+/*
+PHP是一个基于服务端来创建动态网站的脚本语言，您可以用PHP和HTML生成网站主页，英文的全称（Professional  Home Pages）
+1、WEB开发、实现订单、网络通信、在线支付、一切互联网可以实现的工作。
+2、脚本的开发，Shell 脚本、 windows的计划任务等
+3、软件的开发，PHP-GTK等第三方的软件，使用php语法配合其他的语言开发软件
+*/
+
 // 9．	谈谈对mvc的认识？（3分）
 // 10．GD库是做什么用的?（3分）
 // 11．	数据类型(int char varchar datetime text)的意思; 请问varchar和char有什么别？（3分）
 // 12．echo(),print(),print_r()的区别？（3分）
-// 13．什么是模板技术、能够使HTML和PHP分离开使用的模板？（3分）
-// 14．对于大流量的网站,您采用什么样的方法来解决访问量问题?（3分）
-// 15．include和require的区别是什么?为避免多次包含同一文件可用什么代替它们?（3分）
-    // include_once
-// 16．mysql_fetch_row() 和mysql_fetch_array之间有什么区别?（3分）
-// 17．优化MYSQL数据库的方法（3分）
-// 18．实现中文字串截取无乱码的方法（3分） mb_substr( )
-// 19．用PHP写出显示客户端IP与服务器IP的代码（3分）
-// 20．有一个网页地址, 比如PHP开发资源网主页: http://www.phpres.com/index.html,如何得到它的内容?（4分）
-// 21．请说明php中传值与传引用的区别。什么时候传值什么时候传引用?（4分）
-// 22．请写一个函数验证电子邮件的格式是否正确 （5分）
-// 23．简述如何得到当前执行脚本路径，包括所得到参数（4分）
-// 24．JS表单弹出对话框函数是?获得输入焦点函数是? （3分）
-// 25．JS中在函数中又定义了一个函数，最里面的函数是否能够获得外面函数的变量值？为什么？（3分）
-// 26．写一个函数，尽可能高效的，从一个标准 url 里取出文件的扩展名例如: http://www.sina.com.cn/abc/de/fg.php?id=1 需要取出 php 或 .php（5分）
-// 27．写一个函数，算出两个文件的相对路径 　　（5分）
-// 如 $a = '/a/b/c/d/e.php'; 　　
-// $b = '/a/b/12/34/c.php'; 　　
-// 计算出 $b 相对于 $a 的相对路径应该是 http://www.cnblogs.com/c/d将()添上
-// function getRelativePath($a, $b) {   
-// $returnPath = array(dirname($b));   
-//   $arrA = explode('/', $a);   
-//   $arrB = explode('/', $returnPath[0]);   
-//   for ($n = 1, $len = count($arrB); $n < $len; $n++) {   
-//       if ($arrA[$n] != $arrB[$n]) {   
-//           break;   
-//       }    
-//   }   
-//   if ($len - $n > 0) {   
-//       $returnPath = array_merge($returnPath, array_fill(1, $len - $n, '..'));   
-//   }   
-   
-//   $returnPath = array_merge($returnPath, array_slice($arrA, $n));   
-//   return implode('/', $returnPath);   
-// }   
-// echo getRelativePath($a, $b);  
-
-// 28．写一个函数，能够遍历一个文件夹下的所有文件和子文件夹。（5分）
-// 29．简述论坛中无限分类的实现原理。（5分）
-
-
- 
-// 简述题:
-// 1、用PHP打印出前一天的时间格式是2006-5-10 22:21:21(2分)
-// echo date('Y-m-d H:i:s', strtotime('-1 days')); 
-
-// 2、echo(),print(),print_r()的区别(3分)
 /*
-	echo是PHP语句, print和print_r是函数,语句没有返回值,函数可以有返回值(即便没有用)  
-	print（）    只能打印出简单类型变量的值(如int,string)  
-	print_r（） 可以打印出复杂类型变量的值(如数组,对象)  
-	echo     输出一个或者多个字符串
+  echo是PHP语句, print和print_r是函数,语句没有返回值,函数可以有返回值(即便没有用)  
+  print（）    只能打印出简单类型变量的值(如int,string)  
+  print_r（） 可以打印出复杂类型变量的值(如数组,对象)  
+  echo     输出一个或者多个字符串
 */
- 
-// 3、能够使HTML和PHP分离开使用的模板(1分)
-// 答:Smarty,Dwoo,TinyButStrong,Template Lite,Savant,phemplate,XTemplate
- 
-// 5、使用哪些工具进行版本控制?(1分)
-// 答:git,svn,vss,cvs;
- 
-// 6、如何实现字符串翻转?(3分)
-// 答:echo strrev($a);
- 
-// 7、优化MYSQL数据库的方法。(4分，多写多得)
-/*
+
+// 13．什么是模板技术、能够使HTML和PHP分离开使用的模板？（3分）
+
+// 14．对于大流量的网站,您采用什么样的方法来解决访问量问题?（3分）
+  // 确认服务器硬件是否足够支持当前的流量,其次，优化数据库访问。数据库读写分离,优化数据表,
+  //   禁止外部的盗链,控制大文件的下载,使用不同主机分流主要流量
+
+// 15．include和require的区别是什么?为避免多次包含同一文件可用什么代替它们?（3分）
+
+    // include_once
+
+// 16．mysql_fetch_row() 和mysql_fetch_array之间有什么区别?（3分）
+
+//    mysql_fetch_row是从结果集取出1行数组,作为枚举
+//    mysql_fetch_array是从结果集取出一行数组作为关联数组,或数字数组,两者兼得
+
+// 17．优化MYSQL数据库的方法（3分）
+
+  /*
 1、选取最适用的字段属性,尽可能减少定义字段长度,尽量把字段设置NOT NULL,例如'省份,性别',最好设置为ENUM
 2、使用连接（JOIN）来代替子查询:
    a.删除没有任何订单客户:DELETE FROM customerinfo WHERE customerid NOT in(SELECT customerid FROM orderinfo)
@@ -177,54 +148,79 @@
    SELECT * FROM order WHERE title>="good" and name<"good";
  */
 
+// 18．实现中文字串截取无乱码的方法（3分） mb_substr( )
 
-// 8、PHP的意思(送1分)
-// PHP是一个基于服务端来创建动态网站的脚本语言，您可以用PHP和HTML生成网站主页
- 
-// 9、MYSQL取得当前时间的函数是?，格式化日期的函数是(2分)
-// 答:now(),date(),
- 
-// 10、实现中文字串截取无乱码的方法。(3分) mb_substr( )
-// echo GBsubstr('实现中文字串截取无乱码的方法',2,2);
-// function GBsubstr($string, $start, $length) {
-// 	if(strlen($string)>$length){
-// 		$str=null;
-// 		$len=$start+$length;
-// 		for($i=$start;$i<$len;$i++){
-// 			if(ord(substr($string,$i,1))>0xa0){
-// 				$str.=substr($string,$i,2);
-// 				$i++;
-// 			}else{
-// 				$str.=substr($string,$i,1);
-// 			}
-// 		}
-// 		return $str.'...';
-// 	}else{
-// 		return $string;
-// 	}
-// }
 
- 
-// 11、您是否用过版本控制软件? 如果有您用的版本控制软件的名字是?(1分)
-// 12、您是否用过模板引擎? 如果有您用的模板引擎的名字是?(1分)
-
- 
-// 13、请简单阐述您最得意的开发之作(4分)
-// 答:信息分类
- 
-// 14、对于大流量的网站,您采用什么样的方法来解决访问量问题?(4分)
-/*
-	确认服务器硬件是否足够支持当前的流量,数据库读写分离,优化数据表,
-   	程序功能规则,禁止外部的盗链,控制大文件的下载,使用不同主机分流主要流量
- */
-// 15、用PHP写出显示客户端IP与服务器IP的代码1分)
-//	打印客户端IP:echo $_SERVER[‘REMOTE_ADDR’]; 或者: getenv('REMOTE_ADDR');
+// 19．用PHP写出显示客户端IP与服务器IP的代码（3分）
+   // 打印客户端IP:echo $_SERVER[‘REMOTE_ADDR’]; 或者: getenv('REMOTE_ADDR');
 //  打印服务器IP:echo gethostbyname("www.bolaiwu.com")
+
+
+// 20．有一个网页地址, 比如PHP开发资源网主页: http://www.phpres.com/index.html,如何得到它的内容?（4分）
+// 推荐用法 curl
+//    方法1(对于PHP5及更高版本):
+//    $readcontents = fopen("http://www.phpres.com/index.html", "rb");
+//    $contents = stream_get_contents($readcontents);
+//    fclose($readcontents);
+//    echo $contents;
+//    方法2:
+//    echo file_get_contents("http://www.phpres.com/index.html"); 
+
+// 21．请说明php中传值与传引用的区别。什么时候传值什么时候传引用?（4分）
+/*
+  按值传递：函数范围内对值的任何改变在函数外部都会被忽略
+    按引用传递：函数范围内对值的任何改变在函数外部也能反映出这些修改
+    优缺点：按值传递时，php必须复制值。特别是对于大型的字符串和对象来说，
+          这将会是一个代价很大的操作。
+    按引用传递则不需要复制值，对于性能提高很有好处。
+*/
+// 22．请写一个函数验证电子邮件的格式是否正确 （5分）
+// function checkEmail($email)
+//   {
+//     $pregEmail = "/([a-z0-9]*[-_\.]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?/i";
+//     return preg_match($pregEmail,$email);  
+//   }
+
+// 23．简述如何得到当前执行脚本路径，包括所得到参数（4分）
+// $script_name = basename(__file__);
+// print_r($script_name);
+
+// 24．JS表单弹出对话框函数是?获得输入焦点函数是? （3分）
+//  弹出对话框: alert(),prompt(),confirm()
+//  获得输入焦点 focus()
  
-// 16、语句include和require的区别是什么?为避免多次包含同一文件，可用(?)语句代替它们? (2分)
-// require->require是无条件包含也就是如果一个流程里加入require,无论条件成立与否都会先执行require 
-//   include->include有返回值，而require没有(可能因为如此require的速度比include快) 
-//   注意:包含文件不存在或者语法错误的时候require是致命的,include不是
+// 25．JS中在函数中又定义了一个函数，最里面的函数是否能够获得外面函数的变量值？为什么？（3分）
+
+// 26．写一个函数，尽可能高效的，从一个标准 url 里取出文件的扩展名例如: http://www.sina.com.cn/abc/de/fg.php?id=1 需要取出 php 或 .php（5分）
+
+// 27．写一个函数，算出两个文件的相对路径 　　（5分）
+
+// 如 $a = '/a/b/c/d/e.php'; 　　
+// $b = '/a/b/12/34/c.php'; 　　
+// 计算出 $b 相对于 $a 的相对路径应该是 http://www.cnblogs.com/c/d将()添上
+// function getRelativePath($a, $b) {   
+// $returnPath = array(dirname($b));   
+//   $arrA = explode('/', $a);   
+//   $arrB = explode('/', $returnPath[0]);   
+//   for ($n = 1, $len = count($arrB); $n < $len; $n++) {   
+//       if ($arrA[$n] != $arrB[$n]) {   
+//           break;   
+//       }    
+//   }   
+//   if ($len - $n > 0) {   
+//       $returnPath = array_merge($returnPath, array_fill(1, $len - $n, '..'));   
+//   }   
+   
+//   $returnPath = array_merge($returnPath, array_slice($arrA, $n));   
+//   return implode('/', $returnPath);   
+// }   
+// echo getRelativePath($a, $b);  
+
+// 28．写一个函数，能够遍历一个文件夹下的所有文件和子文件夹。（5分）
+
+// 29．简述论坛中无限分类的实现原理。（5分）
+
+
  
 // 17、如何修改SESSION的生存时间(1分).
 //    方法1:将php.ini中的session.gc_maxlifetime设置为9999重启apache
@@ -323,19 +319,7 @@ echo getRelativePath($a, $b);
 // 17. 在PHP中error_reporting这个函数有什么作用? (1分)
 // 设置错误级别与错误信息回报
  
-// 18. 请写一个函数验证电子邮件的格式是否正确 (2分)
-// function checkEmail($email)
-//   {
-//     $pregEmail = "/([a-z0-9]*[-_\.]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?/i";
-//     return preg_match($pregEmail,$email);  
-//   }
- 
-// 19. 简述如何得到当前执行脚本路径，包括所得到参数。(2分)
-// $script_name = basename(__file__); print_r($script_name);
- 
-// 21、JS表单弹出对话框函数是?获得输入焦点函数是? (2分)
-// 	弹出对话框: alert(),prompt(),confirm()
-//  获得输入焦点 focus()
+
  
 // 22、JS的转向函数是?怎么引入一个外部JS文件?(2分)
 // window.location.href,
@@ -616,32 +600,6 @@ echo getRelativePath($a, $b);
 //      }
 // }
  
-// 14.简述论坛中无限分类的实现原理。
-// 答:
-// <?php
-// /*
-// 数据表结构如下:
-// CREATE TABLE `category` (
-//  `categoryID` smallint(5) unsigned NOT NULL auto_increment,
-//  `categoryParentID` smallint(5) unsigned NOT NULL default '0',
-//  `categoryName` varchar(50) NOT NULL default '',
-//  PRIMARY KEY (`categoryID`)
-// ) ENGINE=MyISAM DEFAULT CHARSET=gbk;
- 
-// INSERT INTO `category` ( `categoryParentID`, `categoryName`) VALUES 
-// (0, '一级类别'),
-// (1, '二级类别'),
-// (1, '二级类别'),
-// (1, '二级类别'),
-// (2, '三级类别'),
-// (2, '333332'),
-// (2, '234234'),
-// (3, 'aqqqqqd'),
-// (4, '哈哈'),
-// (5, '66333666');
- 
-// */
-
 
  
 //  1.烧一根不均匀的绳，从头烧到尾总共需要1个小时。

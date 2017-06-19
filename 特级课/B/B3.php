@@ -199,7 +199,8 @@ left join score as sc on s.id=sc.uid group by s.name;
 // 二、写SQL语句，要求统计点击数前十位的：产品名称和产品点击数量。(10分)
 
 mysql> select count(p.product_id) c,g.title,p.Product_id from goods as g left jo
-in product_hit as p on g.id = p.product_id group by p.product_id order by c desc
+in product_hit as p on g.id = p.product_id 
+group by p.product_id order by c desc
  limit 0,2;
 +---+--------------------------+------------+
 | c | title                    | Product_id |
@@ -233,10 +234,3 @@ in product_hit as p on g.id = p.product_id group by p.product_id order by c desc
 // //b c c
 // 问题2：程序执行完后，变量$data的值是什么？请解释。（10分）
 // 答：结果为B c c
-
-
-
-
-
-
-//  

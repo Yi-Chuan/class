@@ -13,7 +13,8 @@
 	<?php 
 	$xss = $_GET['xss_input'];
 
-	echo '你输入的字符为<br>'.htmlspecialchars($xss);
+	echo '你输入的字符为<br>'.
+	htmlspecialchars($xss);
 	?> 
 </body>
 </html>
